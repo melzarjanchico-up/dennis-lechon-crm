@@ -1,4 +1,4 @@
-# dennis-lechon-crm
+Project LechGo: CRM App
 3M Dennis Lechon Customer Relationship Management (CRM) Application
 
 - dennis lechon fb page: https://www.facebook.com/dennislechonan
