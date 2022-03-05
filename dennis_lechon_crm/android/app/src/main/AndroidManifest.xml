@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dennis_lechon_crm_app">
+    package="com.example.dennis_lechon_crm">
    <application
-        android:label="dennis_lechon_crm_app"
+        android:label="dennis_lechon_crm"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
