@@ -13,22 +13,19 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container (
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.2, 20, 0),
-            child: Column(
-              children: <Widget>[
-                logoWidget("3M_Dennis_logo.jpg"),
-                const SizedBox(
-                  height: 30,
-                )
-              ]
-            )
-          ),
-        )
-      )
-    );
+        body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+                  child: Column(children: <Widget>[
+                    logoWidget("3M_Dennis_logo.jpg"),
+                    const SizedBox(
+                      height: 30,
+                    )
+                  ])),
+            )));
+  }
 }
