@@ -1,7 +1,9 @@
-//import 'package:dennis_lechon_crm/utils/color_utils.dart';
+import 'package:dennis_lechon_crm/screens/signup_screen.dart';
 import 'package:dennis_lechon_crm/utils/color_utils.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'home_screen.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -25,7 +27,12 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.fromLTRB(
                       20, MediaQuery.of(context).size.height * 0.2, 20, 0),
                   child: Column(children: <Widget>[
-                    logoWidget("assets/image/dennislogo.png"),
+                    Image.asset(
+                      "assets/images/dennislogo.png",
+                      fit: BoxFit.fitWidth,
+                      width: 240,
+                      height: 240,
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -39,7 +46,42 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 5,
                     ),
+                    firebaseUIButton(context, "Sign In", () {
+                      FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _passwordTextController.text)
+                          .then((value) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()));
+                      }).onError((error, stackTrace) {
+                        print("Error ${error.toString()}");
+                      });
+                    }),
+                    signUpOption()
                   ])),
             )));
+  }
+
+  Row signUpOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Don't have account?",
+            style: TextStyle(color: Colors.white70)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignUp()));
+          },
+          child: const Text(
+            " Sign Up",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
+    );
   }
 }
