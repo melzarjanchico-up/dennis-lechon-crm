@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyB9yv4QSumR3MiPX4xfk03GU04McRgdk2o", // Your apiKey
+      appId: "1:482691784655:web:f48df984a82bddcc6ebcba", // Your appId
+      messagingSenderId: "482691784655", // Your messagingSenderId
+      projectId: "dennis-lechon-crm", // Your projectId
+    ),
+  );
   runApp(const MyApp());
 }
 
