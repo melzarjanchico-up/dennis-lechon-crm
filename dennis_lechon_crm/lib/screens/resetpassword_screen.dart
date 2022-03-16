@@ -27,8 +27,8 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
         body: Stack(children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
+            decoration: const BoxDecoration(
+              image: const DecorationImage(
                 //Image needs to be changed to avoid stretching
                 image: AssetImage("images/lechon_loginpage.png"),
                 fit: BoxFit.cover,

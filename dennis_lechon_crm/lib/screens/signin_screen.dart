@@ -1,6 +1,6 @@
 import 'package:dennis_lechon_crm/screens/resetpassword_screen.dart';
 import 'package:dennis_lechon_crm/screens/signup_screen.dart';
-import 'package:dennis_lechon_crm/utils/color_utils.dart';
+//import 'package:dennis_lechon_crm/utils/color_utils.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
@@ -22,19 +22,12 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Color.fromARGB(255, 185, 17, 5),
         body: Stack(children: <Widget>[
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-<<<<<<< HEAD
                 //Image needs to be changed to avoid stretching
                 image: AssetImage("images/lechon_loginpage.png"),
                 fit: BoxFit.cover,
               ),
-=======
-                  image: AssetImage("images/lechon_loginpage.png"),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Color.fromARGB(255, 204, 25, 19), BlendMode.darken)),
->>>>>>> d1cb8dab70f5be36427b51e65d48dd9fba193aa8
             ),
           ),
           SizedBox(
@@ -64,12 +57,8 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(
                         height: 5,
                       ),
-<<<<<<< HEAD
                       forgotPassword(context),
                       firebaseUIButton(context, "Sign In", () {
-=======
-                      firebaseUIButton(context, "LOG IN", () {
->>>>>>> d1cb8dab70f5be36427b51e65d48dd9fba193aa8
                         FirebaseAuth.instance
                             .signInWithEmailAndPassword(
                                 email: _emailTextController.text,
@@ -101,7 +90,7 @@ class _SignInState extends State<SignIn> {
                           // Ends here
                         });
                       }),
-                      signUpOption(),
+                      //signUpOption(),
                     ])),
               ))
         ]));
@@ -138,8 +127,8 @@ class _SignInState extends State<SignIn> {
           style: TextStyle(color: Colors.white70),
           textAlign: TextAlign.right,
         ),
-        onPressed: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ResetPassword())),
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ResetPassword())),
       ),
     );
   }
