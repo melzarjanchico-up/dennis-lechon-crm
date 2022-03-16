@@ -1,3 +1,4 @@
+import 'package:dennis_lechon_crm/screens/resetpassword_screen.dart';
 import 'package:dennis_lechon_crm/screens/signup_screen.dart';
 import 'package:dennis_lechon_crm/utils/color_utils.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
@@ -23,6 +24,7 @@ class _SignInState extends State<SignIn> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
+                //Image needs to be changed to avoid stretching
                 image: AssetImage("images/lechon_loginpage.png"),
                 fit: BoxFit.cover,
               ),
@@ -55,6 +57,7 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(
                         height: 5,
                       ),
+                      forgotPassword(context),
                       firebaseUIButton(context, "Sign In", () {
                         FirebaseAuth.instance
                             .signInWithEmailAndPassword(
@@ -87,7 +90,7 @@ class _SignInState extends State<SignIn> {
                           // Ends here
                         });
                       }),
-                      //signUpOption()
+                      signUpOption(),
                     ])),
               ))
         ]));
@@ -110,6 +113,23 @@ class _SignInState extends State<SignIn> {
           ),
         )
       ],
+    );
+  }
+
+  Widget forgotPassword(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 35,
+      alignment: Alignment.bottomCenter,
+      child: TextButton(
+        child: const Text(
+          "Forgot Password?",
+          style: TextStyle(color: Colors.white70),
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ResetPassword())),
+      ),
     );
   }
 }
