@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
             child: SingleChildScrollView(
               child: Padding(
                   padding: EdgeInsets.fromLTRB(
-                      20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+                      20, MediaQuery.of(context).size.height * 0.1, 20, 0),
                   child: Column(children: <Widget>[
                     Image.asset(
                       "assets/images/dennislogo.png",
@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 30,
                     ),
-                    reusableTextField("Enter Username", Icons.person_outline,
+                    reusableTextField("Enter Email", Icons.person_outline,
                         false, _emailTextController),
                     const SizedBox(
                       height: 20,
@@ -78,7 +78,7 @@ class _SignInState extends State<SignIn> {
                         // Ends here
                       });
                     }),
-                    signUpOption()
+                    //signUpOption()
                   ])),
             )));
   }
