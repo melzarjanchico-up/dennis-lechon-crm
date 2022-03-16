@@ -15,6 +15,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _userNameTextController = TextEditingController();
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

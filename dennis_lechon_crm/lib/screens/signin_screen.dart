@@ -18,14 +18,15 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: hexStringToColor("D3231E"),
+        backgroundColor: Color.fromARGB(255, 185, 17, 5),
         body: Stack(children: <Widget>[
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("images/lechon_loginpage.png"),
-                fit: BoxFit.cover,
-              ),
+                  image: AssetImage("images/lechon_loginpage.png"),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Color.fromARGB(255, 204, 25, 19), BlendMode.darken)),
             ),
           ),
           SizedBox(
@@ -55,7 +56,7 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(
                         height: 5,
                       ),
-                      firebaseUIButton(context, "Sign In", () {
+                      firebaseUIButton(context, "LOG IN", () {
                         FirebaseAuth.instance
                             .signInWithEmailAndPassword(
                                 email: _emailTextController.text,
