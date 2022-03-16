@@ -19,68 +19,78 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: hexStringToColor("D3231E"),
-        body: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      20, MediaQuery.of(context).size.height * 0.1, 20, 0),
-                  child: Column(children: <Widget>[
-                    Image.asset(
-                      "assets/images/dennislogo.png",
-                      fit: BoxFit.fitWidth,
-                      width: 240,
-                      height: 240,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    reusableTextField("Enter Email", Icons.person_outline,
-                        false, _emailTextController),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    reusableTextField("Enter Password", Icons.lock_outline,
-                        true, _passwordTextController),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    firebaseUIButton(context, "Sign In", () {
-                      FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: _emailTextController.text,
-                              password: _passwordTextController.text)
-                          .then((value) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()));
-                      }).onError((error, stackTrace) {
-                        debugPrint("Error ${error.toString()}");
+        body: Stack(children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/lechon_loginpage.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        20, MediaQuery.of(context).size.height * 0.1, 20, 0),
+                    child: Column(children: <Widget>[
+                      Image.asset(
+                        "assets/images/dennislogo.png",
+                        fit: BoxFit.fitWidth,
+                        width: 240,
+                        height: 240,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      reusableTextField("Enter Email", Icons.person_outline,
+                          false, _emailTextController),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      reusableTextField("Enter Password", Icons.lock_outline,
+                          true, _passwordTextController),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      firebaseUIButton(context, "Sign In", () {
+                        FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: _emailTextController.text,
+                                password: _passwordTextController.text)
+                            .then((value) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()));
+                        }).onError((error, stackTrace) {
+                          debugPrint("Error ${error.toString()}");
 
-                        // Error Prompt here
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("Login Error"),
-                                content: Text(error.toString()),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("OK"))
-                                ],
-                              );
-                            });
-                        // Ends here
-                      });
-                    }),
-                    //signUpOption()
-                  ])),
-            )));
+                          // Error Prompt here
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Login Error"),
+                                  content: Text(error.toString()),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("OK"))
+                                  ],
+                                );
+                              });
+                          // Ends here
+                        });
+                      }),
+                      //signUpOption()
+                    ])),
+              ))
+        ]));
   }
 
   Row signUpOption() {
