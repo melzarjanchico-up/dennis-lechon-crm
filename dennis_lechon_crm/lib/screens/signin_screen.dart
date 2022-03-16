@@ -58,7 +58,7 @@ class _SignInState extends State<SignIn> {
                         height: 5,
                       ),
                       forgotPassword(context),
-                      firebaseUIButton(context, "LOG IN", () {
+                      firebaseUIButton(context, "Sign In", () {
                         FirebaseAuth.instance
                             .signInWithEmailAndPassword(
                                 email: _emailTextController.text,
