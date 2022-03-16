@@ -10,13 +10,13 @@ class CustomerScreen extends StatelessWidget {
       title: "route",
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFF1A22C),
-          title: Text("Customer List"),
+          backgroundColor: const Color(0xFFF1A22C),
+          title: const Text("Customer List"),
         ),
         body: Center(
           child: RaisedButton(
-            child: Text("Back"),
-            color: Color(0xFFF1A22C),
+            child: const Text("Back"),
+            color: const Color(0xFFF1A22C),
             onPressed: () {
               Navigator.pop(context);
             },

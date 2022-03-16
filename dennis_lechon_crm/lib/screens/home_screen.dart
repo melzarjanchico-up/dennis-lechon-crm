@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CustomerScreen()));
               },
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               label: Text(
                 "Customer List",
                 style: GoogleFonts.oxygen(
@@ -35,12 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFF1A22C),
+                primary: const Color(0xFFF1A22C),
                 onPrimary: Colors.white,
                 elevation: 12,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60.0)),
-                minimumSize: Size(230, 90),
+                minimumSize: const Size(230, 90),
               ),
             ),
             ElevatedButton.icon(
@@ -49,14 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => OrderListScreen()));
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFD3231E),
+                primary: const Color(0xFFD3231E),
                 onPrimary: Colors.white,
                 elevation: 12,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60.0)),
-                minimumSize: Size(230, 90),
+                minimumSize: const Size(230, 90),
               ),
-              icon: Icon(Icons.list),
+              icon: const Icon(Icons.list),
               label: Text(
                 "Order List",
                 style: GoogleFonts.oxygen(
@@ -71,14 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => CalendarScreen()));
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF2A87BB),
+                primary: const Color(0xFF2A87BB),
                 onPrimary: Colors.white,
                 elevation: 12,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60.0)),
-                minimumSize: Size(230, 90),
+                minimumSize: const Size(230, 90),
               ),
-              icon: Icon(Icons.calendar_month),
+              icon: const Icon(Icons.calendar_month),
               label: Text(
                 "Calendar",
                 style: GoogleFonts.oxygen(
@@ -88,10 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ElevatedButton(
-              child: Text("Logout"),
+              child: const Text("Logout"),
               onPressed: () {
                 FirebaseAuth.instance.signOut().then((value) {
-                  print("Signed Out");
+                  debugPrint("Signed Out");
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const SignIn()));
                 });

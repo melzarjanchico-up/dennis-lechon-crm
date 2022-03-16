@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
+      body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
@@ -58,13 +58,13 @@ class _SignUpState extends State<SignUp> {
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    print("Created New Account");
+                    debugPrint("Created New Account");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const HomeScreen()));
                   }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
+                    debugPrint("Error ${error.toString()}");
                   });
                 })
               ],

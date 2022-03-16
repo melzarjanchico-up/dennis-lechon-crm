@@ -10,13 +10,13 @@ class OrderListScreen extends StatelessWidget {
       title: "route",
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFD3231E),
-          title: Text("Order List"),
+          backgroundColor: const Color(0xFFD3231E),
+          title: const Text("Order List"),
         ),
         body: Center(
           child: RaisedButton(
-            child: Text("Back"),
-            color: Color(0xFFD3231E),
+            child: const Text("Back"),
+            color: const Color(0xFFD3231E),
             onPressed: () {
               Navigator.pop(context);
             },

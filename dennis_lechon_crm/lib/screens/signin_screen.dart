@@ -19,7 +19,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: hexStringToColor("D3231E"),
-        body: Container(
+        body: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 30,
                     ),
-                    reusableTextField("Enter UserName", Icons.person_outline,
+                    reusableTextField("Enter Username", Icons.person_outline,
                         false, _emailTextController),
                     const SizedBox(
                       height: 20,
@@ -57,7 +57,25 @@ class _SignInState extends State<SignIn> {
                             MaterialPageRoute(
                                 builder: (context) => const HomeScreen()));
                       }).onError((error, stackTrace) {
-                        print("Error ${error.toString()}");
+                        debugPrint("Error ${error.toString()}");
+
+                        // Error Prompt here
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("Login Error"),
+                                content: Text(error.toString()),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("OK"))
+                                ],
+                              );
+                            });
+                        // Ends here
                       });
                     }),
                     signUpOption()

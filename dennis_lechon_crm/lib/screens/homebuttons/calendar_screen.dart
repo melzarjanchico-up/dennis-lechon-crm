@@ -10,13 +10,13 @@ class CalendarScreen extends StatelessWidget {
       title: "route",
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF2A87BB),
-          title: Text("Calendar"),
+          backgroundColor: const Color(0xFF2A87BB),
+          title: const Text("Calendar"),
         ),
         body: Center(
           child: RaisedButton(
-            child: Text("Back"),
-            color: Color(0xFF2A87BB),
+            child: const Text("Back"),
+            color: const Color(0xFF2A87BB),
             onPressed: () {
               Navigator.pop(context);
             },

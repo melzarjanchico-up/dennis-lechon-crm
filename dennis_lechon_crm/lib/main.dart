@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
       apiKey: "AIzaSyB9yv4QSumR3MiPX4xfk03GU04McRgdk2o", // Your apiKey
       appId: "1:482691784655:web:f48df984a82bddcc6ebcba", // Your appId
       messagingSenderId: "482691784655", // Your messagingSenderId
@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Project LechGo',
       debugShowCheckedModeBanner: false,
-      home: const SignIn(),
+      home: SignIn(),
     );
   }
 }
