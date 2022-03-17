@@ -78,8 +78,31 @@ class _SignInState extends State<SignIn> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const HomeScreen()));
-                            }).onError((error, stackTrace) {
-                              debugPrint("Error ${error.toString()}");
+                            }).onError(
+                                    (FirebaseAuthException error, stackTrace) {
+                              var errorcode = error.code;
+                              var msg = '';
+
+                              switch (errorcode) {
+                                case 'invalid-email':
+                                  msg = 'Inputted email is invalid. Try again.';
+                                  break;
+                                case 'user-disabled':
+                                  msg =
+                                      'This user has been disabled from the app.';
+                                  break;
+                                case 'user-not-found':
+                                  msg =
+                                      'This email does not have an account yet.';
+                                  break;
+                                case 'wrong-password':
+                                  msg =
+                                      'Inputted password was incorrect. Try again.';
+                                  break;
+                                default:
+                                  msg =
+                                      'Log-in failed. Please contact the administrator.';
+                              }
 
                               // Error Prompt here
                               showDialog(
@@ -87,7 +110,7 @@ class _SignInState extends State<SignIn> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: const Text("Login Error"),
-                                      content: Text(error.toString()),
+                                      content: Text(msg),
                                       actions: [
                                         TextButton(
                                             onPressed: () {
