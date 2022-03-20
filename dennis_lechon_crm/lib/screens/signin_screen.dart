@@ -66,6 +66,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           forgotPassword(context),
                           firebaseUIButton(context, "LOG IN", () {
+
                             FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                     email: _emailTextController.text,
@@ -78,8 +79,7 @@ class _SignInState extends State<SignIn> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const HomeScreen()));
-                            }).onError(
-                                    (FirebaseAuthException error, stackTrace) {
+                            }).onError((FirebaseAuthException error, stackTrace) {
                               var errorcode = error.code;
                               var msg = '';
 
@@ -88,20 +88,16 @@ class _SignInState extends State<SignIn> {
                                   msg = 'Inputted email is invalid. Try again.';
                                   break;
                                 case 'user-disabled':
-                                  msg =
-                                      'This user has been disabled from the app.';
+                                  msg = 'This user has been disabled from the app.';
                                   break;
                                 case 'user-not-found':
-                                  msg =
-                                      'This email does not have an account yet.';
+                                  msg = 'This email does not have an account yet.';
                                   break;
                                 case 'wrong-password':
-                                  msg =
-                                      'Inputted password was incorrect. Try again.';
+                                  msg = 'Inputted password was incorrect. Try again.';
                                   break;
                                 default:
-                                  msg =
-                                      'Log-in failed. Please contact the administrator.';
+                                  msg = 'Log-in failed. Please contact the administrator.';
                               }
 
                               // Error Prompt here
