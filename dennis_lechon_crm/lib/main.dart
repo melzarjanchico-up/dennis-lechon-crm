@@ -1,8 +1,9 @@
-import 'package:dennis_lechon_crm/screens/signin_screen.dart';
+import 'package:dennis_lechon_crm/screens/home_screen.dart';
+import 'package:dennis_lechon_crm/screens/signin_screen.dart'; // temporary for testing
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Project LechGo',
       debugShowCheckedModeBanner: false,
-      home: SignIn(),
+      //home: SignIn(),
+      home: HomeScreen(),
     );
   }
 }
