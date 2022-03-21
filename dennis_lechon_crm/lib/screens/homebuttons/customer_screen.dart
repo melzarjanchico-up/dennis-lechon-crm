@@ -52,8 +52,7 @@ class CustomerScreen extends StatelessWidget {
                   elevation: 12,
                   minimumSize: const Size(400, 75),
                 ),
-                icon: const Icon(Icons
-                    .hot_tub), //walay warm na icon aay gikapoy nakog pangita hahaha
+                icon: const Icon(Icons.hot_tub),
                 label: Text(
                   "Warm",
                   style: GoogleFonts.oxygen(
