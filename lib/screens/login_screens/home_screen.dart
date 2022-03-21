@@ -1,8 +1,8 @@
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
-import 'package:dennis_lechon_crm/screens/homebuttons/orderList_screen.dart';
-import 'package:dennis_lechon_crm/screens/signin_screen.dart';
+import 'package:dennis_lechon_crm/screens/homebuttons/orderlist_screen.dart';
+import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

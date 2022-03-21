@@ -1,10 +1,10 @@
 // ignore_for_file: deprecated_member_use
-import 'package:dennis_lechon_crm/widgets/loading.dart';
-import 'package:flutter/cupertino.dart';
+
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class OrderListScreen extends StatelessWidget {
-  const OrderListScreen({Key? key}) : super(key: key);
+class CalendarScreen extends StatelessWidget {
+  const CalendarScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +12,13 @@ class OrderListScreen extends StatelessWidget {
       title: "route",
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xFFD3231E),
-          title: const Text("Order List"),
+          backgroundColor: const Color(0xFF2A87BB),
+          title: const Text("Calendar"),
         ),
         body: Center(
           child: RaisedButton(
             child: const Text("Back"),
-            color: const Color(0xFFD3231E),
+            color: const Color(0xFF2A87BB),
             onPressed: () {
               Navigator.pop(context);
             },

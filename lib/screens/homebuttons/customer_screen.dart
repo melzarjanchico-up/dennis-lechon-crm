@@ -1,13 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dennis_lechon_crm/widgets/loading.dart';
+//import 'package:dennis_lechon_crm/widgets/loading.dart';
 
 // firestore test shiz
-import '../../services/test_database.dart';
+//import '../../services/test_database.dart';
 
 class CustomerScreen extends StatelessWidget {
   CustomerScreen({Key? key}) : super(key: key);

@@ -1,10 +1,10 @@
-import 'package:dennis_lechon_crm/screens/resetpassword_screen.dart';
-import 'package:dennis_lechon_crm/screens/signup_screen.dart';
+import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
+import 'package:dennis_lechon_crm/screens/login_screens/resetpassword_screen.dart';
+import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'home_screen.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
