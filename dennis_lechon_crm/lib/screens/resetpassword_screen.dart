@@ -11,7 +11,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _ResetPasswordState extends State<ResetPassword> {
         body: Stack(children: <Widget>[
           Container(
             decoration: const BoxDecoration(
-              image: const DecorationImage(
+              image: DecorationImage(
                 //Image needs to be changed to avoid stretching
                 image: AssetImage("images/lechon_loginpage.png"),
                 fit: BoxFit.cover,
@@ -40,7 +40,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                   child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
                 child: Column(
                   children: <Widget>[
                     const SizedBox(
