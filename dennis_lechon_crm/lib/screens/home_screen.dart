@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? const Loading()
         : Scaffold(
             body: Center(
               child: Column(
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         loading = true;
                       });
-                      await Future.delayed(Duration(seconds: 1));
+                      await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         loading = false;
                       });
@@ -61,14 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         loading = true;
                       });
-                      await Future.delayed(Duration(seconds: 1));
+                      await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         loading = false;
                       });
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => OrderListScreen()));
+                              builder: (context) => const OrderListScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFFD3231E),
@@ -92,14 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         loading = true;
                       });
-                      await Future.delayed(Duration(seconds: 1));
+                      await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         loading = false;
                       });
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CalendarScreen()));
+                              builder: (context) => const CalendarScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFF2A87BB),
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         loading = true;
                       });
-                      await Future.delayed(Duration(seconds: 1));
+                      await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         loading = false;
                       });
