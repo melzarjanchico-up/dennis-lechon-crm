@@ -29,7 +29,7 @@ class CustomerScreen extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () async {},
-                icon: const Icon(Icons.fireplace_sharp),
+                icon: const Icon(Icons.fireplace_rounded),
                 label: Text(
                   "Hot",
                   style: GoogleFonts.oxygen(
@@ -41,9 +41,7 @@ class CustomerScreen extends StatelessWidget {
                   primary: const Color(0xFFD3231E),
                   onPrimary: Colors.white,
                   elevation: 12,
-                  //shape: RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.circular(60.0)),
-                  minimumSize: const Size(270, 90),
+                  minimumSize: const Size(400, 75),
                 ),
               ),
               ElevatedButton.icon(
@@ -52,9 +50,7 @@ class CustomerScreen extends StatelessWidget {
                   primary: const Color(0xFFF1A22C),
                   onPrimary: Colors.white,
                   elevation: 12,
-                  //shape: RoundedRectangleBorder(
-                  //    borderRadius: BorderRadius.circular(60.0)),
-                  minimumSize: const Size(230, 90),
+                  minimumSize: const Size(400, 75),
                 ),
                 icon: const Icon(Icons
                     .hot_tub), //walay warm na icon aay gikapoy nakog pangita hahaha
@@ -72,9 +68,7 @@ class CustomerScreen extends StatelessWidget {
                   primary: const Color(0xFF2A87BB),
                   onPrimary: Colors.white,
                   elevation: 12,
-                  //shape: RoundedRectangleBorder(
-                  //    borderRadius: BorderRadius.circular(60.0)),
-                  minimumSize: const Size(230, 90),
+                  minimumSize: const Size(400, 75),
                 ),
                 icon: const Icon(Icons.ac_unit),
                 label: Text(
