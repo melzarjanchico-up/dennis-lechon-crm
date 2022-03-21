@@ -21,7 +21,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? const Loading()
         : Scaffold(
             backgroundColor: const Color.fromARGB(255, 185, 17, 5),
             body: Stack(children: <Widget>[
