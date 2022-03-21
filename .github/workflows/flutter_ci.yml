@@ -2,12 +2,11 @@ name: Flutter CI
 on: 
   push:
     branches:
-      -main
-      -sprint-1
-      -sprint-2
-      -sprint-3
-      -sprint-5
-      
+      - main
+      - sprint-1
+      - sprint-2
+      - sprint-3
+      - sprint-5
   
 
 jobs:
