@@ -29,7 +29,7 @@ class _SignInState extends State<SignIn> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     //Image needs to be changed to avoid stretching
-                    image: AssetImage("images/lechon_loginpage.png"),
+                    image: AssetImage("assets/images/lechon_loginpage.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
