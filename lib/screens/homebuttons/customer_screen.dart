@@ -7,17 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 
-List<Color> colors = [
-  const Color(0xFFD3231E),
-  const Color(0xFFF1A22C),
-  const Color(0xFF2A87BB),
-  const Color.fromARGB(255, 218, 40, 164),
-  const Color.fromARGB(255, 24, 212, 65),
-  const Color.fromARGB(255, 8, 8, 8),
-  const Color.fromARGB(255, 187, 42, 102),
-  const Color.fromARGB(255, 86, 42, 187),
-  const Color.fromARGB(255, 51, 15, 180)
-];
 
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
@@ -48,20 +37,28 @@ class CustomerScreen extends StatelessWidget {
 
             return ListView(
               children: snapshot.data!.docs.map((tags) {
+
+                // name
+                String tagName = tags['name'];
+
+                // color
+                String tagColorString = tags['color'].split('(0x')[1].split(')')[0];
+                int tagColor = int.parse(tagColorString, radix: 16);
+
                 return ElevatedButton.icon(
                   onPressed: () async {
                     //insert method
                   },
                   icon: const Icon(Icons.fireplace_rounded),
                   label: Text(
-                    tags['name'],
+                    tagName,
                     style: GoogleFonts.oxygen(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: colors[3],
+                    primary: Color(tagColor),
                     onPrimary: Colors.white,
                     elevation: 12,
                     minimumSize: const Size(400, 75),
