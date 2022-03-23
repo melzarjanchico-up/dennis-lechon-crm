@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-//import 'package:dennis_lechon_crm/widgets/loading.dart';
+import 'package:dennis_lechon_crm/widgets/loading.dart';
 
 List<Color> colors = [
   const Color(0xFFD3231E),
@@ -37,7 +37,15 @@ class CustomerScreen extends StatelessWidget {
           //to be separated
           stream: FirebaseFirestore.instance.collection('tags').snapshots(),
           builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+            if (snapshot.hasError) {
+              return const Text("Something went wrong! Please contact administrator.");
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Loading();
+            }
+
             return ListView(
               children: snapshot.data!.docs.map((tags) {
                 return ElevatedButton.icon(

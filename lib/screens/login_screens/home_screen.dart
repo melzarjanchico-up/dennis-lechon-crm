@@ -27,13 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
-                      await Future.delayed(const Duration(seconds: 1));
-                      setState(() {
-                        loading = false;
-                      });
+                      //setState(() {
+                      //  loading = true;
+                      //});
+                      //await Future.delayed(const Duration(seconds: 1));
+                      //setState(() {
+                      //  loading = false;
+                      //});
                       Navigator.push(
                           context,
                           MaterialPageRoute(
