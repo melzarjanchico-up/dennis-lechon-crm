@@ -21,6 +21,7 @@ class CustomerScreen extends StatelessWidget {
       ),
       //listview.separate will be added for spacing
       body: Center(
+        
         child: StreamBuilder(
           stream:
               FirebaseFirestore.instance.collection('customers').snapshots(),
@@ -38,11 +39,6 @@ class CustomerScreen extends StatelessWidget {
               children: snapshot.data!.docs.map((customers) {
                 // name
                 String lastName = customers['last_name'];
-
-                // color
-                //String tagColorString =
-                //    tags['color'].split('(0x')[1].split(')')[0];
-                //int tagColor = int.parse(tagColorString, radix: 16);
 
                 return ElevatedButton.icon(
                   onPressed: () => Navigator.push(

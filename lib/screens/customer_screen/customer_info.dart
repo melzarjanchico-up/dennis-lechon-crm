@@ -10,6 +10,6 @@ class CustomerInfo extends StatefulWidget {
 class _CustomerInfoState extends State<CustomerInfo> {
   @override
   Widget build(BuildContext context) {
-    return Text("FORKING");
+    return const Text("FORKING");
   }
 }
