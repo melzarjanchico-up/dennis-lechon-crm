@@ -6,14 +6,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
-
+import '../customer_screen/customer_info.dart';
 
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //ERROR: loading time still needs work because null exception will exist when data has not been fetched yet
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFF1A22C),
@@ -23,42 +22,43 @@ class CustomerScreen extends StatelessWidget {
       //listview.separate will be added for spacing
       body: Center(
         child: StreamBuilder(
-          //to be separated
-          stream: FirebaseFirestore.instance.collection('tags').snapshots(),
+          stream:
+              FirebaseFirestore.instance.collection('customers').snapshots(),
           builder:
-            (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return const Text("Something went wrong! Please contact administrator.");
+              return const Text(
+                  "Something went wrong! Please contact administrator.");
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Loading();
             }
-
+            //to be separated
             return ListView(
-              children: snapshot.data!.docs.map((tags) {
-
+              children: snapshot.data!.docs.map((customers) {
                 // name
-                String tagName = tags['name'];
+                String lastName = customers['last_name'];
 
                 // color
-                String tagColorString = tags['color'].split('(0x')[1].split(')')[0];
-                int tagColor = int.parse(tagColorString, radix: 16);
+                //String tagColorString =
+                //    tags['color'].split('(0x')[1].split(')')[0];
+                //int tagColor = int.parse(tagColorString, radix: 16);
 
                 return ElevatedButton.icon(
-                  onPressed: () async {
-                    //insert method
-                  },
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CustomerInfo())),
                   icon: const Icon(Icons.fireplace_rounded),
                   label: Text(
-                    tagName,
+                    lastName,
                     style: GoogleFonts.oxygen(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(tagColor),
+                    //primary: Color(tagColor),
                     onPrimary: Colors.white,
                     elevation: 12,
                     minimumSize: const Size(400, 75),
