@@ -20,36 +20,30 @@ class _CustomerInfoState extends State<CustomerInfo> {
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
-    return loading
-        ? const Loading()
-        : Scaffold(
-            body: ListView(
-              physics: BouncingScrollPhysics(),
-              children: [
-                ProfileWidget(
-                  imagePath: user.imagePath,
-                  onClicked: () async {},
-                ),
-                const SizedBox(height: 15), // for Info Space
-                buildInfo(user),
-                const SizedBox(height: 15), // for Notes Space
-                Center(child: buildNotes(user)),
-                Column(children: <Widget>[
-                  SizedBox(height: 10),
-                ]),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const SizedBox(
-                          height: 25, width: 15), // for Edit Profile Button
-                      Center(child: buildEditProfileButton()),
-                      const SizedBox(
-                          height: 25, width: 15), // for Order List Button
-                      Center(child: buildOrderListButton()),
-                    ])
-              ],
-            ),
-          );
+    return Scaffold(
+      body: ListView(
+        physics: BouncingScrollPhysics(),
+        children: [
+          ProfileWidget(
+            imagePath: user.imagePath,
+            onClicked: () async {},
+          ),
+          const SizedBox(height: 15), // for Info Space
+          buildInfo(user),
+          const SizedBox(height: 15), // for Notes Space
+          Center(child: buildNotes(user)),
+          Column(children: <Widget>[
+            SizedBox(height: 10),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            const SizedBox(height: 25, width: 15), // for Edit Profile Button
+            Center(child: buildEditProfileButton()),
+            const SizedBox(height: 25, width: 15), // for Order List Button
+            Center(child: buildOrderListButton()),
+          ])
+        ],
+      ),
+    );
   }
 
   Widget buildInfo(User user) => Column(
@@ -182,10 +176,6 @@ class _CustomerInfoState extends State<CustomerInfo> {
           setState(() {
             loading = false;
           });
-          // Navigator.push(
-          // context,
-          // MaterialPageRoute(
-          // builder: (context) => const OrderListScreen()));
         },
         style: ElevatedButton.styleFrom(
           shape: StadiumBorder(),
