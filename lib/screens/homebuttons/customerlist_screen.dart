@@ -23,7 +23,7 @@ class CustomerScreen extends StatelessWidget {
       ),
       //listview.separate will be added for spacing
       body: StreamBuilder(
-          stream: _customerlist.snapshots(),
+          stream: _customerlist.orderBy('tagname').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
