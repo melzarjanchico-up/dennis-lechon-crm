@@ -33,23 +33,30 @@ class CustomerScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Loading();
             }
+
+            // I will have to seperate this list view soon. just you wait.
             return ListView(
               padding: const EdgeInsets.all(20),
               children: snapshot.data!.docs.map((customers) {
+
                 String lastName = customers['last_name'];
                 String firstName = customers['first_name'];
                 String tagName = customers['tagname'];
+                String address = '${customers['address']['barangay']}, ${customers['address']['city']} ${customers['address']['zipcode']}';
+                String colorString = customers['color'].split('(0x')[1].split(')')[0];
+                int colorValue = int.parse(colorString, radix: 16);
+
                 //String address = customers['address'] as String;
                 return GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CustomerInfo()));
+                              builder: (context) => const CustomerInfo()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(bottom: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white,
@@ -58,7 +65,7 @@ class CustomerScreen extends StatelessWidget {
                               color: Colors.grey.withOpacity(0.2),
                               spreadRadius: 0,
                               blurRadius: 2,
-                              offset: Offset(0, 1),
+                              offset: const Offset(0, 1),
                             ),
                           ]),
                       child: Column(
@@ -68,13 +75,13 @@ class CustomerScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Row(children: [
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Flexible(
                                     child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('${firstName} ${lastName}',
+                                          Text('$firstName $lastName',
                                               // ignore: prefer_const_constructors
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -83,7 +90,7 @@ class CustomerScreen extends StatelessWidget {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text("address",
+                                          Text(address,
                                               style: TextStyle(
                                                   color: Colors.grey[500])),
                                         ]),
@@ -100,15 +107,16 @@ class CustomerScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 15),
+                                      vertical: 4, horizontal: 15),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12),
-                                      color: Colors.orange),
+                                      color: Color(colorValue)),
                                   child: Text(
                                     tagName,
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
-                                )
+                                ),
+                                const Text('Incoming Order')
                               ])
                         ],
                       ),
