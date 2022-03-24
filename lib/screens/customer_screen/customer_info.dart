@@ -10,6 +10,22 @@ class CustomerInfo extends StatefulWidget {
 class _CustomerInfoState extends State<CustomerInfo> {
   @override
   Widget build(BuildContext context) {
-    return const Text("FORKING");
+    return MaterialApp(
+      title: "route",
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFFD3231E),
+          title: const Text("CustomerInfo"),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            child: const Text("Back"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
