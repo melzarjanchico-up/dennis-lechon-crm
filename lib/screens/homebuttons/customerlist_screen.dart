@@ -1,5 +1,6 @@
 // firestore test shiz
 //import '../../services/test_database.dart';
+// ignore_for_file: unnecessary_brace_in_string_interps
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
 //import 'package:flutter/cupertino.dart';
@@ -21,7 +22,7 @@ class CustomerScreen extends StatelessWidget {
         title: const Text("Customer List"),
         centerTitle: true,
       ),
-      //listview.separate will be added for spacing
+      //tag colors need to be changed depending on the name... maybe we can create a map for it?
       body: StreamBuilder(
           stream: _customerlist.snapshots(),
           builder:
@@ -39,17 +40,16 @@ class CustomerScreen extends StatelessWidget {
                 String lastName = customers['last_name'];
                 String firstName = customers['first_name'];
                 String tagName = customers['tagname'];
-                //String address = customers['address'] as String;
                 return GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CustomerInfo()));
+                              builder: (context) => const CustomerInfo()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(bottom: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white,
@@ -58,7 +58,7 @@ class CustomerScreen extends StatelessWidget {
                               color: Colors.grey.withOpacity(0.2),
                               spreadRadius: 0,
                               blurRadius: 2,
-                              offset: Offset(0, 1),
+                              offset: const Offset(0, 1),
                             ),
                           ]),
                       child: Column(
@@ -68,22 +68,22 @@ class CustomerScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Row(children: [
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Flexible(
                                     child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text('${firstName} ${lastName}',
-                                              // ignore: prefer_const_constructors
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w500)),
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text("address",
+                                          //can be changed
+                                          Text("Some text",
                                               style: TextStyle(
                                                   color: Colors.grey[500])),
                                         ]),
@@ -106,7 +106,7 @@ class CustomerScreen extends StatelessWidget {
                                       color: Colors.orange),
                                   child: Text(
                                     tagName,
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 )
                               ])
