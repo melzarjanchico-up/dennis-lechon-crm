@@ -1,11 +1,20 @@
 import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/user.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
+=======
+import 'package:dennis_lechon_crm/widgets/loading.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/user.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,15 +38,21 @@ class _CustomerInfoState extends State<CustomerInfo> {
   @override
   Widget build(BuildContext context) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const user = UserPreferences.myUser;
     return Scaffold(
       body: ListView(
         physics: const BouncingScrollPhysics(),
 =======
+=======
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
     final user = UserPreferences.myUser;
     return Scaffold(
       body: ListView(
         physics: BouncingScrollPhysics(),
+<<<<<<< HEAD
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
+=======
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
         children: [
           ProfileWidget(
@@ -49,7 +64,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
           const SizedBox(height: 15), // for Notes Space
           Center(child: buildNotes(user)),
 <<<<<<< HEAD
+<<<<<<< HEAD
           Column(children: const <Widget>[
+=======
+          Column(children: <Widget>[
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
           Column(children: <Widget>[
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -71,7 +90,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
           Text(
             user.name,
 <<<<<<< HEAD
+<<<<<<< HEAD
             style: const TextStyle(
+=======
+            style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
             style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -83,7 +106,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
           Text(
             user.number,
 <<<<<<< HEAD
+<<<<<<< HEAD
             style: const TextStyle(
+=======
+            style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
             style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -95,7 +122,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
           Text(
             user.address,
 <<<<<<< HEAD
+<<<<<<< HEAD
             style: const TextStyle(
+=======
+            style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
             style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -107,7 +138,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
           Text(
             user.age,
 <<<<<<< HEAD
+<<<<<<< HEAD
             style: const TextStyle(
+=======
+            style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
             style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -117,17 +152,23 @@ class _CustomerInfoState extends State<CustomerInfo> {
                 fontWeight: FontWeight.w300),
           ),
 <<<<<<< HEAD
+<<<<<<< HEAD
           const SizedBox(
             height: 20,
           ),
           Card(
             margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
 =======
+=======
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
           SizedBox(
             height: 20,
           ),
           Card(
             margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+<<<<<<< HEAD
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
+=======
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -138,7 +179,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                     child: Column(
                       children: [
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const Text(
+=======
+                        Text(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                         Text(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -149,7 +194,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                               fontWeight: FontWeight.w300),
                         ),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const SizedBox(
+=======
+                        SizedBox(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                         SizedBox(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -158,7 +207,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                         Text(
                           user.birthday,
 <<<<<<< HEAD
+<<<<<<< HEAD
                           style: const TextStyle(
+=======
+                          style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                           style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -173,7 +226,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                     child: Column(
                       children: [
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const Text(
+=======
+                        Text(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                         Text(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -184,7 +241,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                               fontWeight: FontWeight.w300),
                         ),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const SizedBox(
+=======
+                        SizedBox(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                         SizedBox(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -193,7 +254,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                         Text(
                           user.lastOrder,
 <<<<<<< HEAD
+<<<<<<< HEAD
                           style: const TextStyle(
+=======
+                          style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                           style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -208,7 +273,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                     child: Column(
                       children: [
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const Text(
+=======
+                        Text(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                         Text(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -219,7 +288,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                               fontWeight: FontWeight.w300),
                         ),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const SizedBox(
+=======
+                        SizedBox(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                         SizedBox(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -228,7 +301,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                         Text(
                           user.tag,
 <<<<<<< HEAD
+<<<<<<< HEAD
                           style: const TextStyle(
+=======
+                          style: TextStyle(
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                           style: TextStyle(
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -248,7 +325,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
 
   Widget buildOrderListButton() => ElevatedButton(
 <<<<<<< HEAD
+<<<<<<< HEAD
         child: const Text(' ORDER LIST '),
+=======
+        child: Text(' ORDER LIST '),
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
         child: Text(' ORDER LIST '),
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
@@ -263,15 +344,21 @@ class _CustomerInfoState extends State<CustomerInfo> {
         },
         style: ElevatedButton.styleFrom(
 <<<<<<< HEAD
+<<<<<<< HEAD
           shape: const StadiumBorder(),
           primary: const Color(0xFFD3231E),
           onPrimary: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 20),
 =======
+=======
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
           shape: StadiumBorder(),
           primary: const Color(0xFFD3231E),
           onPrimary: Colors.white,
           padding: EdgeInsets.symmetric(horizontal: 34, vertical: 20),
+<<<<<<< HEAD
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
+=======
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
         ),
       );
@@ -307,7 +394,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
                         borderRadius: BorderRadius.circular(36),
                       ),
 <<<<<<< HEAD
+<<<<<<< HEAD
                       child: const Text('    NOTES    ',
+=======
+                      child: Text('    NOTES    ',
+>>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
 =======
                       child: Text('    NOTES    ',
 >>>>>>> 877ca1c6f8c61098861a4dd567d39ddda10ef697
