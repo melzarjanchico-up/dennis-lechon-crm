@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Project LechGo',
       debugShowCheckedModeBanner: false,
-      home: CustomerInfo(),
+      home: SignIn(),
       //home: CustomerScreen(),
     );
   }
