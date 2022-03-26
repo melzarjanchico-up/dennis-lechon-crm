@@ -21,7 +21,13 @@ class _CustomerInfoState extends State<CustomerInfo> {
   Widget build(BuildContext context) {
     const user = UserPreferences.myUser;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 81, 81),
+        title: Text(user.name + "'s Information"),
+        centerTitle: true,
+      ),
       body: ListView(
+        padding: const EdgeInsets.only(top: 20, bottom: 20),
         physics: const BouncingScrollPhysics(),
         children: [
           ProfileWidget(

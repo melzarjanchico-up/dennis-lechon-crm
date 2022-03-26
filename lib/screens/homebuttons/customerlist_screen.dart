@@ -24,7 +24,7 @@ class CustomerScreen extends StatelessWidget {
       ),
       //tag colors need to be changed depending on the name... maybe we can create a map for it?
       body: StreamBuilder(
-          stream: _customerlist.snapshots(),
+          stream: _customerlist.orderBy('tagname').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -34,12 +34,21 @@ class CustomerScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Loading();
             }
+
+            // I will have to seperate this list view soon. just you wait.
             return ListView(
               padding: const EdgeInsets.all(20),
               children: snapshot.data!.docs.map((customers) {
                 String lastName = customers['last_name'];
                 String firstName = customers['first_name'];
                 String tagName = customers['tagname'];
+                String address =
+                    '${customers['address']['barangay']}, ${customers['address']['city']} ${customers['address']['zipcode']}';
+                String colorString =
+                    customers['color'].split('(0x')[1].split(')')[0];
+                int colorValue = int.parse(colorString, radix: 16);
+
+                //String address = customers['address'] as String;
                 return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -74,16 +83,16 @@ class CustomerScreen extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('${firstName} ${lastName}',
-                                              style: const TextStyle(
+                                          Text('$firstName $lastName',
+                                              // ignore: prefer_const_constructors
+                                              style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w500)),
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          //can be changed
-                                          Text("Some text",
+                                          Text(address,
                                               style: TextStyle(
                                                   color: Colors.grey[500])),
                                         ]),
@@ -100,15 +109,16 @@ class CustomerScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 15),
+                                      vertical: 4, horizontal: 15),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12),
-                                      color: Colors.orange),
+                                      color: Color(colorValue)),
                                   child: Text(
                                     tagName,
                                     style: const TextStyle(color: Colors.white),
                                   ),
-                                )
+                                ),
+                                const Text('Incoming Order')
                               ])
                         ],
                       ),
