@@ -21,9 +21,9 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? const Loading()
         : Scaffold(
-            backgroundColor: Color.fromARGB(255, 185, 17, 5),
+            backgroundColor: const Color.fromARGB(255, 185, 17, 5),
             body: Stack(children: <Widget>[
               Container(
                 decoration: const BoxDecoration(
@@ -72,7 +72,7 @@ class _SignInState extends State<SignIn> {
                                     password: _passwordTextController.text)
                                 .then((value) async {
                               setState(() => loading = true);
-                              await Future.delayed(Duration(seconds: 1));
+                              await Future.delayed(const Duration(seconds: 1));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
