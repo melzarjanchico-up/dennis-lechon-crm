@@ -4,16 +4,15 @@ class Customer {
   final String lastName;
   //final DateTime birthDate;
   //final DateTime dateAdded;
-  final String celNum;
-  final String telNum;
-  final String adrCity;
-  final String adrBarangay;
-  final String adrZipcode;
-  final String note;
-  
-  final String tagName;
-  final int index;
-  final String color;
+  //final String celNum;
+  //final String telNum;
+  //final String adrCity;
+  //final String adrBarangay;
+  //final String adrZipcode;
+  //final String note;
+  //final String tagName;
+  //final int tagIndex;
+  //final String tagColor;
 
   const Customer({
     required this.firstName,
@@ -21,15 +20,14 @@ class Customer {
     required this.lastName,
     //this.birthDate,
     //this.dateAdded,
-    required this.celNum,
-    required this.telNum,
-    required this.adrCity,
-    required this.adrBarangay,
-    required this.adrZipcode,
-    this.note = "Default note.",
-
-    required this.tagName,
-    required this.index,
-    required this.color,
+    //required this.celNum,
+    //required this.telNum,
+    //required this.adrCity,
+    //required this.adrBarangay,
+    //required this.adrZipcode,
+    //this.note = "",
+    //required this.tagName,
+    //required this.tagIndex,
+    //required this.tagColor,
   });
 }

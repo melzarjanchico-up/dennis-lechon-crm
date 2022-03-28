@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CustomerScreen()));
+                              builder: (context) => const CustomerScreen()));
                     },
                     icon: const Icon(Icons.person),
                     label: Text(
