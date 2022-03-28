@@ -1,4 +1,4 @@
-import 'package:dennis_lechon_crm/screens/customer_screen/user.dart';
+import 'package:dennis_lechon_crm/models/user.dart';
 
 class UserPreferences {
   static const myUser = User(
