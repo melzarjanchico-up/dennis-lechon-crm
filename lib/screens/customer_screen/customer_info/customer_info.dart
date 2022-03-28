@@ -1,12 +1,12 @@
-import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/user_preferences.dart';
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:dennis_lechon_crm/models/user.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_picture.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/button_widget.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
 
 class CustomerInfo extends StatefulWidget {
   const CustomerInfo({Key? key}) : super(key: key);

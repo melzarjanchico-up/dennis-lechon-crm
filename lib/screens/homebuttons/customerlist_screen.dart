@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_info.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
 
 class CustomerScreen extends StatelessWidget {
   CustomerScreen({Key? key}) : super(key: key);
