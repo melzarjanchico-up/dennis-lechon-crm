@@ -3,7 +3,7 @@ import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/user_pre
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/cupertino.dart';
-import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:dennis_lechon_crm/models/old_customer.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';

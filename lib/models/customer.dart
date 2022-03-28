@@ -1,25 +1,35 @@
-//import 'dart:html';
-
 class Customer {
-  final String imagePath;
-  final String name;
-  final String number;
-  final String address;
-  final String about;
-  final String birthday;
-  final String lastOrder;
-  final String tag;
-  final String age;
+  final String firstName;
+  final String middleName;
+  final String lastName;
+  //final DateTime birthDate;
+  //final DateTime dateAdded;
+  final String celNum;
+  final String telNum;
+  final String adrCity;
+  final String adrBarangay;
+  final String adrZipcode;
+  final String note;
+  
+  final String tagName;
+  final int index;
+  final String color;
 
   const Customer({
-    required this.imagePath,
-    required this.name,
-    required this.number,
-    required this.address,
-    required this.about,
-    required this.birthday,
-    required this.lastOrder,
-    required this.tag,
-    required this.age,
+    required this.firstName,
+    required this.middleName,
+    required this.lastName,
+    //this.birthDate,
+    //this.dateAdded,
+    required this.celNum,
+    required this.telNum,
+    required this.adrCity,
+    required this.adrBarangay,
+    required this.adrZipcode,
+    this.note = "Default note.",
+
+    required this.tagName,
+    required this.index,
+    required this.color,
   });
 }
