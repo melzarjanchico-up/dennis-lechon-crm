@@ -68,57 +68,59 @@ class CustomerScreen extends StatelessWidget {
                               offset: const Offset(0, 1),
                             ),
                           ]),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Row(children: [
-                                  const SizedBox(width: 10),
-                                  Flexible(
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('$firstName $lastName',
-                                              // ignore: prefer_const_constructors
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w500)),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(address,
-                                              style: TextStyle(
-                                                  color: Colors.grey[500])),
-                                        ]),
-                                  )
-                                ]),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Column(
+                          children: [
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 4, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      color: Color(colorValue)),
-                                  child: Text(
-                                    tagName,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
+                                Expanded(
+                                  child: Row(children: [
+                                    Flexible(
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('$firstName $lastName',
+                                                // ignore: prefer_const_constructors
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w500)),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(address,
+                                                style: TextStyle(
+                                                    color: Colors.grey[500])),
+                                          ]),
+                                    )
+                                  ]),
                                 ),
-                                const Text('Incoming Order')
-                              ])
-                        ],
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4, horizontal: 15),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: Color(colorValue)),
+                                    child: Text(
+                                      tagName,
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  const Text('Incoming Order')
+                                ])
+                          ],
+                        ),
                       ),
                     ));
               }).toList(),
