@@ -3,7 +3,7 @@ import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/user_pre
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/cupertino.dart';
-import 'package:dennis_lechon_crm/models/user.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
@@ -52,7 +52,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
     );
   }
 
-  Widget buildInfo(User user) => Column(
+  Widget buildInfo(Customer user) => Column(
         children: [
           Text(
             user.name,
@@ -196,7 +196,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
         onClicked: () {},
       );
 
-  Widget buildNotes(User user) => Card(
+  Widget buildNotes(Customer user) => Card(
         child: InkWell(
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {

@@ -1,7 +1,7 @@
-import 'package:dennis_lechon_crm/models/user.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
 
 class UserPreferences {
-  static const myUser = User(
+  static const myUser = Customer(
     imagePath: 'assets/images/user.png',
     name: 'Melzar Chico',
     number: '09221233418',
