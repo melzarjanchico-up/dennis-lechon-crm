@@ -27,22 +27,36 @@ class CustomerService {
 
   List<Customer> _customerListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc){
-      //print(doc.data());
+      var preFirstName = (doc.data() as Map)['first_name'] ?? 'no firstname';
+      var preMiddleName = (doc.data() as Map)['middle_name'] ?? 'no middlename';
+      var preLastName = (doc.data() as Map)['last_name'] ?? 'no lastname';
+      var preCelNum = (doc.data() as Map)['cel_no'] ?? 'no celnum';
+      var preTelNum = (doc.data() as Map)['tel_no'] ?? 'no telnum';
+      var preAdrCity = (doc.data() as Map)['address']['city'] ?? 'no city';
+      var preAdrBarangay = (doc.data() as Map)['address']['barangay'] ?? 'no barangay';
+      var preAdrZipcode = (doc.data() as Map)['address']['zipcode'] ?? 'no address';
+      var preTagName = (doc.data() as Map)['tag']['tagname'] ?? 'no tagname';
+      var preTagColor = (doc.data() as Map)['tag']['color'] ?? 'no tagcolor';
+      var preTagIndex = (doc.data() as Map)['tag']['index'] ?? 4;
+      var preNote = (doc.data() as Map)['note'] ?? 'no note';
+
       return Customer(
-        firstName: doc['first_name'] ?? '',
-        middleName: doc['middle_name'] ?? '',
-        lastName: doc['last_name'] ?? '',
-        //celNum: doc['cel_no'] ?? '',
-        //telNum: doc['tel_no'] ?? '',
-        //adrCity: doc['address']['city'] ?? '',
-        //adrBarangay: doc['address']['barangay'] ?? '',
-        //adrZipcode: doc['address']['zipcode'] ?? '',
-        //tagColor: doc['tag']['color'] ?? '',
-        //tagIndex: doc['tag']['index'] ?? 4,
-        //tagName: doc['tag']['tagname'] ?? '',
-        //note: doc['note']
+        firstName: preFirstName,
+        middleName: preMiddleName,
+        lastName: preLastName,
+        celNum: preCelNum,
+        telNum: preTelNum,
+        adrCity: preAdrCity,
+        adrBarangay: preAdrBarangay,
+        adrZipcode: preAdrZipcode,
+        note: preNote,
+        tagName: preTagName,
+        tagIndex: preTagIndex,
+        tagColor: preTagColor,
       );
+      
     }).toList();
+
   }
 
   Stream<List<Customer>>? get customers {
