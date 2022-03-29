@@ -152,8 +152,6 @@ class CustomerScreen extends StatelessWidget {
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
-                                      } else {
-                                        return null;
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
