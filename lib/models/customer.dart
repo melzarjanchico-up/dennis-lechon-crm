@@ -1,4 +1,5 @@
 class Customer {
+  final String id;
   final String firstName;
   final String middleName;
   final String lastName;
@@ -15,6 +16,7 @@ class Customer {
   final String tagColor;
 
   const Customer({
+    required this.id,
     required this.firstName,
     required this.middleName,
     required this.lastName,

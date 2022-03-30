@@ -1,15 +1,11 @@
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/user_preferences.dart';
-//import 'package:dennis_lechon_crm/widgets/loading.dart';
-//import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/cupertino.dart';
-import 'package:dennis_lechon_crm/models/old_customer.dart';
-//import 'package:dennis_lechon_crm/screens/customer_screen/user_preferences.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
 
 class CustomerInfo extends StatefulWidget {
-  const CustomerInfo({Key? key}) : super(key: key);
+  const CustomerInfo({Key? key, required this.customer}) : super(key: key);
+  final Customer customer;
 
   @override
   State<CustomerInfo> createState() => _CustomerInfoState();
@@ -18,26 +14,29 @@ class CustomerInfo extends StatefulWidget {
 class _CustomerInfoState extends State<CustomerInfo> {
   bool loading = false;
   @override
+
   Widget build(BuildContext context) {
-    const user = UserPreferences.myUser;
+
     return Scaffold(
+
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 81, 81),
-        title: Text(user.name + "'s Information"),
+        backgroundColor: Color(int.parse((widget.customer.tagColor).split('(0x')[1].split(')')[0], radix: 16)),
+        title: Text('${widget.customer.firstName}\'s Information'),
         centerTitle: true,
       ),
+
       body: ListView(
         padding: const EdgeInsets.only(top: 20, bottom: 20),
         physics: const BouncingScrollPhysics(),
         children: [
           ProfileWidget(
-            imagePath: user.imagePath,
+            imagePath: 'assets/images/user.png',
             onClicked: () async {},
           ),
           const SizedBox(height: 15), // for Info Space
-          buildInfo(user),
+          buildInfo(widget.customer),
           const SizedBox(height: 15), // for Notes Space
-          Center(child: buildNotes(user)),
+          Center(child: buildNotes(widget.customer)),
           Column(children: const <Widget>[
             SizedBox(height: 10),
           ]),
@@ -49,38 +48,51 @@ class _CustomerInfoState extends State<CustomerInfo> {
           ])
         ],
       ),
+
     );
   }
+}
 
-  Widget buildInfo(Customer user) => Column(
+  Widget buildInfo(Customer customer) {
+    String space = (customer.middleName == '') ? '' : ' ';
+
+    return Column(    
         children: [
           Text(
-            user.name,
+            '${customer.firstName} ${customer.middleName}$space${customer.lastName}',
             style: const TextStyle(
                 fontSize: 20.0,
                 color: Color.fromARGB(255, 68, 82, 88),
                 fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10),
+          (customer.celNum != '') ? Text(
+            customer.celNum,
+            style: const TextStyle(
+                fontSize: 15.0,
+                color: Colors.black45,
+                letterSpacing: 2.0,
+                fontWeight: FontWeight.w300),
+          ) : const SizedBox(width: 0, height: 0),
+          (customer.telNum != '') ? Text(
+            customer.telNum,
+            style: const TextStyle(
+                fontSize: 15.0,
+                color: Colors.black45,
+                letterSpacing: 2.0,
+                fontWeight: FontWeight.w300),
+          ) : const SizedBox(width: 0, height: 0),
           Text(
-            user.number,
+            '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}',
             style: const TextStyle(
                 fontSize: 15.0,
                 color: Colors.black45,
                 letterSpacing: 2.0,
                 fontWeight: FontWeight.w300),
           ),
-          Text(
-            user.address,
-            style: const TextStyle(
-                fontSize: 15.0,
-                color: Colors.black45,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.w300),
-          ),
-          Text(
-            user.age,
-            style: const TextStyle(
+          const Text(
+            '14 yrs. old',
+            style: TextStyle(
                 fontSize: 15.0,
                 color: Colors.black45,
                 letterSpacing: 1.0,
@@ -98,20 +110,20 @@ class _CustomerInfoState extends State<CustomerInfo> {
                 children: [
                   Expanded(
                     child: Column(
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Birthday",
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 10.0,
                               fontWeight: FontWeight.w300),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 7,
                         ),
                         Text(
-                          user.birthday,
-                          style: const TextStyle(
+                          "TEST BIRTHDAY",
+                          style: TextStyle(
                               color: Colors.black,
                               fontSize: 16.0,
                               fontWeight: FontWeight.w400),
@@ -121,20 +133,20 @@ class _CustomerInfoState extends State<CustomerInfo> {
                   ),
                   Expanded(
                     child: Column(
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Last Ordered",
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 10.0,
                               fontWeight: FontWeight.w300),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 7,
                         ),
                         Text(
-                          user.lastOrder,
-                          style: const TextStyle(
+                          "n/a",
+                          style: TextStyle(
                               color: Colors.black,
                               fontSize: 16.0,
                               fontWeight: FontWeight.w400),
@@ -146,7 +158,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                     child: Column(
                       children: [
                         const Text(
-                          "Tags",
+                          "Tag",
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 10.0,
@@ -156,9 +168,9 @@ class _CustomerInfoState extends State<CustomerInfo> {
                           height: 7,
                         ),
                         Text(
-                          user.tag,
-                          style: const TextStyle(
-                              color: Colors.red,
+                          customer.tagName.toUpperCase(),
+                          style: TextStyle(
+                              color: Color(int.parse((customer.tagColor).split('(0x')[1].split(')')[0], radix: 16)),
                               fontSize: 16.0,
                               fontWeight: FontWeight.w600),
                         )
@@ -171,18 +183,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
           ),
         ],
       );
+  }
 
   Widget buildOrderListButton() => ElevatedButton(
         child: const Text(' ORDER LIST '),
-        onPressed: () async {
-          setState(() {
-            loading = true;
-          });
-          await Future.delayed(const Duration(seconds: 1));
-          setState(() {
-            loading = false;
-          });
-        },
+        onPressed: () {},
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           primary: const Color(0xFFD3231E),
@@ -196,7 +201,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
         onClicked: () {},
       );
 
-  Widget buildNotes(Customer user) => Card(
+  Widget buildNotes(Customer customer) => Card(
         child: InkWell(
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {
@@ -210,23 +215,33 @@ class _CustomerInfoState extends State<CustomerInfo> {
                   borderRadius: BorderRadius.circular(22),
                   color: Colors.white,
                 ),
-                child: Stack(children: [
-                  Positioned(
-                    top: 15,
-                    right: 125,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      height: 35,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF1A22C),
-                        borderRadius: BorderRadius.circular(36),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF1A22C),
+                              borderRadius: BorderRadius.circular(36),
+                            ),
+                            child: const Text('NOTES',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                          ),
+                        ),
                       ),
-                      child: const Text('    NOTES    ',
-                          style: TextStyle(
-                            color: Colors.white,
-                          )),
                     ),
-                  )
+                    Positioned(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 60.0),
+                        child: Text(customer.note),
+                      )
+                    )
                 ]))),
       );
-}

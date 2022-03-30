@@ -15,21 +15,6 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
   Widget build(BuildContext context) {
 
     final customers = Provider.of<List<Customer>>(context);
-    /*
-    for (var customer in customers) {
-      debugPrint(customer.firstName);
-      debugPrint(customer.middleName);
-      debugPrint(customer.lastName);
-      debugPrint(customer.celNum);
-      debugPrint(customer.telNum);
-      debugPrint(customer.adrBarangay);
-      debugPrint(customer.adrCity);
-      debugPrint(customer.adrZipcode);
-      debugPrint(customer.tagColor);
-      debugPrint(customer.tagName);
-      debugPrint("-------");
-    }
-    */
 
     return ListView(
       padding: const EdgeInsets.all(20),
@@ -39,16 +24,14 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
         String firstName = customer.firstName;
         String tagName = customer.tagName;
         String address = '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
-        String colorString = (customer.tagColor).split('(0x')[1].split(')')[0];
-        int colorValue = int.parse(colorString, radix: 16);
+        int colorValue = int.parse((customer.tagColor).split('(0x')[1].split(')')[0], radix: 16);
 
-        //String address = customers['address'] as String;
         return GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const CustomerInfo()));
+                      builder: (context) => CustomerInfo(customer: customer)));
             },
             child: Container(
               padding: const EdgeInsets.all(10),
