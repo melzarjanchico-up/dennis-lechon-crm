@@ -11,7 +11,6 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    bool _validate = false;
 
     return StreamProvider<List<Customer>>.value(
       value: CustomerService().customers,
