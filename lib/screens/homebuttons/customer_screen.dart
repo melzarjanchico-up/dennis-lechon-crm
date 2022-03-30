@@ -33,145 +33,7 @@ class CustomerScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () async {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                      ),
-                      contentPadding: const EdgeInsets.only(top: 0.0),
-                      content: Stack(
-                        children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            height: 45,
-                            alignment: Alignment.topCenter,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFD3231E),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                              ),
-                            ),
-                            child: const Align(
-                              alignment: Alignment.center,
-                              // ignore: unnecessary_const
-                              child: const Text(
-                                "Add Customer",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    letterSpacing: 1.0,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: -40.0,
-                            top: -40.0,
-                            child: InkResponse(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const CircleAvatar(
-                                child: Icon(Icons.close),
-                                backgroundColor: Colors.red,
-                              ),
-                            ),
-                          ),
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 55, 15, 0),
-                                  child: imageProfile(),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      labelText: 'Customer Name',
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      labelText: 'Contact Number',
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      labelText: 'Address',
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      labelText: 'Birthday',
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                  child: TextFormField(
-                                    decoration: const InputDecoration(
-                                      labelText: 'Age',
-                                    ),
-                                  ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Tag',
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                  child: ElevatedButton(
-                                    child: const Text("     CREATE     "),
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        _formKey.currentState!.save();
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xFFD3231E),
-                                      onPrimary: Colors.white,
-                                      elevation: 5,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      minimumSize: const Size(75, 40),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  });
+              addCustomerPopup(context, _formKey);
               /*await CustomerService().addCustomer(
                   "Ariana",
                   "Paquibot",
@@ -245,7 +107,7 @@ class CustomSearchDelagate extends SearchDelegate {
   List<String> searchTerms = [
     //pre defined list para basehan sa search
     'Apple', // so sa ato na case kay ang list ni sa mga names huhu
-    'Banana', // sorry i duuno how to backend
+    'Banana', // sorry i duuno how to backend 
     'Pear',
     'Watermelons',
     'Oranges',
@@ -317,27 +179,144 @@ class CustomSearchDelagate extends SearchDelegate {
   }
 }
 
-/*
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFF1A22C),
-          title: const Text("Customer List"),
-          centerTitle: true,
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () async {
-                  await CustomerService().addCustomer("Ariana", "Paquibot", "Grande", "6015", "Basak", "Lapu-Lapu", "123", "456", "Heehee", "Warm", 2, "Color(0xFFF1A22C)");
-                },
-                child: const Icon(
-                  Icons.account_circle,
-                  size: 26.0,
+Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+        ),
+        contentPadding: const EdgeInsets.only(top: 0.0),
+        content: Stack(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 45,
+              alignment: Alignment.topCenter,
+              decoration: const BoxDecoration(
+                color: Color(0xFFD3231E),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
                 ),
-              )
-            )
+              ),
+              child: const Align(
+                alignment: Alignment.center,
+                // ignore: unnecessary_const
+                child: const Text(
+                  "Add Customer",
+                  style: TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 1.0,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            Positioned(
+              right: -40.0,
+              top: -40.0,
+              child: InkResponse(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const CircleAvatar(
+                  child: Icon(Icons.close),
+                  backgroundColor: Colors.red,
+                ),
+              ),
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 55, 15, 0),
+                    child: imageProfile(),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Customer Name',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Contact Number',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Address',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Birthday',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Age',
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Tag',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    child: ElevatedButton(
+                      child: const Text("     CREATE     "),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xFFD3231E),
+                        onPrimary: Colors.white,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10.0)),
+                        minimumSize: const Size(75, 40),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
-        //body: const CustomerListWidget(),
-      ),
-*/
+      );
+    });
+}
