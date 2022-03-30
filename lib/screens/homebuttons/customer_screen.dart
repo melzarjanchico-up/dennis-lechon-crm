@@ -12,6 +12,7 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
+
     return StreamProvider<List<Customer>>.value(
       value: CustomerService().customers,
       initialData: const [],
@@ -97,6 +98,9 @@ Widget floatingAddCustomerButton(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              ),
               contentPadding: const EdgeInsets.only(top: 0.0),
               content: SingleChildScrollView(
                 child: Column(
@@ -109,6 +113,10 @@ Widget floatingAddCustomerButton(
                           alignment: Alignment.topCenter,
                           decoration: const BoxDecoration(
                             color: Color(0xFFD3231E),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25),
+                            ),
                           ),
                           child: const Align(
                             alignment: Alignment.center,
@@ -124,15 +132,20 @@ Widget floatingAddCustomerButton(
                           ),
                         ),
                         Positioned(
-                          right: -40.0,
-                          top: -40.0,
+                          right: 3.0,
+                          top: 5.0,
                           child: InkResponse(
                             onTap: () {
                               Navigator.of(context).pop();
                             },
                             child: const CircleAvatar(
-                              child: Icon(Icons.close),
-                              backgroundColor: Colors.red,
+                              radius: 17,
+                              backgroundColor: Color.fromARGB(255, 173, 23, 18),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 23.0,
+                              ),
                             ),
                           ),
                         ),
@@ -143,127 +156,95 @@ Widget floatingAddCustomerButton(
                             children: <Widget>[
                               Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(15, 55, 15, 0),
-                                child: imageProfile(),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _firstNameCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'First Name',
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _middleNameCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Middle Name',
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _lastNameCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Last Name',
-                                          )),
-                                    ),
-                                  ],
+                                    const EdgeInsets.fromLTRB(15, 55, 15, 6),
+                                child: TextFormField(
+                                  controller: _firstNameCtr,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    labelText: 'First Name',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _celNumCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Cellphone No.',
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _telNumCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Telephone No.',
-                                          )),
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(
+                                width: 20.0,
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _cityCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'City',
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _barangayCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Barangay',
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Flexible(
-                                      child: TextField(
-                                          controller: _zipcodeCtr,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Zipcode',
-                                          )),
-                                    ),
-                                  ],
+                                child: TextFormField(
+                                    controller: _middleNameCtr,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(10),
+                                      labelText: 'Middle Initial',
+                                    )),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                                child: TextFormField(
+                                  controller: _lastNameCtr,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    labelText: 'Last Name',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
                                 child: TextField(
+                                    controller: _celNumCtr,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(10),
+                                      labelText: 'Cellphone No.',
+                                    )),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                                child: TextField(
+                                    controller: _barangayCtr,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(10),
+                                      labelText: 'Address',
+                                    )),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                                child: TextFormField(
                                   controller: _noteCtr,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Note',
+                                    hintText: 'Notes',
                                   ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
                               Padding(
@@ -277,27 +258,32 @@ Widget floatingAddCustomerButton(
                                         onPressed: (_isLoading == true)
                                             ? null
                                             : () async {
-                                                _isLoadingNotifier.value = true;
-                                                await CustomerService()
-                                                    .addCustomer(
-                                                        _firstNameCtr.text,
-                                                        _middleNameCtr.text,
-                                                        _lastNameCtr.text,
-                                                        _zipcodeCtr.text,
-                                                        _barangayCtr.text,
-                                                        _cityCtr.text,
-                                                        _celNumCtr.text,
-                                                        _telNumCtr.text,
-                                                        _noteCtr.text,
-                                                        "Hot",
-                                                        1,
-                                                        const Color(0xFFD3231E)
-                                                            .toString());
-                                                _isLoadingNotifier.value =
-                                                    false;
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pop();
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  _isLoadingNotifier.value =
+                                                      true;
+                                                  await CustomerService()
+                                                      .addCustomer(
+                                                          _firstNameCtr.text,
+                                                          _middleNameCtr.text,
+                                                          _lastNameCtr.text,
+                                                          _zipcodeCtr.text,
+                                                          _barangayCtr.text,
+                                                          _cityCtr.text,
+                                                          _celNumCtr.text,
+                                                          _telNumCtr.text,
+                                                          _noteCtr.text,
+                                                          "Hot",
+                                                          1,
+                                                          const Color(
+                                                                  0xFFD3231E)
+                                                              .toString());
+                                                  _isLoadingNotifier.value =
+                                                      false;
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop();
+                                                }
                                               },
                                         style: ElevatedButton.styleFrom(
                                           primary: const Color(0xFFD3231E),
@@ -310,7 +296,26 @@ Widget floatingAddCustomerButton(
                                         ),
                                       );
                                     }),
-                              )
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Positioned(
+                                bottom: 50.0,
+                                right: 0.0,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 20,
+                                  alignment: Alignment.bottomCenter,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFD3231E),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(25),
+                                      bottomRight: Radius.circular(25),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -323,7 +328,7 @@ Widget floatingAddCustomerButton(
           });
     },
     child: const Icon(
-      Icons.add_circle_outline,
+      Icons.add,
       size: 26.0,
     ),
     backgroundColor: const Color(0xFFF1A22C),
