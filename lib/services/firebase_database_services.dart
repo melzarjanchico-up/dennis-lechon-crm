@@ -21,7 +21,7 @@ class CustomerService {
       'cel_no': celnum,
       'tel_no': telnum,
       'note': note,
-      'tag': {'tagname': tagname, 'index': 2, 'color': "Color(0xFFF1A22C)"}
+      'tag': {'tagname': tagname, 'index': index, 'color': color}
     });
   }
 

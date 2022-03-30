@@ -31,31 +31,8 @@ class CustomerScreen extends StatelessWidget {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              addCustomerPopup(context, _formKey);
-              /*await CustomerService().addCustomer(
-                  "Ariana",
-                  "Paquibot",
-                  "Grande",
-                  "6015",
-                  "Basak",
-                  "Lapu-Lapu",
-                  "123",
-                  "456",
-                  "Heehee",
-                  "Warm",
-                  2,
-                  "Color(0xFFF1A22C)");
-              */
-            },
-            child: const Icon(
-              Icons.add_circle_outline,
-              size: 26.0,
-            ) ,
-            backgroundColor: const Color(0xFFF1A22C),
-            //label: const Text(''),
-          ),
+
+          floatingActionButton: floatingAddCustomerButton(context, _formKey),
 
           body: StreamBuilder<List<Customer>>(
             stream: CustomerService().customers,
@@ -179,155 +156,250 @@ class CustomSearchDelagate extends SearchDelegate {
   }
 }
 
-Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-        ),
-        contentPadding: const EdgeInsets.only(top: 0.0),
-        content: Stack(
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 45,
-              alignment: Alignment.topCenter,
-              decoration: const BoxDecoration(
-                color: Color(0xFFD3231E),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                ),
-              ),
-              child: const Align(
-                alignment: Alignment.center,
-                // ignore: unnecessary_const
-                child: const Text(
-                  "Add Customer",
-                  style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 1.0,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-            Positioned(
-              right: -40.0,
-              top: -40.0,
-              child: InkResponse(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const CircleAvatar(
-                  child: Icon(Icons.close),
-                  backgroundColor: Colors.red,
-                ),
-              ),
-            ),
+ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
-            Form(
-              key: _formKey,
+@override
+Widget floatingAddCustomerButton(BuildContext context, GlobalKey<FormState> _formKey) {
+  final TextEditingController _firstNameCtr= TextEditingController();
+  final TextEditingController _lastNameCtr = TextEditingController();
+  final TextEditingController _middleNameCtr = TextEditingController();
+  final TextEditingController _celNumCtr = TextEditingController();
+  final TextEditingController _telNumCtr = TextEditingController();
+  final TextEditingController _cityCtr = TextEditingController();
+  final TextEditingController _barangayCtr = TextEditingController();
+  final TextEditingController _zipcodeCtr = TextEditingController();
+  final TextEditingController _noteCtr = TextEditingController();
+
+  return FloatingActionButton(
+    onPressed: () async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: const EdgeInsets.only(top: 0.0),
+            content: SingleChildScrollView(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 55, 15, 0),
-                    child: imageProfile(),
-                  ),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Customer Name',
+                children: [
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        width: double.infinity,
+                        height: 45,
+                        alignment: Alignment.topCenter,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFD3231E),
+                        ),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          // ignore: unnecessary_const
+                          child: const Text(
+                            "Add Customer",
+                            style: TextStyle(
+                                color: Colors.white,
+                                letterSpacing: 1.0,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Cellphone Number',
+                      Positioned(
+                        right: -40.0,
+                        top: -40.0,
+                        child: InkResponse(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const CircleAvatar(
+                            child: Icon(Icons.close),
+                            backgroundColor: Colors.red,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Telephone Number',
+            
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+            
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 55, 15, 0),
+                              child: imageProfile(),
+                            ),
+            
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _firstNameCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'First Name',
+                                        )
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20.0,),
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _middleNameCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'Middle Name',
+                                        )
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20.0,),
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _lastNameCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'Last Name',
+                                        )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+            
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _celNumCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'Cellphone No.',
+                                        )
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20.0,),
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _telNumCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'Telephone No.',
+                                        )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+            
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _cityCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'City',
+                                        )
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20.0,),
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _barangayCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'Barangay',
+                                        )
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20.0,),
+                                  Flexible(
+                                    child: TextField(
+                                        controller: _zipcodeCtr,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(10),
+                                            labelText: 'Zipcode',
+                                        )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+            
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                              child: TextField(
+                                controller: _noteCtr,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Note',
+                                ),
+                              ),
+                            ),
+            
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                              child: ValueListenableBuilder(
+                                valueListenable: _isLoadingNotifier,
+                                builder: (context, _isLoading, _) {
+                                  return ElevatedButton(
+                                  child: const Text("CREATE"),
+                                  onPressed: (_isLoading == true) ? null : () async {
+                                    _isLoadingNotifier.value = true;
+                                    await CustomerService().addCustomer(
+                                      _firstNameCtr.text, 
+                                      _middleNameCtr.text, 
+                                      _lastNameCtr.text, 
+                                      _zipcodeCtr.text, 
+                                      _barangayCtr.text, 
+                                      _cityCtr.text, 
+                                      _celNumCtr.text, 
+                                      _telNumCtr.text, 
+                                      _noteCtr.text, 
+                                      "Hot", 
+                                      1, 
+                                      const Color(0xFFD3231E).toString()
+                                    );
+                                    _isLoadingNotifier.value = false;
+                                    Navigator.of(context, rootNavigator: true).pop();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xFFD3231E),
+                                    onPrimary: Colors.white,
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    minimumSize: const Size(75, 40),
+                                  ),
+                                );
+                                }
+                              ),
+                            )
+                            
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Address',
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Birthday',
-                      ),
-                    ),
-                  ),
-
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Tag',
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                    child: ElevatedButton(
-                      child: const Text("CREATE"),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xFFD3231E),
-                        onPrimary: Colors.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(10.0)),
-                        minimumSize: const Size(75, 40),
-                      ),
-                    ),
-                  )
-                  
                 ],
               ),
             ),
-          ],
-        ),
+          );
+        }
       );
-    }
+    },
+    child: const Icon(
+      Icons.add_circle_outline,
+      size: 26.0,
+    ) ,
+    backgroundColor: const Color(0xFFF1A22C),
   );
 }
