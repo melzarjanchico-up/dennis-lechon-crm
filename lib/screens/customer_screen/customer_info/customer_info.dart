@@ -54,12 +54,13 @@ class _CustomerInfoState extends State<CustomerInfo> {
 }
 
   Widget buildInfo(Customer customer) {
-    String space = (customer.middleName == '') ? '' : ' ';
+    String middleInitial = (customer.middleName != '') ? '${(customer.middleName[0])}.' : '';
+    String space = (middleInitial == '') ? '' : ' ';
 
     return Column(    
         children: [
           Text(
-            '${customer.firstName} ${customer.middleName}$space${customer.lastName}',
+            '${customer.firstName} $middleInitial$space${customer.lastName}',
             style: const TextStyle(
                 fontSize: 20.0,
                 color: Color.fromARGB(255, 68, 82, 88),

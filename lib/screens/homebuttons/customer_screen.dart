@@ -31,7 +31,7 @@ class CustomerScreen extends StatelessWidget {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton.extended(
+          floatingActionButton: FloatingActionButton(
             onPressed: () async {
               addCustomerPopup(context, _formKey);
               /*await CustomerService().addCustomer(
@@ -49,13 +49,14 @@ class CustomerScreen extends StatelessWidget {
                   "Color(0xFFF1A22C)");
               */
             },
-            icon: const Icon(
+            child: const Icon(
               Icons.add_circle_outline,
               size: 26.0,
-            ),
+            ) ,
             backgroundColor: const Color(0xFFF1A22C),
-            label: const Text('Add Customer'),
+            //label: const Text(''),
           ),
+
           body: StreamBuilder<List<Customer>>(
             stream: CustomerService().customers,
             builder: (context, snapshot) {
@@ -65,12 +66,11 @@ class CustomerScreen extends StatelessWidget {
                     return const Text("Offline. Try again later.");
                   case ConnectionState.waiting:
                     return const Loading();
-                  case ConnectionState.done:
-                  case ConnectionState.active:
-                    return const CustomerListWidget();
                   default:
-                    return const Text(
-                        "Something went wrong. Please contact admin");
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 45.0),
+                      child: const CustomerListWidget()
+                    );
                 }
               } else {
                 return const Text(
@@ -227,16 +227,19 @@ Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
                 ),
               ),
             ),
+
             Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+
                   Padding(
                     padding:
                         const EdgeInsets.fromLTRB(15, 55, 15, 0),
                     child: imageProfile(),
                   ),
+
                   Padding(
                     padding:
                         const EdgeInsets.fromLTRB(15, 0, 15, 6),
@@ -246,15 +249,27 @@ Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
                       ),
                     ),
                   ),
+
                   Padding(
                     padding:
                         const EdgeInsets.fromLTRB(15, 6, 15, 6),
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        labelText: 'Contact Number',
+                        labelText: 'Cellphone Number',
                       ),
                     ),
                   ),
+
+                  Padding(
+                    padding:
+                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Telephone Number',
+                      ),
+                    ),
+                  ),
+
                   Padding(
                     padding:
                         const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -264,6 +279,7 @@ Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
                       ),
                     ),
                   ),
+
                   Padding(
                     padding:
                         const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -273,15 +289,7 @@ Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Age',
-                      ),
-                    ),
-                  ),
+
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
                     child: TextField(
@@ -291,11 +299,12 @@ Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
                       ),
                     ),
                   ),
+
                   Padding(
                     padding:
                         const EdgeInsets.fromLTRB(15, 10, 15, 10),
                     child: ElevatedButton(
-                      child: const Text("     CREATE     "),
+                      child: const Text("CREATE"),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
@@ -312,11 +321,13 @@ Future addCustomerPopup(BuildContext context, GlobalKey<FormState> _formKey) {
                       ),
                     ),
                   )
+                  
                 ],
               ),
             ),
           ],
         ),
       );
-    });
+    }
+  );
 }
