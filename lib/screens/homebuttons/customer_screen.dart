@@ -11,6 +11,8 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
+    bool _validate = false;
+
     return StreamProvider<List<Customer>>.value(
       value: CustomerService().customers,
       initialData: const [],
@@ -31,9 +33,7 @@ class CustomerScreen extends StatelessWidget {
               ),
             ],
           ),
-
           floatingActionButton: floatingAddCustomerButton(context, _formKey),
-
           body: StreamBuilder<List<Customer>>(
             stream: CustomerService().customers,
             builder: (context, snapshot) {
@@ -45,9 +45,8 @@ class CustomerScreen extends StatelessWidget {
                     return const Loading();
                   default:
                     return Container(
-                      margin: const EdgeInsets.only(bottom: 45.0),
-                      child: const CustomerListWidget()
-                    );
+                        margin: const EdgeInsets.only(bottom: 45.0),
+                        child: const CustomerListWidget());
                 }
               } else {
                 return const Text(
@@ -84,7 +83,7 @@ class CustomSearchDelagate extends SearchDelegate {
   List<String> searchTerms = [
     //pre defined list para basehan sa search
     'Apple', // so sa ato na case kay ang list ni sa mga names huhu
-    'Banana', // sorry i duuno how to backend 
+    'Banana', // sorry i duuno how to backend
     'Pear',
     'Watermelons',
     'Oranges',
@@ -159,8 +158,9 @@ class CustomSearchDelagate extends SearchDelegate {
 ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
 @override
-Widget floatingAddCustomerButton(BuildContext context, GlobalKey<FormState> _formKey) {
-  final TextEditingController _firstNameCtr= TextEditingController();
+Widget floatingAddCustomerButton(
+    BuildContext context, GlobalKey<FormState> _formKey) {
+  final TextEditingController _firstNameCtr = TextEditingController();
   final TextEditingController _lastNameCtr = TextEditingController();
   final TextEditingController _middleNameCtr = TextEditingController();
   final TextEditingController _celNumCtr = TextEditingController();
@@ -173,233 +173,242 @@ Widget floatingAddCustomerButton(BuildContext context, GlobalKey<FormState> _for
   return FloatingActionButton(
     onPressed: () async {
       showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            contentPadding: const EdgeInsets.only(top: 0.0),
-            content: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        height: 45,
-                        alignment: Alignment.topCenter,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFD3231E),
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              ),
+              contentPadding: const EdgeInsets.only(top: 0.0),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: 45,
+                          alignment: Alignment.topCenter,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFD3231E),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25),
+                            ),
+                          ),
+                          child: const Align(
+                            alignment: Alignment.center,
+                            // ignore: unnecessary_const
+                            child: const Text(
+                              "Add Customer",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  letterSpacing: 1.0,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
                         ),
-                        child: const Align(
-                          alignment: Alignment.center,
-                          // ignore: unnecessary_const
-                          child: const Text(
-                            "Add Customer",
-                            style: TextStyle(
+                        Positioned(
+                          right: 3.0,
+                          top: 5.0,
+                          child: InkResponse(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const CircleAvatar(
+                              radius: 17,
+                              backgroundColor: Color.fromARGB(255, 173, 23, 18),
+                              child: Icon(
+                                Icons.close,
                                 color: Colors.white,
-                                letterSpacing: 1.0,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
+                                size: 23.0,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        right: -40.0,
-                        top: -40.0,
-                        child: InkResponse(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const CircleAvatar(
-                            child: Icon(Icons.close),
-                            backgroundColor: Colors.red,
-                          ),
-                        ),
-                      ),
-            
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-            
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(15, 55, 15, 0),
-                              child: imageProfile(),
-                            ),
-            
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _firstNameCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'First Name',
-                                        )
-                                    ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 55, 15, 6),
+                                child: TextFormField(
+                                  controller: _firstNameCtr,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    labelText: 'First Name',
                                   ),
-                                  const SizedBox(width: 20.0,),
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _middleNameCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Middle Name',
-                                        )
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20.0,),
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _lastNameCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Last Name',
-                                        )
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-            
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _celNumCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Cellphone No.',
-                                        )
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20.0,),
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _telNumCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Telephone No.',
-                                        )
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-            
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _cityCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'City',
-                                        )
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20.0,),
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _barangayCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Barangay',
-                                        )
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20.0,),
-                                  Flexible(
-                                    child: TextField(
-                                        controller: _zipcodeCtr,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            labelText: 'Zipcode',
-                                        )
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-            
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                              child: TextField(
-                                controller: _noteCtr,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Note',
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
-                            ),
-            
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                              child: ValueListenableBuilder(
-                                valueListenable: _isLoadingNotifier,
-                                builder: (context, _isLoading, _) {
-                                  return ElevatedButton(
-                                  child: const Text("CREATE"),
-                                  onPressed: (_isLoading == true) ? null : () async {
-                                    _isLoadingNotifier.value = true;
-                                    await CustomerService().addCustomer(
-                                      _firstNameCtr.text, 
-                                      _middleNameCtr.text, 
-                                      _lastNameCtr.text, 
-                                      _zipcodeCtr.text, 
-                                      _barangayCtr.text, 
-                                      _cityCtr.text, 
-                                      _celNumCtr.text, 
-                                      _telNumCtr.text, 
-                                      _noteCtr.text, 
-                                      "Hot", 
-                                      1, 
-                                      const Color(0xFFD3231E).toString()
-                                    );
-                                    _isLoadingNotifier.value = false;
-                                    Navigator.of(context, rootNavigator: true).pop();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: const Color(0xFFD3231E),
-                                    onPrimary: Colors.white,
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    minimumSize: const Size(75, 40),
-                                  ),
-                                );
-                                }
+                              const SizedBox(
+                                width: 20.0,
                               ),
-                            )
-                            
-                          ],
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                                child: TextFormField(
+                                    controller: _middleNameCtr,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(10),
+                                      labelText: 'Middle Initial',
+                                    )),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
+                                child: TextFormField(
+                                  controller: _lastNameCtr,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    labelText: 'Last Name',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                                child: TextField(
+                                    controller: _celNumCtr,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(10),
+                                      labelText: 'Cellphone No.',
+                                    )),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                                child: TextField(
+                                    controller: _barangayCtr,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(10),
+                                      labelText: 'Address',
+                                    )),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                                child: TextFormField(
+                                  controller: _noteCtr,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Notes',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                child: ValueListenableBuilder(
+                                    valueListenable: _isLoadingNotifier,
+                                    builder: (context, _isLoading, _) {
+                                      return ElevatedButton(
+                                        child: const Text("CREATE"),
+                                        onPressed: (_isLoading == true)
+                                            ? null
+                                            : () async {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  _isLoadingNotifier.value =
+                                                      true;
+                                                  await CustomerService()
+                                                      .addCustomer(
+                                                          _firstNameCtr.text,
+                                                          _middleNameCtr.text,
+                                                          _lastNameCtr.text,
+                                                          _zipcodeCtr.text,
+                                                          _barangayCtr.text,
+                                                          _cityCtr.text,
+                                                          _celNumCtr.text,
+                                                          _telNumCtr.text,
+                                                          _noteCtr.text,
+                                                          "Hot",
+                                                          1,
+                                                          const Color(
+                                                                  0xFFD3231E)
+                                                              .toString());
+                                                  _isLoadingNotifier.value =
+                                                      false;
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop();
+                                                }
+                                              },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color(0xFFD3231E),
+                                          onPrimary: Colors.white,
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          minimumSize: const Size(75, 40),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Positioned(
+                                bottom: 50.0,
+                                right: 0.0,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 20,
+                                  alignment: Alignment.bottomCenter,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFD3231E),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(25),
+                                      bottomRight: Radius.circular(25),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
-      );
+            );
+          });
     },
     child: const Icon(
-      Icons.add_circle_outline,
+      Icons.add,
       size: 26.0,
-    ) ,
+    ),
     backgroundColor: const Color(0xFFF1A22C),
   );
 }
