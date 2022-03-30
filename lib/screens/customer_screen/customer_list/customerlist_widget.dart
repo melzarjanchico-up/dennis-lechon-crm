@@ -1,6 +1,3 @@
-
-// THIS IS AN OLD CODE FOR OUR CUSTOMER LIST...
-
 /*
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
