@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
-
+import 'package:flutter/services.dart';
+import 'package:validators/validators.dart';
 
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
@@ -15,59 +16,57 @@ class CustomerScreen extends StatelessWidget {
     final _formKey = GlobalKey<FormState>();
 
     return StreamBuilder<List<Customer>>(
-      stream: CustomerService().customers,
-      builder: (context, snapshot) {
-        if (!snapshot.hasError) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return const Center(child: Text("Offline. Try again later."));
-            case ConnectionState.waiting:
-              return const Loading();
-            default:
-              return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: const Color(0xFFF1A22C),
-                  title: const Text("Customer List"),
-                  centerTitle: true,
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        showSearch(
-                          context: context,
-                          delegate: SearchCustomer(),
-                        );
-                      },
-                      icon: const Icon(Icons.search),
-                    ),
-                  ],
-                ),
-                floatingActionButton: floatingAddCustomerButton(context, _formKey),
-                body: StreamProvider<List<Customer>>.value(
-                  value: CustomerService().customers, 
-                  initialData: const [],
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 45.0),
-                    child: const CustomerListWidget()
-                    ),
-                ),
-                //body: Container(
-                //  value: CustomerService().customers, 
-                //  initialData: const [],
-                //  child: Container(
-                //    margin: const EdgeInsets.only(bottom: 45.0),
-                //    child: CustomerListWidget(snapshotx: snapshot)
-                //    ),
-                //),
-              );
+        stream: CustomerService().customers,
+        builder: (context, snapshot) {
+          if (!snapshot.hasError) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return const Center(child: Text("Offline. Try again later."));
+              case ConnectionState.waiting:
+                return const Loading();
+              default:
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: const Color(0xFFF1A22C),
+                    title: const Text("Customer List"),
+                    centerTitle: true,
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          showSearch(
+                            context: context,
+                            delegate: SearchCustomer(),
+                          );
+                        },
+                        icon: const Icon(Icons.search),
+                      ),
+                    ],
+                  ),
+                  floatingActionButton:
+                      floatingAddCustomerButton(context, _formKey),
+                  body: StreamProvider<List<Customer>>.value(
+                    value: CustomerService().customers,
+                    initialData: const [],
+                    child: Container(
+                        margin: const EdgeInsets.only(bottom: 45.0),
+                        child: const CustomerListWidget()),
+                  ),
+                  //body: Container(
+                  //  value: CustomerService().customers,
+                  //  initialData: const [],
+                  //  child: Container(
+                  //    margin: const EdgeInsets.only(bottom: 45.0),
+                  //    child: CustomerListWidget(snapshotx: snapshot)
+                  //    ),
+                  //),
+                );
+            }
+          } else {
+            return const Center(
+              child: Text("Something went wrong. Please contact admin."),
+            );
           }
-        } else {
-          return const Center(
-            child: Text(
-                "Something went wrong. Please contact admin."),
-          );
-        }
-      }
-    );
+        });
   }
 }
 
@@ -177,7 +176,9 @@ Widget floatingAddCustomerButton(
                                     labelText: 'First Name',
                                   ),
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null ||
+                                        value.isEmpty ||
+                                        value.trim().isEmpty) {
                                       return "This field cannot be blank.";
                                     }
                                     return null;
@@ -191,11 +192,23 @@ Widget floatingAddCustomerButton(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
                                 child: TextFormField(
-                                    controller: _middleNameCtr,
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.all(10),
-                                      labelText: 'Middle Initial',
-                                    )),
+                                  keyboardType: TextInputType.text,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(2),
+                                  ],
+                                  controller: _middleNameCtr,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    labelText: 'Middle Initial',
+                                  ),
+                                  validator: (value) {
+                                    if (!(isUppercase(value![0])) ||
+                                        value[1] != '.') {
+                                      return "Invalid Middle Initial.";
+                                    }
+                                    return null;
+                                  },
+                                ),
                               ),
                               const SizedBox(
                                 width: 20.0,
@@ -204,13 +217,16 @@ Widget floatingAddCustomerButton(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.text,
                                   controller: _lastNameCtr,
                                   decoration: const InputDecoration(
                                     contentPadding: EdgeInsets.all(10),
                                     labelText: 'Last Name',
                                   ),
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null ||
+                                        value.isEmpty ||
+                                        value.trim().isEmpty) {
                                       return "This field cannot be blank.";
                                     }
                                     return null;
@@ -220,12 +236,31 @@ Widget floatingAddCustomerButton(
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                child: TextField(
-                                    controller: _celNumCtr,
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.all(10),
-                                      labelText: 'Cellphone No.',
-                                    )),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(11),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  controller: _celNumCtr,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    labelText: 'Cellphone No.',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null ||
+                                        value.isEmpty ||
+                                        value.trim().isEmpty) {
+                                      return "This field cannot be blank.";
+                                    }
+                                    if (value.length != 11 &&
+                                        value[0] != '0' &&
+                                        value[1] != '9') {
+                                      return "Invalid cellphone number.";
+                                    }
+                                    return null;
+                                  },
+                                ),
                               ),
                               const SizedBox(
                                 width: 20.0,
@@ -234,6 +269,9 @@ Widget floatingAddCustomerButton(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
                                 child: TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.deny(' '),
+                                    ],
                                     controller: _barangayCtr,
                                     decoration: const InputDecoration(
                                       contentPadding: EdgeInsets.all(10),
@@ -252,12 +290,6 @@ Widget floatingAddCustomerButton(
                                     border: OutlineInputBorder(),
                                     hintText: 'Notes',
                                   ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "This field cannot be blank.";
-                                    }
-                                    return null;
-                                  },
                                 ),
                               ),
                               Padding(
