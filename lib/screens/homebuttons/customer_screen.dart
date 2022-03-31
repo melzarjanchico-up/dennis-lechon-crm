@@ -6,6 +6,7 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
 
+
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
 
@@ -13,47 +14,59 @@ class CustomerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
-    return StreamProvider<List<Customer>>.value(
-      value: CustomerService().customers,
-      initialData: const [],
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xFFF1A22C),
-            title: const Text("Customer List"),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  showSearch(
-                    context: context,
-                    delegate: SearchCustomer(),
-                  );
-                },
-                icon: const Icon(Icons.search),
-              ),
-            ],
-          ),
-          floatingActionButton: floatingAddCustomerButton(context, _formKey),
-          body: StreamBuilder<List<Customer>>(
-            stream: CustomerService().customers,
-            builder: (context, snapshot) {
-              if (!snapshot.hasError) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return const Text("Offline. Try again later.");
-                  case ConnectionState.waiting:
-                    return const Loading();
-                  default:
-                    return Container(
-                        margin: const EdgeInsets.only(bottom: 45.0),
-                        child: const CustomerListWidget());
-                }
-              } else {
-                return const Text(
-                    "Something went wrong. Please contact admin.");
-              }
-            },
-          )),
+    return StreamBuilder<List<Customer>>(
+      stream: CustomerService().customers,
+      builder: (context, snapshot) {
+        if (!snapshot.hasError) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return const Center(child: Text("Offline. Try again later."));
+            case ConnectionState.waiting:
+              return const Loading();
+            default:
+              return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: const Color(0xFFF1A22C),
+                  title: const Text("Customer List"),
+                  centerTitle: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        showSearch(
+                          context: context,
+                          delegate: SearchCustomer(),
+                        );
+                      },
+                      icon: const Icon(Icons.search),
+                    ),
+                  ],
+                ),
+                floatingActionButton: floatingAddCustomerButton(context, _formKey),
+                body: StreamProvider<List<Customer>>.value(
+                  value: CustomerService().customers, 
+                  initialData: const [],
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 45.0),
+                    child: const CustomerListWidget()
+                    ),
+                ),
+                //body: Container(
+                //  value: CustomerService().customers, 
+                //  initialData: const [],
+                //  child: Container(
+                //    margin: const EdgeInsets.only(bottom: 45.0),
+                //    child: CustomerListWidget(snapshotx: snapshot)
+                //    ),
+                //),
+              );
+          }
+        } else {
+          return const Center(
+            child: Text(
+                "Something went wrong. Please contact admin."),
+          );
+        }
+      }
     );
   }
 }

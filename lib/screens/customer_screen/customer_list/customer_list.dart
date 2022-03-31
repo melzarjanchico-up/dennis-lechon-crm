@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
 
 class CustomerListWidget extends StatefulWidget {
-  const CustomerListWidget({ Key? key }) : super(key: key);
+  const CustomerListWidget({ Key? key/*, required this.snapshotx*/ }) : super(key: key);
+  //final AsyncSnapshot<List<Customer>> snapshotx;
 
   @override
   State<CustomerListWidget> createState() => _CustomerListWidgetState();
@@ -15,8 +16,9 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
   Widget build(BuildContext context) {
 
     final customers = Provider.of<List<Customer>>(context);
+    // final customers = widget.snapshotx.data!;
 
-    return ListView(
+    return (customers == []) ? const Text("Loading") : ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
 
