@@ -1,6 +1,6 @@
 //import 'dart:html';
 
-class User {
+class Customer {
   final String imagePath;
   final String name;
   final String number;
@@ -11,7 +11,7 @@ class User {
   final String tag;
   final String age;
 
-  const User({
+  const Customer({
     required this.imagePath,
     required this.name,
     required this.number,
