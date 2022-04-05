@@ -67,7 +67,6 @@ class OrderListScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       const Text("Order No. 69",
-                                          // ignore: prefer_const_constructors
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 20,
