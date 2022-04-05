@@ -5,6 +5,7 @@ on:
       - main
       - sprint-1
       - sprint-2
+      - sprint-4
       - sprint-3
       - sprint-5
   
