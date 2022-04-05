@@ -110,8 +110,8 @@ class OrderListScreen extends StatelessWidget {
               ),
             ),
           ],
-          /* This is the back button, gi comment lang sa nako kay wa ko 
-              kabaw asa ni e butang
+          /* This is the code for the back button
+
            RaisedButton(
             child: const Text("Back"),
             color: const Color(0xFFD3231E),
