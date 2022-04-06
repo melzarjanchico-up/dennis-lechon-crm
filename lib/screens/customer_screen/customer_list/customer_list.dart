@@ -18,7 +18,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
     final customers = Provider.of<List<Customer>>(context);
     // final customers = widget.snapshotx.data!;
 
-    return (customers == []) ? const Text("Loading") : ListView(
+    return ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
 
