@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class SearchCustomer extends SearchDelegate {
   final CollectionReference _customerSearch =
-      FirebaseFirestore.instance.collection("customers");
+      FirebaseFirestore.instance.collection("customers"); // provider???
 
   @override
   List<Widget> buildActions(BuildContext context) {
