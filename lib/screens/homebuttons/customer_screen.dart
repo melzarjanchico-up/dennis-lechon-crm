@@ -15,7 +15,6 @@ class CustomerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
-    // Stream Builder
     return StreamBuilder<List<Customer>>(
         stream: CustomerService().customers,
         builder: (context, snapshot) {
@@ -46,7 +45,7 @@ class CustomerScreen extends StatelessWidget {
                   floatingActionButton:
                       floatingAddCustomerButton(context, _formKey),
                   body: StreamProvider<List<Customer>>.value(
-                    value: CustomerService().customers, // as in wala koy mabuhat
+                    value: CustomerService().customers,
                     initialData: const [],
                     child: Container(
                         margin: const EdgeInsets.only(bottom: 45.0),
