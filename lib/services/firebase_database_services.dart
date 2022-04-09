@@ -1,18 +1,32 @@
 // this is a testing for the firestore capabilities hehe
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 
 class CustomerService {
   // collection reference
-  final CollectionReference customerCollection = FirebaseFirestore.instance.collection('customers');
+  final CollectionReference customerCollection =
+      FirebaseFirestore.instance.collection('customers');
+  late String currquery = '';
+  String setQuery(String currquery) {
+    this.currquery = currquery;
+    return currquery;
+  }
 
   // Add Customer Data
   Future addCustomer(
-      String firstname, String middlename, String lastname,
-      String zipcode, String barangay, String city,
-      String celnum, String telnum, String note,
-      String tagname, int index, String color
-    ) async {
+      String firstname,
+      String middlename,
+      String lastname,
+      String zipcode,
+      String barangay,
+      String city,
+      String celnum,
+      String telnum,
+      String note,
+      String tagname,
+      int index,
+      String color) async {
     return await customerCollection.doc().set({
       'first_name': firstname,
       'middle_name': middlename,
@@ -26,8 +40,7 @@ class CustomerService {
   }
 
   List<Customer> _customerListFromSnapshot(QuerySnapshot snapshot) {
-
-    return snapshot.docs.map((doc){
+    return snapshot.docs.map((doc) {
       var preId = doc.id;
       var preFirstName = (doc.data() as Map)['first_name'] ?? '';
       var preMiddleName = (doc.data() as Map)['middle_name'] ?? '';
@@ -57,16 +70,22 @@ class CustomerService {
         tagIndex: preTagIndex,
         tagColor: preTagColor,
       );
-      
     }).toList();
-
   }
 
+  // Search snapshots to be converted to a list of customers
 
   Stream<List<Customer>>? get customers {
-    return customerCollection.orderBy('tag.index').orderBy('first_name').snapshots().map(_customerListFromSnapshot);
+    return customerCollection
+        .orderBy('tag.index')
+        .orderBy('first_name')
+        .snapshots()
+        .map(_customerListFromSnapshot);
   }
 
+  Stream<List<Customer>> makeStream(List<Customer> list) async* {
+  yield list;
+}
   /*
   Future<Customer> customerFromSnapshot(String id) async {
 

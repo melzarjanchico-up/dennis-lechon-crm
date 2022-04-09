@@ -43,10 +43,13 @@ class CustomerScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  // Somethings wrong here po.
+                  // Another exception was thrown: Incorrect use of ParentDataWidget.
                   floatingActionButton:
                       floatingAddCustomerButton(context, _formKey),
                   body: StreamProvider<List<Customer>>.value(
-                    value: CustomerService().customers, // as in wala koy mabuhat
+                    value:
+                        CustomerService().customers, // as in wala koy mabuhat
                     initialData: const [],
                     child: Container(
                         margin: const EdgeInsets.only(bottom: 45.0),

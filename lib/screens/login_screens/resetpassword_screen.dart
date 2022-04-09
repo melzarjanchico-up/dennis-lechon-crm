@@ -1,4 +1,3 @@
-import 'package:dennis_lechon_crm/utils/color_utils.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: hexStringToColor("D3231E"),
+        backgroundColor: const Color.fromARGB(255, 185, 17, 5),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,

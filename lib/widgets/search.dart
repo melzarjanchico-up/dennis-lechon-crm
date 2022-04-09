@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:provider/provider.dart';
+import '../screens/customer_screen/customer_list/customer_list.dart';
+import '../services/firebase_database_services.dart';
 
 class SearchCustomer extends SearchDelegate {
-  final CollectionReference _customerSearch =
-      FirebaseFirestore.instance.collection("customers"); // provider???
-
   @override
   List<Widget> buildActions(BuildContext context) {
     //para ra ni tig clear  sa search bar if pisliton ang 'x'
@@ -20,9 +20,9 @@ class SearchCustomer extends SearchDelegate {
     ];
   }
 
+  //tig balik sa customer list na page (back)
   @override
   Widget buildLeading(BuildContext context) {
-    //tig balik sa customer list na page (back)
     return IconButton(
       onPressed: () {
         close(context, null);
@@ -31,24 +31,22 @@ class SearchCustomer extends SearchDelegate {
     );
   }
 
+  //if naa siyay makita na match kay e sud niya diri na string
   @override
   Widget buildResults(BuildContext context) {
-    //if naa siyay makita na match kay e sud niya diri na string
-    return StreamBuilder<QuerySnapshot>(
-        stream: _customerSearch.snapshots().asBroadcastStream(
-            onCancel: (sub) => sub.cancel()), //to avoid data leakage
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return StreamBuilder<List<Customer>>(
+        stream: CustomerService().customers?.asBroadcastStream(
+            onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Loading();
           } else {
-            if (snapshot.data!.docs
-                .where((QueryDocumentSnapshot<Object?> fields) =>
-                    fields['first_name']
-                        .toString()
+            if (snapshot.data!
+                .where((element) =>
+                    element.firstName
                         .toLowerCase()
                         .contains(query.toLowerCase()) ||
-                    fields['last_name']
-                        .toString()
+                    element.lastName
                         .toLowerCase()
                         .contains(query.toLowerCase()))
                 .isEmpty) {
@@ -56,33 +54,22 @@ class SearchCustomer extends SearchDelegate {
                 child: Text("I'm sorry. No customer exists."),
               );
             } else {
-              return ListView(
-                children: [
-                  ...snapshot.data!.docs
-                      .where((QueryDocumentSnapshot<Object?> fields) =>
-                          fields['first_name']
-                              .toString()
-                              .toLowerCase()
-                              .contains(query.toLowerCase()) ||
-                          fields['last_name']
-                              .toString()
-                              .toLowerCase()
-                              .contains(query.toLowerCase()))
-                      .map((QueryDocumentSnapshot<Object?> data) {
-                    String lastName = data['last_name'];
-                    String firstName = data['first_name'];
-                    String tagName = data['tag']['tagname'];
-                    //Frontenders here. It would be nice if we can reuse the customerlistwidget sa customer_info.dart.like import nlng para dli hasul
-                    return ListTile(
-                      onTap: () {},
-                      title: Text(
-                        "$lastName $firstName",
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                      subtitle: Text(tagName),
-                    );
-                  })
-                ],
+              var searchResult = snapshot.data!
+                  .where((element) =>
+                      element.firstName
+                          .toLowerCase()
+                          .contains(query.toLowerCase()) ||
+                      element.lastName
+                          .toLowerCase()
+                          .contains(query.toLowerCase()))
+                  .map((e) => e) //to map the Customer object
+                  .toList();
+              return StreamProvider<List<Customer>>.value(
+                value: CustomerService().makeStream(searchResult),
+                initialData: const [],
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 45.0),
+                    child: const CustomerListWidget()),
               );
             }
           }
