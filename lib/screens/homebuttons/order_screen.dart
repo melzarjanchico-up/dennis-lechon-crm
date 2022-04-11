@@ -255,7 +255,8 @@ class OrderListScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Card(
-                                    color: Color.fromARGB(255, 243, 243, 243),
+                                    color: const Color.fromARGB(
+                                        255, 243, 243, 243),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),

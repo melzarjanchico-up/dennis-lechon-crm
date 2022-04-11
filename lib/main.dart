@@ -3,7 +3,7 @@ import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
 //import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
 //import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart'; // temporary for testing
 import 'package:firebase_core/firebase_core.dart';
-import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
+// import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:flutter/material.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info.dart';
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Project LechGo',
       debugShowCheckedModeBanner: false,
       //home: SignIn(),
-      home: OrderListScreen(),
+      home: HomeScreen(),
     );
   }
 }
