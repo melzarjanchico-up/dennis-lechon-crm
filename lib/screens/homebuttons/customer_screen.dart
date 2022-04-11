@@ -118,11 +118,14 @@ Widget floatingAddCustomerButton(
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
               ),
               contentPadding: const EdgeInsets.only(top: 0.0),
+
               content: SingleChildScrollView(
+
                 child: Column(
                   children: [
                     Stack(
                       children: <Widget>[
+
                         Container(
                           width: double.infinity,
                           height: 45,
@@ -147,6 +150,8 @@ Widget floatingAddCustomerButton(
                             ),
                           ),
                         ),
+
+                        // ! EMMALYN ACHA UNSAY GAMIT ANI NA CODE WALA NI SYAY OUTPUT
                         Positioned(
                           right: 3.0,
                           top: 5.0,
@@ -165,11 +170,14 @@ Widget floatingAddCustomerButton(
                             ),
                           ),
                         ),
+                        // ! THE QUESTIONED CODE ENDS HERE
+
                         Form(
                           key: _formKey,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
+
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 55, 15, 6),
@@ -189,9 +197,11 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
+
                               const SizedBox(
                                 width: 20.0,
                               ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
@@ -214,9 +224,11 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
+
                               const SizedBox(
                                 width: 20.0,
                               ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
@@ -237,6 +249,11 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
+
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -266,9 +283,11 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
+
                               const SizedBox(
                                 width: 20.0,
                               ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -282,9 +301,11 @@ Widget floatingAddCustomerButton(
                                       labelText: 'Address',
                                     )),
                               ),
+
                               const SizedBox(
                                 width: 20.0,
                               ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -295,6 +316,9 @@ Widget floatingAddCustomerButton(
                                     hintText: 'Notes',
                                   ),
                                 ),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
                               ),
                               Padding(
                                 padding:
@@ -346,30 +370,31 @@ Widget floatingAddCustomerButton(
                                       );
                                     }),
                               ),
+
                               const SizedBox(
                                 width: 25,
                               ),
-                              Positioned(
-                                bottom: 50.0,
-                                right: 0.0,
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 20,
-                                  alignment: Alignment.bottomCenter,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFD3231E),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(25),
-                                      bottomRight: Radius.circular(25),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              
                             ],
                           ),
                         ),
+
                       ],
                     ),
+
+                    Container(
+                      width: double.infinity,
+                      height: 25,
+                      alignment: Alignment.topCenter,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFD3231E),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25),
+                        ),
+                      ),
+                    ),
+
                   ],
                 ),
               ),
