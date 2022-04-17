@@ -269,7 +269,10 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                           primary: const Color(0xFFD3231E),
                                           onPrimary: Colors.white,
                                           elevation: 5,
-                                          shape: const CircleBorder(),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
                                           padding: const EdgeInsets.all(15.0),
                                           minimumSize: const Size(15, 5),
                                         ),
