@@ -11,7 +11,6 @@ class OrderListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Stream Builder
     return StreamBuilder<List<Order>>(
         stream: OrderService().orders,
         builder: (context, snapshot) {
