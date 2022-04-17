@@ -1,6 +1,6 @@
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:dennis_lechon_crm/services/firebase_database_services.dart';
+import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
@@ -118,14 +118,11 @@ Widget floatingAddCustomerButton(
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
               ),
               contentPadding: const EdgeInsets.only(top: 0.0),
-
               content: SingleChildScrollView(
-
                 child: Column(
                   children: [
                     Stack(
                       children: <Widget>[
-
                         Container(
                           width: double.infinity,
                           height: 45,
@@ -177,7 +174,6 @@ Widget floatingAddCustomerButton(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 55, 15, 6),
@@ -197,11 +193,9 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
-
                               const SizedBox(
                                 width: 20.0,
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
@@ -224,11 +218,9 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
-
                               const SizedBox(
                                 width: 20.0,
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 0, 15, 6),
@@ -249,11 +241,9 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
-
                               const SizedBox(
                                 width: 20.0,
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -283,11 +273,9 @@ Widget floatingAddCustomerButton(
                                   },
                                 ),
                               ),
-
                               const SizedBox(
                                 width: 20.0,
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -301,11 +289,9 @@ Widget floatingAddCustomerButton(
                                       labelText: 'Address',
                                     )),
                               ),
-
                               const SizedBox(
                                 width: 20.0,
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
@@ -370,18 +356,14 @@ Widget floatingAddCustomerButton(
                                       );
                                     }),
                               ),
-
                               const SizedBox(
                                 width: 25,
                               ),
-                              
                             ],
                           ),
                         ),
-
                       ],
                     ),
-
                     Container(
                       width: double.infinity,
                       height: 25,
@@ -394,7 +376,6 @@ Widget floatingAddCustomerButton(
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),

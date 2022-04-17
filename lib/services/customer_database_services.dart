@@ -7,11 +7,6 @@ class CustomerService {
   // collection reference
   final CollectionReference customerCollection =
       FirebaseFirestore.instance.collection('customers');
-  late String currquery = '';
-  String setQuery(String currquery) {
-    this.currquery = currquery;
-    return currquery;
-  }
 
   // Add Customer Data
   Future addCustomer(
@@ -35,7 +30,7 @@ class CustomerService {
       'cel_no': celnum,
       'tel_no': telnum,
       'note': note,
-      'tag': {'tagname': tagname, 'index': index, 'color': color}
+      'tag': {'tagname': tagname, 'index': index, 'color': color},
     });
   }
 
@@ -84,8 +79,8 @@ class CustomerService {
   }
 
   Stream<List<Customer>> makeStream(List<Customer> list) async* {
-  yield list;
-}
+    yield list;
+  }
   /*
   Future<Customer> customerFromSnapshot(String id) async {
 

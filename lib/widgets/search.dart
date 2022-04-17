@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:provider/provider.dart';
 import '../screens/customer_screen/customer_list/customer_list.dart';
-import '../services/firebase_database_services.dart';
+import '../services/customer_database_services.dart';
 
 class SearchCustomer extends SearchDelegate {
   @override
