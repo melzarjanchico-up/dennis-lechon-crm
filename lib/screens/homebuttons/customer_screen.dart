@@ -6,7 +6,6 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/services.dart';
-import 'package:validators/validators.dart';
 
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
@@ -14,7 +13,6 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-
     // Stream Builder
     return StreamBuilder<List<Customer>>(
         stream: CustomerService().customers,
@@ -155,6 +153,11 @@ Widget floatingAddCustomerButton(
                           child: InkResponse(
                             onTap: () {
                               Navigator.of(context).pop();
+                              _firstNameCtr.clear();
+                              _lastNameCtr.clear();
+                              _celNumCtr.clear();
+                              _barangayCtr.clear();
+                              _noteCtr.clear();
                             },
                             child: const CircleAvatar(
                               radius: 17,
@@ -168,6 +171,7 @@ Widget floatingAddCustomerButton(
                           ),
                         ),
                         // ! THE QUESTIONED CODE ENDS HERE
+                        // CLOSE NA BUTTON NI SHA MAAM
 
                         Form(
                           key: _formKey,
@@ -196,27 +200,8 @@ Widget floatingAddCustomerButton(
                               const SizedBox(
                                 width: 20.0,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.text,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(2),
-                                  ],
-                                  controller: _middleNameCtr,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.all(10),
-                                    labelText: 'Middle Initial',
-                                  ),
-                                  validator: (value) {
-                                    if (!(isUppercase(value![0])) ||
-                                        value[1] != '.') {
-                                      return "Invalid Middle Initial.";
-                                    }
-                                    return null;
-                                  },
-                                ),
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(15, 0, 15, 6),
                               ),
                               const SizedBox(
                                 width: 20.0,
@@ -296,10 +281,10 @@ Widget floatingAddCustomerButton(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
                                 child: TextFormField(
-                                  controller: _noteCtr,
+                                  //controller: _noteCtr,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Notes',
+                                    hintText: 'TAG',
                                   ),
                                 ),
                               ),
