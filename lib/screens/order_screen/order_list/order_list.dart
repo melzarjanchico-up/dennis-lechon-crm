@@ -13,6 +13,120 @@ class _OrderListWidgetState extends State<OrderListWidget> {
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<Order>>(context);
+    final leftSection = Expanded(
+      child: Container(
+        padding: const EdgeInsets.only(left: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: const <Widget>[
+            Text(
+              "Lechon Spicy",
+              style: TextStyle(
+                color: Color.fromARGB(255, 80, 79, 79),
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+              ),
+            ),
+            Text(
+              "(Small)",
+              style: TextStyle(color: Colors.grey),
+            ),
+            SizedBox(height: 25),
+            Text(
+              "Lechon Orig.",
+              style: TextStyle(
+                color: Color.fromARGB(255, 65, 64, 64),
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+              ),
+            ),
+            Text(
+              "(Small)",
+              style: TextStyle(color: Colors.grey),
+            ),
+            SizedBox(height: 25),
+            Text(
+              "Lechon Orig.",
+              style: TextStyle(
+                color: Color.fromARGB(255, 71, 71, 71),
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+              ),
+            ),
+            Text(
+              "(Big)",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
+    );
+    final middleSection = Expanded(
+      child: Container(
+        padding: const EdgeInsets.only(right: 5.0),
+        child: Column(
+          children: const <Widget>[
+            Text(
+              "x2",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(height: 50),
+            Text(
+              "x2",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(height: 50),
+            Text(
+              "x1",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final rightSection = Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const <Widget>[
+            Text(
+              "Php 2,000.00",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 50),
+            Text(
+              "Php 1,000.00",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 50),
+            Text(
+              "Php 2,000.00",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
 
     return ListView(
       padding: const EdgeInsets.all(20),
@@ -134,73 +248,96 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                     ),
                                   ),
                                 ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const [
-                                    SizedBox(height: 120),
-                                    Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text(
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: const [
+                                      SizedBox(height: 250),
+                                      Text(
                                         'Name:',
                                         style: TextStyle(
                                             color: Colors.grey,
                                             fontSize: 10.0,
                                             fontWeight: FontWeight.w300),
                                       ),
-                                    ),
-                                    SizedBox(width: 0, height: 0),
-                                    Text(
-                                      'Emma Axe',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                          letterSpacing: 2.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                    SizedBox(width: 0, height: 0),
-                                    Text(
-                                      'Contact No.',
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                    SizedBox(width: 0, height: 0),
-                                    Text(
-                                      '0923101293',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                          letterSpacing: 2.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                    SizedBox(width: 0, height: 0),
-                                    Text(
-                                      'Address',
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                    Text(
-                                      'Minglanilla, Cebu',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                          letterSpacing: 2.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                    SizedBox(height: 20),
-                                    Text(
-                                      'Order Details',
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(height: 50),
-                                  ],
+                                      SizedBox(width: 230, height: 0),
+                                      Text(
+                                        'Contact Number:',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 10.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: const [
+                                      SizedBox(height: 290),
+                                      Text(
+                                        'Emma Axe',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.black,
+                                            letterSpacing: 2.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      SizedBox(width: 170, height: 0),
+                                      Text(
+                                        '0923101293',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.black,
+                                            letterSpacing: 2.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      SizedBox(height: 175),
+                                      Text(
+                                        'Address',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 10.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      SizedBox(height: 7),
+                                      Text(
+                                        'Minglanilla, Cebu',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.black,
+                                            letterSpacing: 2.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      SizedBox(height: 20),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Order Details',
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      SizedBox(height: 50),
+                                    ],
+                                  ),
                                 ),
                                 Positioned(
                                   top: 500,
@@ -225,7 +362,8 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: '                  Php 5,000',
+                                          text:
+                                              '                        Php 5,000',
                                           style: TextStyle(
                                             color:
                                                 Color.fromARGB(255, 80, 79, 79),
@@ -247,21 +385,19 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 265.0),
                                   child: Padding(
-                                      padding: const EdgeInsets.all(100),
-                                      child: Column(children: const [
-                                        Text(
-                                          'Lechon Spicy',
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 39, 39, 39),
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.w500),
-                                        )
-                                      ])),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        leftSection,
+                                        middleSection,
+                                        rightSection,
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 Positioned(
-                                  bottom: 175,
-                                  right: 12,
+                                  bottom: 2,
+                                  right: 50,
                                   child: Row(
                                     children: [
                                       ElevatedButton(
@@ -276,7 +412,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                           padding: const EdgeInsets.all(15.0),
                                           minimumSize: const Size(15, 5),
                                         ),
-                                        child: const Text('Edit',
+                                        child: const Text('   Edit   ',
                                             style: TextStyle(
                                               color: Colors.white,
                                             )),
