@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
@@ -46,9 +47,20 @@ class _CustomerInfoState extends State<CustomerInfo> {
   }
 }
 
+String convertDateToText(DateTime givenDate) {
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return '${months[(givenDate.month)-1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+}
+
+int calculateAge(DateTime birthDate) {
+  var from = birthDate;
+  var to = DateTime.now();
+  return ((to.difference(from).inHours / 24) / 365).round();
+}
+
 Widget buildInfo(Customer customer) {
-  String middleInitial =
-      (customer.middleName != '') ? '${(customer.middleName[0])}.' : '';
+
+  String middleInitial = (customer.middleName != '') ? '${(customer.middleName[0])}.' : '';
   String space = (middleInitial == '') ? '' : ' ';
 
   return Column(
@@ -140,9 +152,9 @@ Widget buildInfo(Customer customer) {
                             fontSize: 10.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      const Text(
-                        '14 yrs. old',
-                        style: TextStyle(
+                      Text(
+                        '${calculateAge(customer.dateBirth).toString()} yrs. old',
+                        style: const TextStyle(
                             fontSize: 15.0,
                             color: Colors.black,
                             letterSpacing: 1.0,
@@ -158,9 +170,9 @@ Widget buildInfo(Customer customer) {
                             fontSize: 10.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      const Text(
-                        "TEST BIRTHDAY",
-                        style: TextStyle(
+                      Text(
+                        convertDateToText(customer.dateBirth),
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16.0,
                             fontWeight: FontWeight.w400),
@@ -169,15 +181,15 @@ Widget buildInfo(Customer customer) {
                         height: 5,
                       ),
                       const Text(
-                        "Last Ordered",
+                        "Date Added",
                         style: TextStyle(
                             color: Colors.grey,
                             fontSize: 10.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      const Text(
-                        "n/a",
-                        style: TextStyle(
+                      Text(
+                        convertDateToText(customer.dateAdded),
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16.0,
                             fontWeight: FontWeight.w400),

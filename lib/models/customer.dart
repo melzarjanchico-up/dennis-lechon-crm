@@ -3,8 +3,8 @@ class Customer {
   final String firstName;
   final String middleName;
   final String lastName;
-  //final DateTime birthDate;
-  //final DateTime dateAdded;
+  final DateTime dateBirth;
+  final DateTime dateAdded;
   final String celNum;
   final String telNum;
   final String adrCity;
@@ -20,8 +20,8 @@ class Customer {
     required this.firstName,
     required this.middleName,
     required this.lastName,
-    //this.birthDate,
-    //this.dateAdded,
+    required this.dateBirth,
+    required this.dateAdded,
     required this.celNum,
     required this.telNum,
     required this.adrCity,

@@ -40,6 +40,8 @@ class CustomerService {
       var preFirstName = (doc.data() as Map)['first_name'] ?? '';
       var preMiddleName = (doc.data() as Map)['middle_name'] ?? '';
       var preLastName = (doc.data() as Map)['last_name'] ?? '';
+      var preDateBirth = (doc.data() as Map)['birth_date'] ?? Timestamp.now();
+      var preDateAdded = (doc.data() as Map)['added_date'] ?? Timestamp.now();
       var preCelNum = (doc.data() as Map)['cel_no'] ?? '';
       var preTelNum = (doc.data() as Map)['tel_no'] ?? '';
       var preAdrCity = (doc.data() as Map)['address']['city'] ?? '';
@@ -55,6 +57,8 @@ class CustomerService {
         firstName: preFirstName,
         middleName: preMiddleName,
         lastName: preLastName,
+        dateBirth: (preDateBirth as Timestamp).toDate(),
+        dateAdded: (preDateAdded as Timestamp).toDate(),
         celNum: preCelNum,
         telNum: preTelNum,
         adrCity: preAdrCity,
