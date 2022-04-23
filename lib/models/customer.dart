@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Customer {
   final String id;
   final String firstName;
@@ -13,7 +15,7 @@ class Customer {
   final String note;
   final String tagName;
   final int tagIndex;
-  final String tagColor;
+  final Color tagColor;
 
   const Customer({
     required this.id,

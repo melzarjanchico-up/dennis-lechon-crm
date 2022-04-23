@@ -23,14 +23,12 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
+        
         String lastName = customer.lastName;
         String firstName = customer.firstName;
         String tagName = customer.tagName;
-        String address =
-            '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
-        int colorValue = int.parse(
-            (customer.tagColor).split('(0x')[1].split(')')[0],
-            radix: 16);
+        String address = '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
+        Color tagColor = customer.tagColor;
 
         return GestureDetector(
             onTap: () {
@@ -95,7 +93,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 vertical: 4, horizontal: 15),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: Color(colorValue)),
+                                color: tagColor),
                             child: Text(
                               tagName,
                               style: const TextStyle(color: Colors.white),

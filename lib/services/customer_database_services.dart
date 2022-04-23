@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:flutter/material.dart';
 
 class CustomerService {
   // collection reference
@@ -36,29 +37,29 @@ class CustomerService {
 
   List<Customer> _customerListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      var preId = doc.id;
-      var preFirstName = (doc.data() as Map)['first_name'] ?? '';
-      var preMiddleName = (doc.data() as Map)['middle_name'] ?? '';
-      var preLastName = (doc.data() as Map)['last_name'] ?? '';
-      var preDateBirth = (doc.data() as Map)['birth_date'] ?? Timestamp.now();
-      var preDateAdded = (doc.data() as Map)['added_date'] ?? Timestamp.now();
-      var preCelNum = (doc.data() as Map)['cel_no'] ?? '';
-      var preTelNum = (doc.data() as Map)['tel_no'] ?? '';
-      var preAdrCity = (doc.data() as Map)['address']['city'] ?? '';
-      var preAdrBarangay = (doc.data() as Map)['address']['barangay'] ?? '';
-      var preAdrZipcode = (doc.data() as Map)['address']['zipcode'] ?? '';
-      var preTagName = (doc.data() as Map)['tag']['tagname'] ?? '';
-      var preTagColor = (doc.data() as Map)['tag']['color'] ?? '';
-      var preTagIndex = (doc.data() as Map)['tag']['index'] ?? 4;
-      var preNote = (doc.data() as Map)['note'] ?? '';
+      String preId = doc.id;
+      String preFirstName = (doc.data() as Map)['first_name'] ?? '';
+      String preMiddleName = (doc.data() as Map)['middle_name'] ?? '';
+      String preLastName = (doc.data() as Map)['last_name'] ?? '';
+      Timestamp preDateBirth = (doc.data() as Map)['birth_date'] ?? Timestamp.fromMicrosecondsSinceEpoch(0);
+      Timestamp preDateAdded = (doc.data() as Map)['added_date'] ?? Timestamp.fromMicrosecondsSinceEpoch(0);
+      String preCelNum = (doc.data() as Map)['cel_no'] ?? '';
+      String preTelNum = (doc.data() as Map)['tel_no'] ?? '';
+      String preAdrCity = (doc.data() as Map)['address']['city'] ?? '';
+      String preAdrBarangay = (doc.data() as Map)['address']['barangay'] ?? '';
+      String preAdrZipcode = (doc.data() as Map)['address']['zipcode'] ?? '';
+      String preTagName = (doc.data() as Map)['tag']['tagname'] ?? 'Untagged';
+      String preTagColor = (doc.data() as Map)['tag']['color'] ?? const Color.fromARGB(255, 29, 29, 29).toString();
+      int preTagIndex = (doc.data() as Map)['tag']['index'] ?? 99;
+      String preNote = (doc.data() as Map)['note'] ?? '';
 
       return Customer(
         id: preId,
         firstName: preFirstName,
         middleName: preMiddleName,
         lastName: preLastName,
-        dateBirth: (preDateBirth as Timestamp).toDate(),
-        dateAdded: (preDateAdded as Timestamp).toDate(),
+        dateBirth: preDateBirth.toDate(),
+        dateAdded: preDateAdded.toDate(),
         celNum: preCelNum,
         telNum: preTelNum,
         adrCity: preAdrCity,
@@ -67,7 +68,7 @@ class CustomerService {
         note: preNote,
         tagName: preTagName,
         tagIndex: preTagIndex,
-        tagColor: preTagColor,
+        tagColor: Color(int.parse((preTagColor).split('(0x')[1].split(')')[0], radix: 16)),
       );
     }).toList();
   }

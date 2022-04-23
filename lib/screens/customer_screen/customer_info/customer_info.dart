@@ -18,9 +18,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(int.parse(
-            (widget.customer.tagColor).split('(0x')[1].split(')')[0],
-            radix: 16)),
+        backgroundColor: widget.customer.tagColor,
         title: Text('${widget.customer.firstName}\'s Information'),
         centerTitle: true,
       ),
@@ -204,16 +202,24 @@ Widget buildInfo(Customer customer) {
                             fontSize: 10.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      Text(
-                        customer.tagName.toUpperCase(),
-                        style: TextStyle(
-                            color: Color(int.parse(
-                                (customer.tagColor)
-                                    .split('(0x')[1]
-                                    .split(')')[0],
-                                radix: 16)),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w600),
+                      //Text(
+                      //  customer.tagName.toUpperCase(),
+                      //  style: TextStyle(
+                      //      color: customer.tagColor,
+                      //      fontSize: 16.0,
+                      //      fontWeight: FontWeight.w600),
+                      //),
+                      Container(
+                        margin: const EdgeInsets.only(top: 2),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: customer.tagColor),
+                        child: Text(
+                          customer.tagName,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                       const SizedBox(
                         height: 5,
