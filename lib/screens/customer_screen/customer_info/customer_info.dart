@@ -66,170 +66,219 @@ Widget buildInfo(Customer customer) {
       Card(
         margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
+          padding: const EdgeInsets.fromLTRB(30, 20, 20, 30),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${customer.firstName} $middleInitial$space${customer.lastName}',
-                        style: const TextStyle(
-                            fontSize: 17.0,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontWeight: FontWeight.w800),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(height: 10),
-                      (customer.celNum != '')
-                          ? const Text(
-                              'Cellphone No.',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w300),
-                            )
-                          : const SizedBox(width: 0, height: 0),
-                      (customer.celNum != '')
-                          ? Text(
-                              customer.celNum,
-                              style: const TextStyle(
-                                  fontSize: 15.0,
-                                  color: Colors.black,
-                                  letterSpacing: 2.0,
-                                  height: 1,
-                                  fontWeight: FontWeight.w300),
-                            )
-                          : const SizedBox(height: 5),
-                      (customer.telNum != '')
-                          ? const Text(
-                              'Telephone No.',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w300),
-                            )
-                          : const SizedBox(width: 0, height: 0),
-                      (customer.telNum != '')
-                          ? Text(
-                              customer.telNum,
-                              style: const TextStyle(
-                                  fontSize: 15.0,
-                                  color: Colors.black,
-                                  letterSpacing: 2.0,
-                                  fontWeight: FontWeight.w300),
-                            )
-                          : const SizedBox(height: 5),
-                      const Text(
-                        'Address',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      Text(
-                        '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}',
-                        style: const TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            letterSpacing: 2.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        'Age',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      Text(
-                        '${calculateAge(customer.dateBirth).toString()} yrs. old',
-                        style: const TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            letterSpacing: 1.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "Birthday",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      Text(
-                        convertDateToText(customer.dateBirth),
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "Date Added",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      Text(
-                        convertDateToText(customer.dateAdded),
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "Tag",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      //Text(
-                      //  customer.tagName.toUpperCase(),
-                      //  style: TextStyle(
-                      //      color: customer.tagColor,
-                      //      fontSize: 16.0,
-                      //      fontWeight: FontWeight.w600),
-                      //),
-                      Container(
-                        margin: const EdgeInsets.only(top: 2),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: customer.tagColor),
-                        child: Text(
-                          customer.tagName,
-                          style: const TextStyle(color: Colors.white),
+
+                  Expanded(
+                    flex: 6,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15.0),
+                          child: Text(
+                            '${customer.firstName} $middleInitial$space${customer.lastName}',
+                            style: const TextStyle(
+                                fontSize: 20.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontWeight: FontWeight.w800),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    ],
+  
+                        (customer.celNum != '') ?
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Cellphone No.',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                customer.celNum,
+                                style: const TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    letterSpacing: 2.0,
+                                    height: 1,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ]
+                          ),
+                        ) : const SizedBox(width: 0, height: 0),
+
+                        (customer.telNum != '') ? 
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Telephone No.',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                customer.telNum,
+                                style: const TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    letterSpacing: 2.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ],
+                          ),
+                        ) : const SizedBox(width: 0, height: 0), 
+                            
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Address',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}',
+                                style: const TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    letterSpacing: 2.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Age',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                '${calculateAge(customer.dateBirth).toString()} yrs. old',
+                                style: const TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    letterSpacing: 1.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Birthday",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                convertDateToText(customer.dateBirth),
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Date Added",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                convertDateToText(customer.dateAdded),
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Tag",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 2),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: customer.tagColor),
+                                child: Text(
+                                  customer.tagName,
+                                  style: const TextStyle(
+                                    fontSize: 12.0,
+                                    color: Colors.white
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
                   ),
-                  ProfileWidget(
-                    imagePath: 'assets/images/user.png',
-                    onClicked: () async {},
+
+                  Expanded(
+                    flex: 4,
+                    child: ProfileWidget(
+                      imagePath: 'assets/images/user.png',
+                      onClicked: () async {},
+                    ),
                   ),
+
                 ],
               ),
             ],
@@ -364,7 +413,7 @@ Widget buildNotes(Customer customer) => Card(
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                         height: 35,
                         decoration: BoxDecoration(
                           color: const Color(0xFFF1A22C),
@@ -381,8 +430,11 @@ Widget buildNotes(Customer customer) => Card(
                 Positioned(
                     child: Padding(
                   padding:
-                      const EdgeInsets.only(left: 20.0, right: 20.0, top: 60.0),
-                  child: Text(customer.note),
+                      const EdgeInsets.only(left: 40.0, right: 40.0, top: 60.0),
+                  child: Text(
+                    customer.note,
+                    textAlign: TextAlign.justify,
+                  ),
                 ))
               ]))),
     );
