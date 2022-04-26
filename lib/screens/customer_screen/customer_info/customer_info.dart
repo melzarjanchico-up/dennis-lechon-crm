@@ -29,7 +29,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
           const SizedBox(height: 15), // for Info Space
           buildInfo(widget.customer),
           const SizedBox(height: 15), // for Notes Space
-          Center(child: buildNotes(widget.customer)),
+          Center(child: buildNotes(widget.customer, context)),
           Column(children: const <Widget>[
             SizedBox(height: 10),
           ]),
@@ -100,7 +100,7 @@ Widget buildInfo(Customer customer) {
                                 'Cellphone No.',
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
@@ -108,8 +108,6 @@ Widget buildInfo(Customer customer) {
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.black,
-                                    letterSpacing: 2.0,
-                                    height: 1,
                                     fontWeight: FontWeight.w300),
                               ),
                             ]
@@ -126,7 +124,7 @@ Widget buildInfo(Customer customer) {
                                 'Telephone No.',
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
@@ -134,7 +132,6 @@ Widget buildInfo(Customer customer) {
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.black,
-                                    letterSpacing: 2.0,
                                     fontWeight: FontWeight.w300),
                               ),
                             ],
@@ -150,7 +147,7 @@ Widget buildInfo(Customer customer) {
                                 'Address',
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
@@ -158,7 +155,6 @@ Widget buildInfo(Customer customer) {
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.black,
-                                    letterSpacing: 2.0,
                                     fontWeight: FontWeight.w300),
                               ),
                             ],
@@ -174,7 +170,7 @@ Widget buildInfo(Customer customer) {
                                 'Age',
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
@@ -182,7 +178,6 @@ Widget buildInfo(Customer customer) {
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.black,
-                                    letterSpacing: 1.0,
                                     fontWeight: FontWeight.w300),
                               ),
                             ],
@@ -198,7 +193,7 @@ Widget buildInfo(Customer customer) {
                                 "Birthday",
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
@@ -221,7 +216,7 @@ Widget buildInfo(Customer customer) {
                                 "Date Added",
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
@@ -245,7 +240,7 @@ Widget buildInfo(Customer customer) {
                                 "Tag",
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Container(
@@ -392,7 +387,7 @@ Widget buildEditProfileButton() => ButtonWidget(
       onClicked: () {},
     );
 
-Widget buildNotes(Customer customer) => Card(
+Widget buildNotes(Customer customer, BuildContext context) => Card(
       child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
@@ -400,41 +395,45 @@ Widget buildNotes(Customer customer) => Card(
             debugPrint('Card tapped.');
           },
           child: Container(
-              width: 350,
-              height: 250,
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height * 0.35
+              ),
+              width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
                 color: Colors.white,
               ),
               child: Stack(children: [
-                Positioned(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-                        height: 35,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF1A22C),
-                          borderRadius: BorderRadius.circular(36),
-                        ),
-                        child: const Text('NOTES',
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF1A22C),
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                      child: const Text(
+                        'NOTES',
+                        style: TextStyle(
+                          color: Colors.white,
+                        )
                       ),
                     ),
                   ),
                 ),
-                Positioned(
-                    child: Padding(
+
+                Padding(
                   padding:
-                      const EdgeInsets.only(left: 40.0, right: 40.0, top: 60.0),
+                      const EdgeInsets.fromLTRB(30.0, 60.0, 30.0, 30.0),
                   child: Text(
                     customer.note,
                     textAlign: TextAlign.justify,
                   ),
-                ))
+                )
+
               ]))),
     );
