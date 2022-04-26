@@ -41,8 +41,7 @@ class CustomerScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Somethings wrong here po.
-                  // Another exception was thrown: Incorrect use of ParentDataWidget.
+
                   floatingActionButton:
                       floatingAddCustomerButton(context, _formKey),
                   body: StreamProvider<List<Customer>>.value(
@@ -65,7 +64,14 @@ class CustomerScreen extends StatelessWidget {
             }
           } else {
             return const Center(
-              child: Text("Something went wrong. Please contact admin."),
+              child: Text(
+                "Something went wrong. Please contact admin.",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             );
           }
         });

@@ -14,12 +14,12 @@ class _OrderListWidgetState extends State<OrderListWidget> {
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<Order>>(context);
-
     return ListView(
       padding: const EdgeInsets.all(20),
       children: orders.map((order) {
         String deliveryDate = order.deliveryDate;
-        
+        String orderHash = order.id.substring(0, 5);
+        bool deliveryType = order.deliveryType;
         return GestureDetector(
             onTap: () {
               showDialog(
@@ -28,7 +28,6 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                     return OrderInfo(order: order);
                   });
             },
-
             child: Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.only(bottom: 15),
@@ -56,7 +55,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text('Sample Name',
+                                    Text('Order #$orderHash',
                                         // ignore: prefer_const_constructors
                                         style: TextStyle(
                                             color: Colors.black,
@@ -65,7 +64,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text("Sample Address",
+                                    Text("Sample name",
                                         style:
                                             TextStyle(color: Colors.grey[500])),
                                   ]),
@@ -91,7 +90,9 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                               style: const TextStyle(color: Colors.white),
                             ),
                           ),
-                          const Text('Incoming Order')
+                          deliveryType
+                              ? const Text("\u{26A1} RUSH")
+                              : const Text(""),
                         ])
                   ],
                 ),

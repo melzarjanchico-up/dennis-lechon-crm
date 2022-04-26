@@ -2,7 +2,7 @@ import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:flutter/material.dart';
 
 class OrderInfo extends StatefulWidget {
-  const OrderInfo({ Key? key, required this.order }) : super(key: key);
+  const OrderInfo({Key? key, required this.order}) : super(key: key);
   final Order order;
 
   @override
@@ -12,7 +12,6 @@ class OrderInfo extends StatefulWidget {
 class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
-
     final leftSection = Expanded(
       child: Container(
         padding: const EdgeInsets.only(left: 20.0),
@@ -20,7 +19,7 @@ class _OrderInfoState extends State<OrderInfo> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: const <Widget>[
             Text(
-              "Lechon Spicy",
+              "Whole Lechon",
               style: TextStyle(
                 color: Color.fromARGB(255, 80, 79, 79),
                 fontWeight: FontWeight.w600,
@@ -33,7 +32,7 @@ class _OrderInfoState extends State<OrderInfo> {
             ),
             SizedBox(height: 25),
             Text(
-              "Lechon Orig.",
+              "Whole Lechon.",
               style: TextStyle(
                 color: Color.fromARGB(255, 65, 64, 64),
                 fontWeight: FontWeight.w600,
@@ -41,12 +40,12 @@ class _OrderInfoState extends State<OrderInfo> {
               ),
             ),
             Text(
-              "(Small)",
+              "(Medium)",
               style: TextStyle(color: Colors.grey),
             ),
             SizedBox(height: 25),
             Text(
-              "Lechon Orig.",
+              "Whole Lechon.",
               style: TextStyle(
                 color: Color.fromARGB(255, 71, 71, 71),
                 fontWeight: FontWeight.w600,
@@ -54,7 +53,20 @@ class _OrderInfoState extends State<OrderInfo> {
               ),
             ),
             Text(
-              "(Big)",
+              "(Large)",
+              style: TextStyle(color: Colors.grey),
+            ),
+            SizedBox(height: 25),
+            Text(
+              "Whole Lechon.",
+              style: TextStyle(
+                color: Color.fromARGB(255, 71, 71, 71),
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+              ),
+            ),
+            Text(
+              "(Extra Large)",
               style: TextStyle(color: Colors.grey),
             ),
           ],
@@ -102,7 +114,7 @@ class _OrderInfoState extends State<OrderInfo> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const <Widget>[
             Text(
-              "Php 2,000.00",
+              "{Php 2,000.00}",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
@@ -111,6 +123,14 @@ class _OrderInfoState extends State<OrderInfo> {
             SizedBox(height: 50),
             Text(
               "Php 1,000.00",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 50),
+            Text(
+              "Php 2,000.00",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
@@ -145,8 +165,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   child: Text(
                     "#2891382 ",
                     style: TextStyle(
-                        color:
-                            Color.fromARGB(255, 209, 205, 205),
+                        color: Color.fromARGB(255, 209, 205, 205),
                         letterSpacing: 1.0,
                         fontSize: 13,
                         fontWeight: FontWeight.w900),
@@ -229,8 +248,7 @@ class _OrderInfoState extends State<OrderInfo> {
                     },
                     child: const CircleAvatar(
                       radius: 17,
-                      backgroundColor:
-                          Color.fromARGB(255, 173, 23, 18),
+                      backgroundColor: Color.fromARGB(255, 173, 23, 18),
                       child: Icon(
                         Icons.close,
                         color: Colors.white,
@@ -240,8 +258,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -265,8 +282,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -292,11 +308,9 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       SizedBox(height: 175),
                       Text(
@@ -338,26 +352,22 @@ class _OrderInfoState extends State<OrderInfo> {
                       text: 'Total',
                       style: TextStyle(
                           fontSize: 18.0,
-                          color:
-                              Color.fromARGB(255, 29, 29, 29),
+                          color: Color.fromARGB(255, 29, 29, 29),
                           fontWeight: FontWeight.w900),
                       children: [
                         TextSpan(
                           text: '  (5 items)  ',
                           style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 80, 79, 79),
+                            color: Color.fromARGB(255, 80, 79, 79),
                             letterSpacing: 1.0,
                             fontSize: 13,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
                         TextSpan(
-                          text:
-                              '                        Php 5,000',
+                          text: '                        Php 5,000',
                           style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 80, 79, 79),
+                            color: Color.fromARGB(255, 80, 79, 79),
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
@@ -367,8 +377,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                 ),
                 Card(
-                  color:
-                      const Color.fromARGB(255, 243, 243, 243),
+                  color: const Color.fromARGB(255, 243, 243, 243),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -397,8 +406,7 @@ class _OrderInfoState extends State<OrderInfo> {
                           onPrimary: Colors.white,
                           elevation: 5,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
                           padding: const EdgeInsets.all(15.0),
                           minimumSize: const Size(15, 5),
@@ -421,8 +429,7 @@ class _OrderInfoState extends State<OrderInfo> {
                           padding: const EdgeInsets.all(15.0),
                           minimumSize: const Size(15, 5),
                         ),
-                        child: const Icon(
-                            Icons.delete_forever_rounded),
+                        child: const Icon(Icons.delete_forever_rounded),
                         onPressed: () {
                           Navigator.pop(context);
                         },
