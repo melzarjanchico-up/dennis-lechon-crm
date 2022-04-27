@@ -48,6 +48,7 @@ class OrderListScreen extends StatelessWidget {
                 );
             }
           } else {
+            (snapshot.error);
             return const Center(
               child: Text("Something went wrong. Please contact admin."),
             );

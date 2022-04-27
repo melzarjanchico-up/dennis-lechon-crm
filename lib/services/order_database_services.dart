@@ -7,8 +7,6 @@ class OrderService {
   final Query<Map<String, dynamic>> orderCollection =
       FirebaseFirestore.instance.collectionGroup('orders');
 
-
-
   // Add Order Data
   // Future addOrder(
   //     String deliveryDate,
@@ -40,6 +38,7 @@ class OrderService {
   List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       var preId = doc.id;
+      var customerId = (doc.data() as Map)['customerID'] ?? '';
       var predeliveryDate = (doc.data() as Map)['delivery_date'] ?? '';
       var predeliveryType = (doc.data() as Map)['delivery_type'] ?? '';
       var predeliveryFee = (doc.data() as Map)['delivery_fee'] ?? '';
@@ -55,6 +54,7 @@ class OrderService {
       return Order(
         id: preId,
         deliveryDate: predeliveryDate,
+        customerid: customerId,
         deliveryFee: predeliveryFee,
         deliveryType: predeliveryType,
         ifPaid: preifPaid,

@@ -1,5 +1,6 @@
 class Order {
   final String id;
+  final String customerid;
   final String deliveryDate;
   final double deliveryFee;
   final bool deliveryType;
@@ -13,6 +14,7 @@ class Order {
 
   const Order({
     required this.id,
+    this.customerid = '',
     required this.deliveryDate,
     required this.deliveryFee,
     required this.deliveryType,

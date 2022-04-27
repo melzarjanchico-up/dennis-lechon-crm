@@ -102,6 +102,14 @@ class _OrderInfoState extends State<OrderInfo> {
                 fontSize: 12,
               ),
             ),
+            Text(
+              "x2",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(height: 50),
           ],
         ),
       ),

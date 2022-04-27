@@ -1,7 +1,10 @@
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info.dart';
+import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../models/customer.dart';
+import '../../../widgets/loading.dart';
 
 class OrderListWidget extends StatefulWidget {
   const OrderListWidget({Key? key}) : super(key: key);
@@ -64,9 +67,8 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text("Sample name",
-                                        style:
-                                            TextStyle(color: Colors.grey[500])),
+                                    getCustomerDetails(
+                                        context, order.customerid),
                                   ]),
                             )
                           ]),
@@ -101,4 +103,29 @@ class _OrderListWidgetState extends State<OrderListWidget> {
       }).toList(),
     );
   }
+
+  Widget getCustomerDetails(BuildContext context, String customerID) {
+    return StreamBuilder<List<Customer>>(
+        stream: CustomerService().customers?.asBroadcastStream(
+            onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Loading();
+          } else {
+            var searchResult = snapshot.data!
+                .where((element) => element.id.contains(customerID))
+                .map((e) => e) //to map the Customer object
+                .toList();
+            return Text("$searchResult['firstName']",
+                style: TextStyle(color: Colors.grey[500]));
+          }
+        });
+  }
+  /*
+  Widget getCustomerDetails(String customerId) {
+    final customers = CustomerService().customers
+    var customerDetails =
+        customers.where((element) => element.id.contains(customerId)).toList();
+    return Text("chulaloooo", style: TextStyle(color: Colors.grey[500]));
+  }*/
 }
