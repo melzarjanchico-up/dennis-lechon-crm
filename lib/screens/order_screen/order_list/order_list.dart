@@ -1,10 +1,7 @@
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info.dart';
-import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../models/customer.dart';
-import '../../../widgets/loading.dart';
 
 class OrderListWidget extends StatefulWidget {
   const OrderListWidget({Key? key}) : super(key: key);
@@ -23,6 +20,8 @@ class _OrderListWidgetState extends State<OrderListWidget> {
         String deliveryDate = order.deliveryDate;
         String orderHash = order.id.substring(0, 5);
         bool deliveryType = order.deliveryType;
+        String firstName = order.firstName;
+        String lastName = order.lastName;
         return GestureDetector(
             onTap: () {
               showDialog(
@@ -59,16 +58,16 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Order #$orderHash',
-                                        // ignore: prefer_const_constructors
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
                                             fontWeight: FontWeight.w500)),
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    getCustomerDetails(
-                                        context, order.customerid),
+                                    Text("$firstName $lastName",
+                                        style:
+                                            TextStyle(color: Colors.grey[500])),
                                   ]),
                             )
                           ]),
@@ -103,29 +102,4 @@ class _OrderListWidgetState extends State<OrderListWidget> {
       }).toList(),
     );
   }
-
-  Widget getCustomerDetails(BuildContext context, String customerID) {
-    return StreamBuilder<List<Customer>>(
-        stream: CustomerService().customers?.asBroadcastStream(
-            onCancel: (sub) => sub.cancel()), // to avoid data leakage
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Loading();
-          } else {
-            var searchResult = snapshot.data!
-                .where((element) => element.id.contains(customerID))
-                .map((e) => e) //to map the Customer object
-                .toList();
-            return Text("$searchResult['firstName']",
-                style: TextStyle(color: Colors.grey[500]));
-          }
-        });
-  }
-  /*
-  Widget getCustomerDetails(String customerId) {
-    final customers = CustomerService().customers
-    var customerDetails =
-        customers.where((element) => element.id.contains(customerId)).toList();
-    return Text("chulaloooo", style: TextStyle(color: Colors.grey[500]));
-  }*/
 }

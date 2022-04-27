@@ -39,6 +39,12 @@ class OrderService {
     return snapshot.docs.map((doc) {
       var preId = doc.id;
       var customerId = (doc.data() as Map)['customerID'] ?? '';
+      var preFirstName = (doc.data() as Map)['first_name'] ?? '';
+      var preLastName = (doc.data() as Map)['last_name'] ?? '';
+      var preCelNum = (doc.data() as Map)['cel_no'] ?? '';
+      var preAdrCity = (doc.data() as Map)['address']['city'] ?? '';
+      var preAdrBarangay = (doc.data() as Map)['address']['barangay'] ?? '';
+      var preAdrZipcode = (doc.data() as Map)['address']['zipcode'] ?? '';
       var predeliveryDate = (doc.data() as Map)['delivery_date'] ?? '';
       var predeliveryType = (doc.data() as Map)['delivery_type'] ?? '';
       var predeliveryFee = (doc.data() as Map)['delivery_fee'] ?? '';
@@ -55,6 +61,12 @@ class OrderService {
         id: preId,
         deliveryDate: predeliveryDate,
         customerid: customerId,
+        firstName: preFirstName,
+        lastName: preLastName,
+        celNum: preCelNum,
+        adrCity: preAdrCity,
+        adrBarangay: preAdrBarangay,
+        adrZipcode: preAdrZipcode,
         deliveryFee: predeliveryFee,
         deliveryType: predeliveryType,
         ifPaid: preifPaid,

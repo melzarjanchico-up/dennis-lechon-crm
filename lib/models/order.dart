@@ -1,6 +1,12 @@
 class Order {
   final String id;
   final String customerid;
+  final String firstName;
+  final String lastName;
+  final String celNum;
+  final String adrCity;
+  final String adrBarangay;
+  final String adrZipcode;
   final String deliveryDate;
   final double deliveryFee;
   final bool deliveryType;
@@ -15,6 +21,12 @@ class Order {
   const Order({
     required this.id,
     this.customerid = '',
+    required this.firstName,
+    required this.lastName,
+    required this.celNum,
+    required this.adrCity,
+    required this.adrBarangay,
+    required this.adrZipcode,
     required this.deliveryDate,
     required this.deliveryFee,
     required this.deliveryType,

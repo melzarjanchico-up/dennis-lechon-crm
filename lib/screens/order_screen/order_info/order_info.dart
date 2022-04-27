@@ -32,7 +32,7 @@ class _OrderInfoState extends State<OrderInfo> {
             ),
             SizedBox(height: 25),
             Text(
-              "Whole Lechon.",
+              "Whole Lechon",
               style: TextStyle(
                 color: Color.fromARGB(255, 65, 64, 64),
                 fontWeight: FontWeight.w600,
@@ -45,7 +45,7 @@ class _OrderInfoState extends State<OrderInfo> {
             ),
             SizedBox(height: 25),
             Text(
-              "Whole Lechon.",
+              "Whole Lechon",
               style: TextStyle(
                 color: Color.fromARGB(255, 71, 71, 71),
                 fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class _OrderInfoState extends State<OrderInfo> {
             ),
             SizedBox(height: 25),
             Text(
-              "Whole Lechon.",
+              "Whole Lechon",
               style: TextStyle(
                 color: Color.fromARGB(255, 71, 71, 71),
                 fontWeight: FontWeight.w600,
@@ -102,6 +102,7 @@ class _OrderInfoState extends State<OrderInfo> {
                 fontSize: 12,
               ),
             ),
+            SizedBox(height: 50),
             Text(
               "x2",
               style: TextStyle(
