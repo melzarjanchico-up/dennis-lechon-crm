@@ -12,6 +12,18 @@ class OrderInfo extends StatefulWidget {
 class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
+    final smallLechonPrice = 5000 * widget.order.smallLechon;
+    final mediumLechonPrice = 6000 * widget.order.mediumLechon;
+    final largeLechonPrice = 7000 * widget.order.largeLechon;
+    final extraLargeLechonPrice = 8000 * widget.order.extraLargeLechon;
+    final subPrice = smallLechonPrice +
+        mediumLechonPrice +
+        largeLechonPrice +
+        extraLargeLechonPrice;
+    final totalItem = widget.order.smallLechon +
+        widget.order.mediumLechon +
+        widget.order.largeLechon +
+        widget.order.extraLargeLechon as int;
     final leftSection = Expanded(
       child: Container(
         padding: const EdgeInsets.only(left: 20.0),
@@ -78,39 +90,39 @@ class _OrderInfoState extends State<OrderInfo> {
       child: Container(
         padding: const EdgeInsets.only(right: 5.0),
         child: Column(
-          children: const <Widget>[
+          children: <Widget>[
             Text(
-              "x2",
-              style: TextStyle(
+              widget.order.smallLechon.toString(),
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
-              "x2",
-              style: TextStyle(
+              widget.order.mediumLechon.toString(),
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
-              "x1",
-              style: TextStyle(
+              widget.order.largeLechon.toString(),
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
-              "x2",
-              style: TextStyle(
+              widget.order.extraLargeLechon.toString(),
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
           ],
         ),
       ),
@@ -121,34 +133,34 @@ class _OrderInfoState extends State<OrderInfo> {
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
-              "{Php 2,000.00}",
-              style: TextStyle(
+              "$smallLechonPrice",
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
-              "Php 1,000.00",
-              style: TextStyle(
+              "$mediumLechonPrice",
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
-              "Php 2,000.00",
-              style: TextStyle(
+              "$largeLechonPrice",
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
-              "Php 2,000.00",
-              style: TextStyle(
+              "$extraLargeLechonPrice",
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),
@@ -157,7 +169,6 @@ class _OrderInfoState extends State<OrderInfo> {
         ),
       ),
     );
-
     return AlertDialog(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -195,17 +206,17 @@ class _OrderInfoState extends State<OrderInfo> {
                     children: [
                       const SizedBox(height: 15),
                       RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           text: "Order ",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               letterSpacing: 1.0,
                               fontSize: 20,
                               fontWeight: FontWeight.w900),
                           children: [
                             TextSpan(
-                              text: "#28391829 ",
-                              style: TextStyle(
+                              text: "#${widget.order.id.substring(0, 5)}",
+                              style: const TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.0,
                                 fontSize: 13,
@@ -217,22 +228,23 @@ class _OrderInfoState extends State<OrderInfo> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        'To be delivered on:     \u{1F4D9}   ',
-                        style: TextStyle(
+                      Text(
+                        'To be delivered on:     \u{1F4D9}${widget.order.deliveryDate}   ',
+                        style: const TextStyle(
                             fontSize: 13.0,
                             color: Colors.white,
                             fontWeight: FontWeight.w100),
                       ),
                       const SizedBox(height: 10),
                       RichText(
-                        text: const TextSpan(
-                          text: '\u{26A1} RUSH    ',
-                          style: TextStyle(
+                        text: TextSpan(
+                          text:
+                              widget.order.deliveryType ? "\u{26A1} RUSH" : "",
+                          style: const TextStyle(
                               fontSize: 13.0,
                               color: Colors.white,
                               fontWeight: FontWeight.w900),
-                          children: [
+                          children: const [
                             TextSpan(
                               text: '\u{2705} ACTIVE',
                               style: TextStyle(
@@ -294,20 +306,20 @@ class _OrderInfoState extends State<OrderInfo> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      SizedBox(height: 290),
+                    children: [
+                      const SizedBox(height: 290),
                       Text(
-                        'Emma Axe',
-                        style: TextStyle(
+                        widget.order.firstName,
+                        style: const TextStyle(
                             fontSize: 15.0,
                             color: Colors.black,
                             letterSpacing: 2.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      SizedBox(width: 170, height: 0),
+                      const SizedBox(width: 170, height: 0),
                       Text(
-                        '0923101293',
-                        style: TextStyle(
+                        widget.order.celNum,
+                        style: const TextStyle(
                             fontSize: 15.0,
                             color: Colors.black,
                             letterSpacing: 2.0,
@@ -320,26 +332,26 @@ class _OrderInfoState extends State<OrderInfo> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      SizedBox(height: 175),
-                      Text(
+                    children: [
+                      const SizedBox(height: 175),
+                      const Text(
                         'Address',
                         style: TextStyle(
                             color: Colors.grey,
                             fontSize: 10.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      SizedBox(height: 7),
+                      const SizedBox(height: 7),
                       Text(
-                        'Minglanilla, Cebu',
-                        style: TextStyle(
+                        widget.order.adrBarangay + widget.order.adrCity,
+                        style: const TextStyle(
                             fontSize: 15.0,
                             color: Colors.black,
                             letterSpacing: 2.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      SizedBox(height: 20),
-                      Align(
+                      const SizedBox(height: 20),
+                      const Align(
                         alignment: Alignment.center,
                         child: Text(
                           'Order Details',
@@ -349,7 +361,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                     ],
                   ),
                 ),
@@ -357,16 +369,16 @@ class _OrderInfoState extends State<OrderInfo> {
                   top: 500,
                   left: 35,
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: 'Total',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18.0,
                           color: Color.fromARGB(255, 29, 29, 29),
                           fontWeight: FontWeight.w900),
                       children: [
                         TextSpan(
-                          text: '  (5 items)  ',
-                          style: TextStyle(
+                          text: '  ($totalItem items)  ',
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 80, 79, 79),
                             letterSpacing: 1.0,
                             fontSize: 13,
@@ -374,8 +386,8 @@ class _OrderInfoState extends State<OrderInfo> {
                           ),
                         ),
                         TextSpan(
-                          text: '                        Php 5,000',
-                          style: TextStyle(
+                          text: '                        Php $subPrice',
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 80, 79, 79),
                             fontSize: 18,
                             fontWeight: FontWeight.w800,

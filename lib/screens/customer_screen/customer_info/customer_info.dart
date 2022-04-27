@@ -30,11 +30,14 @@ class _CustomerInfoState extends State<CustomerInfo> {
           Center(child: buildNotes(widget.customer, context)),
           Padding(
             padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              Center(child: buildEditProfileButton()),
-              const SizedBox(height: 25, width: 15), // for Order List Button
-              Center(child: buildOrderListButton()),
-            ]),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(child: buildEditProfileButton()),
+                  const SizedBox(
+                      height: 25, width: 15), // for Order List Button
+                  Center(child: buildOrderListButton()),
+                ]),
           )
         ],
       ),
@@ -43,9 +46,24 @@ class _CustomerInfoState extends State<CustomerInfo> {
 }
 
 String convertAddedDateToText(DateTime givenDate) {
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  String datePart = '${months[(givenDate.month)-1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
-  String timePart = '${givenDate.hour.toString().padLeft(2, '0')}:${givenDate.minute.toString().padLeft(2, '0')}';
+  var months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  String datePart =
+      '${months[(givenDate.month) - 1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+  String timePart =
+      '${givenDate.hour.toString().padLeft(2, '0')}:${givenDate.minute.toString().padLeft(2, '0')}';
   return '$datePart, $timePart';
 }
 
@@ -56,8 +74,8 @@ int calculateAge(DateTime birthDate) {
 }
 
 Widget buildInfo(Customer customer) {
-
-  String middleInitial = (customer.middleName != '') ? '${(customer.middleName[0])}.' : '';
+  String middleInitial =
+      (customer.middleName != '') ? '${(customer.middleName[0])}.' : '';
   String space = (middleInitial == '') ? '' : ' ';
 
   return Column(
@@ -71,13 +89,11 @@ Widget buildInfo(Customer customer) {
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
                   Expanded(
                     flex: 6,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Padding(
                           padding: const EdgeInsets.only(bottom: 15.0),
                           child: Text(
@@ -88,55 +104,54 @@ Widget buildInfo(Customer customer) {
                                 fontWeight: FontWeight.w800),
                           ),
                         ),
-  
-                        (customer.celNum != '') ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Cellphone No.',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                              Text(
-                                customer.celNum,
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                            ]
-                          ),
-                        ) : const SizedBox(width: 0, height: 0),
-
-                        (customer.telNum != '') ? 
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Telephone No.',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                              Text(
-                                customer.telNum,
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                            ],
-                          ),
-                        ) : const SizedBox(width: 0, height: 0), 
-                            
+                        (customer.celNum != '')
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Cellphone No.',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      Text(
+                                        customer.celNum,
+                                        style: const TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ]),
+                              )
+                            : const SizedBox(width: 0, height: 0),
+                        (customer.telNum != '')
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Telephone No.',
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                    Text(
+                                      customer.telNum,
+                                      style: const TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(width: 0, height: 0),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -159,7 +174,6 @@ Widget buildInfo(Customer customer) {
                             ],
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -182,7 +196,6 @@ Widget buildInfo(Customer customer) {
                             ],
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -205,7 +218,6 @@ Widget buildInfo(Customer customer) {
                             ],
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -228,8 +240,6 @@ Widget buildInfo(Customer customer) {
                             ],
                           ),
                         ),
-
-
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -252,19 +262,15 @@ Widget buildInfo(Customer customer) {
                                 child: Text(
                                   customer.tagName,
                                   style: const TextStyle(
-                                    fontSize: 12.0,
-                                    color: Colors.white
-                                  ),
+                                      fontSize: 12.0, color: Colors.white),
                                 ),
                               ),
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
-
                   Expanded(
                     flex: 4,
                     child: ProfileWidget(
@@ -272,7 +278,6 @@ Widget buildInfo(Customer customer) {
                       onClicked: () async {},
                     ),
                   ),
-
                 ],
               ),
             ],
@@ -311,44 +316,38 @@ Widget buildNotes(Customer customer, BuildContext context) => Card(
           },
           child: Container(
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height * 0.35
-              ),
+                  minHeight: MediaQuery.of(context).size.height * 0.35),
               width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
                 color: Colors.white,
               ),
               child: Stack(children: [
-
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Container(
-                      padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                      padding:
+                          const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                       height: 35,
                       decoration: BoxDecoration(
                         color: const Color(0xFFF1A22C),
                         borderRadius: BorderRadius.circular(36),
                       ),
-                      child: const Text(
-                        'NOTES',
-                        style: TextStyle(
-                          color: Colors.white,
-                        )
-                      ),
+                      child: const Text('NOTES',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
                     ),
                   ),
                 ),
-
                 Padding(
-                  padding:
-                      const EdgeInsets.fromLTRB(30.0, 60.0, 30.0, 30.0),
+                  padding: const EdgeInsets.fromLTRB(30.0, 60.0, 30.0, 30.0),
                   child: Text(
                     customer.note,
                     textAlign: TextAlign.justify,
                   ),
                 )
-
               ]))),
     );
