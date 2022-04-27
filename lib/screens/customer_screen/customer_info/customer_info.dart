@@ -23,31 +23,30 @@ class _CustomerInfoState extends State<CustomerInfo> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: 10),
         physics: const BouncingScrollPhysics(),
         children: [
-          const SizedBox(height: 15), // for Info Space
           buildInfo(widget.customer),
-          const SizedBox(height: 15), // for Notes Space
           Center(child: buildNotes(widget.customer, context)),
-          Column(children: const <Widget>[
-            SizedBox(height: 10),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            const SizedBox(height: 25, width: 15), // for Edit Profile Button
-            Center(child: buildEditProfileButton()),
-            const SizedBox(height: 25, width: 15), // for Order List Button
-            Center(child: buildOrderListButton()),
-          ])
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              Center(child: buildEditProfileButton()),
+              const SizedBox(height: 25, width: 15), // for Order List Button
+              Center(child: buildOrderListButton()),
+            ]),
+          )
         ],
       ),
     );
   }
 }
 
-String convertDateToText(DateTime givenDate) {
+String convertAddedDateToText(DateTime givenDate) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  return '${months[(givenDate.month)-1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+  String datePart = '${months[(givenDate.month)-1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+  String timePart = '${givenDate.hour.toString().padLeft(2, '0')}:${givenDate.minute.toString().padLeft(2, '0')}';
+  return '$datePart, $timePart';
 }
 
 int calculateAge(DateTime birthDate) {
@@ -197,7 +196,7 @@ Widget buildInfo(Customer customer) {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
-                                convertDateToText(customer.dateBirth),
+                                convertAddedDateToText(customer.dateBirth),
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16.0,
@@ -220,7 +219,7 @@ Widget buildInfo(Customer customer) {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
-                                convertDateToText(customer.dateAdded),
+                                convertAddedDateToText(customer.dateAdded),
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16.0,
@@ -283,90 +282,6 @@ Widget buildInfo(Customer customer) {
       const SizedBox(
         height: 5,
       ),
-      /*
-      Card(
-        margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: Column(
-                  children: const [
-                    Text(
-                      "Birthday",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      "TEST BIRTHDAY",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: const [
-                    Text(
-                      "Last Ordered",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      "n/a",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    const Text(
-                      "Tag",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      customer.tagName.toUpperCase(),
-                      style: TextStyle(
-                          color: Color(int.parse(
-                              (customer.tagColor).split('(0x')[1].split(')')[0],
-                              radix: 16)),
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    */
     ],
   );
 }

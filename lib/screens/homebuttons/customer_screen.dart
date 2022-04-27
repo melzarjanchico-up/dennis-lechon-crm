@@ -1,3 +1,4 @@
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/addcustomer_popup.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
@@ -5,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
@@ -43,15 +44,28 @@ class CustomerScreen extends StatelessWidget {
                   ),
 
                   floatingActionButton:
-                      floatingAddCustomerButton(context, _formKey),
+                      FloatingActionButton(
+                        onPressed: () async {
+                          showDialog(
+                            context: context, 
+                            builder: (BuildContext context) {
+                              return AddCustomerPopup(formKey: _formKey);
+                            });
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          size: 26.0,
+                        ),
+                        backgroundColor: const Color(0xFFF1A22C),
+                      ),
                   body: StreamProvider<List<Customer>>.value(
-                    value:
-                        CustomerService().customers, // as in wala koy mabuhat
+                    value: CustomerService().customers, // as in wala koy mabuhat
                     initialData: const [],
                     child: Container(
                         margin: const EdgeInsets.only(bottom: 45.0),
                         child: const CustomerListWidget()),
                   ),
+
                   //body: Container(
                   //  value: CustomerService().customers,
                   //  initialData: const [],
@@ -97,11 +111,11 @@ Widget imageProfile() {
   );
 }
 
+/*
 ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
 @override
-Widget floatingAddCustomerButton(
-    BuildContext context, GlobalKey<FormState> _formKey) {
+Widget floatingAddCustomerButton(BuildContext context, GlobalKey<FormState> _formKey) {
   final TextEditingController _firstNameCtr = TextEditingController();
   final TextEditingController _lastNameCtr = TextEditingController();
   final TextEditingController _middleNameCtr = TextEditingController();
@@ -152,7 +166,6 @@ Widget floatingAddCustomerButton(
                           ),
                         ),
 
-                        // ! EMMALYN ACHA UNSAY GAMIT ANI NA CODE WALA NI SYAY OUTPUT
                         Positioned(
                           right: 3.0,
                           top: 5.0,
@@ -176,8 +189,6 @@ Widget floatingAddCustomerButton(
                             ),
                           ),
                         ),
-                        // ! THE QUESTIONED CODE ENDS HERE
-                        // CLOSE NA BUTTON NI SHA MAAM
 
                         Form(
                           key: _formKey,
@@ -380,3 +391,4 @@ Widget floatingAddCustomerButton(
     backgroundColor: const Color(0xFFF1A22C),
   );
 }
+*/
