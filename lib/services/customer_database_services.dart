@@ -28,6 +28,7 @@ class CustomerService {
       'middle_name': middlename,
       'last_name': lastname,
       'address': {'city': city, 'barangay': barangay, 'zipcode': zipcode},
+      'added_date': Timestamp.now(),
       'cel_no': celnum,
       'tel_no': telnum,
       'note': note,
@@ -86,6 +87,7 @@ class CustomerService {
   Stream<List<Customer>> makeStream(List<Customer> list) async* {
     yield list;
   }
+  
   /*
   Future<Customer> customerFromSnapshot(String id) async {
 
