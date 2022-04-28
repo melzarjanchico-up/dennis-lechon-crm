@@ -376,7 +376,7 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "$name",
+                  name,
                   style: const TextStyle(
                     color: Color.fromARGB(255, 71, 71, 71),
                     fontWeight: FontWeight.w600,
@@ -387,7 +387,7 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
                   width: 5,
                 ),
                 Text(
-                  "$size",
+                  size,
                   style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -397,14 +397,14 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
             ),
             const SizedBox(width: 15),
             Text(
-              "$amt",
+              amt,
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
             ),
             const SizedBox(
               width: 25,
             ),
             Text(
-              "$price",
+              price,
               style: const TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
