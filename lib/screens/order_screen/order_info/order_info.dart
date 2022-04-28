@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, unnecessary_string_interpolations
+
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +31,7 @@ class _OrderInfoState extends State<OrderInfo> {
         padding: const EdgeInsets.only(left: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: const <Widget>[
+          children: const [
             Text(
               "Whole Lechon",
               style: TextStyle(
@@ -283,7 +285,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
-                      SizedBox(height: 250),
+                      SizedBox(height: 245),
                       Text(
                         'Name:',
                         style: TextStyle(
@@ -291,7 +293,7 @@ class _OrderInfoState extends State<OrderInfo> {
                             fontSize: 10.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      SizedBox(width: 230, height: 0),
+                      SizedBox(width: 195, height: 0),
                       Text(
                         'Contact Number:',
                         style: TextStyle(
@@ -316,7 +318,7 @@ class _OrderInfoState extends State<OrderInfo> {
                             letterSpacing: 2.0,
                             fontWeight: FontWeight.w300),
                       ),
-                      const SizedBox(width: 170, height: 0),
+                      const SizedBox(width: 130, height: 0),
                       Text(
                         widget.order.celNum,
                         style: const TextStyle(
@@ -365,61 +367,64 @@ class _OrderInfoState extends State<OrderInfo> {
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 500,
-                  left: 35,
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Total',
-                      style: const TextStyle(
-                          fontSize: 18.0,
-                          color: Color.fromARGB(255, 29, 29, 29),
-                          fontWeight: FontWeight.w900),
-                      children: [
-                        TextSpan(
-                          text: '  ($totalItem items)  ',
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 80, 79, 79),
-                            letterSpacing: 1.0,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '                        Php $subPrice',
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 80, 79, 79),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 Card(
                   color: const Color.fromARGB(255, 243, 243, 243),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   elevation: 3,
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 265.0),
+                  margin: const EdgeInsets.fromLTRB(15, 265, 15, 65),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        leftSection,
-                        middleSection,
-                        rightSection,
+                        orderWidget(
+                            "Whole Lechon", "(Small)", "x2", "Php 1000"),
+                        orderWidget(
+                            "Lechon Original", "(Small)", "x2", "Php 1000"),
+                        orderWidget("Whole Lechon", "(Big)", "x1", "Php 2000"),
+                        const SizedBox(height: 8),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Total',
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: Color.fromARGB(255, 29, 29, 29),
+                                fontWeight: FontWeight.w900),
+                            children: [
+                              TextSpan(
+                                text: '  ($totalItem items)  ',
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 80, 79, 79),
+                                  letterSpacing: 1.0,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '                        Php $subPrice',
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 80, 79, 79),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        //middleSection,
+                        //rightSection,
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                  bottom: 2,
-                  right: 50,
+                  bottom: 15,
+                  right: 40,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -440,7 +445,7 @@ class _OrderInfoState extends State<OrderInfo> {
                           Navigator.pop(context);
                         },
                       ),
-                      const SizedBox(width: 75),
+                      const SizedBox(width: 82),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0xFFD3231E),
@@ -458,6 +463,7 @@ class _OrderInfoState extends State<OrderInfo> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 40),
               ],
             ),
           ],
@@ -465,4 +471,58 @@ class _OrderInfoState extends State<OrderInfo> {
       ),
     );
   }
+}
+
+Container orderWidget(String name, String size, String amt, String price) {
+  return Container(
+    height: 60,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "$name",
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 71, 71, 71),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.0,
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "$size",
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(width: 15),
+            Text(
+              "$amt",
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(
+              width: 25,
+            ),
+            Text(
+              "$price",
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        )
+      ],
+    ),
+  );
 }
