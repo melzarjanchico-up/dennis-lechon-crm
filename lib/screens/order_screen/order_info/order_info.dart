@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers, unnecessary_string_interpolations
-
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:flutter/material.dart';
 
@@ -365,8 +363,8 @@ class _OrderInfoState extends State<OrderInfo> {
   }
 }
 
-Container orderWidget(String name, String size, String amt, String price) {
-  return Container(
+SizedBox orderWidget(String name, String size, String amt, String price) {
+  return SizedBox(
     height: 60,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
