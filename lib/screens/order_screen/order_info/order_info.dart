@@ -94,8 +94,9 @@ class _OrderInfoState extends State<OrderInfo> {
                       const SizedBox(height: 10),
                       RichText(
                         text: TextSpan(
-                          text:
-                              widget.order.deliveryType ? "\u{26A1} RUSH" : "",
+                          text: widget.order.deliveryType
+                              ? "\u{26A1} RUSH  "
+                              : "",
                           style: const TextStyle(
                               fontSize: 13.0,
                               color: Colors.white,
@@ -238,55 +239,71 @@ class _OrderInfoState extends State<OrderInfo> {
                                       const EdgeInsets.fromLTRB(15, 15, 15, 15),
                                   child: Padding(
                                     padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        orderWidget("Whole Lechon", "(Small)",
-                                            "x2", "$smallLechonPrice"),
-                                        orderWidget(
-                                            "Lechon Original",
-                                            "(Small)",
-                                            "x2",
-                                            "$smallLechonPrice"),
-                                        orderWidget("Whole Lechon", "(Large)",
-                                            "x1", "$largeLechonPrice"),
-                                        const SizedBox(height: 8),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'Total',
-                                            style: const TextStyle(
-                                                fontSize: 18.0,
-                                                color: Color.fromARGB(
-                                                    255, 29, 29, 29),
-                                                fontWeight: FontWeight.w900),
-                                            children: [
-                                              TextSpan(
-                                                text: '  ($totalItem items)  ',
-                                                style: const TextStyle(
+                                    child: FittedBox(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          orderWidget(
+                                              "Whole Lechon",
+                                              "(Small)",
+                                              "${widget.order.smallLechon}x",
+                                              "$smallLechonPrice"),
+                                          orderWidget(
+                                              "Whole Lechon",
+                                              "(Medium)",
+                                              "${widget.order.mediumLechon}x",
+                                              "$mediumLechonPrice"),
+                                          orderWidget(
+                                              "Whole Lechon",
+                                              "(Large)",
+                                              "${widget.order.largeLechon}x",
+                                              "$largeLechonPrice"),
+                                          orderWidget(
+                                              "Whole Lechon",
+                                              "(Extra Large)",
+                                              "${widget.order.extraLargeLechon}x",
+                                              "$extraLargeLechonPrice"),
+                                          const SizedBox(height: 8),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'Total',
+                                              style: const TextStyle(
+                                                  fontSize: 18.0,
                                                   color: Color.fromARGB(
-                                                      255, 80, 79, 79),
-                                                  letterSpacing: 1.0,
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w900,
+                                                      255, 29, 29, 29),
+                                                  fontWeight: FontWeight.w900),
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '  ($totalItem items)  ',
+                                                  style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 80, 79, 79),
+                                                    letterSpacing: 1.0,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w900,
+                                                  ),
                                                 ),
-                                              ),
-                                              TextSpan(
-                                                text:
-                                                    '                  Php $subPrice',
-                                                style: const TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 80, 79, 79),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w800,
+                                                TextSpan(
+                                                  text:
+                                                      '                  Php $subPrice',
+                                                  style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 80, 79, 79),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        //middleSection,
-                                        //rightSection,
-                                      ],
+                                          //middleSection,
+                                          //rightSection,
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -372,6 +389,9 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(
+              width: 45,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
