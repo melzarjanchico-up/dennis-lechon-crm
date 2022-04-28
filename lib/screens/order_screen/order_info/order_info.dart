@@ -26,151 +26,7 @@ class _OrderInfoState extends State<OrderInfo> {
         widget.order.mediumLechon +
         widget.order.largeLechon +
         widget.order.extraLargeLechon as int;
-    final leftSection = Expanded(
-      child: Container(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: const [
-            Text(
-              "Whole Lechon",
-              style: TextStyle(
-                color: Color.fromARGB(255, 80, 79, 79),
-                fontWeight: FontWeight.w600,
-                fontSize: 16.0,
-              ),
-            ),
-            Text(
-              "(Small)",
-              style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(height: 25),
-            Text(
-              "Whole Lechon",
-              style: TextStyle(
-                color: Color.fromARGB(255, 65, 64, 64),
-                fontWeight: FontWeight.w600,
-                fontSize: 16.0,
-              ),
-            ),
-            Text(
-              "(Medium)",
-              style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(height: 25),
-            Text(
-              "Whole Lechon",
-              style: TextStyle(
-                color: Color.fromARGB(255, 71, 71, 71),
-                fontWeight: FontWeight.w600,
-                fontSize: 16.0,
-              ),
-            ),
-            Text(
-              "(Large)",
-              style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(height: 25),
-            Text(
-              "Whole Lechon",
-              style: TextStyle(
-                color: Color.fromARGB(255, 71, 71, 71),
-                fontWeight: FontWeight.w600,
-                fontSize: 16.0,
-              ),
-            ),
-            Text(
-              "(Extra Large)",
-              style: TextStyle(color: Colors.grey),
-            ),
-          ],
-        ),
-      ),
-    );
 
-    final middleSection = Expanded(
-      child: Container(
-        padding: const EdgeInsets.only(right: 5.0),
-        child: Column(
-          children: <Widget>[
-            Text(
-              widget.order.smallLechon.toString(),
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              widget.order.mediumLechon.toString(),
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              widget.order.largeLechon.toString(),
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              widget.order.extraLargeLechon.toString(),
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-            const SizedBox(height: 50),
-          ],
-        ),
-      ),
-    );
-
-    final rightSection = Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "$smallLechonPrice",
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              "$mediumLechonPrice",
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              "$largeLechonPrice",
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              "$extraLargeLechonPrice",
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
     return AlertDialog(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -373,7 +229,6 @@ class _OrderInfoState extends State<OrderInfo> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                const SizedBox(height: 5.0),
                                 Card(
                                   color:
                                       const Color.fromARGB(255, 243, 243, 243),
@@ -381,52 +236,58 @@ class _OrderInfoState extends State<OrderInfo> {
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
                                   elevation: 3,
+                                  margin:
+                                      const EdgeInsets.fromLTRB(15, 15, 15, 15),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(20.0),
                                     child: Column(
-                                      children: [
-                                        Row(
-                                          children: <Widget>[
-                                            leftSection,
-                                            middleSection,
-                                            rightSection,
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 30.0),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: 'Total',
-                                              style: const TextStyle(
-                                                  fontSize: 18.0,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        orderWidget("Whole Lechon", "(Small)",
+                                            "x2", "$smallLechonPrice"),
+                                        orderWidget(
+                                            "Lechon Original",
+                                            "(Small)",
+                                            "x2",
+                                            "$smallLechonPrice"),
+                                        orderWidget("Whole Lechon", "(Large)",
+                                            "x1", "$largeLechonPrice"),
+                                        const SizedBox(height: 8),
+                                        RichText(
+                                          text: TextSpan(
+                                            text: 'Total',
+                                            style: const TextStyle(
+                                                fontSize: 18.0,
+                                                color: Color.fromARGB(
+                                                    255, 29, 29, 29),
+                                                fontWeight: FontWeight.w900),
+                                            children: [
+                                              TextSpan(
+                                                text: '  ($totalItem items)  ',
+                                                style: const TextStyle(
                                                   color: Color.fromARGB(
-                                                      255, 29, 29, 29),
-                                                  fontWeight: FontWeight.w900),
-                                              children: [
-                                                TextSpan(
-                                                  text: '($totalItem items)',
-                                                  style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 80, 79, 79),
-                                                    letterSpacing: 1.0,
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w900,
-                                                  ),
+                                                      255, 80, 79, 79),
+                                                  letterSpacing: 1.0,
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w900,
                                                 ),
-                                                TextSpan(
-                                                  text: 'Php $subPrice',
-                                                  style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 80, 79, 79),
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w800,
-                                                  ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    '                  Php $subPrice',
+                                                style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 80, 79, 79),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w800,
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        )
+                                        ),
+                                        //middleSection,
+                                        //rightSection,
                                       ],
                                     ),
                                   ),
