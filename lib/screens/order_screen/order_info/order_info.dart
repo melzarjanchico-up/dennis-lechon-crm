@@ -281,189 +281,220 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      SizedBox(height: 245),
-                      Text(
-                        'Name:',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      SizedBox(width: 195, height: 0),
-                      Text(
-                        'Contact Number:',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 290),
-                      Text(
-                        widget.order.firstName,
-                        style: const TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            letterSpacing: 2.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      const SizedBox(width: 130, height: 0),
-                      Text(
-                        widget.order.celNum,
-                        style: const TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            letterSpacing: 2.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 120),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 175),
-                      const Text(
-                        'Address',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w300),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //SizedBox(height: 250),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Name:',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                                Text(
+                                  '${widget.order.firstName} ${widget.order.lastName}',
+                                  style: const TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //SizedBox(width: 230, height: 0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Contact Number:',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                                Text(
+                                  widget.order.celNum,
+                                  style: const TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 7),
-                      Text(
-                        widget.order.adrBarangay + widget.order.adrCity,
-                        style: const TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            letterSpacing: 2.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      const SizedBox(height: 20),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Order Details',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      const SizedBox(height: 50),
-                    ],
-                  ),
-                ),
-                Card(
-                  color: const Color.fromARGB(255, 243, 243, 243),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 3,
-                  margin: const EdgeInsets.fromLTRB(15, 265, 15, 65),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        orderWidget(
-                            "Whole Lechon", "(Small)", "x2", "Php 1000"),
-                        orderWidget(
-                            "Lechon Original", "(Small)", "x2", "Php 1000"),
-                        orderWidget("Whole Lechon", "(Big)", "x1", "Php 2000"),
-                        const SizedBox(height: 8),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Total',
-                            style: const TextStyle(
-                                fontSize: 18.0,
-                                color: Color.fromARGB(255, 29, 29, 29),
-                                fontWeight: FontWeight.w900),
+                      const SizedBox(height: 10.0),
+                      Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TextSpan(
-                                text: '  ($totalItem items)  ',
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 80, 79, 79),
-                                  letterSpacing: 1.0,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w900,
-                                ),
+                              const Text(
+                                'Address',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w300),
                               ),
-                              TextSpan(
-                                text: '                        Php $subPrice',
+                              Text(
+                                '${widget.order.adrBarangay} ${widget.order.adrCity}',
                                 style: const TextStyle(
-                                  color: Color.fromARGB(255, 80, 79, 79),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800,
-                                ),
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w300),
                               ),
                             ],
-                          ),
-                        ),
-                        //middleSection,
-                        //rightSection,
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 15,
-                  right: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFFD3231E),
-                          onPrimary: Colors.white,
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          padding: const EdgeInsets.all(15.0),
-                          minimumSize: const Size(15, 5),
-                        ),
-                        child: const Text('   Edit   ',
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                          )),
+                        ],
                       ),
-                      const SizedBox(width: 82),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFFD3231E),
-                          onPrimary: Colors.white,
-                          elevation: 5,
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(15.0),
-                          minimumSize: const Size(15, 5),
+                      const SizedBox(height: 25.0),
+                      Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Order Details',
+                                  style: TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(height: 5.0),
+                                Card(
+                                  color:
+                                      const Color.fromARGB(255, 243, 243, 243),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: <Widget>[
+                                            leftSection,
+                                            middleSection,
+                                            rightSection,
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 30.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: 'Total',
+                                              style: const TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Color.fromARGB(
+                                                      255, 29, 29, 29),
+                                                  fontWeight: FontWeight.w900),
+                                              children: [
+                                                TextSpan(
+                                                  text: '($totalItem items)',
+                                                  style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 80, 79, 79),
+                                                    letterSpacing: 1.0,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w900,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: 'Php $subPrice',
+                                                  style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 80, 79, 79),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0, bottom: 30.0),
+                        child: Row(
+                          children: [
+                            const Expanded(
+                              child: SizedBox(),
+                            ),
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xFFD3231E),
+                                  onPrimary: Colors.white,
+                                  elevation: 5,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  padding: const EdgeInsets.all(15.0),
+                                  minimumSize: const Size(15, 5),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 2.0),
+                                  child: Text('Edit',
+                                      style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.white,
+                                      )),
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerRight,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xFFD3231E),
+                                    onPrimary: Colors.white,
+                                    elevation: 5,
+                                    shape: const CircleBorder(),
+                                    padding: const EdgeInsets.all(15.0),
+                                    minimumSize: const Size(15, 5),
+                                  ),
+                                  child:
+                                      const Icon(Icons.delete_forever_rounded),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        child: const Icon(Icons.delete_forever_rounded),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 40),
               ],
             ),
           ],
