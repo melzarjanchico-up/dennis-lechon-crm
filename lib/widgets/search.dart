@@ -4,6 +4,7 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:provider/provider.dart';
 import '../screens/customer_screen/customer_list/customer_list.dart';
 import '../services/customer_database_services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SearchCustomer extends SearchDelegate {
   @override
@@ -50,8 +51,10 @@ class SearchCustomer extends SearchDelegate {
                         .toLowerCase()
                         .contains(query.toLowerCase()))
                 .isEmpty) {
-              return const Center(
-                child: Text("I'm sorry. No customer exists."),
+              return Center(
+                child: Text("I'm sorry. No customer exists.",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, color: const Color(0xFF1F2426))),
               );
             } else {
               var searchResult = snapshot.data!
@@ -80,6 +83,11 @@ class SearchCustomer extends SearchDelegate {
   //same ra ni sa babaw, pero sa suggestion ni siya para char
   //maybe naa moy maadd diri po?
   Widget buildSuggestions(BuildContext context) {
-    return const Center(child: Text("Search Customer"));
+    return Center(
+        child: Text("Search Customer",
+            style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF1F2426))));
   }
 }

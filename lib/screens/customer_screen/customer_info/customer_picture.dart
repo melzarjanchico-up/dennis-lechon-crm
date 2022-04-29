@@ -33,14 +33,15 @@ class ProfileWidget extends StatelessWidget {
   Widget buildImage() {
     final image = NetworkImage(imagePath);
 
-    return ClipOval(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(25.0),
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
+          fit: BoxFit.fill,
           image: image,
-          fit: BoxFit.cover,
-          width: 128,
-          height: 128,
+          width: 250,
+          height: 280,
           child: InkWell(onTap: onClicked),
         ),
       ),

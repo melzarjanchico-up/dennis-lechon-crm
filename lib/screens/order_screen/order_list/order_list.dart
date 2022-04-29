@@ -2,6 +2,7 @@ import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OrderListWidget extends StatefulWidget {
   const OrderListWidget({Key? key}) : super(key: key);
@@ -57,17 +58,23 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Order #$orderHash',
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500)),
+                                    Text(
+                                      'Order #$orderHash',
+                                      style: GoogleFonts.mulish(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text("$firstName $lastName",
-                                        style:
-                                            TextStyle(color: Colors.grey[500])),
+                                    Text(
+                                      "$firstName $lastName",
+                                      style: GoogleFonts.mulish(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                   ]),
                             )
                           ]),
@@ -85,14 +92,15 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                 vertical: 4, horizontal: 15),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: Colors.redAccent),
+                                color: const Color(0xFFD3231E)),
                             child: Text(
                               deliveryDate,
-                              style: const TextStyle(color: Colors.white),
+                              style: GoogleFonts.mulish(color: Colors.white),
                             ),
                           ),
                           deliveryType
-                              ? const Text("\u{26A1} RUSH")
+                              ? Text("\u{26A1} RUSH",
+                                  style: GoogleFonts.mulish())
                               : const Text(""),
                         ])
                   ],

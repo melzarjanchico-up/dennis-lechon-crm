@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
+import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/services.dart';
 
 class CustomerScreen extends StatelessWidget {
@@ -28,7 +29,13 @@ class CustomerScreen extends StatelessWidget {
                 return Scaffold(
                   appBar: AppBar(
                     backgroundColor: const Color(0xFFF1A22C),
-                    title: const Text("Customer List"),
+                    title: Text(
+                      "Customer List",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     centerTitle: true,
                     actions: [
                       IconButton(
@@ -43,23 +50,23 @@ class CustomerScreen extends StatelessWidget {
                     ],
                   ),
 
-                  floatingActionButton:
-                      FloatingActionButton(
-                        onPressed: () async {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AddCustomerPopup(formKey: _formKey);
-                            });
-                        },
-                        child: const Icon(
-                          Icons.add,
-                          size: 26.0,
-                        ),
-                        backgroundColor: const Color(0xFFF1A22C),
-                      ),
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () async {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddCustomerPopup(formKey: _formKey);
+                          });
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      size: 26.0,
+                    ),
+                    backgroundColor: const Color(0xFFF1A22C),
+                  ),
                   body: StreamProvider<List<Customer>>.value(
-                    value: CustomerService().customers, // as in wala koy mabuhat
+                    value:
+                        CustomerService().customers, // as in wala koy mabuhat
                     initialData: const [],
                     child: Container(
                         margin: const EdgeInsets.only(bottom: 45.0),

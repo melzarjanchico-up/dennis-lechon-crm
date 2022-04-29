@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/search.dart';
 import '../order_screen/order_list/order_list.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OrderListScreen extends StatelessWidget {
   const OrderListScreen({Key? key}) : super(key: key);
@@ -24,7 +25,13 @@ class OrderListScreen extends StatelessWidget {
                 return Scaffold(
                   appBar: AppBar(
                     backgroundColor: const Color(0xFFD3231E),
-                    title: const Text("Order List"),
+                    title: Text(
+                      "Order List",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     centerTitle: true,
                     actions: [
                       IconButton(

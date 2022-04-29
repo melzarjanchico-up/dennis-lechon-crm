@@ -2,6 +2,7 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomerListWidget extends StatefulWidget {
   const CustomerListWidget({
@@ -23,11 +24,11 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
-        
         String lastName = customer.lastName;
         String firstName = customer.firstName;
         String tagName = customer.tagName;
-        String address = '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
+        String address =
+            '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
         Color tagColor = customer.tagColor;
 
         return GestureDetector(
@@ -64,18 +65,24 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('$firstName $lastName',
-                                        // ignore: prefer_const_constructors
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500)),
+                                    Text(
+                                      '$firstName $lastName',
+                                      // ignore: prefer_const_constructors
+                                      style: GoogleFonts.mulish(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text(address,
-                                        style:
-                                            TextStyle(color: Colors.grey[500])),
+                                    Text(
+                                      address,
+                                      style: GoogleFonts.mulish(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                   ]),
                             )
                           ]),
@@ -96,10 +103,13 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 color: tagColor),
                             child: Text(
                               tagName,
-                              style: const TextStyle(color: Colors.white),
+                              style: GoogleFonts.mulish(color: Colors.white),
                             ),
                           ),
-                          const Text('Incoming Order')
+                          Text(
+                            'Incoming Order',
+                            style: GoogleFonts.mulish(),
+                          )
                         ])
                   ],
                 ),

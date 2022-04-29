@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomerInfo extends StatefulWidget {
   const CustomerInfo({Key? key, required this.customer}) : super(key: key);
@@ -19,7 +20,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: widget.customer.tagColor,
-        title: Text('${widget.customer.firstName}\'s Information'),
+        title: Text('${widget.customer.firstName}\'s Information',
+            style: GoogleFonts.oxygen(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            )),
         centerTitle: true,
       ),
       body: ListView(
@@ -98,10 +103,11 @@ Widget buildInfo(Customer customer) {
                           padding: const EdgeInsets.only(bottom: 15.0),
                           child: Text(
                             '${customer.firstName} $middleInitial$space${customer.lastName}',
-                            style: const TextStyle(
-                                fontSize: 20.0,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontWeight: FontWeight.w800),
+                            style: GoogleFonts.montserrat(
+                              color: const Color(0xFF1F2426),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                         (customer.celNum != '')
@@ -111,147 +117,156 @@ Widget buildInfo(Customer customer) {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                      Text(
                                         'Cellphone No.',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: GoogleFonts.montserrat(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                       Text(
                                         customer.celNum,
-                                        style: const TextStyle(
-                                            fontSize: 15.0,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w300),
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 15,
+                                        ),
                                       ),
                                     ]),
                               )
-                            : const SizedBox(width: 0, height: 0),
+                            : const SizedBox(width: 0, height: 8),
                         (customer.telNum != '')
                             ? Padding(
                                 padding: const EdgeInsets.only(bottom: 5.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Telephone No.',
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w300),
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                     Text(
                                       customer.telNum,
-                                      style: const TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w300),
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xFF1F2426),
+                                      ),
                                     ),
                                   ],
                                 ),
                               )
-                            : const SizedBox(width: 0, height: 0),
+                            : const SizedBox(width: 0, height: 8),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Address',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
                               Text(
                                 '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}',
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xFF1F2426),
+                                ),
                               ),
                             ],
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Age',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
                               Text(
                                 '${calculateAge(customer.dateBirth).toString()} yrs. old',
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xFF1F2426),
+                                ),
                               ),
                             ],
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Birthday",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
                               Text(
                                 convertAddedDateToText(customer.dateBirth),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w400),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xFF1F2426),
+                                ),
                               ),
                             ],
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Date Added",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
                               Text(
                                 convertAddedDateToText(customer.dateAdded),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w400),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xFF1F2426),
+                                ),
                               ),
                             ],
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Tag",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
+                              const SizedBox(height: 6),
                               Container(
                                 margin: const EdgeInsets.only(top: 2),
                                 padding: const EdgeInsets.symmetric(
@@ -261,8 +276,11 @@ Widget buildInfo(Customer customer) {
                                     color: customer.tagColor),
                                 child: Text(
                                   customer.tagName,
-                                  style: const TextStyle(
-                                      fontSize: 12.0, color: Colors.white),
+                                  style: GoogleFonts.mulish(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ],
@@ -274,7 +292,7 @@ Widget buildInfo(Customer customer) {
                   Expanded(
                     flex: 4,
                     child: ProfileWidget(
-                      imagePath: 'assets/images/user.png',
+                      imagePath: 'assets/images/sampleUser.png',
                       onClicked: () async {},
                     ),
                   ),
@@ -292,7 +310,10 @@ Widget buildInfo(Customer customer) {
 }
 
 Widget buildOrderListButton() => ElevatedButton(
-      child: const Text(' ORDER LIST '),
+      child: Text(' Order List ',
+          style: GoogleFonts.montserrat(
+            color: Colors.white,
+          )),
       onPressed: () {},
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
@@ -303,7 +324,7 @@ Widget buildOrderListButton() => ElevatedButton(
     );
 
 Widget buildEditProfileButton() => ButtonWidget(
-      text: 'EDIT PROFILE',
+      text: 'Edit Profile',
       onClicked: () {},
     );
 
@@ -335,8 +356,8 @@ Widget buildNotes(Customer customer, BuildContext context) => Card(
                         color: const Color(0xFFF1A22C),
                         borderRadius: BorderRadius.circular(36),
                       ),
-                      child: const Text('NOTES',
-                          style: TextStyle(
+                      child: Text('NOTES',
+                          style: GoogleFonts.montserrat(
                             color: Colors.white,
                           )),
                     ),
@@ -346,6 +367,10 @@ Widget buildNotes(Customer customer, BuildContext context) => Card(
                   padding: const EdgeInsets.fromLTRB(30.0, 60.0, 30.0, 30.0),
                   child: Text(
                     customer.note,
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFF1F2426),
+                      fontStyle: FontStyle.italic,
+                    ),
                     textAlign: TextAlign.justify,
                   ),
                 )
