@@ -2,9 +2,13 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomerListWidget extends StatefulWidget {
-  const CustomerListWidget({ Key? key/*, required this.snapshotx*/ }) : super(key: key);
+  const CustomerListWidget({
+    Key? key,
+    /*, required this.snapshotx*/
+  }) : super(key: key);
   //final AsyncSnapshot<List<Customer>> snapshotx;
 
   @override
@@ -14,19 +18,18 @@ class CustomerListWidget extends StatefulWidget {
 class _CustomerListWidgetState extends State<CustomerListWidget> {
   @override
   Widget build(BuildContext context) {
-
     final customers = Provider.of<List<Customer>>(context);
     // final customers = widget.snapshotx.data!;
 
-    return (customers == []) ? const Text("Loading") : ListView(
+    return ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
-
         String lastName = customer.lastName;
         String firstName = customer.firstName;
         String tagName = customer.tagName;
-        String address = '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
-        int colorValue = int.parse((customer.tagColor).split('(0x')[1].split(')')[0], radix: 16);
+        String address =
+            '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
+        Color tagColor = customer.tagColor;
 
         return GestureDetector(
             onTap: () {
@@ -60,21 +63,26 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                           child: Row(children: [
                             Flexible(
                               child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('$firstName $lastName',
-                                        // ignore: prefer_const_constructors
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500)),
+                                    Text(
+                                      '$firstName $lastName',
+                                      // ignore: prefer_const_constructors
+                                      style: GoogleFonts.mulish(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text(address,
-                                        style: TextStyle(
-                                            color: Colors.grey[500])),
+                                    Text(
+                                      address,
+                                      style: GoogleFonts.mulish(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                   ]),
                             )
                           ]),
@@ -92,13 +100,16 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 vertical: 4, horizontal: 15),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: Color(colorValue)),
+                                color: tagColor),
                             child: Text(
                               tagName,
-                              style: const TextStyle(color: Colors.white),
+                              style: GoogleFonts.mulish(color: Colors.white),
                             ),
                           ),
-                          const Text('Incoming Order')
+                          Text(
+                            'Incoming Order',
+                            style: GoogleFonts.mulish(),
+                          )
                         ])
                   ],
                 ),

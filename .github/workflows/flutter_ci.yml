@@ -7,7 +7,7 @@ on:
       - sprint-2
       - sprint-4
       - sprint-3
-      - sprint-5
+      - sprint-4
   
 
 jobs:

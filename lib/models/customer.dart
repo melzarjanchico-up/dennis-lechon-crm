@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
 class Customer {
   final String id;
   final String firstName;
   final String middleName;
   final String lastName;
-  //final DateTime birthDate;
-  //final DateTime dateAdded;
+  final DateTime dateBirth;
+  final DateTime dateAdded;
   final String celNum;
   final String telNum;
   final String adrCity;
@@ -13,15 +15,15 @@ class Customer {
   final String note;
   final String tagName;
   final int tagIndex;
-  final String tagColor;
+  final Color tagColor;
 
   const Customer({
     required this.id,
     required this.firstName,
     required this.middleName,
     required this.lastName,
-    //this.birthDate,
-    //this.dateAdded,
+    required this.dateBirth,
+    required this.dateAdded,
     required this.celNum,
     required this.telNum,
     required this.adrCity,

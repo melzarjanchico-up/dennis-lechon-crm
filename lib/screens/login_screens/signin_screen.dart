@@ -123,7 +123,7 @@ class _SignInState extends State<SignIn> {
                               // Ends here
                             });
                           }),
-                          //signUpOption(),
+                          signUpOption(),
                         ])),
                   ))
             ]));

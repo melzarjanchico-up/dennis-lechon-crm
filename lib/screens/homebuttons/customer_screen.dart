@@ -1,12 +1,13 @@
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/addcustomer_popup.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:dennis_lechon_crm/services/firebase_database_services.dart';
+import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
-import 'package:flutter/services.dart';
-import 'package:validators/validators.dart';
+import 'package:google_fonts/google_fonts.dart';
+//import 'package:flutter/services.dart';
 
 class CustomerScreen extends StatelessWidget {
   const CustomerScreen({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-
+    // Stream Builder
     return StreamBuilder<List<Customer>>(
         stream: CustomerService().customers,
         builder: (context, snapshot) {
@@ -28,7 +29,13 @@ class CustomerScreen extends StatelessWidget {
                 return Scaffold(
                   appBar: AppBar(
                     backgroundColor: const Color(0xFFF1A22C),
-                    title: const Text("Customer List"),
+                    title: Text(
+                      "Customer List",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     centerTitle: true,
                     actions: [
                       IconButton(
@@ -42,15 +49,30 @@ class CustomerScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  floatingActionButton:
-                      floatingAddCustomerButton(context, _formKey),
+
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () async {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddCustomerPopup(formKey: _formKey);
+                          });
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      size: 26.0,
+                    ),
+                    backgroundColor: const Color(0xFFF1A22C),
+                  ),
                   body: StreamProvider<List<Customer>>.value(
-                    value: CustomerService().customers,
+                    value:
+                        CustomerService().customers, // as in wala koy mabuhat
                     initialData: const [],
                     child: Container(
                         margin: const EdgeInsets.only(bottom: 45.0),
                         child: const CustomerListWidget()),
                   ),
+
                   //body: Container(
                   //  value: CustomerService().customers,
                   //  initialData: const [],
@@ -63,7 +85,14 @@ class CustomerScreen extends StatelessWidget {
             }
           } else {
             return const Center(
-              child: Text("Something went wrong. Please contact admin."),
+              child: Text(
+                "Something went wrong. Please contact admin.",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             );
           }
         });
@@ -89,11 +118,11 @@ Widget imageProfile() {
   );
 }
 
+/*
 ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
 @override
-Widget floatingAddCustomerButton(
-    BuildContext context, GlobalKey<FormState> _formKey) {
+Widget floatingAddCustomerButton(BuildContext context, GlobalKey<FormState> _formKey) {
   final TextEditingController _firstNameCtr = TextEditingController();
   final TextEditingController _lastNameCtr = TextEditingController();
   final TextEditingController _middleNameCtr = TextEditingController();
@@ -143,12 +172,18 @@ Widget floatingAddCustomerButton(
                             ),
                           ),
                         ),
+
                         Positioned(
                           right: 3.0,
                           top: 5.0,
                           child: InkResponse(
                             onTap: () {
                               Navigator.of(context).pop();
+                              _firstNameCtr.clear();
+                              _lastNameCtr.clear();
+                              _celNumCtr.clear();
+                              _barangayCtr.clear();
+                              _noteCtr.clear();
                             },
                             child: const CircleAvatar(
                               radius: 17,
@@ -161,6 +196,7 @@ Widget floatingAddCustomerButton(
                             ),
                           ),
                         ),
+
                         Form(
                           key: _formKey,
                           child: Column(
@@ -188,27 +224,8 @@ Widget floatingAddCustomerButton(
                               const SizedBox(
                                 width: 20.0,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 6),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.text,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(2),
-                                  ],
-                                  controller: _middleNameCtr,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.all(10),
-                                    labelText: 'Middle Initial',
-                                  ),
-                                  validator: (value) {
-                                    if (!(isUppercase(value![0])) ||
-                                        value[1] != '.') {
-                                      return "Invalid Middle Initial.";
-                                    }
-                                    return null;
-                                  },
-                                ),
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(15, 0, 15, 6),
                               ),
                               const SizedBox(
                                 width: 20.0,
@@ -232,6 +249,9 @@ Widget floatingAddCustomerButton(
                                     return null;
                                   },
                                 ),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
                               ),
                               Padding(
                                 padding:
@@ -285,12 +305,15 @@ Widget floatingAddCustomerButton(
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 6, 15, 6),
                                 child: TextFormField(
-                                  controller: _noteCtr,
+                                  //controller: _noteCtr,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Notes',
+                                    hintText: 'TAG',
                                   ),
                                 ),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
                               ),
                               Padding(
                                 padding:
@@ -345,26 +368,22 @@ Widget floatingAddCustomerButton(
                               const SizedBox(
                                 width: 25,
                               ),
-                              Positioned(
-                                bottom: 50.0,
-                                right: 0.0,
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 20,
-                                  alignment: Alignment.bottomCenter,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFD3231E),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(25),
-                                      bottomRight: Radius.circular(25),
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
                       ],
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 25,
+                      alignment: Alignment.topCenter,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFD3231E),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -379,3 +398,4 @@ Widget floatingAddCustomerButton(
     backgroundColor: const Color(0xFFF1A22C),
   );
 }
+*/
