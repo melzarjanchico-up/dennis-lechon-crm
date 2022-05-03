@@ -1,4 +1,5 @@
 import 'package:dennis_lechon_crm/models/customer.dart';
+//import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
@@ -21,14 +22,23 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
     final customers = Provider.of<List<Customer>>(context);
     // final customers = widget.snapshotx.data!;
 
-    return ListView(
+    return (customers.isEmpty) ? 
+    const Center(
+      child: Text(
+        "Please wait",
+        style: TextStyle(
+          color: Colors.black26,
+          fontSize: 18.0
+        ),
+      ),
+    ) : 
+    ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
         String lastName = customer.lastName;
         String firstName = customer.firstName;
         String tagName = customer.tagName;
-        String address =
-            '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}';
+        String address = '${customer.adrBarangay} ${customer.adrCity} ${customer.adrZipcode} ${customer.adrProvince}';
         Color tagColor = customer.tagColor;
 
         return GestureDetector(
@@ -67,7 +77,6 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                   children: [
                                     Text(
                                       '$firstName $lastName',
-                                      // ignore: prefer_const_constructors
                                       style: GoogleFonts.mulish(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,

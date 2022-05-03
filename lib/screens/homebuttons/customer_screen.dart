@@ -1,4 +1,5 @@
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/addcustomer_popup.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
+//import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/addcustomer_popup.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
@@ -14,7 +15,6 @@ class CustomerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     // Stream Builder
     return StreamBuilder<List<Customer>>(
         stream: CustomerService().customers,
@@ -52,11 +52,17 @@ class CustomerScreen extends StatelessWidget {
 
                   floatingActionButton: FloatingActionButton(
                     onPressed: () async {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddCustomerPopup(formKey: _formKey);
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddCustomer()
+                        )
+                      );
+                      //showDialog(
+                      //    context: context,
+                      //    builder: (BuildContext context) {
+                      //      return AddCustomerPopup(formKey: _formKey);
+                      //    });
                     },
                     child: const Icon(
                       Icons.add,
@@ -84,12 +90,12 @@ class CustomerScreen extends StatelessWidget {
                 );
             }
           } else {
-            return const Center(
+            return Center(
               child: Text(
-                "Something went wrong. Please contact admin.",
-                style: TextStyle(
+                "Something went wrong. Please contact admin. ${snapshot.error}",
+                style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 10,
                   fontWeight: FontWeight.w500,
                 ),
               ),

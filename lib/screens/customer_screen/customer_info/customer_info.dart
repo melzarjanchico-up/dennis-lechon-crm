@@ -5,6 +5,23 @@ import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_w
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+String getDateFromDate(DateTime givenDate) {
+  var months = ['Jan','Feb','Mar','Apr','May','June','Jul','Aug','Sep','Oct','Nov','Dec'];
+  String datePart = '${months[(givenDate.month) - 1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+  return datePart;
+}
+
+String getTimeFromDate(DateTime givenDate) {
+  String timePart = '${givenDate.hour.toString().padLeft(2, '0')}:${givenDate.minute.toString().padLeft(2, '0')}';
+  return timePart;
+}
+
+int calculateAge(DateTime birthDate) {
+  var from = birthDate;
+  var to = DateTime.now();
+  return ((to.difference(from).inHours / 24) / 365).round();
+}
+
 class CustomerInfo extends StatefulWidget {
   const CustomerInfo({Key? key, required this.customer}) : super(key: key);
   final Customer customer;
@@ -50,38 +67,9 @@ class _CustomerInfoState extends State<CustomerInfo> {
   }
 }
 
-String convertAddedDateToText(DateTime givenDate) {
-  var months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
-  String datePart =
-      '${months[(givenDate.month) - 1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
-  String timePart =
-      '${givenDate.hour.toString().padLeft(2, '0')}:${givenDate.minute.toString().padLeft(2, '0')}';
-  return '$datePart, $timePart';
-}
-
-int calculateAge(DateTime birthDate) {
-  var from = birthDate;
-  var to = DateTime.now();
-  return ((to.difference(from).inHours / 24) / 365).round();
-}
-
 Widget buildInfo(Customer customer) {
   String middleInitial =
-      (customer.middleName != '') ? '${(customer.middleName[0])}.' : '';
-  String space = (middleInitial == '') ? '' : ' ';
+      (customer.middleName != '') ? '${(customer.middleName[0])}. ' : '';
 
   return Column(
     children: [
@@ -99,10 +87,11 @@ Widget buildInfo(Customer customer) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
                         Padding(
                           padding: const EdgeInsets.only(bottom: 15.0),
                           child: Text(
-                            '${customer.firstName} $middleInitial$space${customer.lastName}',
+                            '${customer.firstName} $middleInitial${customer.lastName}',
                             style: GoogleFonts.montserrat(
                               color: const Color(0xFF1F2426),
                               fontSize: 20,
@@ -110,6 +99,8 @@ Widget buildInfo(Customer customer) {
                             ),
                           ),
                         ),
+
+                        // cellphone number
                         (customer.celNum != '')
                             ? Padding(
                                 padding: const EdgeInsets.only(bottom: 5.0),
@@ -132,7 +123,9 @@ Widget buildInfo(Customer customer) {
                                       ),
                                     ]),
                               )
-                            : const SizedBox(width: 0, height: 8),
+                            : const SizedBox(),
+
+                        // telephone number
                         (customer.telNum != '')
                             ? Padding(
                                 padding: const EdgeInsets.only(bottom: 5.0),
@@ -157,7 +150,9 @@ Widget buildInfo(Customer customer) {
                                   ],
                                 ),
                               )
-                            : const SizedBox(width: 0, height: 8),
+                            : const SizedBox(),
+  
+                        // address
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -171,7 +166,7 @@ Widget buildInfo(Customer customer) {
                                 ),
                               ),
                               Text(
-                                '${customer.adrBarangay}, ${customer.adrCity} ${customer.adrZipcode}',
+                                '${customer.adrBarangay} ${customer.adrCity} ${customer.adrZipcode}',
                                 style: GoogleFonts.montserrat(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
@@ -181,7 +176,9 @@ Widget buildInfo(Customer customer) {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 8),
+
+                        // age
+                        (customer.dateBirth != null) ?
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -195,7 +192,8 @@ Widget buildInfo(Customer customer) {
                                 ),
                               ),
                               Text(
-                                '${calculateAge(customer.dateBirth).toString()} yrs. old',
+                                (customer.dateBirth != null) ?
+                                  '${calculateAge(customer.dateBirth!)} years old' : "No Age",
                                 style: GoogleFonts.montserrat(
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.w400,
@@ -204,8 +202,10 @@ Widget buildInfo(Customer customer) {
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
+                        ) : const SizedBox(),
+
+                        // birthday
+                        (customer.dateBirth != null) ?
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -219,7 +219,8 @@ Widget buildInfo(Customer customer) {
                                 ),
                               ),
                               Text(
-                                convertAddedDateToText(customer.dateBirth),
+                                (customer.dateBirth != null) ?
+                                  getDateFromDate(customer.dateBirth!) : "No Birth Date",
                                 style: GoogleFonts.montserrat(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
@@ -228,8 +229,10 @@ Widget buildInfo(Customer customer) {
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
+                        ) : const SizedBox(),
+
+                        // date added
+                        (customer.dateAdded != null) ?
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -243,7 +246,8 @@ Widget buildInfo(Customer customer) {
                                 ),
                               ),
                               Text(
-                                convertAddedDateToText(customer.dateAdded),
+                                (customer.dateAdded != null) ? 
+                                  '${getDateFromDate(customer.dateAdded!)}, ${getTimeFromDate(customer.dateAdded!)}' : "No Added Date",
                                 style: GoogleFonts.montserrat(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
@@ -252,8 +256,9 @@ Widget buildInfo(Customer customer) {
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
+                        ) : const SizedBox(),
+
+                        // tag
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Column(
@@ -266,7 +271,6 @@ Widget buildInfo(Customer customer) {
                                   fontSize: 12,
                                 ),
                               ),
-                              const SizedBox(height: 6),
                               Container(
                                 margin: const EdgeInsets.only(top: 2),
                                 padding: const EdgeInsets.symmetric(
@@ -289,6 +293,7 @@ Widget buildInfo(Customer customer) {
                       ],
                     ),
                   ),
+                  
                   Expanded(
                     flex: 4,
                     child: ProfileWidget(
@@ -296,6 +301,7 @@ Widget buildInfo(Customer customer) {
                       onClicked: () async {},
                     ),
                   ),
+                  
                 ],
               ),
             ],

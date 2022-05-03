@@ -1,6 +1,7 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+//import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 //import 'package:dennis_lechon_crm/services/tag_database_services.dart';
 
@@ -298,6 +299,7 @@ class _AddCustomerPopupState extends State<AddCustomerPopup> {
                                         if (widget.formKey.currentState!.validate()) {
                                           //ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data is in processing.')));  
                                           _isLoadingNotifier.value = true;
+                                          /*
                                           await CustomerService()
                                               .addCustomer(
                                                   _firstNameCtr.text,
@@ -311,7 +313,7 @@ class _AddCustomerPopupState extends State<AddCustomerPopup> {
                                                   _noteCtr.text,
                                                   dropdownValue.name,
                                                   dropdownValue.index,
-                                                  dropdownValue.tagColor.toString());
+                                                  dropdownValue.tagColor.toString());*/
                                           _isLoadingNotifier.value = false;
                                           Navigator.of(context, rootNavigator: true).pop();
                                         }
@@ -357,3 +359,4 @@ class _AddCustomerPopupState extends State<AddCustomerPopup> {
     );
   }
 }
+*/
