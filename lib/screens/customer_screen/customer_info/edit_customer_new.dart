@@ -1,5 +1,6 @@
 
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +14,19 @@ int calculateAge(DateTime birthDate) {
   return ((to.difference(from).inHours / 24) / 365).floor();
 }
 
-class AddCustomer extends StatefulWidget {
-  const AddCustomer({ Key? key }) : super(key: key);
+class EditCustomer extends StatefulWidget {
+  final Customer customer;
+
+  const EditCustomer({ 
+    required this.customer,
+    Key? key 
+  }) : super(key: key);
 
   @override
-  State<AddCustomer> createState() => _AddCustomerState();
+  State<EditCustomer> createState() => _EditCustomerState();
 }
 
-class _AddCustomerState extends State<AddCustomer> {
+class _EditCustomerState extends State<EditCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
 
@@ -43,8 +49,25 @@ class _AddCustomerState extends State<AddCustomer> {
   @override
   void initState() {
     super.initState();
-    _tagChoice = TagState.hot;
-    _tagController = const Tag(name: "Hot", tagColor: Color(0xFFD3231E), index: 1);
+    _firstNameController.text = widget.customer.firstName;
+    _middleNameController.text = widget.customer.middleName;
+    _lastNameController.text = widget.customer.lastName;
+    _celNumController.text = widget.customer.celNum;
+    _telNumController.text = widget.customer.telNum;
+    _streetController.text = widget.customer.adrStreet;
+    _barangayController.text = widget.customer.adrBarangay;
+    _cityController.text = widget.customer.adrCity;
+    _provinceController.text = widget.customer.adrProvince;
+    _zipcodeController.text = widget.customer.adrZipcode;
+    _noteController.text = widget.customer.note;
+    _birthdateController = widget.customer.dateBirth;
+    _ageController = widget.customer.dateBirth != null ? calculateAge(widget.customer.dateBirth!) : null;
+    _tagChoice = TagState.values[(widget.customer.tagIndex)-1];
+    _tagController = Tag(
+      name: widget.customer.tagName, 
+      tagColor: widget.customer.tagColor, 
+      index: widget.customer.tagIndex
+    );
   }
 
   @override
@@ -53,7 +76,7 @@ class _AddCustomerState extends State<AddCustomer> {
 
       appBar: AppBar(
         backgroundColor: const Color(0xFFD3231E),
-        title: Text('Add Customer',
+        title: Text('Edit Customer',
             style: GoogleFonts.oxygen(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -156,7 +179,7 @@ class _AddCustomerState extends State<AddCustomer> {
                         onPressed: () async {
                             await showDatePicker(
                               context: context, 
-                              initialDate: DateTime.now(), 
+                              initialDate: _birthdateController ?? DateTime.now(), 
                               firstDate: DateTime(1950), 
                               lastDate: DateTime.now(),
                               initialEntryMode: DatePickerEntryMode.input
@@ -348,7 +371,8 @@ class _AddCustomerState extends State<AddCustomer> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () async {
-                          await CustomerService().addCustomer(
+                          await CustomerService().editCustomer(
+                            widget.customer.id,
                             _firstNameController.text, 
                             _middleNameController.text, 
                             _lastNameController.text, 
@@ -360,20 +384,21 @@ class _AddCustomerState extends State<AddCustomer> {
                             _celNumController.text, 
                             _telNumController.text, 
                             _birthdateController, 
+                            widget.customer.dateAdded ?? DateTime.now(),
                             _noteController.text, 
                             _tagController
                           ).then((value) {
-                            debugPrint("Customer Added successfully!");
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Customer was added successfully!')));
+                            debugPrint("Customer Edited successfully!");
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Customer was changed successfully!')));
                           }).onError((error, stackTrace) {
                             debugPrint("I did something bad... $error");
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Somewthing went wrong. Customer was not added.')));
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Somewthing went wrong. Customer was not changed.')));
                           });
                         }, 
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
-                            "Create Customer",
+                            "Save Customer",
                             style: GoogleFonts.oxygen(),
                           ),
                         ),

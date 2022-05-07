@@ -99,7 +99,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                             ),
                           ),
                           deliveryType
-                              ? Text("\u{26A1} RUSH",
+                              ? Text("RUSH",
                                   style: GoogleFonts.mulish())
                               : const Text(""),
                         ])

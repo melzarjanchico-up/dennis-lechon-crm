@@ -1,15 +1,19 @@
 //import 'dart:io';
 
+import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
   final VoidCallback onClicked;
+  final Customer customer;
 
   const ProfileWidget({
     Key? key,
     required this.imagePath,
     required this.onClicked,
+    required this.customer
   }) : super(key: key);
 
   @override
@@ -23,7 +27,20 @@ class ProfileWidget extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 4,
-            child: buildEditIcon(color),
+            child: GestureDetector(
+              onTap: () async {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: ((context) => EditCustomer(
+                    customer: customer,
+                  )))
+                );
+              },
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: buildEditIcon(color)
+              )
+            ),
           ),
         ],
       ),

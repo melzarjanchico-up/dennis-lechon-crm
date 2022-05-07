@@ -19,7 +19,7 @@ String getTimeFromDate(DateTime givenDate) {
 int calculateAge(DateTime birthDate) {
   var from = birthDate;
   var to = DateTime.now();
-  return ((to.difference(from).inHours / 24) / 365).round();
+  return ((to.difference(from).inHours / 24) / 365).floor();
 }
 
 class CustomerInfo extends StatefulWidget {
@@ -297,6 +297,7 @@ Widget buildInfo(Customer customer) {
                   Expanded(
                     flex: 4,
                     child: ProfileWidget(
+                      customer: customer,
                       imagePath: 'assets/images/sampleUser.png',
                       onClicked: () async {},
                     ),

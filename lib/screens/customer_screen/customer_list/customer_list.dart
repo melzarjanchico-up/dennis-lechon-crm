@@ -1,6 +1,7 @@
 import 'package:dennis_lechon_crm/models/customer.dart';
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,13 +25,10 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
 
     return (customers.isEmpty) ? 
     const Center(
-      child: Text(
-        "Please wait",
-        style: TextStyle(
-          color: Colors.black26,
-          fontSize: 18.0
+      child: SpinKitFadingCircle(
+          color: Colors.black45,
+          size: 50.0,
         ),
-      ),
     ) : 
     ListView(
       padding: const EdgeInsets.all(20),

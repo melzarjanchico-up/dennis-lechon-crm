@@ -38,6 +38,32 @@ class CustomerService {
     );
   }
 
+  Future editCustomer(
+      String docId, String firstname, String middlename, String lastname,
+      String street, String barangay, 
+      String city, String zipcode, String province,
+      String celnum, String telnum,
+      DateTime? birthdate, DateTime addeddate, String? note, Tag? tag
+    ) async {
+      return await customerCollection.doc(docId).set({
+        'first_name': firstname,
+        'middle_name': middlename,
+        'last_name': lastname,
+        'cel_no': celnum,
+        'tel_no': telnum,
+        'address': {'street': street, 
+                    'barangay': barangay, 
+                    'city': city, 
+                    'zipcode': zipcode, 
+                    'province': province
+                    },
+        'birth_date': birthdate.toString(),
+        'added_date': Timestamp.fromDate(addeddate),
+        'note': note,
+        'tag': {'tagname': tag!.name, 'index': tag.index.toInt(), 'color': tag.tagColor.toString()},
+      });
+  }
+
   List<Customer> _customerListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       String preId = doc.id;
@@ -63,7 +89,7 @@ class CustomerService {
         firstName: preFirstName ?? '',
         middleName: preMiddleName ?? '',
         lastName: preLastName ?? '',
-        dateBirth: (preDateBirth != null) ? DateTime.parse(preDateBirth) : null,
+        dateBirth: (preDateBirth != null) ? DateTime.tryParse(preDateBirth) : null,
         dateAdded: (preDateAdded != null) ? preDateAdded.toDate() : null,
         celNum: preCelNum ?? '',
         telNum: preTelNum ?? '',
