@@ -33,6 +33,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
     ListView(
       padding: const EdgeInsets.all(20),
       children: customers.map((customer) {
+        
         String lastName = customer.lastName;
         String firstName = customer.firstName;
         String tagName = customer.tagName;

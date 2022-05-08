@@ -75,7 +75,7 @@ class _EditCustomerState extends State<EditCustomer> {
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: const Color(0xFFD3231E),
+        backgroundColor: widget.customer.tagColor,
         title: Text('Edit Customer',
             style: GoogleFonts.oxygen(
               fontSize: 18,
@@ -403,7 +403,7 @@ class _EditCustomerState extends State<EditCustomer> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFFD3231E),
+                          primary: widget.customer.tagColor,
                           onPrimary: Colors.white,
                           elevation: 5,
                           shape: RoundedRectangleBorder(
