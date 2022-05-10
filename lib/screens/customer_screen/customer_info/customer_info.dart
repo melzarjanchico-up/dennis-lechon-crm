@@ -69,8 +69,12 @@ class _CustomerInfoState extends State<CustomerInfo> {
 }
 
 Widget buildInfo(Customer customer) {
-  String middleInitial =
-      (customer.middleName != '') ? '${(customer.middleName[0])}. ' : '';
+  String middleInitial = (customer.middleName != '') ? '${(customer.middleName[0])}. ' : '';
+  String address =  (customer.adrStreet.isNotEmpty ? '${customer.adrStreet} ' : '') + 
+                    (customer.adrBarangay.isNotEmpty ? '${customer.adrBarangay} ' : '') + 
+                    (customer.adrCity.isNotEmpty ? '${customer.adrCity} ' : '') + 
+                    (customer.adrProvince.isNotEmpty ? '${customer.adrProvince} ' : '') + 
+                    (customer.adrZipcode.isNotEmpty ? '${customer.adrZipcode} ' : '');
 
   return Column(
     children: [
@@ -85,213 +89,221 @@ Widget buildInfo(Customer customer) {
                 children: [
                   Expanded(
                     flex: 6,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
 
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 15.0),
-                          child: Text(
-                            '${customer.firstName} $middleInitial${customer.lastName}',
-                            style: GoogleFonts.montserrat(
-                              color: const Color(0xFF1F2426),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 15.0),
+                            child: Text(
+                              '${customer.firstName} $middleInitial${customer.lastName}',
+                              style: GoogleFonts.montserrat(
+                                color: const Color(0xFF1F2426),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
-                        ),
 
-                        // cellphone number
-                        (customer.celNum != '')
-                            ? Padding(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Cellphone No.',
-                                        style: GoogleFonts.montserrat(
-                                          color: Colors.grey,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                      Text(
-                                        customer.celNum,
-                                        style: GoogleFonts.montserrat(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ]),
-                              )
-                            : const SizedBox(),
-
-                        // telephone number
-                        (customer.telNum != '')
-                            ? Padding(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Telephone No.',
-                                      style: GoogleFonts.montserrat(
-                                        color: Colors.grey,
-                                        fontSize: 12,
-                                      ),
+                          // cellphone number
+                          (customer.celNum != '') ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Cellphone No.',
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.grey,
+                                      fontSize: 12,
                                     ),
-                                    Text(
-                                      customer.telNum,
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xFF1F2426),
-                                      ),
+                                  ),
+                                  Text(
+                                    customer.celNum,
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 15,
                                     ),
-                                  ],
-                                ),
-                              )
-                            : const SizedBox(),
-  
-                        // address
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Address',
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                '${customer.adrBarangay} ${customer.adrCity} ${customer.adrZipcode}',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF1F2426),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                                  ),
+                                ]),
+                          )
+                          : const SizedBox(),
 
-                        // age
-                        (customer.dateBirth != null) ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Age',
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                (customer.dateBirth != null) ?
-                                  '${calculateAge(customer.dateBirth!)} years old' : "No Age",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF1F2426),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ) : const SizedBox(),
-
-                        // birthday
-                        (customer.dateBirth != null) ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Birthday",
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                (customer.dateBirth != null) ?
-                                  getDateFromDate(customer.dateBirth!) : "No Birth Date",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF1F2426),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ) : const SizedBox(),
-
-                        // date added
-                        (customer.dateAdded != null) ?
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Date Added",
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                (customer.dateAdded != null) ? 
-                                  '${getDateFromDate(customer.dateAdded!)}, ${getTimeFromDate(customer.dateAdded!)}' : "No Added Date",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF1F2426),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ) : const SizedBox(),
-
-                        // tag
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Tag",
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 2),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 2, horizontal: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: customer.tagColor),
-                                child: Text(
-                                  customer.tagName,
-                                  style: GoogleFonts.mulish(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
+                          // telephone number
+                          (customer.telNum != '') ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Telephone No.',
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.grey,
+                                    fontSize: 12,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  customer.telNum,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF1F2426),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          : const SizedBox(),
+  
+                          // address
+                          (address != '') ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Address',
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  address,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF1F2426),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ) 
+                          : const SizedBox(),
+
+                          // age
+                          (customer.dateBirth != null) ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Age',
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  (customer.dateBirth != null) ?
+                                    '${calculateAge(customer.dateBirth!)} years old' : "No Age",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF1F2426),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ) 
+                          : const SizedBox(),
+
+                          // birthday
+                          (customer.dateBirth != null) ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Birthday",
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  (customer.dateBirth != null) ?
+                                    getDateFromDate(customer.dateBirth!) : "No Birth Date",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF1F2426),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ) 
+                          : const SizedBox(),
+
+                          // date added
+                          (customer.dateAdded != null) ?
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Date Added",
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  (customer.dateAdded != null) ? 
+                                    '${getDateFromDate(customer.dateAdded!)}, ${getTimeFromDate(customer.dateAdded!)}' : "No Added Date",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF1F2426),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ) 
+                          : const SizedBox(),
+
+                          // tag
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Tag",
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 2, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: customer.tagColor),
+                                  child: Text(
+                                    customer.tagName,
+                                    style: GoogleFonts.mulish(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   

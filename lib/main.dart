@@ -1,6 +1,11 @@
 //import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
+<<<<<<< HEAD
 //import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
+=======
+import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
+//import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
+>>>>>>> ecac0cf17bc94e3165af9b465eb54872d98b7107
 //import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
 //import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart'; // temporary for testing
 import 'package:firebase_core/firebase_core.dart';
@@ -34,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Project LechGo',
       debugShowCheckedModeBanner: false,
       //home: SignIn(),
-      home: AddOrder(),
+      home: HomeScreen(),
     );
   }
 }
