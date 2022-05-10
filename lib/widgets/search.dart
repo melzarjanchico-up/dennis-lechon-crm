@@ -44,12 +44,16 @@ class SearchCustomer extends SearchDelegate {
           } else {
             if (snapshot.data!
                 .where((element) =>
-                    element.firstName
-                        .toLowerCase()
-                        .contains(query.toLowerCase()) ||
-                    element.lastName
-                        .toLowerCase()
-                        .contains(query.toLowerCase()))
+                    '${element.firstName} ${element.lastName}'
+                      .toLowerCase()
+                      .contains(query.toLowerCase())
+                    //element.firstName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase()) ||
+                    //element.lastName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase())
+                    ) 
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -59,12 +63,16 @@ class SearchCustomer extends SearchDelegate {
             } else {
               var searchResult = snapshot.data!
                   .where((element) =>
-                      element.firstName
-                          .toLowerCase()
-                          .contains(query.toLowerCase()) ||
-                      element.lastName
-                          .toLowerCase()
-                          .contains(query.toLowerCase()))
+                    '${element.firstName} ${element.lastName}'
+                      .toLowerCase()
+                      .contains(query.toLowerCase())
+                    //element.firstName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase()) ||
+                    //element.lastName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase())
+                    )
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
@@ -92,12 +100,16 @@ class SearchCustomer extends SearchDelegate {
           } else {
             if (snapshot.data!
                 .where((element) =>
-                    element.firstName
-                        .toLowerCase()
-                        .contains(query.toLowerCase()) ||
-                    element.lastName
-                        .toLowerCase()
-                        .contains(query.toLowerCase()))
+                    '${element.firstName} ${element.lastName}'
+                      .toLowerCase()
+                      .contains(query.toLowerCase())
+                    //element.firstName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase()) ||
+                    //element.lastName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase())
+                    ) 
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -107,12 +119,16 @@ class SearchCustomer extends SearchDelegate {
             } else {
               var searchResult = snapshot.data!
                   .where((element) =>
-                      element.firstName
-                          .toLowerCase()
-                          .contains(query.toLowerCase()) ||
-                      element.lastName
-                          .toLowerCase()
-                          .contains(query.toLowerCase()))
+                      '${element.firstName} ${element.lastName}'
+                        .toLowerCase()
+                        .contains(query.toLowerCase())
+                      //element.firstName
+                      //    .toLowerCase()
+                      //    .contains(query.toLowerCase()) ||
+                      //element.lastName
+                      //    .toLowerCase()
+                      //    .contains(query.toLowerCase())
+                    ) 
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
