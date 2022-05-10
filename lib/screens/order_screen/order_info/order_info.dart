@@ -1,4 +1,5 @@
 import 'package:dennis_lechon_crm/models/order.dart';
+import 'package:dennis_lechon_crm/services/order_database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -368,7 +369,49 @@ class _OrderInfoState extends State<OrderInfo> {
                                   child:
                                       const Icon(Icons.delete_forever_rounded),
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Delete Order#${widget.order.id.substring(0,5)}?"),
+                                          content: const Text("Are you sure you want to delete this order? You cannot undo this action."),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                await OrderService().deleteOrder(
+                                                  widget.order.customerid, 
+                                                  widget.order.id
+                                                ).then((value) {
+                                                  debugPrint("Order delete successful!");
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context).pop();
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text('Order was deleted successfully!')
+                                                    )
+                                                  );
+                                                }).onError((error, stackTrace) {
+                                                  debugPrint("Order delete failed");
+                                                  Navigator.of(context).pop();
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text('Order deletion failed.')
+                                                    )
+                                                  );
+                                                });
+                                              },
+                                              child: const Text("Confirm")
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("Cancel")
+                                            )
+                                          ],
+                                        );
+                                      }
+                                    );
                                   },
                                 ),
                               ),
