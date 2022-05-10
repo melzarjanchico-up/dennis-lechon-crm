@@ -36,8 +36,11 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
               String lastName = customer.lastName;
               String firstName = customer.firstName;
               String tagName = customer.tagName;
-              String address =
-                  '${customer.adrBarangay} ${customer.adrCity} ${customer.adrZipcode} ${customer.adrProvince}';
+              String address =  (customer.adrStreet.isNotEmpty ? '${customer.adrStreet} ' : '') + 
+                                (customer.adrBarangay.isNotEmpty ? '${customer.adrBarangay} ' : '') + 
+                                (customer.adrCity.isNotEmpty ? '${customer.adrCity} ' : '') + 
+                                (customer.adrProvince.isNotEmpty ? '${customer.adrProvince} ' : '') + 
+                                (customer.adrZipcode.isNotEmpty ? '${customer.adrZipcode} ' : '');
               Color tagColor = customer.tagColor;
 
               return GestureDetector(
@@ -78,6 +81,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                         children: [
                                           Text(
                                             '$firstName $lastName',
+                                            overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.mulish(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
@@ -88,6 +92,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                           ),
                                           Text(
                                             address,
+                                            overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.mulish(
                                               fontSize: 15,
                                               color: Colors.grey,
