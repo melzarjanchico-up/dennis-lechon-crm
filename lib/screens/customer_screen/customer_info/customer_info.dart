@@ -1,4 +1,5 @@
 //import 'package:flutter/foundation.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
@@ -55,7 +56,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Center(child: buildEditProfileButton()),
+                  Center(child: buildEditProfileButton(context, widget.customer)),
                   const SizedBox(
                       height: 25, width: 15), // for Order List Button
                   Center(child: buildOrderListButton()),
@@ -330,9 +331,16 @@ Widget buildOrderListButton() => ElevatedButton(
       ),
     );
 
-Widget buildEditProfileButton() => ButtonWidget(
+Widget buildEditProfileButton(BuildContext context, Customer customer) => ButtonWidget(
       text: 'Edit Profile',
-      onClicked: () {},
+      onClicked: () async {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: ((context) => EditCustomer(
+            customer: customer,
+          )))
+        );
+      },
     );
 
 Widget buildNotes(Customer customer, BuildContext context) => Card(

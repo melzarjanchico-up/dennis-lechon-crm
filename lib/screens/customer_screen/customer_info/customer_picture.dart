@@ -1,7 +1,6 @@
 //import 'dart:io';
 
 import 'package:dennis_lechon_crm/models/customer.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -28,14 +27,7 @@ class ProfileWidget extends StatelessWidget {
             bottom: 0,
             right: 4,
             child: GestureDetector(
-              onTap: () async {
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute(builder: ((context) => EditCustomer(
-                    customer: customer,
-                  )))
-                );
-              },
+              onTap: () async {},
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: buildEditIcon(color)
