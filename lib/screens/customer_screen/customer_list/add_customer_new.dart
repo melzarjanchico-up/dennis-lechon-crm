@@ -64,73 +64,101 @@ class _AddCustomerState extends State<AddCustomer> {
           key: _formKey,
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30.0),
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               // ----------------------------------------------- //
               // CUSTOMER DETAILS BELOW E.G NAME, CONTACT, B-DAY //
               // ----------------------------------------------- //
-              const Icon(
-                Icons.person,
-                color: Colors.black54,
-                size: 50.0,
+              //const Icon(
+              //  Icons.person,
+              // color: Colors.black54,
+              // size: 50.0,
+              //),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.person,
+                      color: Colors.black54,
+                      size: 25.0,
+                    ),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _firstNameController,
+                        decoration: const InputDecoration(
+                            labelText: 'First Name',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
+                    ),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _middleNameController,
+                        decoration: const InputDecoration(
+                            labelText: 'Middle Name',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
+                    ),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _lastNameController,
+                        decoration: const InputDecoration(
+                            labelText: 'Last Name',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _firstNameController,
-                      decoration: const InputDecoration(
-                          labelText: 'First Name',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.add_ic_call_rounded,
+                      color: Colors.black54,
+                      size: 25.0,
                     ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _middleNameController,
-                      decoration: const InputDecoration(
-                          labelText: 'Middle Name',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      flex: 6,
+                      child: TextFormField(
+                        controller: _celNumController,
+                        decoration: const InputDecoration(
+                            labelText: 'Cellphone Number',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _lastNameController,
-                      decoration: const InputDecoration(
-                          labelText: 'Last Name',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: TextFormField(
-                      controller: _celNumController,
-                      decoration: const InputDecoration(
-                          labelText: 'Cellphone Number',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
-                    ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Expanded(
-                    flex: 4,
-                    child: TextFormField(
-                      controller: _telNumController,
-                      decoration: const InputDecoration(
-                          labelText: 'Telephone Number',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
-                    ),
-                  )
-                ],
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      flex: 4,
+                      child: TextFormField(
+                        controller: _telNumController,
+                        decoration: const InputDecoration(
+                            labelText: 'Telephone Number',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
+                    )
+                  ],
+                ),
               ),
 
               Padding(
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 10.0, left: 30),
                 child: Row(
                   children: [
                     Container(
@@ -204,97 +232,136 @@ class _AddCustomerState extends State<AddCustomer> {
               ),
 
               const SizedBox(
-                height: 25.0,
+                height: 35.0,
               ),
 
               // ---------------------- //
               // CUSTOMER ADDRESS BELOW //
               // ---------------------- //
-              const Icon(
-                Icons.public,
-                color: Colors.black54,
-                size: 50.0,
+              //const Icon(
+              //  Icons.public,
+              //  color: Colors.black54,
+              //  size: 50.0,
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.apartment_rounded,
+                      color: Colors.black54,
+                      size: 25.0,
+                    ),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _streetController,
+                        decoration: const InputDecoration(
+                            labelText: 'Building/Street/Block No.',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
+                    ),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _barangayController,
+                        decoration: const InputDecoration(
+                            labelText: 'District/Barangay',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _streetController,
-                      decoration: const InputDecoration(
-                          labelText: 'Building/Street/Block No.',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.add_location_alt_rounded,
+                      color: Colors.black54,
+                      size: 25.0,
                     ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _barangayController,
-                      decoration: const InputDecoration(
-                          labelText: 'District/Barangay',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _cityController,
+                        decoration: const InputDecoration(
+                            labelText: 'Municipality/City',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _cityController,
-                      decoration: const InputDecoration(
-                          labelText: 'Municipality/City',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _provinceController,
+                        decoration: const InputDecoration(
+                            labelText: 'Province',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _provinceController,
-                      decoration: const InputDecoration(
-                          labelText: 'Province',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _zipcodeController,
+                        decoration: const InputDecoration(
+                            labelText: 'Zipcode',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _zipcodeController,
-                      decoration: const InputDecoration(
-                          labelText: 'Zipcode',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
 
               const SizedBox(
-                height: 25.0,
+                height: 35.0,
               ),
 
               // ----------------------- //
               // CUSTOMER APP INFO BELOW //
               // ----------------------- //
-              const Icon(
-                Icons.notes,
-                color: Colors.black54,
-                size: 50.0,
-              ),
-              Flex(
-                direction: Axis.horizontal,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _noteController,
-                      decoration: const InputDecoration(
-                          labelText: 'Notes',
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0)),
-                      maxLines: null,
+              //const Icon(
+              // Icons.notes,
+              //// color: Colors.black54,
+              // size: 50.0,
+              //),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    const Icon(
+                      Icons.notes,
+                      color: Colors.black54,
+                      size: 25.0,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _noteController,
+                        decoration: const InputDecoration(
+                            labelText: 'Notes',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10)),
+                        maxLines: null,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: Row(
                   children: [
                     Container(
