@@ -1,3 +1,4 @@
+import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
@@ -44,6 +45,19 @@ class OrderListScreen extends StatelessWidget {
                         icon: const Icon(Icons.search),
                       ),
                     ],
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddOrder()));
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      size: 26.0,
+                    ),
+                    backgroundColor: const Color(0xFFF1A22C),
                   ),
                   body: StreamProvider<List<Order>>.value(
                     value: OrderService().orders, // as in wala koy mabuhat

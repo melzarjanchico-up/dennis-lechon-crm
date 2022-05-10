@@ -23,106 +23,110 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
     final customers = Provider.of<List<Customer>>(context);
     // final customers = widget.snapshotx.data!;
 
-    return (customers.isEmpty) ? 
-    const Center(
-      child: SpinKitFadingCircle(
-          color: Colors.black45,
-          size: 50.0,
-        ),
-    ) : 
-    ListView(
-      padding: const EdgeInsets.all(20),
-      children: customers.map((customer) {
-        String lastName = customer.lastName;
-        String firstName = customer.firstName;
-        String tagName = customer.tagName;
-        String address = '${customer.adrBarangay} ${customer.adrCity} ${customer.adrZipcode} ${customer.adrProvince}';
-        Color tagColor = customer.tagColor;
+    return (customers.isEmpty)
+        ? const Center(
+            child: SpinKitFadingCircle(
+              color: Colors.black45,
+              size: 50.0,
+            ),
+          )
+        : ListView(
+            padding: const EdgeInsets.all(20),
+            children: customers.map((customer) {
+              String lastName = customer.lastName;
+              String firstName = customer.firstName;
+              String tagName = customer.tagName;
+              String address =
+                  '${customer.adrBarangay} ${customer.adrCity} ${customer.adrZipcode} ${customer.adrProvince}';
+              Color tagColor = customer.tagColor;
 
-        return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CustomerInfo(customer: customer)));
-            },
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.only(bottom: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 0,
-                      blurRadius: 2,
-                      offset: const Offset(0, 1),
-                    ),
-                  ]),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Row(children: [
-                            Flexible(
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '$firstName $lastName',
-                                      style: GoogleFonts.mulish(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      address,
-                                      style: GoogleFonts.mulish(
-                                        fontSize: 15,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ]),
-                            )
-                          ]),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: tagColor),
-                            child: Text(
-                              tagName,
-                              style: GoogleFonts.mulish(color: Colors.white),
-                            ),
+              return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CustomerInfo(customer: customer)));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 0,
+                            blurRadius: 2,
+                            offset: const Offset(0, 1),
                           ),
-                          Text(
-                            'Incoming Order',
-                            style: GoogleFonts.mulish(),
-                          )
-                        ])
-                  ],
-                ),
-              ),
-            ));
-      }).toList(),
-    );
+                        ]),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Row(children: [
+                                  Flexible(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '$firstName $lastName',
+                                            style: GoogleFonts.mulish(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            address,
+                                            style: GoogleFonts.mulish(
+                                              fontSize: 15,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ]),
+                                  )
+                                ]),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 4, horizontal: 15),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: tagColor),
+                                  child: Text(
+                                    tagName,
+                                    style:
+                                        GoogleFonts.mulish(color: Colors.white),
+                                  ),
+                                ),
+                                Text(
+                                  'Incoming Order',
+                                  style: GoogleFonts.mulish(),
+                                )
+                              ])
+                        ],
+                      ),
+                    ),
+                  ));
+            }).toList(),
+          );
   }
 }
