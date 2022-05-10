@@ -145,7 +145,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 25, top: 120),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 130),
                   child: Column(
                     children: [
                       Row(
@@ -282,49 +282,78 @@ class _OrderInfoState extends State<OrderInfo> {
                                               "(Extra Large)",
                                               "${widget.order.extraLargeLechon}x",
                                               "$extraLargeLechonPrice"),
-                                          const SizedBox(height: 4),
-                                          const Divider(
-                                            color: Colors.grey,
-                                            thickness: 5,
-                                            indent: 14,
-                                            endIndent: 14,
+                                          const SizedBox(height: 3),
+                                          Row(
+                                            children: [
+                                              const SizedBox(width: 27),
+                                              Container(
+                                                width: 250,
+                                                height: 2,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 221, 220, 220),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      color: Color.fromARGB(
+                                                          255, 207, 206, 206),
+                                                      offset: Offset(0.0, 2.0),
+                                                      blurRadius: 2,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(width: 5),
+                                            ],
                                           ),
-                                          const SizedBox(height: 4),
-                                          RichText(
-                                            text: TextSpan(
-                                              text: 'Total',
-                                              style: const TextStyle(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 18.0,
-                                                  color: Color.fromARGB(
-                                                      255, 29, 29, 29),
-                                                  fontWeight: FontWeight.w700),
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      '  ($totalItem items)  ',
+                                          const SizedBox(height: 20),
+                                          Row(
+                                            children: [
+                                              const SizedBox(width: 20),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: 'Total',
                                                   style: const TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color.fromARGB(
-                                                        255, 80, 79, 79),
-                                                    letterSpacing: 1.0,
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 18.0,
+                                                      color: Color.fromARGB(
+                                                          255, 29, 29, 29),
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                          '  ($totalItem items)  ',
+                                                      style: const TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color: Color.fromARGB(
+                                                            255, 80, 79, 79),
+                                                        letterSpacing: 1.0,
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '      Php $subPrice',
+                                                      style: const TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color: Color.fromARGB(
+                                                            255, 80, 79, 79),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                TextSpan(
-                                                  text:
-                                                      '                  Php $subPrice',
-                                                  style: const TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color.fromARGB(
-                                                        255, 80, 79, 79),
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w800,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                              const SizedBox(width: 20),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -415,7 +444,7 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 45,
+              width: 55,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
