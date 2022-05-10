@@ -1,7 +1,5 @@
 import 'package:dennis_lechon_crm/models/order.dart';
-import 'package:dennis_lechon_crm/services/order_database_services.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class OrderInfo extends StatefulWidget {
   const OrderInfo({Key? key, required this.order}) : super(key: key);
@@ -39,7 +37,7 @@ class _OrderInfoState extends State<OrderInfo> {
               children: <Widget>[
                 Container(
                   width: double.infinity,
-                  height: 105,
+                  height: 115,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                     color: Color(0xFFD3231E),
@@ -54,19 +52,21 @@ class _OrderInfoState extends State<OrderInfo> {
                       RichText(
                         text: TextSpan(
                           text: "Order ",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
+                          style: const TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 19,
                             fontWeight: FontWeight.w600,
-                            color: const Color.fromARGB(255, 245, 246, 247),
+                            color: Color.fromARGB(255, 245, 246, 247),
                           ),
                           children: [
                             TextSpan(
                               text: "#${widget.order.id.substring(0, 5)}",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 18,
+                              style: const TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 19,
                                 fontWeight: FontWeight.w600,
                                 fontStyle: FontStyle.italic,
-                                color: const Color.fromARGB(255, 245, 246, 247),
+                                color: Color.fromARGB(255, 245, 246, 247),
                               ),
                             ),
                           ],
@@ -76,9 +76,10 @@ class _OrderInfoState extends State<OrderInfo> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'To be delivered on:  ',
-                            style: GoogleFonts.montserrat(
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
                                 fontSize: 14.0,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w200),
@@ -91,8 +92,10 @@ class _OrderInfoState extends State<OrderInfo> {
                                 color: const Color(0xFFF1A22C)),
                             child: Text(
                               widget.order.deliveryDate,
-                              style: GoogleFonts.montserrat(
-                                  color: Colors.white, fontSize: 14),
+                              style: const TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.white,
+                                  fontSize: 14),
                             ),
                           ),
                         ],
@@ -100,19 +103,21 @@ class _OrderInfoState extends State<OrderInfo> {
                       const SizedBox(height: 10),
                       RichText(
                         text: TextSpan(
-                          text: widget.order.deliveryType ? "RUSH  " : "",
+                          text: widget.order.deliveryType
+                              ? "\u{26A1} RUSH  "
+                              : "",
                           style: const TextStyle(
                               fontSize: 13.0,
                               color: Colors.white,
                               fontWeight: FontWeight.w900),
                           children: const [
                             TextSpan(
-                              text: 'ACTIVE',
+                              text: '\u{2705} ACTIVE',
                               style: TextStyle(
+                                fontFamily: 'Oxygen',
                                 color: Colors.white,
-                                letterSpacing: 1.0,
+                                letterSpacing: 1,
                                 fontSize: 13,
-                                fontWeight: FontWeight.w900,
                               ),
                             )
                           ],
@@ -151,18 +156,20 @@ class _OrderInfoState extends State<OrderInfo> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Name:',
-                                  style: GoogleFonts.montserrat(
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
                                       color: Colors.grey,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w300),
                                 ),
                                 Text(
                                   '${widget.order.firstName} ${widget.order.lastName}',
-                                  style: GoogleFonts.montserrat(
+                                  style: const TextStyle(
+                                      fontFamily: 'Montserrat',
                                       fontSize: 15.0,
-                                      color: const Color(0xFF1F2426),
+                                      color: Color(0xFF1F2426),
                                       fontWeight: FontWeight.w500),
                                 ),
                               ],
@@ -173,18 +180,20 @@ class _OrderInfoState extends State<OrderInfo> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Contact Number:',
-                                  style: GoogleFonts.montserrat(
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
                                       color: Colors.grey,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w300),
                                 ),
                                 Text(
                                   widget.order.celNum,
-                                  style: GoogleFonts.montserrat(
+                                  style: const TextStyle(
+                                      fontFamily: 'Montserrat',
                                       fontSize: 15.0,
-                                      color: const Color(0xFF1F2426),
+                                      color: Color(0xFF1F2426),
                                       fontWeight: FontWeight.w500),
                                 ),
                               ],
@@ -200,18 +209,20 @@ class _OrderInfoState extends State<OrderInfo> {
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Address',
-                                style: GoogleFonts.montserrat(
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
                                     color: Colors.grey,
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
                                 '${widget.order.adrBarangay} ${widget.order.adrCity}',
-                                style: GoogleFonts.montserrat(
+                                style: const TextStyle(
+                                    fontFamily: 'Montserrat',
                                     fontSize: 15.0,
-                                    color: const Color(0xFF1F2426),
+                                    color: Color(0xFF1F2426),
                                     fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -225,11 +236,12 @@ class _OrderInfoState extends State<OrderInfo> {
                           Expanded(
                             child: Column(
                               children: [
-                                Text(
+                                const Text(
                                   'Order Details',
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 21.0,
-                                      color: const Color(0xFF1F2426),
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 23.0,
+                                      color: Color(0xFF1F2426),
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Card(
@@ -281,17 +293,19 @@ class _OrderInfoState extends State<OrderInfo> {
                                           RichText(
                                             text: TextSpan(
                                               text: 'Total',
-                                              style: GoogleFonts.montserrat(
+                                              style: const TextStyle(
+                                                  fontFamily: 'Montserrat',
                                                   fontSize: 18.0,
-                                                  color: const Color.fromARGB(
+                                                  color: Color.fromARGB(
                                                       255, 29, 29, 29),
                                                   fontWeight: FontWeight.w700),
                                               children: [
                                                 TextSpan(
                                                   text:
                                                       '  ($totalItem items)  ',
-                                                  style: GoogleFonts.montserrat(
-                                                    color: const Color.fromARGB(
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color.fromARGB(
                                                         255, 80, 79, 79),
                                                     letterSpacing: 1.0,
                                                     fontSize: 13,
@@ -301,8 +315,9 @@ class _OrderInfoState extends State<OrderInfo> {
                                                 TextSpan(
                                                   text:
                                                       '                  Php $subPrice',
-                                                  style: GoogleFonts.montserrat(
-                                                    color: const Color.fromARGB(
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color.fromARGB(
                                                         255, 80, 79, 79),
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w800,
@@ -340,11 +355,12 @@ class _OrderInfoState extends State<OrderInfo> {
                                   padding: const EdgeInsets.all(15.0),
                                   minimumSize: const Size(15, 5),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 2.0),
                                   child: Text('Edit',
-                                      style: GoogleFonts.montserrat(
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
                                         fontSize: 15.0,
                                         color: Colors.white,
                                       )),
@@ -369,49 +385,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                   child:
                                       const Icon(Icons.delete_forever_rounded),
                                   onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text("Delete Order#${widget.order.id.substring(0,5)}?"),
-                                          content: const Text("Are you sure you want to delete this order? You cannot undo this action."),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () async {
-                                                await OrderService().deleteOrder(
-                                                  widget.order.customerid, 
-                                                  widget.order.id
-                                                ).then((value) {
-                                                  debugPrint("Order delete successful!");
-                                                  Navigator.of(context).pop();
-                                                  Navigator.of(context).pop();
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text('Order was deleted successfully!')
-                                                    )
-                                                  );
-                                                }).onError((error, stackTrace) {
-                                                  debugPrint("Order delete failed");
-                                                  Navigator.of(context).pop();
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text('Order deletion failed.')
-                                                    )
-                                                  );
-                                                });
-                                              },
-                                              child: const Text("Confirm")
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text("Cancel")
-                                            )
-                                          ],
-                                        );
-                                      }
-                                    );
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ),
@@ -448,8 +422,9 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
               children: [
                 Text(
                   name,
-                  style: GoogleFonts.mulish(
-                    color: const Color.fromARGB(255, 71, 71, 71),
+                  style: const TextStyle(
+                    fontFamily: 'Oxygen',
+                    color: Color.fromARGB(255, 71, 71, 71),
                     fontWeight: FontWeight.w700,
                     fontSize: 16.0,
                   ),
@@ -459,7 +434,8 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
                 ),
                 Text(
                   size,
-                  style: GoogleFonts.montserrat(
+                  style: const TextStyle(
+                      fontFamily: 'Montserrat',
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey),
@@ -469,17 +445,19 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
             const SizedBox(width: 15),
             Text(
               amt,
-              style: GoogleFonts.montserrat(
+              style: const TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: const Color.fromARGB(255, 71, 71, 71)),
+                  color: Color.fromARGB(255, 71, 71, 71)),
             ),
             const SizedBox(
               width: 25,
             ),
             Text(
               price,
-              style: GoogleFonts.montserrat(
+              style: const TextStyle(
+                fontFamily: 'Montserrat',
                 fontSize: 15,
                 color: Colors.grey,
               ),
