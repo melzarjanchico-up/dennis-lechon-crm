@@ -1,10 +1,11 @@
 //import 'package:flutter/foundation.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_orderlist.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
+//import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
+import 'package:random_avatar/random_avatar.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_orderlist.dart';
 
 String getDateFromDate(DateTime givenDate) {
   var months = [
@@ -101,7 +102,7 @@ Widget buildInfo(Customer customer) {
           child: Column(
             children: [
               Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     flex: 6,
@@ -345,14 +346,33 @@ Widget buildInfo(Customer customer) {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: ProfileWidget(
-                      customer: customer,
-                      imagePath: 'assets/images/sampleUser.png',
-                      onClicked: () async {},
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: customer.tagColor),
+                    height: 180,
+                    width: 150,
+                    child: randomAvatar(
+                      customer.firstName,
+                      trBackground: true,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
+                  // Expanded(
+                  //   flex: 4,
+                  //   // child: Avatar(
+                  //   //     name: customer.firstName,
+                  //   //     textStyle:
+                  //   //         const TextStyle(fontSize: 60, color: Colors.white),
+                  //   //     shape: AvatarShape.rectangle(250, 280,
+                  //   //         const BorderRadius.all(Radius.circular(50.0)))),
+                  //   // ProfileWidget(
+                  //   //   customer: customer,
+                  //   //   imagePath: 'assets/images/sampleUser.png',
+                  //   //   onClicked: () async {},
+                  //   // ),
+                  // ),
                 ],
               ),
             ],
@@ -366,7 +386,8 @@ Widget buildInfo(Customer customer) {
   );
 }
 
-Widget buildOrderListButton(BuildContext context, Customer customer) => ElevatedButton(
+Widget buildOrderListButton(BuildContext context, Customer customer) =>
+    ElevatedButton(
       child: const Text(' Order List ',
           style: TextStyle(
             fontFamily: 'Montserrat',
@@ -377,8 +398,8 @@ Widget buildOrderListButton(BuildContext context, Customer customer) => Elevated
             context,
             MaterialPageRoute(
                 builder: ((context) => CustomerOrderList(
-                  customer: customer,
-                ))));
+                      customer: customer,
+                    ))));
       },
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
@@ -396,8 +417,8 @@ Widget buildEditProfileButton(BuildContext context, Customer customer) =>
             context,
             MaterialPageRoute(
                 builder: ((context) => EditCustomer(
-                  customer: customer,
-        ))));
+                      customer: customer,
+                    ))));
       },
     );
 
