@@ -1,3 +1,4 @@
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
@@ -58,8 +59,7 @@ class OrderListScreen extends StatelessWidget {
                               actions: [
                                 TextButton(
                                     onPressed: () async {
-                                      //if mu yes siya kay dapat ig fill out niya sa order kay naa natong scroll2 na
-                                      //makapili na siya sa customer niya automatic na fill out sa info
+                                      Navigator.of(context).pop();
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -69,8 +69,12 @@ class OrderListScreen extends StatelessWidget {
                                     child: const Text("Yes")),
                                 TextButton(
                                     onPressed: () {
-                                      //diri to dapat ang mag add pa siya sa customer bag.o siya ka add ug order
                                       Navigator.of(context).pop();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AddCustomer()));
                                     },
                                     child: const Text("No"))
                               ],
