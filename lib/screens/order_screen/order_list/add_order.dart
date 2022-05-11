@@ -52,7 +52,7 @@ class _AddOrderState extends State<AddOrder> {
               borderRadius: BorderRadius.all(Radius.circular(30)),
               color: Colors.white,
             ),
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             margin: const EdgeInsets.all(20),
             child: SingleChildScrollView(
               child: Column(children: [
@@ -1248,9 +1248,7 @@ class _AddOrderState extends State<AddOrder> {
                                               // ),
                                             ],
                                           ),
-
                                           const SizedBox(height: 20),
-                                          //dedeliver
                                           Row(
                                             children: [
                                               const SizedBox(width: 27),
@@ -1341,6 +1339,22 @@ class _AddOrderState extends State<AddOrder> {
                                 ),
                               ),
                             ),
+                            ElevatedButton(
+                              child: const Text(' Create Order ',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    color: Colors.white,
+                                  )),
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                primary: const Color(0xFFF1A22C),
+                                onPrimary: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 34, vertical: 20),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
                           ],
                         ),
                       ),
