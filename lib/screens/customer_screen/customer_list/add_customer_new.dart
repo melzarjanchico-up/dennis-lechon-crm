@@ -78,8 +78,11 @@ class _AddCustomerState extends State<AddCustomer> {
               // size: 50.0,
               //),
               Padding(
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Icon(
                       Icons.person,
@@ -89,19 +92,20 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
-                        controller: _firstNameController,
-                        decoration: const InputDecoration(
-                            labelText: 'First Name',
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10)),
-                        validator: (value) {
-                          if (value == null || value.isEmpty || value.trim().isEmpty) {
-                            return "Required.";
-                          }
-                          return null;
-                        }
-                      ),
+                          controller: _firstNameController,
+                          decoration: const InputDecoration(
+                              labelText: 'First Name*',
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10)),
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().isEmpty) {
+                              return "Required.";
+                            }
+                            return null;
+                          }),
                     ),
                     const SizedBox(width: 5.0),
                     Expanded(
@@ -117,26 +121,29 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
-                        controller: _lastNameController,
-                        decoration: const InputDecoration(
-                            labelText: 'Last Name',
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10)),
-                        validator: (value) {
-                          if (value == null || value.isEmpty || value.trim().isEmpty) {
-                            return "Required.";
-                          }
-                          return null;
-                        }
-                      ),
+                          controller: _lastNameController,
+                          decoration: const InputDecoration(
+                              labelText: 'Last Name*',
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10)),
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().isEmpty) {
+                              return "Required.";
+                            }
+                            return null;
+                          }),
                     ),
+                    const SizedBox(width: 5.0),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Icon(
                       Icons.add_ic_call_rounded,
@@ -147,49 +154,53 @@ class _AddCustomerState extends State<AddCustomer> {
                     Expanded(
                       flex: 6,
                       child: TextFormField(
-                        controller: _celNumController,
-                        decoration: const InputDecoration(
-                            labelText: 'Cellphone Number',
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10)),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(11),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        validator: (value) {
-                          if (value == null || value.isEmpty || value.trim().isEmpty) {
-                            return "Required.";
-                          }
-                          if (value.length < 11 || (value.substring(0,2) != '09')) {
-                            return "Invalid cellphone number.";
-                          }
-                          return null;
-                        }
-                      ),
+                          controller: _celNumController,
+                          decoration: const InputDecoration(
+                              labelText: 'Cellphone Number*',
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10)),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(11),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.trim().isEmpty) {
+                              return "Required.";
+                            }
+                            if (value.length < 11 ||
+                                (value.substring(0, 2) != '09')) {
+                              return "Invalid cellphone number.";
+                            }
+                            return null;
+                          }),
                     ),
                     const SizedBox(width: 5.0),
                     Expanded(
                       flex: 4,
                       child: TextFormField(
-                        controller: _telNumController,
-                        decoration: const InputDecoration(
-                            labelText: 'Telephone Number',
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10)),
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(7),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        validator: (value) {
-                          if (!(value == null || value.isEmpty || value.trim().isEmpty) && value.length != 7) {
-                            return "Invalid input.";
-                          }
-                          return null;
-                        }
-                      ),
+                          controller: _telNumController,
+                          decoration: const InputDecoration(
+                              labelText: 'Telephone Number',
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10)),
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(7),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          validator: (value) {
+                            if (!(value == null ||
+                                    value.isEmpty ||
+                                    value.trim().isEmpty) &&
+                                value.length != 7) {
+                              return "Invalid input.";
+                            }
+                            return null;
+                          }),
                     )
                   ],
                 ),
@@ -430,60 +441,64 @@ class _AddCustomerState extends State<AddCustomer> {
               Flex(direction: Axis.horizontal, children: [
                 Expanded(
                   child: ValueListenableBuilder(
-                    valueListenable: _isLoadingNotifier,
-                    builder: (context, _isLoading, _) {
-                      return ElevatedButton(
-                        onPressed: (_isLoading == true) ? null : () async {
-                          if (_formKey.currentState!.validate()) {
-                            _isLoadingNotifier.value = true;
-                            await CustomerService()
-                                .addCustomer(
-                                    _firstNameController.text,
-                                    _middleNameController.text,
-                                    _lastNameController.text,
-                                    _streetController.text,
-                                    _barangayController.text,
-                                    _cityController.text,
-                                    _zipcodeController.text,
-                                    _provinceController.text,
-                                    _celNumController.text,
-                                    _telNumController.text,
-                                    _birthdateController,
-                                    _noteController.text,
-                                    _tagController)
-                                .then((value) {
-                              debugPrint("Customer Added successfully!");
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Customer was added successfully!')));
-                              _isLoadingNotifier.value = false;
-                            }).onError((error, stackTrace) {
-                              debugPrint("I did something bad... $error");
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text(
-                                      'Somewthing went wrong. Customer was not added.')));
-                              _isLoadingNotifier.value = false;
-                            });
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            "Create Customer",
-                            style: GoogleFonts.oxygen(),
+                      valueListenable: _isLoadingNotifier,
+                      builder: (context, _isLoading, _) {
+                        return ElevatedButton(
+                          onPressed: (_isLoading == true)
+                              ? null
+                              : () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    _isLoadingNotifier.value = true;
+                                    await CustomerService()
+                                        .addCustomer(
+                                            _firstNameController.text,
+                                            _middleNameController.text,
+                                            _lastNameController.text,
+                                            _streetController.text,
+                                            _barangayController.text,
+                                            _cityController.text,
+                                            _zipcodeController.text,
+                                            _provinceController.text,
+                                            _celNumController.text,
+                                            _telNumController.text,
+                                            _birthdateController,
+                                            _noteController.text,
+                                            _tagController)
+                                        .then((value) {
+                                      debugPrint(
+                                          "Customer Added successfully!");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Customer was added successfully!')));
+                                      _isLoadingNotifier.value = false;
+                                    }).onError((error, stackTrace) {
+                                      debugPrint(
+                                          "I did something bad... $error");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Somewthing went wrong. Customer was not added.')));
+                                      _isLoadingNotifier.value = false;
+                                    });
+                                  }
+                                },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Text(
+                              "Create Customer",
+                              style: GoogleFonts.oxygen(),
+                            ),
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFFD3231E),
-                          onPrimary: Colors.white,
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      );
-                    }
-                  ),
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(0xFFD3231E),
+                            onPrimary: Colors.white,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                          ),
+                        );
+                      }),
                 ),
               ])
             ]),

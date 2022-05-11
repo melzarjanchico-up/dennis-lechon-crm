@@ -165,6 +165,7 @@ class _AddOrderState extends State<AddOrder> {
                       child: TextFormField(
                         controller: _firstNameController,
                         decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
                             // labelText: 'Name',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
@@ -184,6 +185,7 @@ class _AddOrderState extends State<AddOrder> {
                       child: TextFormField(
                         controller: _cityController,
                         decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
                             // labelText: 'Name',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
@@ -203,6 +205,7 @@ class _AddOrderState extends State<AddOrder> {
                       child: TextFormField(
                         controller: _celNumController,
                         decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
                             // labelText: 'Name',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
