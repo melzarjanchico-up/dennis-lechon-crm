@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dennis_lechon_crm/widgets/search.dart';
+// import 'package:dennis_lechon_crm/widgets/search.dart';
 
 class AddOrder extends StatefulWidget {
   const AddOrder({Key? key}) : super(key: key);
@@ -110,7 +110,7 @@ class _AddOrderState extends State<AddOrder> {
                           const SizedBox(width: 10),
                           Checkbox(
                             value: _isChecked,
-                            activeColor: Color(0xFFF1A22C),
+                            activeColor: const Color(0xFFF1A22C),
                             onChanged: (val) {
                               setState(() {
                                 _isChecked = val!;
@@ -257,9 +257,8 @@ class _AddOrderState extends State<AddOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 50,
+                                                  width: 65,
                                                 ),
-                                                const SizedBox(width: 15),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -487,9 +486,8 @@ class _AddOrderState extends State<AddOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 50,
+                                                  width: 65,
                                                 ),
-                                                const SizedBox(width: 15),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -533,97 +531,160 @@ class _AddOrderState extends State<AddOrder> {
                                                         ),
                                                       ],
                                                     ),
-
                                                     const SizedBox(
                                                       width: 15,
                                                     ),
-
-                                                    ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          minimumSize:
-                                                              const Size(
-                                                                  40, 40),
-                                                          shape: RoundedRectangleBorder(
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xFFD3231E),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      5.0)),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5.0)),
-                                                          primary: const Color(
-                                                              0xFFD3231E),
-                                                        ),
-                                                        child: const Text(
-                                                          "-",
-                                                          style: TextStyle(
+                                                                          5.0),
+                                                              border: Border.all(
+                                                                  color: const Color(
+                                                                      0xFFD3231E)),
+                                                            ),
+                                                            child:
+                                                                ElevatedButton(
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      minimumSize:
+                                                                          const Size(
+                                                                              40,
+                                                                              40),
+                                                                      shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(5.0)),
+                                                                      primary: const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          243,
+                                                                          243,
+                                                                          243),
+                                                                    ),
+                                                                    child:
+                                                                        const Text(
+                                                                      "-",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Color(0xFFD3231E)),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
+                                                                        mediumLechonItemCount !=
+                                                                                0
+                                                                            ? mediumLechonItemCount--
+                                                                            : 0;
+                                                                        mediumLechonPrice !=
+                                                                                0
+                                                                            ? mediumLechonPrice -=
+                                                                                6000
+                                                                            : 0;
+                                                                        itemCount !=
+                                                                                0
+                                                                            ? itemCount -=
+                                                                                1
+                                                                            : 0;
+                                                                        subTotal !=
+                                                                                0
+                                                                            ? subTotal -=
+                                                                                6000
+                                                                            : 0;
+                                                                        totalFee !=
+                                                                                0
+                                                                            ? totalFee -=
+                                                                                6000
+                                                                            : 0;
+                                                                      });
+                                                                    }),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          Text(
+                                                            mediumLechonItemCount
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.white,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            mediumLechonItemCount !=
-                                                                    0
-                                                                ? mediumLechonItemCount--
-                                                                : 0;
-                                                            mediumLechonPrice !=
-                                                                    0
-                                                                ? mediumLechonPrice -=
-                                                                    6000
-                                                                : 0;
-                                                            itemCount != 0
-                                                                ? itemCount -= 1
-                                                                : 0;
-                                                            subTotal != 0
-                                                                ? subTotal -=
-                                                                    6000
-                                                                : 0;
-                                                            totalFee != 0
-                                                                ? totalFee -=
-                                                                    6000
-                                                                : 0;
-                                                          });
-                                                        }),
-                                                    const SizedBox(width: 10),
-                                                    Text(
-                                                      mediumLechonItemCount
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          // ignore: avoid_print
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                              border: Border.all(
+                                                                  color: const Color(
+                                                                      0xFFD3231E)),
+                                                            ),
+                                                            child:
+                                                                ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize:
+                                                                    const Size(
+                                                                        40, 40),
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5.0)),
+                                                                primary: const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    243,
+                                                                    243,
+                                                                    243),
+                                                              ),
+                                                              child: const Text(
+                                                                "+",
+                                                                style: TextStyle(
+                                                                    color: Color(
+                                                                        0xFFD3231E),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  mediumLechonItemCount++;
+                                                                  mediumLechonPrice +=
+                                                                      6000;
+                                                                  subTotal +=
+                                                                      6000;
+                                                                  totalFee +=
+                                                                      6000;
+                                                                  itemCount++;
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    // ignore: avoid_print
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        minimumSize:
-                                                            const Size(40, 40),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0)),
-                                                        primary: const Color(
-                                                            0xFFD3231E),
-                                                      ),
-                                                      child: const Text(
-                                                        "+",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          mediumLechonItemCount++;
-                                                          mediumLechonPrice +=
-                                                              6000;
-                                                          subTotal += 6000;
-                                                          totalFee += 6000;
-                                                          itemCount++;
-                                                        });
-                                                      },
                                                     ),
                                                   ],
                                                 ),
@@ -654,9 +715,8 @@ class _AddOrderState extends State<AddOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 50,
+                                                  width: 65,
                                                 ),
-                                                const SizedBox(width: 15),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -700,97 +760,160 @@ class _AddOrderState extends State<AddOrder> {
                                                         ),
                                                       ],
                                                     ),
-
                                                     const SizedBox(
                                                       width: 15,
                                                     ),
-
-                                                    ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          minimumSize:
-                                                              const Size(
-                                                                  40, 40),
-                                                          shape: RoundedRectangleBorder(
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xFFD3231E),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      5.0)),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5.0)),
-                                                          primary: const Color(
-                                                              0xFFD3231E),
-                                                        ),
-                                                        child: const Text(
-                                                          "-",
-                                                          style: TextStyle(
+                                                                          5.0),
+                                                              border: Border.all(
+                                                                  color: const Color(
+                                                                      0xFFD3231E)),
+                                                            ),
+                                                            child:
+                                                                ElevatedButton(
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      minimumSize:
+                                                                          const Size(
+                                                                              40,
+                                                                              40),
+                                                                      shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(5.0)),
+                                                                      primary: const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          243,
+                                                                          243,
+                                                                          243),
+                                                                    ),
+                                                                    child:
+                                                                        const Text(
+                                                                      "-",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Color(0xFFD3231E)),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
+                                                                        largeLechonItemCount !=
+                                                                                0
+                                                                            ? largeLechonItemCount--
+                                                                            : 0;
+                                                                        largeLechonPrice !=
+                                                                                0
+                                                                            ? largeLechonPrice -=
+                                                                                7000
+                                                                            : 0;
+                                                                        itemCount !=
+                                                                                0
+                                                                            ? itemCount -=
+                                                                                1
+                                                                            : 0;
+                                                                        subTotal !=
+                                                                                0
+                                                                            ? subTotal -=
+                                                                                7000
+                                                                            : 0;
+                                                                        totalFee !=
+                                                                                0
+                                                                            ? totalFee -=
+                                                                                7000
+                                                                            : 0;
+                                                                      });
+                                                                    }),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          Text(
+                                                            largeLechonItemCount
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.white,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            largeLechonItemCount !=
-                                                                    0
-                                                                ? largeLechonItemCount--
-                                                                : 0;
-                                                            mediumLechonPrice !=
-                                                                    0
-                                                                ? largeLechonPrice -=
-                                                                    7000
-                                                                : 0;
-                                                            itemCount != 0
-                                                                ? itemCount -= 1
-                                                                : 0;
-                                                            subTotal != 0
-                                                                ? subTotal -=
-                                                                    7000
-                                                                : 0;
-                                                            totalFee != 0
-                                                                ? totalFee -=
-                                                                    7000
-                                                                : 0;
-                                                          });
-                                                        }),
-                                                    const SizedBox(width: 10),
-                                                    Text(
-                                                      largeLechonItemCount
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          // ignore: avoid_print
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                              border: Border.all(
+                                                                  color: const Color(
+                                                                      0xFFD3231E)),
+                                                            ),
+                                                            child:
+                                                                ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize:
+                                                                    const Size(
+                                                                        40, 40),
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5.0)),
+                                                                primary: const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    243,
+                                                                    243,
+                                                                    243),
+                                                              ),
+                                                              child: const Text(
+                                                                "+",
+                                                                style: TextStyle(
+                                                                    color: Color(
+                                                                        0xFFD3231E),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  largeLechonItemCount++;
+                                                                  largeLechonPrice +=
+                                                                      7000;
+                                                                  subTotal +=
+                                                                      7000;
+                                                                  totalFee +=
+                                                                      7000;
+                                                                  itemCount++;
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    // ignore: avoid_print
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        minimumSize:
-                                                            const Size(40, 40),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0)),
-                                                        primary: const Color(
-                                                            0xFFD3231E),
-                                                      ),
-                                                      child: const Text(
-                                                        "+",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          largeLechonItemCount++;
-                                                          largeLechonPrice +=
-                                                              7000;
-                                                          subTotal += 7000;
-                                                          totalFee += 7000;
-                                                          itemCount++;
-                                                        });
-                                                      },
                                                     ),
                                                   ],
                                                 ),
@@ -821,9 +944,8 @@ class _AddOrderState extends State<AddOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 50,
+                                                  width: 65,
                                                 ),
-                                                const SizedBox(width: 15),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -867,97 +989,160 @@ class _AddOrderState extends State<AddOrder> {
                                                         ),
                                                       ],
                                                     ),
-
                                                     const SizedBox(
                                                       width: 15,
                                                     ),
-
-                                                    ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          minimumSize:
-                                                              const Size(
-                                                                  40, 40),
-                                                          shape: RoundedRectangleBorder(
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xFFD3231E),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      5.0)),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5.0)),
-                                                          primary: const Color(
-                                                              0xFFD3231E),
-                                                        ),
-                                                        child: const Text(
-                                                          "-",
-                                                          style: TextStyle(
+                                                                          5.0),
+                                                              border: Border.all(
+                                                                  color: const Color(
+                                                                      0xFFD3231E)),
+                                                            ),
+                                                            child:
+                                                                ElevatedButton(
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      minimumSize:
+                                                                          const Size(
+                                                                              40,
+                                                                              40),
+                                                                      shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(5.0)),
+                                                                      primary: const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          243,
+                                                                          243,
+                                                                          243),
+                                                                    ),
+                                                                    child:
+                                                                        const Text(
+                                                                      "-",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              Color(0xFFD3231E)),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
+                                                                        extraLargeLechonItemCount !=
+                                                                                0
+                                                                            ? extraLargeLechonItemCount--
+                                                                            : 0;
+                                                                        extraLargeLechonPrice !=
+                                                                                0
+                                                                            ? extraLargeLechonPrice -=
+                                                                                8000
+                                                                            : 0;
+                                                                        itemCount !=
+                                                                                0
+                                                                            ? itemCount -=
+                                                                                1
+                                                                            : 0;
+                                                                        subTotal !=
+                                                                                0
+                                                                            ? subTotal -=
+                                                                                8000
+                                                                            : 0;
+                                                                        totalFee !=
+                                                                                0
+                                                                            ? totalFee -=
+                                                                                8000
+                                                                            : 0;
+                                                                      });
+                                                                    }),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          Text(
+                                                            extraLargeLechonItemCount
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.white,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            extraLargeLechonItemCount !=
-                                                                    0
-                                                                ? extraLargeLechonItemCount--
-                                                                : 0;
-                                                            extraLargeLechonPrice !=
-                                                                    0
-                                                                ? extraLargeLechonPrice -=
-                                                                    8000
-                                                                : 0;
-                                                            itemCount != 0
-                                                                ? itemCount -= 1
-                                                                : 0;
-                                                            subTotal != 0
-                                                                ? subTotal -=
-                                                                    8000
-                                                                : 0;
-                                                            totalFee != 0
-                                                                ? totalFee -=
-                                                                    8000
-                                                                : 0;
-                                                          });
-                                                        }),
-                                                    const SizedBox(width: 10),
-                                                    Text(
-                                                      extraLargeLechonItemCount
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          // ignore: avoid_print
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                              border: Border.all(
+                                                                  color: const Color(
+                                                                      0xFFD3231E)),
+                                                            ),
+                                                            child:
+                                                                ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize:
+                                                                    const Size(
+                                                                        40, 40),
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5.0)),
+                                                                primary: const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    243,
+                                                                    243,
+                                                                    243),
+                                                              ),
+                                                              child: const Text(
+                                                                "+",
+                                                                style: TextStyle(
+                                                                    color: Color(
+                                                                        0xFFD3231E),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  extraLargeLechonItemCount++;
+                                                                  extraLargeLechonPrice +=
+                                                                      8000;
+                                                                  subTotal +=
+                                                                      8000;
+                                                                  totalFee +=
+                                                                      8000;
+                                                                  itemCount++;
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    // ignore: avoid_print
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        minimumSize:
-                                                            const Size(40, 40),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0)),
-                                                        primary: const Color(
-                                                            0xFFD3231E),
-                                                      ),
-                                                      child: const Text(
-                                                        "+",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          extraLargeLechonItemCount++;
-                                                          extraLargeLechonPrice +=
-                                                              8000;
-                                                          subTotal += 8000;
-                                                          totalFee += 8000;
-                                                          itemCount++;
-                                                        });
-                                                      },
                                                     ),
                                                   ],
                                                 ),
@@ -977,7 +1162,7 @@ class _AddOrderState extends State<AddOrder> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 20),
                                       Row(
                                         children: [
                                           const SizedBox(width: 27),

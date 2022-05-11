@@ -12,7 +12,7 @@ class OrderInfo extends StatefulWidget {
 class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
-    final smallLechonPrice = 5000 * widget.order.smallLechon;
+    final smallLechonPrice = 8000 * widget.order.smallLechon;
     final mediumLechonPrice = 6000 * widget.order.mediumLechon;
     final largeLechonPrice = 7000 * widget.order.largeLechon;
     final extraLargeLechonPrice = 8000 * widget.order.extraLargeLechon;
