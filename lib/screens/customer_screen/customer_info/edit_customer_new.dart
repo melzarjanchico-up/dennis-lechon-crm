@@ -3,6 +3,7 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum TagState { hot, warm, cold }
@@ -25,6 +26,7 @@ class EditCustomer extends StatefulWidget {
 class _EditCustomerState extends State<EditCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
+  final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
   // Controllers.
   DateTime? _birthdateController;
@@ -113,6 +115,12 @@ class _EditCustomerState extends State<EditCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value.trim().isEmpty) {
+                            return "Required.";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                     const SizedBox(width: 5.0),
@@ -135,6 +143,12 @@ class _EditCustomerState extends State<EditCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value.trim().isEmpty) {
+                            return "Required.";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                   ],
@@ -159,6 +173,20 @@ class _EditCustomerState extends State<EditCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(11),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value.trim().isEmpty) {
+                            return "Required.";
+                          }
+                          if (value.length < 11 || (value.substring(0,2) != '09')) {
+                            return "Invalid cellphone number.";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                     const SizedBox(width: 5.0),
@@ -171,6 +199,17 @@ class _EditCustomerState extends State<EditCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(7),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validator: (value) {
+                          if (!(value == null || value.isEmpty || value.trim().isEmpty) && value.length != 7) {
+                            return "Invalid input.";
+                          }
+                          return null;
+                        }
                       ),
                     )
                   ],
@@ -411,52 +450,62 @@ class _EditCustomerState extends State<EditCustomer> {
               // --------------- //
               Flex(direction: Axis.horizontal, children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await CustomerService()
-                          .editCustomer(
-                              widget.customer.id,
-                              _firstNameController.text,
-                              _middleNameController.text,
-                              _lastNameController.text,
-                              _streetController.text,
-                              _barangayController.text,
-                              _cityController.text,
-                              _zipcodeController.text,
-                              _provinceController.text,
-                              _celNumController.text,
-                              _telNumController.text,
-                              _birthdateController,
-                              widget.customer.dateAdded ?? DateTime.now(),
-                              _noteController.text,
-                              _tagController)
-                          .then((value) {
-                        debugPrint("Customer Edited successfully!");
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text(
-                                    'Customer was changed successfully!')));
-                      }).onError((error, stackTrace) {
-                        debugPrint("I did something bad... $error");
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                'Somewthing went wrong. Customer was not changed.')));
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Save Customer",
-                        style: GoogleFonts.oxygen(),
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: widget.customer.tagColor,
-                      onPrimary: Colors.white,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
+                  child: ValueListenableBuilder(
+                    valueListenable: _isLoadingNotifier,
+                    builder: (context, _isLoading, _) {
+                      return ElevatedButton(
+                        onPressed: (_isLoading == true) ? null : () async {
+                          if (_formKey.currentState!.validate()) {
+                            _isLoadingNotifier.value = true;
+                            await CustomerService()
+                                .editCustomer(
+                                    widget.customer.id,
+                                    _firstNameController.text,
+                                    _middleNameController.text,
+                                    _lastNameController.text,
+                                    _streetController.text,
+                                    _barangayController.text,
+                                    _cityController.text,
+                                    _zipcodeController.text,
+                                    _provinceController.text,
+                                    _celNumController.text,
+                                    _telNumController.text,
+                                    _birthdateController,
+                                    widget.customer.dateAdded ?? DateTime.now(),
+                                    _noteController.text,
+                                    _tagController)
+                                .then((value) {
+                              debugPrint("Customer Edited successfully!");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Customer was changed successfully!')));
+                              _isLoadingNotifier.value = false;
+                            }).onError((error, stackTrace) {
+                              debugPrint("I did something bad... $error");
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text(
+                                      'Somewthing went wrong. Customer was not changed.')));
+                              _isLoadingNotifier.value = false;
+                            });
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "Save Customer",
+                            style: GoogleFonts.oxygen(),
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: widget.customer.tagColor,
+                          onPrimary: Colors.white,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      );
+                    }
                   ),
                 ),
               ])

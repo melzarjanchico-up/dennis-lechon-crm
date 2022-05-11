@@ -2,6 +2,7 @@
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum TagState { hot, warm, cold }
@@ -22,6 +23,7 @@ class AddCustomer extends StatefulWidget {
 class _AddCustomerState extends State<AddCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
+  final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
   // Controllers.
   DateTime? _birthdateController;
@@ -93,6 +95,12 @@ class _AddCustomerState extends State<AddCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value.trim().isEmpty) {
+                            return "Required.";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                     const SizedBox(width: 5.0),
@@ -115,6 +123,12 @@ class _AddCustomerState extends State<AddCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value.trim().isEmpty) {
+                            return "Required.";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                   ],
@@ -139,6 +153,20 @@ class _AddCustomerState extends State<AddCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(11),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value.trim().isEmpty) {
+                            return "Required.";
+                          }
+                          if (value.length < 11 || (value.substring(0,2) != '09')) {
+                            return "Invalid cellphone number.";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                     const SizedBox(width: 5.0),
@@ -151,6 +179,16 @@ class _AddCustomerState extends State<AddCustomer> {
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10)),
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(7),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validator: (value) {
+                          if (!(value == null || value.isEmpty || value.trim().isEmpty) && value.length != 7) {
+                            return "Invalid input.";
+                          }
+                          return null;
+                        }
                       ),
                     )
                   ],
@@ -391,50 +429,60 @@ class _AddCustomerState extends State<AddCustomer> {
               // --------------- //
               Flex(direction: Axis.horizontal, children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await CustomerService()
-                          .addCustomer(
-                              _firstNameController.text,
-                              _middleNameController.text,
-                              _lastNameController.text,
-                              _streetController.text,
-                              _barangayController.text,
-                              _cityController.text,
-                              _zipcodeController.text,
-                              _provinceController.text,
-                              _celNumController.text,
-                              _telNumController.text,
-                              _birthdateController,
-                              _noteController.text,
-                              _tagController)
-                          .then((value) {
-                        debugPrint("Customer Added successfully!");
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Customer was added successfully!')));
-                      }).onError((error, stackTrace) {
-                        debugPrint("I did something bad... $error");
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                'Somewthing went wrong. Customer was not added.')));
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Create Customer",
-                        style: GoogleFonts.oxygen(),
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFFD3231E),
-                      onPrimary: Colors.white,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
+                  child: ValueListenableBuilder(
+                    valueListenable: _isLoadingNotifier,
+                    builder: (context, _isLoading, _) {
+                      return ElevatedButton(
+                        onPressed: (_isLoading == true) ? null : () async {
+                          if (_formKey.currentState!.validate()) {
+                            _isLoadingNotifier.value = true;
+                            await CustomerService()
+                                .addCustomer(
+                                    _firstNameController.text,
+                                    _middleNameController.text,
+                                    _lastNameController.text,
+                                    _streetController.text,
+                                    _barangayController.text,
+                                    _cityController.text,
+                                    _zipcodeController.text,
+                                    _provinceController.text,
+                                    _celNumController.text,
+                                    _telNumController.text,
+                                    _birthdateController,
+                                    _noteController.text,
+                                    _tagController)
+                                .then((value) {
+                              debugPrint("Customer Added successfully!");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text('Customer was added successfully!')));
+                              _isLoadingNotifier.value = false;
+                            }).onError((error, stackTrace) {
+                              debugPrint("I did something bad... $error");
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text(
+                                      'Somewthing went wrong. Customer was not added.')));
+                              _isLoadingNotifier.value = false;
+                            });
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "Create Customer",
+                            style: GoogleFonts.oxygen(),
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xFFD3231E),
+                          onPrimary: Colors.white,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      );
+                    }
                   ),
                 ),
               ])
