@@ -1,3 +1,4 @@
+import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:dennis_lechon_crm/widgets/search.dart';
@@ -164,10 +165,20 @@ class _AddOrderState extends State<AddOrder> {
                       width: 350,
                       child: TextFormField(
                         controller: _firstNameController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            //this is the search button in add order name textfield
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                showSearch(
+                                  context: context,
+                                  delegate: SearchCustomer(),
+                                );
+                              },
+                              icon: const Icon(Icons.search),
+                            ),
+                            border: const OutlineInputBorder(),
                             // labelText: 'Name',
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
                       ),
                     ),
