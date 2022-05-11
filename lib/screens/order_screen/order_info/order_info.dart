@@ -496,7 +496,6 @@ class _OrderInfoState extends State<OrderInfo> {
                                   child:
                                       const Icon(Icons.delete_forever_rounded),
                                   onPressed: () {
-                                    Navigator.pop(context);
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
