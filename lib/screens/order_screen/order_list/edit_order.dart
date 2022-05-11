@@ -36,6 +36,12 @@ class _EditOrderState extends State<EditOrder> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _celNumController = TextEditingController();
 
+  String dropdownvalue = 'ACTIVE';
+  var items = [
+    'ACTIVE',
+    'INACTIVE',
+  ];
+
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
   @override
   Widget build(BuildContext context) {
@@ -43,7 +49,7 @@ class _EditOrderState extends State<EditOrder> {
         backgroundColor: const Color.fromARGB(255, 236, 235, 235),
         //Kuwangan nig back button
         appBar: AppBar(
-          title: const Text("Order Fillout"),
+          title: const Text("Edit Order"),
           backgroundColor: const Color(0xFFD3231E),
           centerTitle: true,
         ),
@@ -135,17 +141,35 @@ class _EditOrderState extends State<EditOrder> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 15),
-                        color: const Color.fromARGB(255, 243, 243, 243),
-                        child: const Text(
-                          "Set status       ",
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Color(0xFF1F2426),
-                              fontSize: 14),
-                        ),
+                      Flexible(
+                        child: Container(
+                            width: 110,
+                            height: 50,
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            color: const Color.fromARGB(255, 243, 243, 243),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButtonFormField(
+                                  value: dropdownvalue,
+                                  items: items.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownvalue = newValue!;
+                                    });
+                                  }),
+                            )
+                            // child: const Text(
+                            //   "Set status       ",
+                            //   style: TextStyle(
+                            //       fontFamily: 'Montserrat',
+                            //       color: Color(0xFF1F2426),
+                            //       fontSize: 14),
+                            // ),
+                            ),
                       ),
                     ],
                   ),
@@ -1230,6 +1254,22 @@ class _EditOrderState extends State<EditOrder> {
                                 ),
                               ),
                             ),
+                            ElevatedButton(
+                              child: const Text(' Save Order ',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    color: Colors.white,
+                                  )),
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                primary: const Color(0xFFF1A22C),
+                                onPrimary: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 34, vertical: 20),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
                           ],
                         ),
                       ),

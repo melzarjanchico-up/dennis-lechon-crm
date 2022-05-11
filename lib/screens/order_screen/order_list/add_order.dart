@@ -161,7 +161,7 @@ class _AddOrderState extends State<AddOrder> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      width: 250,
+                      width: 350,
                       child: TextFormField(
                         controller: _firstNameController,
                         decoration: const InputDecoration(
@@ -180,7 +180,7 @@ class _AddOrderState extends State<AddOrder> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      width: 250,
+                      width: 350,
                       child: TextFormField(
                         controller: _cityController,
                         decoration: const InputDecoration(
@@ -199,7 +199,7 @@ class _AddOrderState extends State<AddOrder> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      width: 250,
+                      width: 350,
                       child: TextFormField(
                         controller: _celNumController,
                         decoration: const InputDecoration(
@@ -241,7 +241,7 @@ class _AddOrderState extends State<AddOrder> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     //
                                     // This is the start of the elements sa Card UI
                                     //
@@ -250,14 +250,14 @@ class _AddOrderState extends State<AddOrder> {
                                         height: 50,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
@@ -479,14 +479,14 @@ class _AddOrderState extends State<AddOrder> {
                                         height: 50,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
@@ -715,11 +715,11 @@ class _AddOrderState extends State<AddOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     Column(
                                                       crossAxisAlignment:
@@ -944,11 +944,11 @@ class _AddOrderState extends State<AddOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     Column(
                                                       crossAxisAlignment:
@@ -1169,7 +1169,7 @@ class _AddOrderState extends State<AddOrder> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                MainAxisAlignment.end,
                                             children: const [
                                               Text(
                                                 "Subtotal",
@@ -1251,7 +1251,7 @@ class _AddOrderState extends State<AddOrder> {
                                           const SizedBox(height: 20),
                                           Row(
                                             children: [
-                                              const SizedBox(width: 27),
+                                              const SizedBox(width: 25),
                                               Container(
                                                 width: 250,
                                                 height: 2,
@@ -1277,7 +1277,7 @@ class _AddOrderState extends State<AddOrder> {
                                       ),
                                       Row(
                                         children: [
-                                          const SizedBox(width: 27),
+                                          const SizedBox(width: 20),
                                           Container(
                                             width: 300,
                                             height: 2,
@@ -1300,39 +1300,51 @@ class _AddOrderState extends State<AddOrder> {
                                         ],
                                       ),
                                       const SizedBox(height: 22),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Total',
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 18.0,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(width: 30),
+                                          Text(
+                                            'Total',
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 18.0,
+                                                color: const Color.fromARGB(
+                                                    255, 29, 29, 29),
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          const SizedBox(width: 3),
+                                          Text(
+                                            itemCount > 1
+                                                ? '  ($itemCount items)  '
+                                                : '  ($itemCount item)  ',
+                                            style: GoogleFonts.montserrat(
                                               color: const Color.fromARGB(
-                                                  255, 29, 29, 29),
-                                              fontWeight: FontWeight.w700),
-                                          children: [
-                                            TextSpan(
-                                              text: itemCount > 1
-                                                  ? '  ($itemCount items)  '
-                                                  : '  ($itemCount item)  ',
-                                              style: GoogleFonts.montserrat(
+                                                  255, 80, 79, 79),
+                                              letterSpacing: 1.0,
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 25),
+                                          Text(
+                                            'Php',
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 18.0,
                                                 color: const Color.fromARGB(
                                                     255, 80, 79, 79),
-                                                letterSpacing: 1.0,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700,
-                                              ),
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            '  $totalFee',
+                                            style: GoogleFonts.montserrat(
+                                              color: const Color.fromARGB(
+                                                  255, 80, 79, 79),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w800,
                                             ),
-                                            TextSpan(
-                                              text:
-                                                  '                  $subTotal',
-                                              style: GoogleFonts.montserrat(
-                                                color: const Color.fromARGB(
-                                                    255, 80, 79, 79),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
