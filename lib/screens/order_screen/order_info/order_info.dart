@@ -1,5 +1,7 @@
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:dennis_lechon_crm/screens/order_screen/order_list/edit_order.dart';
 
 class OrderInfo extends StatefulWidget {
   const OrderInfo({Key? key, required this.order}) : super(key: key);
@@ -12,10 +14,11 @@ class OrderInfo extends StatefulWidget {
 class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
-    final smallLechonPrice = 8000 * widget.order.smallLechon;
+    final smallLechonPrice = 5000 * widget.order.smallLechon;
     final mediumLechonPrice = 6000 * widget.order.mediumLechon;
     final largeLechonPrice = 7000 * widget.order.largeLechon;
     final extraLargeLechonPrice = 8000 * widget.order.extraLargeLechon;
+
     final subPrice = smallLechonPrice +
         mediumLechonPrice +
         largeLechonPrice +
@@ -109,6 +112,7 @@ class _OrderInfoState extends State<OrderInfo> {
                           style: const TextStyle(
                               fontSize: 13.0,
                               color: Colors.white,
+                              letterSpacing: 1,
                               fontWeight: FontWeight.w900),
                           children: const [
                             TextSpan(
@@ -283,28 +287,99 @@ class _OrderInfoState extends State<OrderInfo> {
                                               "${widget.order.extraLargeLechon}x",
                                               "$extraLargeLechonPrice"),
                                           const SizedBox(height: 3),
-                                          Row(
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
                                             children: [
-                                              const SizedBox(width: 27),
-                                              Container(
-                                                width: 250,
-                                                height: 2,
-                                                decoration: BoxDecoration(
-                                                  color: const Color.fromARGB(
-                                                      255, 221, 220, 220),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 207, 206, 206),
-                                                      offset: Offset(0.0, 2.0),
-                                                      blurRadius: 2,
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: const [
+                                                  Text(
+                                                    "Subtotal",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                  SizedBox(width: 25),
+                                                  Text(
+                                                    //without backend yet
+                                                    "Php 10,000",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 14,
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(width: 5),
+                                              const SizedBox(height: 10),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: const [
+                                                  Text(
+                                                    "Delivery fee",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 25),
+                                                  Text(
+                                                    //without backend yet
+                                                    "Php 500",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 14,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+                                              const SizedBox(height: 20),
+                                              //dedeliver
+                                              Row(
+                                                children: [
+                                                  const SizedBox(width: 27),
+                                                  Container(
+                                                    width: 250,
+                                                    height: 2,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              221,
+                                                              220,
+                                                              220),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              207,
+                                                              206,
+                                                              206),
+                                                          offset:
+                                                              Offset(0.0, 2.0),
+                                                          blurRadius: 2,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                           const SizedBox(height: 20),
@@ -394,8 +469,14 @@ class _OrderInfoState extends State<OrderInfo> {
                                         color: Colors.white,
                                       )),
                                 ),
-                                onPressed: () {
-                                  Navigator.pop(context);
+                                onPressed: () async {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              const EditOrder(
+                                                  // order: order,
+                                                  ))));
                                 },
                               ),
                             ),
@@ -451,9 +532,8 @@ SizedBox orderWidget(String name, String size, String amt, String price) {
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
-                    fontFamily: 'Oxygen',
-                    color: Color.fromARGB(255, 71, 71, 71),
+                  style: GoogleFonts.mulish(
+                    color: const Color.fromARGB(255, 71, 71, 71),
                     fontWeight: FontWeight.w700,
                     fontSize: 16.0,
                   ),
