@@ -48,10 +48,34 @@ class OrderListScreen extends StatelessWidget {
                   ),
                   floatingActionButton: FloatingActionButton(
                     onPressed: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AddOrder()));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Add Order"),
+                              content: const Text(
+                                  "Does the customer already exist?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () async {
+                                      //if mu yes siya kay dapat ig fill out niya sa order kay naa natong scroll2 na
+                                      //makapili na siya sa customer niya automatic na fill out sa info
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AddOrder()));
+                                    },
+                                    child: const Text("Yes")),
+                                TextButton(
+                                    onPressed: () {
+                                      //diri to dapat ang mag add pa siya sa customer bag.o siya ka add ug order
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("No"))
+                              ],
+                            );
+                          });
                     },
                     child: const Icon(
                       Icons.add,
