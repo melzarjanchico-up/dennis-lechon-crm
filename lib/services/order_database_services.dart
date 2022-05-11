@@ -89,6 +89,11 @@ class OrderService {
     return orderCollection.snapshots().map(_orderListFromSnapshot);
   }
 
+  Stream<List<Order>>? customerOrders(String customerId) {
+    return customerCollection.doc(customerId).collection('orders').snapshots().map(_orderListFromSnapshot);
+    //return orderCollection.snapshots().map(_orderListFromSnapshot);
+  }
+
   Stream<List<Order>> makeStream(List<Order> list) async* {
     yield list;
   }

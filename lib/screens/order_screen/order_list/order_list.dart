@@ -1,7 +1,8 @@
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info.dart';
-import 'package:dennis_lechon_crm/widgets/loading.dart';
+//import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,12 +14,17 @@ class OrderListWidget extends StatefulWidget {
 }
 
 class _OrderListWidgetState extends State<OrderListWidget> {
+
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<Order>>(context);
+    
     return (orders.isEmpty)
         ? const Center(
-            child: Loading(),
+            child: SpinKitFadingCircle(
+              color: Colors.black45,
+              size: 50.0,
+            ),
           )
         : ListView(
             padding: const EdgeInsets.all(20),

@@ -1,4 +1,5 @@
 //import 'package:flutter/foundation.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_orderlist.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
@@ -72,7 +73,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                 Widget>[
               Center(child: buildEditProfileButton(context, widget.customer)),
               const SizedBox(height: 25, width: 15), // for Order List Button
-              Center(child: buildOrderListButton()),
+              Center(child: buildOrderListButton(context, widget.customer)),
             ]),
           )
         ],
@@ -365,13 +366,20 @@ Widget buildInfo(Customer customer) {
   );
 }
 
-Widget buildOrderListButton() => ElevatedButton(
+Widget buildOrderListButton(BuildContext context, Customer customer) => ElevatedButton(
       child: const Text(' Order List ',
           style: TextStyle(
             fontFamily: 'Montserrat',
             color: Colors.white,
           )),
-      onPressed: () {},
+      onPressed: () async {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => CustomerOrderList(
+                  customer: customer,
+                ))));
+      },
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         primary: const Color(0xFFD3231E),
@@ -388,8 +396,8 @@ Widget buildEditProfileButton(BuildContext context, Customer customer) =>
             context,
             MaterialPageRoute(
                 builder: ((context) => EditCustomer(
-                      customer: customer,
-                    ))));
+                  customer: customer,
+        ))));
       },
     );
 

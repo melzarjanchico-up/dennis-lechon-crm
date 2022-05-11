@@ -480,6 +480,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                   const SnackBar(
                                       content: Text(
                                           'Customer was changed successfully!')));
+                              Navigator.of(context).pop();
                               _isLoadingNotifier.value = false;
                             }).onError((error, stackTrace) {
                               debugPrint("I did something bad... $error");
