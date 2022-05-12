@@ -1,11 +1,13 @@
 //import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
+//import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
 //import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
 //import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart'; // temporary for testing
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:flutter/material.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info.dart';
+//import 'package:google_fonts/google_fonts.dart';
 
 // atleast edit para mapush
 
@@ -28,11 +30,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Project LechGo',
+      theme: ThemeData(
+        fontFamily: 'Montserrat',
+      ),
       debugShowCheckedModeBanner: false,
       //home: SignIn(),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

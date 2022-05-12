@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 
 class OrderService {
-  final Query<Map<String, dynamic>> orderCollection =
-      FirebaseFirestore.instance.collectionGroup('orders');
+  final CollectionReference customerCollection = FirebaseFirestore.instance.collection('customers');
+  final Query<Map<String, dynamic>> orderCollection = FirebaseFirestore.instance.collectionGroup('orders');
 
   // Add Order Data
   // Future addOrder(
@@ -34,6 +34,10 @@ class OrderService {
   //     },
   //   });
   // }
+
+  Future deleteOrder(String customerId, String orderId) async {
+    return await customerCollection.doc(customerId).collection('orders').doc(orderId).delete();
+  }
 
   List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -83,6 +87,11 @@ class OrderService {
   // Search snapshots to be converted to a list of customers
   Stream<List<Order>>? get orders {
     return orderCollection.snapshots().map(_orderListFromSnapshot);
+  }
+
+  Stream<List<Order>>? customerOrders(String customerId) {
+    return customerCollection.doc(customerId).collection('orders').snapshots().map(_orderListFromSnapshot);
+    //return orderCollection.snapshots().map(_orderListFromSnapshot);
   }
 
   Stream<List<Order>> makeStream(List<Order> list) async* {

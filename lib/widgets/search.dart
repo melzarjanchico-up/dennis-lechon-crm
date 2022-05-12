@@ -44,12 +44,16 @@ class SearchCustomer extends SearchDelegate {
           } else {
             if (snapshot.data!
                 .where((element) =>
-                    element.firstName
-                        .toLowerCase()
-                        .contains(query.toLowerCase()) ||
-                    element.lastName
-                        .toLowerCase()
-                        .contains(query.toLowerCase()))
+                    '${element.firstName} ${element.lastName}'
+                      .toLowerCase()
+                      .contains(query.toLowerCase())
+                    //element.firstName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase()) ||
+                    //element.lastName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase())
+                    ) 
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -59,12 +63,16 @@ class SearchCustomer extends SearchDelegate {
             } else {
               var searchResult = snapshot.data!
                   .where((element) =>
-                      element.firstName
-                          .toLowerCase()
-                          .contains(query.toLowerCase()) ||
-                      element.lastName
-                          .toLowerCase()
-                          .contains(query.toLowerCase()))
+                    '${element.firstName} ${element.lastName}'
+                      .toLowerCase()
+                      .contains(query.toLowerCase())
+                    //element.firstName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase()) ||
+                    //element.lastName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase())
+                    )
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
@@ -83,11 +91,55 @@ class SearchCustomer extends SearchDelegate {
   //same ra ni sa babaw, pero sa suggestion ni siya para char
   //maybe naa moy maadd diri po?
   Widget buildSuggestions(BuildContext context) {
-    return Center(
-        child: Text("Search Customer",
-            style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: const Color(0xFF1F2426))));
+    return StreamBuilder<List<Customer>>(
+        stream: CustomerService().customers?.asBroadcastStream(
+            onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Loading();
+          } else {
+            if (snapshot.data!
+                .where((element) =>
+                    '${element.firstName} ${element.lastName}'
+                      .toLowerCase()
+                      .contains(query.toLowerCase())
+                    //element.firstName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase()) ||
+                    //element.lastName
+                    //    .toLowerCase()
+                    //    .contains(query.toLowerCase())
+                    ) 
+                .isEmpty) {
+              return Center(
+                child: Text("I'm sorry. No customer exists.",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, color: const Color(0xFF1F2426))),
+              );
+            } else {
+              var searchResult = snapshot.data!
+                  .where((element) =>
+                      '${element.firstName} ${element.lastName}'
+                        .toLowerCase()
+                        .contains(query.toLowerCase())
+                      //element.firstName
+                      //    .toLowerCase()
+                      //    .contains(query.toLowerCase()) ||
+                      //element.lastName
+                      //    .toLowerCase()
+                      //    .contains(query.toLowerCase())
+                    ) 
+                  .map((e) => e) //to map the Customer object
+                  .toList();
+              return StreamProvider<List<Customer>>.value(
+                value: CustomerService().makeStream(searchResult),
+                initialData: const [],
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 45.0),
+                    child: const CustomerListWidget()),
+              );
+            }
+          }
+        });
   }
 }

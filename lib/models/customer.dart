@@ -5,13 +5,15 @@ class Customer {
   final String firstName;
   final String middleName;
   final String lastName;
-  final DateTime dateBirth;
-  final DateTime dateAdded;
+  final DateTime? dateBirth;
+  final DateTime? dateAdded;
   final String celNum;
   final String telNum;
-  final String adrCity;
+  final String adrStreet;
   final String adrBarangay;
+  final String adrCity;
   final String adrZipcode;
+  final String adrProvince;
   final String note;
   final String tagName;
   final int tagIndex;
@@ -26,12 +28,18 @@ class Customer {
     required this.dateAdded,
     required this.celNum,
     required this.telNum,
-    required this.adrCity,
+    required this.adrStreet,
     required this.adrBarangay,
+    required this.adrCity,
     required this.adrZipcode,
-    this.note = "",
+    required this.adrProvince,
+    required this.note,
     required this.tagName,
     required this.tagIndex,
     required this.tagColor,
   });
+
+  Stream<Customer> makeStream(Customer customer) async* {
+    yield customer;
+  }
 }
