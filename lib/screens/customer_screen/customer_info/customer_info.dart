@@ -3,6 +3,7 @@ import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_cus
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
 import 'package:random_avatar/random_avatar.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_orderlist.dart';
@@ -55,11 +56,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
       appBar: AppBar(
         backgroundColor: widget.customer.tagColor,
         title: Text('${widget.customer.firstName}\'s Information',
-            style: const TextStyle(
-              fontFamily: 'Oxygen',
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            )),
+          style: GoogleFonts.oxygen(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         centerTitle: true,
       ),
       body: ListView(

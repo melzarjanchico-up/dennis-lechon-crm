@@ -90,12 +90,20 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                           const SizedBox(
                                             height: 5,
                                           ),
+                                          (address != '') ? 
                                           Text(
                                             address,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.mulish(
                                               fontSize: 15,
                                               color: Colors.grey,
+                                            ),
+                                          ) : 
+                                          Text(
+                                            "<< NOT AVAILABLE >>",
+                                            style: GoogleFonts.mulish(
+                                              fontSize: 15,
+                                              color: Colors.black38,
                                             ),
                                           ),
                                         ]),

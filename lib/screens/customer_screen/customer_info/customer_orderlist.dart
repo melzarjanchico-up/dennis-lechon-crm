@@ -2,6 +2,7 @@
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/order_list.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +30,37 @@ class _CustomerOrderListState extends State<CustomerOrderList> {
             )),
         centerTitle: true,
       ),
-      body: StreamProvider<List<Order>>.value(
-        value: OrderService().customerOrders(widget.customer.id), // as in wala koy mabuhat
-        initialData: const [],
-        child: const OrderListWidget(),
+      body: StreamBuilder<List<Order>>(
+        stream: OrderService().customerOrders(widget.customer.id),
+        builder: (context, snapshot) {
+          if (!snapshot.hasError) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return const Center(child: Text("Offline. Try again later."));
+              case ConnectionState.waiting:
+                return const Loading();
+              default:
+                return (snapshot.data!.isNotEmpty) ? StreamProvider<List<Order>>.value(
+                  value: OrderService().customerOrders(widget.customer.id), // as in wala koy mabuhat
+                  initialData: const [],
+                  child: const OrderListWidget(),
+                ) : const Center(
+                  child: Text("Customer's order history is empty."),
+                );
+            }
+          } else {
+            return Center(
+              child: Text(
+                "Something went wrong. Please contact admin. ${snapshot.error}",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            );
+          }
+        }
       ),
     );
   }
