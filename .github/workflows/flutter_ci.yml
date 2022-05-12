@@ -9,6 +9,7 @@ on:
       - sprint-3
       - sprint-4
       - sprint-5
+      - sprint-6
   
 
 jobs:
