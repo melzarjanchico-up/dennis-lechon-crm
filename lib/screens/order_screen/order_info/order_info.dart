@@ -13,6 +13,8 @@ class OrderInfo extends StatefulWidget {
 }
 
 class _OrderInfoState extends State<OrderInfo> {
+  final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     final smallLechonPrice = 5000 * widget.order.smallLechon;
@@ -503,31 +505,39 @@ class _OrderInfoState extends State<OrderInfo> {
                                           title: Text("Delete Order#${widget.order.id.substring(0,5)}?"),
                                           content: const Text("Are you sure you want to delete this order? You cannot undo this action."),
                                           actions: [
-                                            TextButton(
-                                              onPressed: () async {
-                                                await OrderService().deleteOrder(
-                                                  widget.order.customerid, 
-                                                  widget.order.id
-                                                ).then((value) {
-                                                  debugPrint("Order delete successful!");
-                                                  Navigator.of(context).pop();
-                                                  Navigator.of(context).pop();
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text('Order was deleted successfully!')
-                                                    )
-                                                  );
-                                                }).onError((error, stackTrace) {
-                                                  debugPrint("Order delete failed");
-                                                  Navigator.of(context).pop();
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text('Order deletion failed.')
-                                                    )
-                                                  );
-                                                });
-                                              },
-                                              child: const Text("Confirm")
+                                            ValueListenableBuilder(
+                                              valueListenable: _isLoadingNotifier,
+                                              builder: (context, _isLoading, _) {
+                                                return TextButton(
+                                                  onPressed: (_isLoading == true) ? null : () async {
+                                                    _isLoadingNotifier.value = true;
+                                                    await OrderService().deleteOrder(
+                                                      widget.order.customerid, 
+                                                      widget.order.id
+                                                    ).then((value) {
+                                                      debugPrint("Order delete successful!");
+                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context).pop();
+                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                        const SnackBar(
+                                                          content: Text('Order was deleted successfully!')
+                                                        )
+                                                      );
+                                                      _isLoadingNotifier.value = false;
+                                                    }).onError((error, stackTrace) {
+                                                      debugPrint("Order delete failed");
+                                                      Navigator.of(context).pop();
+                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                        const SnackBar(
+                                                          content: Text('Order deletion failed.')
+                                                        )
+                                                      );
+                                                      _isLoadingNotifier.value = false;
+                                                    });
+                                                  },
+                                                  child: const Text("Confirm")
+                                                );
+                                              }
                                             ),
                                             TextButton(
                                               onPressed: () {
