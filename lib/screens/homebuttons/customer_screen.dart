@@ -16,75 +16,78 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Stream Builder
-    return StreamBuilder<List<Customer>>(
-        stream: CustomerService().customers,
-        builder: (context, snapshot) {
-          if (!snapshot.hasError) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return const Center(child: Text("Offline. Try again later."));
-              case ConnectionState.waiting:
-                return const Loading();
-              default:
-                return Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: const Color(0xFFF1A22C),
-                    title: Text(
-                      "Customer List",
-                      style: GoogleFonts.oxygen(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: StreamBuilder<List<Customer>>(
+          stream: CustomerService().customers,
+          builder: (context, snapshot) {
+            if (!snapshot.hasError) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Center(child: Text("Offline. Try again later."));
+                case ConnectionState.waiting:
+                  return const Loading();
+                default:
+                  return Scaffold(
+                    appBar: AppBar(
+                      backgroundColor: const Color(0xFFF1A22C),
+                      title: Text(
+                        "Customer List",
+                        style: GoogleFonts.oxygen(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
+                      centerTitle: true,
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            showSearch(
+                              context: context,
+                              delegate: SearchCustomer(),
+                            );
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                      ],
                     ),
-                    centerTitle: true,
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          showSearch(
-                            context: context,
-                            delegate: SearchCustomer(),
-                          );
-                        },
-                        icon: const Icon(Icons.search),
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AddCustomer()));
+                      },
+                      child: const Icon(
+                        Icons.add,
+                        size: 26.0,
                       ),
-                    ],
-                  ),
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AddCustomer()));
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      size: 26.0,
+                      backgroundColor: const Color(0xFFF1A22C),
                     ),
-                    backgroundColor: const Color(0xFFF1A22C),
+                    body: StreamProvider<List<Customer>>.value(
+                      value:
+                          CustomerService().customers, // as in wala koy mabuhat
+                      initialData: const [],
+                      child: Container(
+                          margin: const EdgeInsets.only(bottom: 45.0),
+                          child: const CustomerListWidget()),
+                    ),
+                  );
+              }
+            } else {
+              return Center(
+                child: Text(
+                  "Something went wrong. Please contact admin. ${snapshot.error}",
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
                   ),
-                  body: StreamProvider<List<Customer>>.value(
-                    value:
-                        CustomerService().customers, // as in wala koy mabuhat
-                    initialData: const [],
-                    child: Container(
-                        margin: const EdgeInsets.only(bottom: 45.0),
-                        child: const CustomerListWidget()),
-                  ),
-                );
-            }
-          } else {
-            return Center(
-              child: Text(
-                "Something went wrong. Please contact admin. ${snapshot.error}",
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
                 ),
-              ),
-            );
-          }
-        });
+              );
+            }
+          }),
+    );
   }
 }
 

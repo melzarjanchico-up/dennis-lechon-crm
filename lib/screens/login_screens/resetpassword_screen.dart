@@ -25,15 +25,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
         ),
         body: Stack(children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                //Image needs to be changed to avoid stretching
-                image: AssetImage("images/lechon_loginpage.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          logoWidget('assets/images/lechon_loginpage.png'),
           SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
