@@ -84,7 +84,20 @@ flutter:
     - family: Oxygen
       fonts:
         - asset: assets/fonts/Oxygen/Oxygen-Regular.ttf
+
+    - family: Baloo_2
+      fonts:
+        - asset: assets/fonts/Baloo_2/Baloo2-Regular.ttf
+        - asset: assets/fonts/Baloo_2/Baloo2-Bold.ttf
+          weight: 700
+    
+    - family: Mulish
+      fonts:
+       - asset: assets/fonts/Mulish/Mulish-VariableFont_wght.ttf
         
+    - family: Poppins
+      fonts:
+       - asset: assets/fonts/Poppins/Poppins-Regular.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
