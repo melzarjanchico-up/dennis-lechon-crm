@@ -45,7 +45,6 @@ class _AddOrderState extends State<AddOrder> {
           backgroundColor: const Color(0xFFD3231E),
           centerTitle: true,
         ),
-        // This is the yellow part na container
         body: Container(
             width: double.infinity,
             height: double.infinity,
@@ -57,7 +56,6 @@ class _AddOrderState extends State<AddOrder> {
             margin: const EdgeInsets.all(20),
             child: SingleChildScrollView(
               child: Column(children: [
-                //Green Part..This was suppost to be the customer details part. Basta katung upper part na UI sa figma
                 Container(
                   color: Colors.white,
                   width: double.infinity,
@@ -77,7 +75,6 @@ class _AddOrderState extends State<AddOrder> {
                           ),
                           children: [
                             TextSpan(
-                              //Order Number here
                               text: "# Order",
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
