@@ -3,6 +3,7 @@ import 'package:dennis_lechon_crm/screens/home_screen_new/components/customer_da
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/order_dashboard.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/calendar_dashboard.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
+import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -159,7 +160,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => const CustomerScreen(
+                        builder: ((context) => const OrderListScreen(
                             // order: order,
                             ))));
               },
