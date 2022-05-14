@@ -17,6 +17,7 @@ class OrderListScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: StreamBuilder<List<Order>>(
+          key: const Key("Stream Order"),
           stream: OrderService().orders,
           builder: (context, snapshot) {
             if (!snapshot.hasError) {
@@ -90,6 +91,7 @@ class OrderListScreen extends StatelessWidget {
                       backgroundColor: const Color(0xFFF1A22C),
                     ),
                     body: StreamProvider<List<Order>>.value(
+                      key: const Key("OrderProvider Part"),
                       value: OrderService().orders, // as in wala koy mabuhat
                       initialData: const [],
                       child: Container(

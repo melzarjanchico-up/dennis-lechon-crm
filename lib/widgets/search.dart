@@ -36,6 +36,7 @@ class SearchCustomer extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<List<Customer>>(
+        key: const Key("Search Customer"),
         stream: CustomerService().customers?.asBroadcastStream(
             onCancel: (sub) => sub.cancel()), // to avoid data leakage
         builder: (context, snapshot) {
@@ -43,17 +44,16 @@ class SearchCustomer extends SearchDelegate {
             return const Loading();
           } else {
             if (snapshot.data!
-                .where((element) =>
-                    '${element.firstName} ${element.lastName}'
-                      .toLowerCase()
-                      .contains(query.toLowerCase())
+                .where((element) => '${element.firstName} ${element.lastName}'
+                        .toLowerCase()
+                        .contains(query.toLowerCase())
                     //element.firstName
                     //    .toLowerCase()
                     //    .contains(query.toLowerCase()) ||
                     //element.lastName
                     //    .toLowerCase()
                     //    .contains(query.toLowerCase())
-                    ) 
+                    )
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -62,17 +62,16 @@ class SearchCustomer extends SearchDelegate {
               );
             } else {
               var searchResult = snapshot.data!
-                  .where((element) =>
-                    '${element.firstName} ${element.lastName}'
-                      .toLowerCase()
-                      .contains(query.toLowerCase())
-                    //element.firstName
-                    //    .toLowerCase()
-                    //    .contains(query.toLowerCase()) ||
-                    //element.lastName
-                    //    .toLowerCase()
-                    //    .contains(query.toLowerCase())
-                    )
+                  .where((element) => '${element.firstName} ${element.lastName}'
+                          .toLowerCase()
+                          .contains(query.toLowerCase())
+                      //element.firstName
+                      //    .toLowerCase()
+                      //    .contains(query.toLowerCase()) ||
+                      //element.lastName
+                      //    .toLowerCase()
+                      //    .contains(query.toLowerCase())
+                      )
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
@@ -99,17 +98,16 @@ class SearchCustomer extends SearchDelegate {
             return const Loading();
           } else {
             if (snapshot.data!
-                .where((element) =>
-                    '${element.firstName} ${element.lastName}'
-                      .toLowerCase()
-                      .contains(query.toLowerCase())
+                .where((element) => '${element.firstName} ${element.lastName}'
+                        .toLowerCase()
+                        .contains(query.toLowerCase())
                     //element.firstName
                     //    .toLowerCase()
                     //    .contains(query.toLowerCase()) ||
                     //element.lastName
                     //    .toLowerCase()
                     //    .contains(query.toLowerCase())
-                    ) 
+                    )
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -118,17 +116,16 @@ class SearchCustomer extends SearchDelegate {
               );
             } else {
               var searchResult = snapshot.data!
-                  .where((element) =>
-                      '${element.firstName} ${element.lastName}'
-                        .toLowerCase()
-                        .contains(query.toLowerCase())
+                  .where((element) => '${element.firstName} ${element.lastName}'
+                          .toLowerCase()
+                          .contains(query.toLowerCase())
                       //element.firstName
                       //    .toLowerCase()
                       //    .contains(query.toLowerCase()) ||
                       //element.lastName
                       //    .toLowerCase()
                       //    .contains(query.toLowerCase())
-                    ) 
+                      )
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(

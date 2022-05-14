@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton.icon(
+                    key: const Key("Customer Button"),
                     onPressed: () async {
                       //setState(() {
                       //  loading = true;
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ElevatedButton.icon(
+                    key: const Key("Order Button"),
                     onPressed: () async {
                       //setState(() {
                       //  loading = true;
@@ -88,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ElevatedButton.icon(
+                    key: const Key("Calendar Button"),
                     onPressed: () async {
                       setState(() {
                         loading = true;

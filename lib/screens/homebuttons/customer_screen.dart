@@ -19,6 +19,7 @@ class CustomerScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: StreamBuilder<List<Customer>>(
+          key: const Key("Stream Customer"),
           stream: CustomerService().customers,
           builder: (context, snapshot) {
             if (!snapshot.hasError) {
@@ -28,51 +29,56 @@ class CustomerScreen extends StatelessWidget {
                 case ConnectionState.waiting:
                   return const Loading();
                 default:
-                  return Scaffold(
-                    appBar: AppBar(
-                      backgroundColor: const Color(0xFFF1A22C),
-                      title: Text(
-                        "Customer List",
-                        style: GoogleFonts.oxygen(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                  return Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Scaffold(
+                        key: const Key("StreamProvider Part"),
+                        appBar: AppBar(
+                          key: const Key("App Bar from CustomerScreen"),
+                          backgroundColor: const Color(0xFFF1A22C),
+                          title: Text(
+                            "Customer List",
+                            style: GoogleFonts.oxygen(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          centerTitle: true,
+                          actions: [
+                            IconButton(
+                              onPressed: () {
+                                showSearch(
+                                  context: context,
+                                  delegate: SearchCustomer(),
+                                );
+                              },
+                              icon: const Icon(Icons.search),
+                            ),
+                          ],
                         ),
-                      ),
-                      centerTitle: true,
-                      actions: [
-                        IconButton(
-                          onPressed: () {
-                            showSearch(
-                              context: context,
-                              delegate: SearchCustomer(),
-                            );
+                        floatingActionButton: FloatingActionButton(
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AddCustomer()));
                           },
-                          icon: const Icon(Icons.search),
+                          child: const Icon(
+                            Icons.add,
+                            size: 26.0,
+                          ),
+                          backgroundColor: const Color(0xFFF1A22C),
                         ),
-                      ],
-                    ),
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AddCustomer()));
-                      },
-                      child: const Icon(
-                        Icons.add,
-                        size: 26.0,
-                      ),
-                      backgroundColor: const Color(0xFFF1A22C),
-                    ),
-                    body: StreamProvider<List<Customer>>.value(
-                      value:
-                          CustomerService().customers, // as in wala koy mabuhat
-                      initialData: const [],
-                      child: Container(
-                          margin: const EdgeInsets.only(bottom: 45.0),
-                          child: const CustomerListWidget()),
-                    ),
-                  );
+                        body: StreamProvider<List<Customer>>.value(
+                          key: const Key("StreamProvider Part"),
+                          value: CustomerService()
+                              .customers, // as in wala koy mabuhat
+                          initialData: const [],
+                          child: Container(
+                              margin: const EdgeInsets.only(bottom: 45.0),
+                              child: const CustomerListWidget()),
+                        ),
+                      ));
               }
             } else {
               return Center(

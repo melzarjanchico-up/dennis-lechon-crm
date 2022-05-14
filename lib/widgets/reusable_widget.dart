@@ -12,6 +12,7 @@ Image logoWidget(String imageName) {
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller) {
   return TextField(
+    key: const Key("TextField Auth"),
     controller: controller,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
@@ -40,6 +41,7 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
 
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
+    key: const Key("Auth Button"),
     width: MediaQuery.of(context).size.width,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),

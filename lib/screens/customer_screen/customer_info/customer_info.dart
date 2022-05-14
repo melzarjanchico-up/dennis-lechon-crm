@@ -53,9 +53,11 @@ class _CustomerInfoState extends State<CustomerInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key("Customer Information"),
       appBar: AppBar(
         backgroundColor: widget.customer.tagColor,
-        title: Text('${widget.customer.firstName}\'s Information',
+        title: Text(
+          '${widget.customer.firstName}\'s Information',
           style: GoogleFonts.oxygen(
             fontSize: 18,
             fontWeight: FontWeight.w700,
