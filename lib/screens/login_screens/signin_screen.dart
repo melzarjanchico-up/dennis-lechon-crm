@@ -1,4 +1,4 @@
-import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
+import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/resetpassword_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
@@ -52,8 +52,12 @@ class _SignInState extends State<SignIn> {
                           const SizedBox(
                             height: 30,
                           ),
-                          reusableTextField("Enter Email", Icons.person_outline,
-                              false, _emailTextController),
+                          reusableTextField(
+                              "Enter Email",
+                              Icons.person_outline,
+                              false,
+                              _emailTextController,
+                              const Key("Email Key")),
                           const SizedBox(
                             height: 20,
                           ),
@@ -61,7 +65,8 @@ class _SignInState extends State<SignIn> {
                               "Enter Password",
                               Icons.lock_outline,
                               true,
-                              _passwordTextController),
+                              _passwordTextController,
+                              const Key("Pass Key")),
                           const SizedBox(
                             height: 5,
                           ),
@@ -77,8 +82,7 @@ class _SignInState extends State<SignIn> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HomeScreen()));
+                                      builder: (context) => const Dashboard()));
                             }).onError(
                                     (FirebaseAuthException error, stackTrace) {
                               var errorcode = error.code;
@@ -123,7 +127,7 @@ class _SignInState extends State<SignIn> {
                                   });
                               // Ends here
                             });
-                          }),
+                          }, const Key("SignIn Key")),
                           signUpOption(),
                         ])),
                   ))

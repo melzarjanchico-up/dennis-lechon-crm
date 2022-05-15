@@ -10,10 +10,10 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
+import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
-import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/resetpassword_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
@@ -36,59 +36,71 @@ void main() {
     await Firebase.initializeApp();
   });
 
-  testWidgets('Project LechGo is successful', (WidgetTester tester) async {
+  testWidgets('Project LechGo Main Test Widget', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
   });
 
-  testWidgets('Main smoke test is successful', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-    await tester.pumpAndSettle();
-  });
-
-  testWidgets('Sign In smoke test is successful', (WidgetTester tester) async {
+  testWidgets('Sign In smoke Test Widget', (WidgetTester tester) async {
     await tester.pumpWidget(const MaterialApp(home: SignIn()));
-    await tester.pumpAndSettle();
+    expect(find.byKey(const Key("Sign In")), findsWidgets);
+
+    //Tests the  email textfield
+    await tester.enterText(
+        find.byKey(const Key("Email Key")), 'test123@gmail.com');
+    await tester.pump();
+    expect(find.text("test123@gmail.com"), findsOneWidget);
+
+    //Tests the password button
+    await tester.enterText(find.byKey(const Key("Pass Key")), 'test12345');
+    await tester.pump();
+    expect(find.text("test12345"), findsOneWidget);
+
+    //Tests the Sign In button
+    await tester.tap(find.text("LOG IN"));
+    await tester.pump();
+    expect(find.byKey(const Key("SignIn Key")), findsOneWidget);
   });
 
   testWidgets('Sign Up smoke test is successful', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MaterialApp(home: SignUp()));
-    await tester.pumpAndSettle();
   });
 
-  testWidgets('Reset Password smoke test is successful',
-      (WidgetTester tester) async {
+  testWidgets('Reset Password Test Widgets', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MaterialApp(home: ResetPassword()));
-    expect(find.text("Reset Your Password"), findsWidgets);
+    expect(find.byKey(const Key("Password Key")), findsWidgets);
 
+    //Tests the  email textfield
+    await tester.enterText(find.byType(TextField), 'test123@gmail.com');
+    await tester.pump();
+    expect(find.byKey(const Key("PassFromResetPass Key")), findsOneWidget);
+
+    //Tests the ResetPassword button
     await tester.tap(find.text("Reset Password"));
     await tester.pump();
-    expect(find.byKey(const Key("Auth Button")), findsOneWidget);
-    //await tester.pumpAndSettle();
+    expect(find.byKey(const Key("ResetPassword Key")), findsOneWidget);
   });
 
-  testWidgets('Home Screen smoke test is successful',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: HomeScreen()));
-    await tester.tap(find.textContaining("Customer"));
-    expect(find.text('Customer List'), findsOneWidget);
-    await tester.pump();
+  testWidgets('Dashboard Test Widgets', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: Dashboard()));
+    // await tester.tap(find.textContaining("Customer"));
+    // expect(find.text('Customer List'), findsOneWidget);
+    // await tester.pump();
 
-    await tester.tap(find.textContaining("Order"), warnIfMissed: false);
-    expect(find.text('Order List'), findsOneWidget);
-    await tester.pump();
+    // await tester.tap(find.textContaining("Order"), warnIfMissed: false);
+    // expect(find.text('Order List'), findsOneWidget);
+    // await tester.pump();
 
-    expect(find.byKey(const Key("Customer Button")), findsOneWidget);
-    expect(find.byKey(const Key("Order Button")), findsOneWidget);
-    expect(find.byKey(const Key("Calendar Button")), findsOneWidget);
+    // expect(find.byKey(const Key("Customer Button")), findsOneWidget);
+    // expect(find.byKey(const Key("Order Button")), findsOneWidget);
+    // expect(find.byKey(const Key("Calendar Button")), findsOneWidget);
   });
 
   //Test the Customer Stream
-  testWidgets('Customer Stream smoke test is successful',
-      (WidgetTester tester) async {
+  testWidgets('Customer Stream Test Widgets', (WidgetTester tester) async {
     await tester.pumpWidget(const CustomerScreen());
     expect(find.byKey(const Key("Stream Customer")), findsOneWidget);
     // expect(find.byKey(const Key("StreamProvider Part")), findsOneWidget);
@@ -98,8 +110,7 @@ void main() {
     // expect(childFinder, findsOneWidget);
   });
 
-  testWidgets('Customer List Screen smoke test is successful',
-      (WidgetTester tester) async {
+  testWidgets('Customer List Screen Test Widgets', (WidgetTester tester) async {
     // Generates the Customer List
     await tester.pumpWidget(StreamProvider<List<Customer>>.value(
       value: CustomerService().customers,
@@ -117,8 +128,7 @@ void main() {
   });
 
   //Tests the Order Stream
-  testWidgets('Order Stream smoke test is successful',
-      (WidgetTester tester) async {
+  testWidgets('Order Stream Test Widgets', (WidgetTester tester) async {
     await tester.pumpWidget(const OrderListScreen());
     expect(find.byKey(const Key("Stream Order")), findsOneWidget);
 
@@ -128,8 +138,7 @@ void main() {
   });
 
   // Tests for the Order List Screen
-  testWidgets('Order List Screen smoke test is successful',
-      (WidgetTester tester) async {
+  testWidgets('Order List Screen Test Widgets', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(StreamProvider<List<Order>>.value(
       value: OrderService().orders,
@@ -146,8 +155,7 @@ void main() {
     // expect(find.byKey(const Key("Order Info Card")), findsOneWidget);
   });
 
-  testWidgets('Calendar Screen smoke test is successful',
-      (WidgetTester tester) async {
+  testWidgets('Calendar Screen Test Widgets', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const CalendarScreen());
     await tester.pumpAndSettle();

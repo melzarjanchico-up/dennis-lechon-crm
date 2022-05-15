@@ -1,7 +1,7 @@
+import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'home_screen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -39,17 +39,17 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               children: <Widget>[
                 reusableTextField("Enter UserName", Icons.person_outline, false,
-                    _userNameTextController),
+                    _userNameTextController, const Key("Username Key")),
                 const SizedBox(
                   height: 30,
                 ),
                 reusableTextField("Enter Email", Icons.person_outline, false,
-                    _emailTextController),
+                    _emailTextController, const Key("EmailFromSignUp Key")),
                 const SizedBox(
                   height: 20,
                 ),
                 reusableTextField("Enter Password", Icons.lock_outline, true,
-                    _passwordTextController),
+                    _passwordTextController, const Key("PassFromSignUp Key")),
                 const SizedBox(
                   height: 5,
                 ),
@@ -63,11 +63,11 @@ class _SignUpState extends State<SignUp> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
+                            builder: (context) => const Dashboard()));
                   }).onError((error, stackTrace) {
                     debugPrint("Error ${error.toString()}");
                   });
-                })
+                }, const Key("SignUp Key"))
               ],
             ),
           ))),

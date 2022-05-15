@@ -2,13 +2,13 @@
 //import 'package:dennis_lechon_crm/screens/login_screens/home_screen.dart';
 //import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
 //import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
-//import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart'; // temporary for testing
+import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart'; // temporary for testing
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:flutter/material.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info.dart';
 //import 'package:google_fonts/google_fonts.dart';
-import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
+//import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 
 // atleast edit para mapush
 
@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
       ),
       debugShowCheckedModeBanner: false,
-      //home: SignIn(),
-      home: const Dashboard(),
+      home: const SignIn(),
+      //home: const Dashboard(),
     );
   }
 }

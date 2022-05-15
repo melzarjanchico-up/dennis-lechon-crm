@@ -23,6 +23,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               elevation: 0,
               title: const Text(
                 "Reset Your Password",
+                key: Key("Password Key"),
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
@@ -39,8 +40,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                         const SizedBox(
                           height: 20,
                         ),
-                        reusableTextField("Enter Email Id",
-                            Icons.person_outline, false, _emailTextController),
+                        reusableTextField(
+                            "Enter Email Id",
+                            Icons.person_outline,
+                            false,
+                            _emailTextController,
+                            const Key("PassFromResetPass Key")),
                         const SizedBox(
                           height: 20,
                         ),
@@ -49,7 +54,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               .sendPasswordResetEmail(
                                   email: _emailTextController.text)
                               .then((value) => Navigator.of(context).pop());
-                        })
+                        }, const Key("ResetPassword Key"))
                       ],
                     ),
                   ))),
