@@ -138,9 +138,10 @@ class _SignInState extends State<SignIn> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have account?",
+        const Text("Don't have an account?",
             style: TextStyle(color: Colors.white70)),
         GestureDetector(
+          key: const Key("Sign Up Clickable"),
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SignUp()));
