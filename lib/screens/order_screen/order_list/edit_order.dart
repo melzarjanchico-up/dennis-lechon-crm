@@ -188,10 +188,11 @@ class _EditOrderState extends State<EditOrder> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      width: 250,
+                      width: 350,
                       child: TextFormField(
                         controller: _firstNameController,
                         decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
                             // labelText: 'Name',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
@@ -207,10 +208,11 @@ class _EditOrderState extends State<EditOrder> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      width: 250,
+                      width: 350,
                       child: TextFormField(
                         controller: _cityController,
                         decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
                             // labelText: 'Name',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
@@ -226,10 +228,11 @@ class _EditOrderState extends State<EditOrder> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      width: 250,
+                      width: 350,
                       child: TextFormField(
                         controller: _celNumController,
                         decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
                             // labelText: 'Name',
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
@@ -1190,9 +1193,121 @@ class _EditOrderState extends State<EditOrder> {
                                         ),
                                       ),
                                       const SizedBox(height: 20),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: const [
+                                              Text(
+                                                "Subtotal",
+                                                style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 12,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              SizedBox(width: 25),
+                                              Text(
+                                                //without backend yet
+                                                "Php 10,000",
+                                                style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 14,
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: const [
+                                              Text(
+                                                "Delivery fee",
+                                                style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 12,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              SizedBox(width: 15),
+                                              Text(
+                                                "Php",
+                                                style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 14,
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(width: 5),
+                                              SizedBox(
+                                                width: 65,
+                                                height: 20,
+                                                child: TextField(
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    contentPadding:
+                                                        EdgeInsets.fromLTRB(
+                                                            14, 0, 0, 0),
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                  ),
+                                                ),
+                                              ),
+                                              //SizedBox(width: 25),
+                                              // const Text(
+                                              //   //without backend yet
+                                              //   "Php 500",
+                                              //   style: TextStyle(
+                                              //     fontFamily: 'Montserrat',
+                                              //     fontSize: 14,
+                                              //     color: Colors.grey,
+                                              //   ),
+                                              // ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Row(
+                                            children: [
+                                              const SizedBox(width: 25),
+                                              Container(
+                                                width: 250,
+                                                height: 2,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 221, 220, 220),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      color: Color.fromARGB(
+                                                          255, 207, 206, 206),
+                                                      offset: Offset(0.0, 2.0),
+                                                      blurRadius: 2,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(width: 5),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                       Row(
                                         children: [
-                                          const SizedBox(width: 27),
+                                          const SizedBox(width: 20),
                                           Container(
                                             width: 300,
                                             height: 2,
@@ -1211,7 +1326,7 @@ class _EditOrderState extends State<EditOrder> {
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(width: 3.5),
+                                          const SizedBox(width: 5),
                                         ],
                                       ),
                                       const SizedBox(height: 20),
