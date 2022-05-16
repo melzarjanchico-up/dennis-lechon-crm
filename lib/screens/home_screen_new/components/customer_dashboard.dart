@@ -12,7 +12,7 @@ class CustomerDash extends StatelessWidget {
           children: <Widget>[
             CustomerCard(
                 age: '21 years old',
-                name: 'Doja',
+                name: 'Maria Leonora Teresa Mamasita',
                 address: 'Mandaue',
                 press: () {
                   Navigator.push(
@@ -100,6 +100,7 @@ class CustomerCard extends StatelessWidget {
             GestureDetector(
               onTap: press,
               child: Container(
+                padding: const EdgeInsets.only(left: 25, right: 25),
                 decoration: const BoxDecoration(
                     color: Color(0xFFF1A22C),
                     borderRadius: BorderRadius.only(
@@ -108,10 +109,13 @@ class CustomerCard extends StatelessWidget {
                 height: 32,
                 width: size.width * 0.25,
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(name,
+                          overflow: TextOverflow.fade,
+                          maxLines: 1,
+                          softWrap: false,
                           style: const TextStyle(
                               fontFamily: 'Baloo_2',
                               fontSize: 18,
