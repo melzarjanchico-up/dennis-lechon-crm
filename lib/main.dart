@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 // atleast edit para mapush
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeDateFormatting();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyB9yv4QSumR3MiPX4xfk03GU04McRgdk2o", // Your apiKey
