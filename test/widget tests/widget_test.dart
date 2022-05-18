@@ -8,8 +8,9 @@
 //import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
+//import 'package:dennis_lechon_crm/widgets/loading.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
-import 'package:mockito/mockito.dart';
+//import 'package:mockito/mockito.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
@@ -21,14 +22,15 @@ import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/order_list.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
-import 'package:dennis_lechon_crm/widgets/loading.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dennis_lechon_crm/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //import 'package:provider/provider.dart';
-import 'mock.dart';
+import '../mock.dart';
 
 void main() {
   //This is for creating a Mock for Firebase.initialize
@@ -120,22 +122,13 @@ void main() {
 
   testWidgets('Dashboard Test Widgets', (WidgetTester tester) async {
     await tester.pumpWidget(const MaterialApp(home: Dashboard()));
-    // await tester.tap(find.textContaining("Customer"));
-    // expect(find.text('Customer List'), findsOneWidget);
-    // await tester.pump();
-
-    // await tester.tap(find.textContaining("Order"), warnIfMissed: false);
-    // expect(find.text('Order List'), findsOneWidget);
-    // await tester.pump();
-
-    // expect(find.byKey(const Key("Customer Button")), findsOneWidget);
-    // expect(find.byKey(const Key("Order Button")), findsOneWidget);
-    // expect(find.byKey(const Key("Calendar Button")), findsOneWidget);
+    // to be added
   });
 
   //Test the Customer Stream
   testWidgets('Customer Stream Test Widgets', (WidgetTester tester) async {
     await tester.pumpWidget(const CustomerScreen());
+    // Let the snapshots stream fire a snapshot.
     expect(find.byKey(const Key("Stream Customer")), findsOneWidget);
   });
 
@@ -187,7 +180,7 @@ void main() {
 
   testWidgets('Calendar Screen Test Widgets', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const CalendarScreen());
+    await tester.pumpWidget(const MaterialApp(home: CalendarScreen()));
     await tester.pumpAndSettle();
   });
 }

@@ -114,7 +114,10 @@ class Body extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Icon(Icons.keyboard_double_arrow_right_rounded),
+                      Icon(
+                        Icons.keyboard_double_arrow_right_rounded,
+                        key: Key("Customer Button"),
+                      ),
                     ],
                   ),
                   onPressed: () async {
