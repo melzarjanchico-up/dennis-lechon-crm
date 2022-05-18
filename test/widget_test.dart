@@ -9,6 +9,7 @@
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
+import 'package:mockito/mockito.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/customer_list.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
@@ -20,6 +21,7 @@ import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/order_list.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dennis_lechon_crm/main.dart';
@@ -62,10 +64,10 @@ void main() {
     await tester.pump();
     expect(find.byKey(const Key("SignIn Key")), findsOneWidget);
 
-    // //Tests the SignUp Text Button
-    // await tester.tap(find.byKey(const Key("Sign Up Clickable")));
-    // await tester.pump();
-    // expect(find.byKey(const Key("Sign Up")), findsOneWidget);
+    //Tests the SignUp Text Button
+    await tester.tap(find.byKey(const Key("Sign Up Clickable")));
+    await tester.pump();
+    expect(find.byType(Scaffold), findsOneWidget); //Wrong way to do tests
   });
 
   testWidgets('Sign Up Test Widget', (WidgetTester tester) async {
@@ -94,6 +96,10 @@ void main() {
     await tester.tap(find.text("Sign Up"));
     await tester.pump();
     expect(find.byKey(const Key("SignUp Key")), findsOneWidget);
+
+    await tester.tap(find.text("Forgot Password?"));
+    await tester.pump();
+    expect(find.byKey(const Key("ResetPassword Key")), findsOneWidget);
   });
 
   testWidgets('Reset Password Test Widgets', (WidgetTester tester) async {
@@ -131,11 +137,6 @@ void main() {
   testWidgets('Customer Stream Test Widgets', (WidgetTester tester) async {
     await tester.pumpWidget(const CustomerScreen());
     expect(find.byKey(const Key("Stream Customer")), findsOneWidget);
-    // expect(find.byKey(const Key("StreamProvider Part")), findsOneWidget);
-    // final childFinder = find.descendant(
-    //     of: find.byWidget(const CustomerScreen()),
-    //     matching: find.byKey(const Key("Stream Customer")));
-    // expect(childFinder, findsOneWidget);
   });
 
   testWidgets('Customer List Screen Test Widgets', (WidgetTester tester) async {
@@ -147,12 +148,13 @@ void main() {
     ));
     //Currently Its empty idont know why
     expect(find.byKey(const Key("Spinning")), findsOneWidget);
-    //await tester.pump(Duration(seconds: 10));
+
+    await tester.pump();
 
     //Taps one customer Info from the list
     // await tester.tap(find.byType(ElevatedButton, skipOffstage: false));
     // await tester.pumpAndSettle();
-    // expect(find.byKey(const Key("Customer Information")), findsOneWidget);
+    //expect(find.byKey(const Key("Customer List from CustomerListWidget")),
   });
 
   //Tests the Order Stream

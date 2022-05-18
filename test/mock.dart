@@ -17,10 +17,10 @@ void setupFirebaseAuthMocks([Callback? customHandlers]) {
         {
           'name': defaultFirebaseAppName,
           'options': {
-            'apiKey': '123',
-            'appId': '123',
-            'messagingSenderId': '123',
-            'projectId': '123',
+            'apiKey': 'AIzaSyB9yv4QSumR3MiPX4xfk03GU04McRgdk2o',
+            'appId': '1:482691784655:web:f48df984a82bddcc6ebcba',
+            'messagingSenderId': '482691784655',
+            'projectId': 'dennis-lechon-crm',
           },
           'pluginConstants': {},
         }
