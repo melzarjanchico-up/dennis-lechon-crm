@@ -37,6 +37,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   validators: ^3.0.0
   random_avatar: ^0.0.6
+  table_calendar: ^3.0.5
   mockito: ^5.2.0
 
   # The following adds the Cupertino Icons font to your application.

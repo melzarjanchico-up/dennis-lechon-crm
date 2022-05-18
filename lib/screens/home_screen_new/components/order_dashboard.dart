@@ -80,7 +80,7 @@ class CustomerCard extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.only(
           left: 20,
-          top: 10,
+          top: 0,
           bottom: 30,
         ),
         width: size.width * 0.60,
