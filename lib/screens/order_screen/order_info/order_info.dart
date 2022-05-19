@@ -26,6 +26,7 @@ class _OrderInfoState extends State<OrderInfo> {
         mediumLechonPrice +
         largeLechonPrice +
         extraLargeLechonPrice;
+    final totalPrice = subPrice + widget.order.deliveryFee;
     final totalItem = widget.order.smallLechon +
         widget.order.mediumLechon +
         widget.order.largeLechon +
@@ -297,8 +298,8 @@ class _OrderInfoState extends State<OrderInfo> {
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
-                                                children: const [
-                                                  Text(
+                                                children: [
+                                                  const Text(
                                                     "Subtotal",
                                                     style: TextStyle(
                                                       fontFamily: 'Montserrat',
@@ -306,11 +307,11 @@ class _OrderInfoState extends State<OrderInfo> {
                                                       color: Colors.grey,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 25),
+                                                  const SizedBox(width: 25),
                                                   Text(
                                                     //without backend yet
-                                                    "Php 10,000",
-                                                    style: TextStyle(
+                                                    "Php $subPrice",
+                                                    style: const TextStyle(
                                                       fontFamily: 'Montserrat',
                                                       fontSize: 14,
                                                       color: Colors.grey,
@@ -326,8 +327,8 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     MainAxisAlignment.end,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
-                                                children: const [
-                                                  Text(
+                                                children: [
+                                                  const Text(
                                                     "Delivery fee",
                                                     style: TextStyle(
                                                       fontFamily: 'Montserrat',
@@ -335,11 +336,11 @@ class _OrderInfoState extends State<OrderInfo> {
                                                       color: Colors.grey,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 25),
+                                                  const SizedBox(width: 25),
                                                   Text(
                                                     //without backend yet
-                                                    "Php 500",
-                                                    style: TextStyle(
+                                                    "Php ${widget.order.deliveryFee}",
+                                                    style: const TextStyle(
                                                       fontFamily: 'Montserrat',
                                                       fontSize: 14,
                                                       color: Colors.grey,
@@ -416,7 +417,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          '      Php $subPrice',
+                                                          '      Php $totalPrice',
                                                       style: const TextStyle(
                                                         fontFamily:
                                                             'Montserrat',
