@@ -1,5 +1,6 @@
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info.dart';
+import 'package:dennis_lechon_crm/widgets/style.dart';
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -112,7 +113,21 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                   ),
                                 ),
                                 deliveryType
-                                    ? Text("RUSH", style: GoogleFonts.mulish())
+                                    ? Row(
+                                      children: [
+                                        const Icon(Icons.alarm, color: AppColors.redColor,),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                          child: Text(
+                                            "RUSH", 
+                                            style: GoogleFonts.mulish(
+                                              color: AppColors.redColor,
+                                              fontWeight: FontWeight.bold
+                                            )
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                     : const Text(""),
                               ])
                         ],
