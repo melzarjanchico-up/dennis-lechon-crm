@@ -34,6 +34,12 @@ class _AddOrderState extends State<AddOrder> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _celNumController = TextEditingController();
 
+  String dropdownvalue = 'ACTIVE';
+  var items = [
+    'ACTIVE',
+    'INACTIVE',
+  ];
+
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
   @override
   Widget build(BuildContext context) {
@@ -59,7 +65,7 @@ class _AddOrderState extends State<AddOrder> {
                 Container(
                   color: Colors.white,
                   width: double.infinity,
-                  height: 120.0,
+                  height: 160.0,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,16 +75,16 @@ class _AddOrderState extends State<AddOrder> {
                           text: "Order ",
                           style: TextStyle(
                             fontFamily: 'Montserrat',
-                            fontSize: 20,
+                            fontSize: 25,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF1F2426),
                           ),
                           children: [
                             TextSpan(
-                              text: "# Order",
+                              text: "#12321",
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 19,
+                                fontSize: 23,
                                 fontWeight: FontWeight.w600,
                                 fontStyle: FontStyle.italic,
                                 color: Color(0xFF1F2426),
@@ -130,18 +136,51 @@ class _AddOrderState extends State<AddOrder> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 15),
-                        color: const Color.fromARGB(255, 243, 243, 243),
-                        child: const Text(
-                          "Set status       ",
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Color(0xFF1F2426),
-                              fontSize: 14),
-                        ),
+                      Flexible(
+                        child: Container(
+                            width: 110,
+                            height: 50,
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            color: const Color.fromARGB(255, 243, 243, 243),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButtonFormField(
+                                value: dropdownvalue,
+                                items: items.map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(
+                                    fontSize: 15, fontFamily: 'Montserrat'),
+                              ),
+                            )
+                            // child: const Text(
+                            //   "Set status       ",
+                            //   style: TextStyle(
+                            //       fontFamily: 'Montserrat',
+                            //       color: Color(0xFF1F2426),
+                            //       fontSize: 14),
+                            // ),
+                            ),
                       ),
+                      // Container(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       vertical: 4, horizontal: 15),
+                      //   color: const Color.fromARGB(255, 243, 243, 243),
+                      //   child: const Text(
+                      //     "Set status       ",
+                      //     style: TextStyle(
+                      //         fontFamily: 'Montserrat',
+                      //         color: Color(0xFF1F2426),
+                      //         fontSize: 14),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -1268,17 +1307,9 @@ class _AddOrderState extends State<AddOrder> {
                                                 height: 2,
                                                 decoration: BoxDecoration(
                                                   color: const Color.fromARGB(
-                                                      255, 221, 220, 220),
+                                                      255, 243, 243, 243),
                                                   borderRadius:
                                                       BorderRadius.circular(5),
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 207, 206, 206),
-                                                      offset: Offset(0.0, 2.0),
-                                                      blurRadius: 2,
-                                                    ),
-                                                  ],
                                                 ),
                                               ),
                                               const SizedBox(width: 5),

@@ -149,18 +149,21 @@ class _EditOrderState extends State<EditOrder> {
                             color: const Color.fromARGB(255, 243, 243, 243),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButtonFormField(
-                                  value: dropdownvalue,
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      dropdownvalue = newValue!;
-                                    });
-                                  }),
+                                value: dropdownvalue,
+                                items: items.map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(
+                                    fontSize: 15, fontFamily: 'Montserrat'),
+                              ),
                             )
                             // child: const Text(
                             //   "Set status       ",
@@ -271,7 +274,7 @@ class _EditOrderState extends State<EditOrder> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     //
                                     // This is the start of the elements sa Card UI
                                     //
@@ -280,14 +283,14 @@ class _EditOrderState extends State<EditOrder> {
                                         height: 50,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
@@ -509,14 +512,14 @@ class _EditOrderState extends State<EditOrder> {
                                         height: 50,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
@@ -745,11 +748,11 @@ class _EditOrderState extends State<EditOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     Column(
                                                       crossAxisAlignment:
@@ -974,11 +977,11 @@ class _EditOrderState extends State<EditOrder> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 const SizedBox(
-                                                  width: 65,
+                                                  width: 20,
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     Column(
                                                       crossAxisAlignment:
@@ -1287,17 +1290,9 @@ class _EditOrderState extends State<EditOrder> {
                                                 height: 2,
                                                 decoration: BoxDecoration(
                                                   color: const Color.fromARGB(
-                                                      255, 221, 220, 220),
+                                                      255, 243, 243, 243),
                                                   borderRadius:
                                                       BorderRadius.circular(5),
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 207, 206, 206),
-                                                      offset: Offset(0.0, 2.0),
-                                                      blurRadius: 2,
-                                                    ),
-                                                  ],
                                                 ),
                                               ),
                                               const SizedBox(width: 5),
@@ -1326,43 +1321,55 @@ class _EditOrderState extends State<EditOrder> {
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(width: 5),
+                                          const SizedBox(width: 3.5),
                                         ],
                                       ),
-                                      const SizedBox(height: 20),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Total',
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 18.0,
+                                      const SizedBox(height: 22),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(width: 30),
+                                          Text(
+                                            'Total',
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 18.0,
+                                                color: const Color.fromARGB(
+                                                    255, 29, 29, 29),
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          const SizedBox(width: 3),
+                                          Text(
+                                            itemCount > 1
+                                                ? '  ($itemCount items)  '
+                                                : '  ($itemCount item)  ',
+                                            style: GoogleFonts.montserrat(
                                               color: const Color.fromARGB(
-                                                  255, 29, 29, 29),
-                                              fontWeight: FontWeight.w700),
-                                          children: [
-                                            TextSpan(
-                                              text: itemCount > 1
-                                                  ? '  ($itemCount items)  '
-                                                  : '  ($itemCount item)  ',
-                                              style: GoogleFonts.montserrat(
+                                                  255, 80, 79, 79),
+                                              letterSpacing: 1.0,
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 25),
+                                          Text(
+                                            'Php',
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 18.0,
                                                 color: const Color.fromARGB(
                                                     255, 80, 79, 79),
-                                                letterSpacing: 1.0,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700,
-                                              ),
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            '  $totalFee',
+                                            style: GoogleFonts.montserrat(
+                                              color: const Color.fromARGB(
+                                                  255, 80, 79, 79),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w800,
                                             ),
-                                            TextSpan(
-                                              text:
-                                                  '                  $subTotal',
-                                              style: GoogleFonts.montserrat(
-                                                color: const Color.fromARGB(
-                                                    255, 80, 79, 79),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -1370,7 +1377,7 @@ class _EditOrderState extends State<EditOrder> {
                               ),
                             ),
                             ElevatedButton(
-                              child: const Text(' Save Order ',
+                              child: const Text(' Create Order ',
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     color: Colors.white,
