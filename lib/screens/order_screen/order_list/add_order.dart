@@ -1,5 +1,6 @@
 import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:dennis_lechon_crm/widgets/search.dart';
 
@@ -33,6 +34,8 @@ class _AddOrderState extends State<AddOrder> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _celNumController = TextEditingController();
+    final TextEditingController _deliveryFee = TextEditingController(text: '0');
+
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
   @override
@@ -119,7 +122,7 @@ class _AddOrderState extends State<AddOrder> {
                             },
                           ),
                           const Text(
-                            "RUSH?",
+                            "RUSH",
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xFF1F2426),
@@ -368,30 +371,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        smallLechonItemCount !=
-                                                                                0
-                                                                            ? smallLechonItemCount--
-                                                                            : 0;
-                                                                        smallLechonPrice !=
-                                                                                0
-                                                                            ? smallLechonPrice -=
-                                                                                5000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                5000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                5000
-                                                                            : 0;
+                                                                        if (smallLechonItemCount > 0) {
+                                                                          smallLechonItemCount--;
+                                                                          itemCount--;
+                                                                          smallLechonPrice-=5000;
+                                                                          subTotal-=5000;
+                                                                          totalFee-=5000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -597,30 +583,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        mediumLechonItemCount !=
-                                                                                0
-                                                                            ? mediumLechonItemCount--
-                                                                            : 0;
-                                                                        mediumLechonPrice !=
-                                                                                0
-                                                                            ? mediumLechonPrice -=
-                                                                                6000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                6000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                6000
-                                                                            : 0;
+                                                                        if (mediumLechonItemCount > 0) {
+                                                                          mediumLechonItemCount--;
+                                                                          itemCount--;
+                                                                          mediumLechonPrice-=6000;
+                                                                          subTotal-=6000;
+                                                                          totalFee-=6000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -826,30 +795,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        largeLechonItemCount !=
-                                                                                0
-                                                                            ? largeLechonItemCount--
-                                                                            : 0;
-                                                                        largeLechonPrice !=
-                                                                                0
-                                                                            ? largeLechonPrice -=
-                                                                                7000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                7000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                7000
-                                                                            : 0;
+                                                                        if (largeLechonItemCount > 0) {
+                                                                          largeLechonItemCount--;
+                                                                          itemCount--;
+                                                                          largeLechonPrice-=7000;
+                                                                          subTotal-=7000;
+                                                                          totalFee-=7000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -1055,30 +1007,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        extraLargeLechonItemCount !=
-                                                                                0
-                                                                            ? extraLargeLechonItemCount--
-                                                                            : 0;
-                                                                        extraLargeLechonPrice !=
-                                                                                0
-                                                                            ? extraLargeLechonPrice -=
-                                                                                8000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                8000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                8000
-                                                                            : 0;
+                                                                        if (extraLargeLechonItemCount > 0) {
+                                                                          extraLargeLechonItemCount--;
+                                                                          itemCount--;
+                                                                          extraLargeLechonPrice-=8000;
+                                                                          subTotal-=8000;
+                                                                          totalFee-=8000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -1181,8 +1116,8 @@ class _AddOrderState extends State<AddOrder> {
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 "Subtotal",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
@@ -1190,11 +1125,11 @@ class _AddOrderState extends State<AddOrder> {
                                                   color: Colors.grey,
                                                 ),
                                               ),
-                                              SizedBox(width: 25),
+                                              const SizedBox(width: 25),
                                               Text(
                                                 //without backend yet
-                                                "Php 10,000",
-                                                style: TextStyle(
+                                                "Php $subTotal",
+                                                style: const TextStyle(
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 14,
                                                   color: Colors.grey,
@@ -1209,8 +1144,8 @@ class _AddOrderState extends State<AddOrder> {
                                                 MainAxisAlignment.end,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 "Delivery fee",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
@@ -1218,8 +1153,8 @@ class _AddOrderState extends State<AddOrder> {
                                                   color: Colors.grey,
                                                 ),
                                               ),
-                                              SizedBox(width: 15),
-                                              Text(
+                                              const SizedBox(width: 15),
+                                              const Text(
                                                 "Php",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
@@ -1228,17 +1163,34 @@ class _AddOrderState extends State<AddOrder> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(width: 5),
+                                              const SizedBox(width: 5),
+
                                               SizedBox(
                                                 width: 65,
                                                 height: 20,
                                                 child: TextField(
-                                                  style: TextStyle(
+                                                  textAlign: TextAlign.end,
+                                                  controller: _deliveryFee,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      if (value != '') {
+                                                        totalFee = (subTotal + int.parse(value));
+                                                      } else {
+                                                        totalFee = 0;
+                                                      }
+                                                    });
+                                                  },
+                                                  keyboardType: TextInputType.number,
+                                                  inputFormatters: [
+                                                    //LengthLimitingTextInputFormatter(11),
+                                                    FilteringTextInputFormatter.digitsOnly,
+                                                  ],
+                                                  style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.grey,
                                                     fontWeight: FontWeight.bold,
                                                   ),
-                                                  decoration: InputDecoration(
+                                                  decoration: const InputDecoration(
                                                     contentPadding:
                                                         EdgeInsets.fromLTRB(
                                                             14, 0, 0, 0),
@@ -1247,16 +1199,7 @@ class _AddOrderState extends State<AddOrder> {
                                                   ),
                                                 ),
                                               ),
-                                              //SizedBox(width: 25),
-                                              // const Text(
-                                              //   //without backend yet
-                                              //   "Php 500",
-                                              //   style: TextStyle(
-                                              //     fontFamily: 'Montserrat',
-                                              //     fontSize: 14,
-                                              //     color: Colors.grey,
-                                              //   ),
-                                              // ),
+
                                             ],
                                           ),
                                           const SizedBox(height: 20),

@@ -20,7 +20,7 @@ class Order {
 
   const Order({
     required this.id,
-    this.customerid = '',
+    required this.customerid,
     required this.firstName,
     required this.lastName,
     required this.celNum,
