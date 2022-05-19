@@ -75,7 +75,7 @@ void main() {
   testWidgets('Sign Up Test Widget', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MaterialApp(home: SignUp()));
-    expect(find.byKey(const Key("Sign Up")), findsWidgets);
+    expect(find.byKey(const Key("Sign Up")), findsOneWidget);
 
     //Tests the  username textfield
     await tester.enterText(find.byKey(const Key("Username Key")), 'test123');
@@ -98,10 +98,6 @@ void main() {
     await tester.tap(find.text("Sign Up"));
     await tester.pump();
     expect(find.byKey(const Key("SignUp Key")), findsOneWidget);
-
-    await tester.tap(find.text("Forgot Password?"));
-    await tester.pump();
-    expect(find.byKey(const Key("ResetPassword Key")), findsOneWidget);
   });
 
   testWidgets('Reset Password Test Widgets', (WidgetTester tester) async {
