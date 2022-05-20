@@ -1,4 +1,5 @@
 import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 //import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
@@ -33,14 +34,17 @@ class _AddOrderState extends State<AddOrder> {
   var totalFee = 0;
 
   Customer? chosenCustomer;
+  DateTime? _deliveryDateController;
+  String? _orderStatusController;
+  String? _orderPaymentMethodController;
 
-  bool _isChecked = true;
+  bool _isRushOrder = false;
+  bool _isDeliveryOrder = false;
 
   final TextEditingController _searchCustomerController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
-  final TextEditingController _deliveryFee = TextEditingController(text: '0');
-  //String _selectedCity = '';
+  final TextEditingController _deliveryFee = TextEditingController(text: '');
 
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
@@ -72,7 +76,9 @@ class _AddOrderState extends State<AddOrder> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
+
                     children: [
+                      /*
                       RichText(
                         text: const TextSpan(
                           text: "Order ",
@@ -89,46 +95,74 @@ class _AddOrderState extends State<AddOrder> {
                                 fontFamily: 'Montserrat',
                                 fontSize: 19,
                                 fontWeight: FontWeight.w600,
-                                fontStyle: FontStyle.italic,
+                                //fontStyle: FontStyle.italic,
                                 color: Color(0xFF1F2426),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
+                      ),*/
+
+                      //const SizedBox(height: 8),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: const Color(0xFF2A87BB)),
-                            child: const Text(
-                              "SET DATE",
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: Colors.white,
-                                  fontSize: 14),
+                          
+                          // delivery date setter
+                          TextButton.icon(
+                            onPressed: () async {
+                              await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime(2100),
+                                      initialEntryMode: DatePickerEntryMode.input)
+                                  .then((value) {
+                                setState(() {
+                                  _deliveryDateController = value;
+                                });
+                              }).onError((error, stackTrace) => null);
+                            },
+                            icon: const Icon(
+                              Icons.calendar_month_outlined,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
+                            label: Text(
+                              (_deliveryDateController != null)
+                                  ? '${_deliveryDateController!.month}/${_deliveryDateController!.day}/${_deliveryDateController!.year}'
+                                  : 'SET DATE',
+                              style: const TextStyle(
+                                //fontFamily: 'Montserrat',
+                                color: Colors.white,
+                                fontSize: 16.0),
+                            ),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 15.0),
+                              minimumSize: Size.zero,
+                              backgroundColor: const Color(0xFF2A87BB),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)
+                              )
                             ),
                           ),
+
                           const SizedBox(width: 10),
+
+                          // checkbox for rush order
                           Checkbox(
-                            value: _isChecked,
+                            value: _isRushOrder,
                             activeColor: const Color(0xFFF1A22C),
                             onChanged: (val) {
                               setState(() {
-                                _isChecked = val!;
-                                if (val == true) {
-                                  //
-                                }
+                                _isRushOrder = (val!);
                               });
                             },
                           ),
                           const Text(
-                            "RUSH",
+                            "RUSH?",
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xFF1F2426),
@@ -136,24 +170,100 @@ class _AddOrderState extends State<AddOrder> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 15),
-                        color: const Color.fromARGB(255, 243, 243, 243),
-                        child: const Text(
-                          "Set status       ",
-                          style: TextStyle(
+
+                          const SizedBox(width: 10),
+
+                          // checkbox for delivery order
+                          Checkbox(
+                            value: _isDeliveryOrder,
+                            activeColor: const Color(0xFFF1A22C),
+                            onChanged: (value) {
+                              setState(() {
+                                _isDeliveryOrder = (value!);
+                              });
+                              if (_isDeliveryOrder == false) {
+                                totalFee = (totalFee - int.parse(_deliveryFee.text));
+                                _deliveryFee.text = '';
+                              }
+                            },
+                          ),
+                          const Text(
+                            "DELIVERY?",
+                            style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xFF1F2426),
-                              fontSize: 14),
-                        ),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+
+                        ],
                       ),
+
+                      const SizedBox(height: 10),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          DropdownButton<String>(
+                            isDense: true,
+                            hint: _orderStatusController == null
+                              ? const Text('Set Status')
+                              : Text(
+                                  _orderStatusController!,
+                                  style: const TextStyle(color: Colors.blue),
+                            ),
+                            items: <String>['Unpaid', 'Paid'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                _orderStatusController = val;
+                              });
+                              if (_orderStatusController == 'Paid') {
+                                _orderPaymentMethodController = null;
+                              }
+                            },
+                          ),
+                          const SizedBox(width: 10.0,),
+                          DropdownButton<String>(
+                            isDense: true,
+                            
+                            hint: (_orderPaymentMethodController == null) ? 
+                              (_orderStatusController != 'Paid') ? const Text('Payment Method') : 
+                                const Text(
+                                  'Already Paid', 
+                                  style: TextStyle(
+                                    color: Colors.red
+                                  ),
+                                )
+                              : Text(
+                                  _orderPaymentMethodController!,
+                                  style: const TextStyle(color: Colors.blue),
+                            ),
+
+                            items: <String>['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (_orderStatusController == 'Unpaid') ? (val) {
+                              setState(() {
+                                _orderPaymentMethodController = val;
+                              });
+                            } : null,
+                          ),
+                        ],
+                      )
+
                     ],
                   ),
                 ),
+
                 const SizedBox(width: 10),
 
                 Column(
@@ -209,7 +319,7 @@ class _AddOrderState extends State<AddOrder> {
                                     style: const TextStyle(
                                       fontFamily: 'Montserrat',
                                       //color: Colors.grey,
-                                      fontSize: 14.0,
+                                      //fontSize: 14.0,
                                       fontWeight: FontWeight.w300
                                     ),
                                   )
@@ -240,9 +350,41 @@ class _AddOrderState extends State<AddOrder> {
                           _contactController.text = customer.celNum;
                         },
 
-                        //noItemsFoundBuilder: (context) {
-                        //  return const Text("Your customer does not seem to exist. Create one?");
-                        //},
+                        noItemsFoundBuilder: (context) {
+                          return ListTile(
+                            title: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(right: 2.5),
+                                      child: const Icon(Icons.person_add_alt, size: 14.0)
+                                    )
+                                  ),
+                                  const TextSpan(
+                                    text: 'This customer does not exist.',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      //color: Colors.grey,
+                                      fontWeight: FontWeight.w300
+                                    ),
+                                  )
+                                ]
+                              ),
+                            ),
+                            subtitle: const Text(
+                              'Add this customer into the database!',
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AddCustomer()));
+                              },
+                          );
+                        },
 
                         //validator: (value) {
                         //  if (value!.isEmpty) {
@@ -1214,7 +1356,8 @@ class _AddOrderState extends State<AddOrder> {
                                             ],
                                           ),
                                           const SizedBox(height: 10),
-                                          Row(
+
+                                          (_isDeliveryOrder) ? Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             crossAxisAlignment:
@@ -1239,11 +1382,11 @@ class _AddOrderState extends State<AddOrder> {
                                                 ),
                                               ),
                                               const SizedBox(width: 5),
-
                                               SizedBox(
                                                 width: 65,
                                                 height: 20,
                                                 child: TextField(
+                                                  enabled: _isDeliveryOrder,
                                                   textAlign: TextAlign.end,
                                                   controller: _deliveryFee,
                                                   onChanged: (value) {
@@ -1276,8 +1419,10 @@ class _AddOrderState extends State<AddOrder> {
                                               ),
 
                                             ],
-                                          ),
+                                          ): Container(),
+
                                           const SizedBox(height: 20),
+
                                           Row(
                                             children: [
                                               const SizedBox(width: 25),

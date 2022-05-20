@@ -219,6 +219,7 @@ class _AddCustomerState extends State<AddCustomer> {
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500),
                         )),
+                        
                     TextButton.icon(
                       onPressed: () async {
                         await showDatePicker(
@@ -253,6 +254,7 @@ class _AddCustomerState extends State<AddCustomer> {
                           minimumSize: Size.zero,
                           backgroundColor: Colors.black12),
                     ),
+
                     Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Row(
