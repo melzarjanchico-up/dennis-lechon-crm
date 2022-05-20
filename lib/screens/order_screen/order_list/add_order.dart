@@ -32,11 +32,13 @@ class _AddOrderState extends State<AddOrder> {
   var subTotal = 0;
   var totalFee = 0;
 
+  Customer? chosenCustomer;
+
   bool _isChecked = true;
 
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _celNumController = TextEditingController();
+  final TextEditingController _searchCustomerController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _contactController = TextEditingController();
   final TextEditingController _deliveryFee = TextEditingController(text: '0');
   //String _selectedCity = '';
 
@@ -165,25 +167,54 @@ class _AddOrderState extends State<AddOrder> {
                           fontSize: 12.0,
                           fontWeight: FontWeight.w300),
                     ),
+
                     SizedBox(
                       width: 350,
                       child: TypeAheadFormField(
-                        textFieldConfiguration: const TextFieldConfiguration(
-                          decoration: InputDecoration(
-                           //this is the search button in add order name textfield
-                            suffixIcon: Icon(Icons.search),
+                        hideOnLoading: true,
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: _searchCustomerController,
+                          decoration: const InputDecoration(
+                            suffixIcon: Icon(Icons.person_search_outlined),
                             border: OutlineInputBorder(),
-                            //labelText: 'Search Customer',
-                            contentPadding: EdgeInsets.symmetric(horizontal: 15)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)
                           ),
+                        ),
+
                         suggestionsCallback: (pattern) async {
                           return CustomerService().getSuggestion(pattern);
                         },
+
+                        // frontend edit inside here if u want to edit the box itself
+                        suggestionsBoxDecoration: const SuggestionsBoxDecoration(
+                          constraints: BoxConstraints(
+                            maxHeight: 200.0
+                          )
+                        ),
+                        
                         itemBuilder: (context, Customer customer) {
                           return ListTile(
-                            title: Text(
-                              '${customer.firstName} ${customer.lastName}',
+                            title: RichText(
                               overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(right: 2.5),
+                                      child: Icon(Icons.person_sharp, size: 14.0, color: customer.tagColor)
+                                    )
+                                  ),
+                                  TextSpan(
+                                    text: '${customer.firstName} ${customer.lastName}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      //color: Colors.grey,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w300
+                                    ),
+                                  )
+                                ]
+                              ),
                             ),
                             subtitle: Text(
                               '${customer.adrBarangay} ${customer.adrCity}',
@@ -191,42 +222,42 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                           );
                         },
+
                         transitionBuilder: (context, suggestionsBox, controller) {
                           return suggestionsBox;
                         },
-                        onSuggestionSelected: (suggestion) {
-                          _firstNameController.text = (suggestion as String);
+
+                        onSuggestionSelected: (Customer customer) {
+                          setState(() {
+                            chosenCustomer = customer;
+                          });
+                          _searchCustomerController.text = '${customer.firstName} ${customer.lastName}';
+                          _addressController.text = (customer.adrStreet.isNotEmpty ? '${customer.adrStreet} ' : '') + 
+                                (customer.adrBarangay.isNotEmpty ? '${customer.adrBarangay} ' : '') + 
+                                (customer.adrCity.isNotEmpty ? '${customer.adrCity} ' : '') + 
+                                (customer.adrProvince.isNotEmpty ? '${customer.adrProvince} ' : '') + 
+                                (customer.adrZipcode.isNotEmpty ? '${customer.adrZipcode} ' : '');
+                          _contactController.text = customer.celNum;
                         },
+
+                        //noItemsFoundBuilder: (context) {
+                        //  return const Text("Your customer does not seem to exist. Create one?");
+                        //},
+
                         //validator: (value) {
                         //  if (value!.isEmpty) {
                         //    return 'Please select a customer';
                         //  }
                         //},
+
                         //onSaved: (value) => _selectedCity = (value as String),
+
                       )
 
-                      /*
-                      TextFormField(
-                        controller: _firstNameController,
-                        decoration: InputDecoration(
-                            //this is the search button in add order name textfield
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                //showSearch(
-                                //  context: context,
-                                //  delegate: SearchCustomer(),
-                                //);
-                              },
-                              icon: const Icon(Icons.search),
-                            ),
-                            border: const OutlineInputBorder(),
-                            // labelText: 'Name',
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 5)),
-                      ),
-                      */
                     ),
+
                     const SizedBox(height: 20),
+
                     const Text(
                       'Address:',
                       style: TextStyle(
@@ -238,15 +269,15 @@ class _AddOrderState extends State<AddOrder> {
                     SizedBox(
                       width: 350,
                       child: TextFormField(
-                        controller: _cityController,
+                        controller: _addressController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             // labelText: 'Name',
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 5)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)),
                       ),
                     ),
                     const SizedBox(height: 20),
+
                     const Text(
                       'Contact Number:',
                       style: TextStyle(
@@ -258,14 +289,14 @@ class _AddOrderState extends State<AddOrder> {
                     SizedBox(
                       width: 350,
                       child: TextFormField(
-                        controller: _celNumController,
+                        controller: _contactController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             // labelText: 'Name',
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 5)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)),
                       ),
                     ),
+
                   ],
                 ),
 
