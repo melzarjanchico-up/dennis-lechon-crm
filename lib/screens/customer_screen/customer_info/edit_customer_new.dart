@@ -17,8 +17,10 @@ int calculateAge(DateTime birthDate) {
 
 class EditCustomer extends StatefulWidget {
   final Customer customer;
-
-  const EditCustomer({required this.customer, Key? key}) : super(key: key);
+  final FirebaseFirestore firestore;
+  const EditCustomer(
+      {Key? key, required this.customer, required this.firestore})
+      : super(key: key);
 
   @override
   State<EditCustomer> createState() => _EditCustomerState();
@@ -28,7 +30,6 @@ class _EditCustomerState extends State<EditCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
-  late final FirebaseFirestore firestore;
 
   // Controllers.
   DateTime? _birthdateController;
@@ -469,7 +470,8 @@ class _EditCustomerState extends State<EditCustomer> {
                               : () async {
                                   if (_formKey.currentState!.validate()) {
                                     _isLoadingNotifier.value = true;
-                                    await CustomerService(firestore: firestore)
+                                    await CustomerService(
+                                            firestore: widget.firestore)
                                         .editCustomer(
                                             widget.customer.id,
                                             _firstNameController.text,

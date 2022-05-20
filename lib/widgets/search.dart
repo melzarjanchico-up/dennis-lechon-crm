@@ -84,7 +84,7 @@ class SearchCustomer extends SearchDelegate {
                 initialData: const [],
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 45.0),
-                    child: const CustomerListWidget()),
+                    child: CustomerListWidget(firestore: firestore)),
               );
             }
           }
@@ -141,7 +141,7 @@ class SearchCustomer extends SearchDelegate {
                 initialData: const [],
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 45.0),
-                    child: const CustomerListWidget()),
+                    child: CustomerListWidget(firestore: firestore)),
               );
             }
           }

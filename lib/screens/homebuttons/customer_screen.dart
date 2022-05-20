@@ -63,7 +63,9 @@ class CustomerScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const AddCustomer()));
+                                    builder: (context) => AddCustomer(
+                                          firestore: firestore,
+                                        )));
                           },
                           child: const Icon(
                             Icons.add,
@@ -78,7 +80,9 @@ class CustomerScreen extends StatelessWidget {
                           initialData: const [],
                           child: Container(
                               margin: const EdgeInsets.only(bottom: 45.0),
-                              child: const CustomerListWidget()),
+                              child: CustomerListWidget(
+                                firestore: firestore,
+                              )),
                         ),
                       ));
               }

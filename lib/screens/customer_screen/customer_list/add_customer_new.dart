@@ -15,7 +15,8 @@ int calculateAge(DateTime birthDate) {
 }
 
 class AddCustomer extends StatefulWidget {
-  const AddCustomer({Key? key}) : super(key: key);
+  const AddCustomer({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   State<AddCustomer> createState() => _AddCustomerState();
@@ -25,7 +26,6 @@ class _AddCustomerState extends State<AddCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
-  late final FirebaseFirestore firestore;
 
   // Controllers.
   DateTime? _birthdateController;
@@ -451,7 +451,8 @@ class _AddCustomerState extends State<AddCustomer> {
                               : () async {
                                   if (_formKey.currentState!.validate()) {
                                     _isLoadingNotifier.value = true;
-                                    await CustomerService(firestore: firestore)
+                                    await CustomerService(
+                                            firestore: widget.firestore)
                                         .addCustomer(
                                             _firstNameController.text,
                                             _middleNameController.text,

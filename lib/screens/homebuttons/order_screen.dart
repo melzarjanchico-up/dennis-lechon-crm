@@ -74,12 +74,12 @@ class OrderListScreen extends StatelessWidget {
                                       child: const Text("Yes")),
                                   TextButton(
                                       onPressed: () {
-                                        Navigator.of(context).pop();
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const AddCustomer()));
+                                        // Navigator.of(context).pop();
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             AddCustomer()));
                                       },
                                       child: const Text("No"))
                                 ],

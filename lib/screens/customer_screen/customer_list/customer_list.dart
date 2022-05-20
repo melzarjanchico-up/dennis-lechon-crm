@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +8,9 @@ import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomerListWidget extends StatefulWidget {
-  const CustomerListWidget({
-    Key? key,
-  }) : super(key: key);
-
+  const CustomerListWidget({Key? key, required this.firestore})
+      : super(key: key);
+  final FirebaseFirestore firestore;
   @override
   State<CustomerListWidget> createState() => _CustomerListWidgetState();
 }
@@ -60,8 +60,9 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  CustomerInfo(customer: customer)));
+                              builder: (context) => CustomerInfo(
+                                  customer: customer,
+                                  firestore: widget.firestore)));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),

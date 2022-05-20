@@ -1,4 +1,5 @@
 //import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
@@ -41,8 +42,11 @@ int calculateAge(DateTime birthDate) {
 }
 
 class CustomerInfo extends StatefulWidget {
-  const CustomerInfo({Key? key, required this.customer}) : super(key: key);
+  const CustomerInfo(
+      {Key? key, required this.customer, required this.firestore})
+      : super(key: key);
   final Customer customer;
+  final FirebaseFirestore firestore;
 
   @override
   State<CustomerInfo> createState() => _CustomerInfoState();
@@ -73,12 +77,16 @@ class _CustomerInfoState extends State<CustomerInfo> {
           Center(child: buildNotes(widget.customer, context)),
           Padding(
             padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <
-                Widget>[
-              Center(child: buildEditProfileButton(context, widget.customer)),
-              const SizedBox(height: 25, width: 15), // for Order List Button
-              Center(child: buildOrderListButton(context, widget.customer)),
-            ]),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                      child: buildEditProfileButton(
+                          context, widget.customer, widget.firestore)),
+                  const SizedBox(
+                      height: 25, width: 15), // for Order List Button
+                  Center(child: buildOrderListButton(context, widget.customer)),
+                ]),
           )
         ],
       ),
@@ -412,7 +420,8 @@ Widget buildOrderListButton(BuildContext context, Customer customer) =>
       ),
     );
 
-Widget buildEditProfileButton(BuildContext context, Customer customer) =>
+Widget buildEditProfileButton(
+        BuildContext context, Customer customer, FirebaseFirestore firestore) =>
     ButtonWidget(
       text: 'Edit Profile',
       onClicked: () async {
@@ -421,6 +430,7 @@ Widget buildEditProfileButton(BuildContext context, Customer customer) =>
             MaterialPageRoute(
                 builder: ((context) => EditCustomer(
                       customer: customer,
+                      firestore: firestore,
                     ))));
       },
     );
