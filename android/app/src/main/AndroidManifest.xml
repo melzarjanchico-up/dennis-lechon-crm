@@ -2,8 +2,8 @@
     package="com.example.dennis_lechon_crm">
    <application
         android:name="${applicationName}"
-        android:label="dennis_lechon_crm"
-        android:icon="@mipmap/ic_launcher">
+        android:label="LechGo!"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
