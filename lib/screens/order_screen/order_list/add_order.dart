@@ -1,7 +1,10 @@
-import 'package:dennis_lechon_crm/widgets/search.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+//import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 // import 'package:dennis_lechon_crm/widgets/search.dart';
 
 class AddOrder extends StatefulWidget {
@@ -34,7 +37,8 @@ class _AddOrderState extends State<AddOrder> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _celNumController = TextEditingController();
-    final TextEditingController _deliveryFee = TextEditingController(text: '0');
+  final TextEditingController _deliveryFee = TextEditingController(text: '0');
+  //String _selectedCity = '';
 
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
@@ -163,16 +167,55 @@ class _AddOrderState extends State<AddOrder> {
                     ),
                     SizedBox(
                       width: 350,
-                      child: TextFormField(
+                      child: TypeAheadFormField(
+                        textFieldConfiguration: const TextFieldConfiguration(
+                          decoration: InputDecoration(
+                           //this is the search button in add order name textfield
+                            suffixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(),
+                            //labelText: 'Search Customer',
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)),
+                          ),
+                        suggestionsCallback: (pattern) async {
+                          return CustomerService().getSuggestion(pattern);
+                        },
+                        itemBuilder: (context, Customer customer) {
+                          return ListTile(
+                            title: Text(
+                              '${customer.firstName} ${customer.lastName}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            subtitle: Text(
+                              '${customer.adrBarangay} ${customer.adrCity}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          );
+                        },
+                        transitionBuilder: (context, suggestionsBox, controller) {
+                          return suggestionsBox;
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          _firstNameController.text = (suggestion as String);
+                        },
+                        //validator: (value) {
+                        //  if (value!.isEmpty) {
+                        //    return 'Please select a customer';
+                        //  }
+                        //},
+                        //onSaved: (value) => _selectedCity = (value as String),
+                      )
+
+                      /*
+                      TextFormField(
                         controller: _firstNameController,
                         decoration: InputDecoration(
                             //this is the search button in add order name textfield
                             suffixIcon: IconButton(
                               onPressed: () {
-                                showSearch(
-                                  context: context,
-                                  delegate: SearchCustomer(),
-                                );
+                                //showSearch(
+                                //  context: context,
+                                //  delegate: SearchCustomer(),
+                                //);
                               },
                               icon: const Icon(Icons.search),
                             ),
@@ -181,6 +224,7 @@ class _AddOrderState extends State<AddOrder> {
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 1.0, horizontal: 5)),
                       ),
+                      */
                     ),
                     const SizedBox(height: 20),
                     const Text(

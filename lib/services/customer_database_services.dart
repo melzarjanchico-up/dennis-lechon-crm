@@ -1,5 +1,7 @@
 // this is a testing for the firestore capabilities hehe
 
+//import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
@@ -119,4 +121,90 @@ class CustomerService {
   Stream<List<Customer>> makeStream(List<Customer> list) async* {
     yield list;
   }
+
+  final List<String> cities = [
+    'Beirut',
+    'Damascus',
+    'San Fransisco',
+    'Rome',
+    'Los Angeles',
+    'Madrid',
+    'Bali',
+    'Barcelona',
+    'Paris',
+    'Bucharest',
+    'New York City',
+    'Philadelphia',
+    'Sydney',
+  ];
+
+  /*
+  List<String> getSuggestions(String query) {
+    List<String> matches = [];
+    matches.addAll(cities);
+
+    matches.retainWhere((s) => s.toLowerCase().contains(query.toLowerCase()));
+    return matches;
+  }
+  */
+
+  Future<List<Customer>> getSuggestion(String suggestion) async {
+    List<Customer> test = [];
+
+    await customerCollection
+    .orderBy('tag.index')
+    .orderBy('first_name')
+    .get()
+    .then(
+      (snap) {
+        test = snap.docs.map((doc) {
+          String preId = doc.id;
+          String? preFirstName = (doc.data() as Map)['first_name'];
+          String? preMiddleName = (doc.data() as Map)['middle_name'];
+          String? preLastName = (doc.data() as Map)['last_name'];
+          String? preDateBirth = (doc.data() as Map)['birth_date'];
+          Timestamp? preDateAdded = (doc.data() as Map)['added_date'];
+          String? preCelNum = (doc.data() as Map)['cel_no'];
+          String? preTelNum = (doc.data() as Map)['tel_no'];
+          String? preAdrStreet = (doc.data() as Map)['address']['street'];
+          String? preAdrBarangay = (doc.data() as Map)['address']['barangay'];
+          String? preAdrCity = (doc.data() as Map)['address']['city'];
+          String? preAdrZipcode = (doc.data() as Map)['address']['zipcode'];
+          String? preAdrProvince = (doc.data() as Map)['address']['province'];
+          String preTagName = (doc.data() as Map)['tag']['tagname'];
+          String preTagColor = (doc.data() as Map)['tag']['color'];
+          int preTagIndex = (doc.data() as Map)['tag']['index'];
+          String? preNote = (doc.data() as Map)['note'];
+
+          return Customer(
+            id: preId,
+            firstName: preFirstName ?? '',
+            middleName: preMiddleName ?? '',
+            lastName: preLastName ?? '',
+            dateBirth: (preDateBirth != null) ? DateTime.tryParse(preDateBirth) : null,
+            dateAdded: (preDateAdded != null) ? preDateAdded.toDate() : null,
+            celNum: preCelNum ?? '',
+            telNum: preTelNum ?? '',
+            adrStreet: preAdrStreet ?? '',
+            adrBarangay: preAdrBarangay ?? '',
+            adrCity: preAdrCity ?? '',
+            adrZipcode: preAdrZipcode ?? '',
+            adrProvince: preAdrProvince ?? '',
+            note: preNote ?? '',
+            tagName: preTagName,
+            tagIndex: preTagIndex,
+            tagColor: Color(int.parse((preTagColor).split('(0x')[1].split(')')[0], radix: 16)),
+          );
+        }).toList();
+      }
+    );
+    
+    test.retainWhere((element) =>
+      '${element.firstName} ${element.lastName}'
+      .toLowerCase()
+      .contains(suggestion.toLowerCase())
+    );
+    return test;
+  }
+
 }
