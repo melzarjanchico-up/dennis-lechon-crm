@@ -33,7 +33,6 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
         : Directionality(
             textDirection: TextDirection.ltr,
             child: ListView(
-              key: const Key("Customer List from CustomerListWidget"),
               padding: const EdgeInsets.all(20),
               children: customers.map((customer) {
                 String lastName = customer.lastName;
@@ -57,7 +56,6 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                 Color tagColor = customer.tagColor;
 
                 return GestureDetector(
-                    key: const Key("Customer Information from CustomerListWidget"),
                     onTap: () {
                       Navigator.push(
                           context,

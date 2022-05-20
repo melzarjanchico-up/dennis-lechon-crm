@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/resetpassword_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
@@ -17,6 +18,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   bool loading = false;
+  late final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,8 @@ class _SignInState extends State<SignIn> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Dashboard()));
+                                      builder: (context) =>
+                                          Dashboard(firestore: firestore)));
                             }).onError(
                                     (FirebaseAuthException error, stackTrace) {
                               var errorcode = error.code;

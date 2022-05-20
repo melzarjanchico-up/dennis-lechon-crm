@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +32,7 @@ class _AddOrderState extends State<AddOrder> {
 
   bool _isChecked = true;
 
-  final TextEditingController _firstNameController = TextEditingController();
+  //final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _celNumController = TextEditingController();
 
@@ -197,27 +199,27 @@ class _AddOrderState extends State<AddOrder> {
                           fontSize: 12.0,
                           fontWeight: FontWeight.w300),
                     ),
-                    SizedBox(
-                      width: 350,
-                      child: TextFormField(
-                        controller: _firstNameController,
-                        decoration: InputDecoration(
-                            //this is the search button in add order name textfield
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                showSearch(
-                                  context: context,
-                                  delegate: SearchCustomer(),
-                                );
-                              },
-                              icon: const Icon(Icons.search),
-                            ),
-                            border: const OutlineInputBorder(),
-                            // labelText: 'Name',
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 5)),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: 350,
+                    //   child: TextFormField(
+                    //     controller: _firstNameController,
+                    //     decoration: InputDecoration(
+                    //         //this is the search button in add order name textfield
+                    //         suffixIcon: IconButton(
+                    //           onPressed: () {
+                    //             showSearch(
+                    //               context: context,
+                    //               delegate: SearchCustomer(),
+                    //             );
+                    //           },
+                    //           icon: const Icon(Icons.search),
+                    //         ),
+                    //         border: const OutlineInputBorder(),
+                    //         // labelText: 'Name',
+                    //         contentPadding: const EdgeInsets.symmetric(
+                    //             vertical: 1.0, horizontal: 5)),
+                    //   ),
+                    // ),
                     const SizedBox(height: 20),
                     const Text(
                       'Address:',

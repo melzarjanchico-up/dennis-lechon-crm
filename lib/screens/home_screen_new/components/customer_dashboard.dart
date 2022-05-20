@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomerDash extends StatelessWidget {
-  const CustomerDash({Key? key}) : super(key: key);
+  const CustomerDash({Key? key, required this.firestore}) : super(key: key);
 
+  final FirebaseFirestore firestore;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,7 +20,8 @@ class CustomerDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CustomerScreen()),
+                        builder: (context) =>
+                            CustomerScreen(firestore: firestore)),
                   );
                 }),
             CustomerCard(
@@ -29,7 +32,8 @@ class CustomerDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CustomerScreen()),
+                        builder: (context) =>
+                            CustomerScreen(firestore: firestore)),
                   );
                 }),
             CustomerCard(
@@ -40,7 +44,8 @@ class CustomerDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CustomerScreen()),
+                        builder: (context) =>
+                            CustomerScreen(firestore: firestore)),
                   );
                 }),
             CustomerCard(
@@ -51,7 +56,8 @@ class CustomerDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CustomerScreen()),
+                        builder: (context) =>
+                            CustomerScreen(firestore: firestore)),
                   );
                 }),
             CustomerCard(
@@ -62,7 +68,8 @@ class CustomerDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CustomerScreen()),
+                        builder: (context) =>
+                            CustomerScreen(firestore: firestore)),
                   );
                 }),
           ],

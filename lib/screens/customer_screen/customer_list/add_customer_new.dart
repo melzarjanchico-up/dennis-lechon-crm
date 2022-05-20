@@ -1,4 +1,5 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _AddCustomerState extends State<AddCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+  late final FirebaseFirestore firestore;
 
   // Controllers.
   DateTime? _birthdateController;
@@ -449,7 +451,7 @@ class _AddCustomerState extends State<AddCustomer> {
                               : () async {
                                   if (_formKey.currentState!.validate()) {
                                     _isLoadingNotifier.value = true;
-                                    await CustomerService()
+                                    await CustomerService(firestore: firestore)
                                         .addCustomer(
                                             _firstNameController.text,
                                             _middleNameController.text,

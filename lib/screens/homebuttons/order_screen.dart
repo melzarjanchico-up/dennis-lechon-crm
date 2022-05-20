@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
@@ -38,17 +40,17 @@ class OrderListScreen extends StatelessWidget {
                         ),
                       ),
                       centerTitle: true,
-                      actions: [
-                        IconButton(
-                          onPressed: () {
-                            showSearch(
-                              context: context,
-                              delegate: SearchCustomer(),
-                            );
-                          },
-                          icon: const Icon(Icons.search),
-                        ),
-                      ],
+                      // actions: [
+                      //   IconButton(
+                      //     onPressed: () {
+                      //       showSearch(
+                      //           context: context,
+                      //           delegate: null //SearchCustomer(),
+                      //           );
+                      //     },
+                      //     icon: const Icon(Icons.search),
+                      //   ),
+                      // ],
                     ),
                     floatingActionButton: FloatingActionButton(
                       onPressed: () async {

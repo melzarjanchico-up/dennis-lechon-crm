@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/customer_dashboard.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/order_dashboard.dart';
@@ -7,7 +8,8 @@ import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {
@@ -124,15 +126,17 @@ class Body extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const CustomerScreen(
-                                // order: order,
+                            builder: ((context) => CustomerScreen(
+                                  firestore: firestore,
                                 ))));
                   },
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            const CustomerDash(),
+            CustomerDash(
+              firestore: firestore,
+            ),
             //const SizedBox(height: 10),
             Row(
               children: [

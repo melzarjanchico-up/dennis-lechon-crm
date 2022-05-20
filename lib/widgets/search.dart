@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
@@ -7,6 +8,8 @@ import '../services/customer_database_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchCustomer extends SearchDelegate {
+  final FirebaseFirestore firestore;
+  SearchCustomer(this.firestore);
   @override
   List<Widget> buildActions(BuildContext context) {
     //para ra ni tig clear  sa search bar if pisliton ang 'x'
@@ -36,9 +39,10 @@ class SearchCustomer extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<List<Customer>>(
-        key: const Key("Search Customer"),
-        stream: CustomerService().customers?.asBroadcastStream(
-            onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        stream: CustomerService(firestore: firestore)
+            .customers
+            ?.asBroadcastStream(
+                onCancel: (sub) => sub.cancel()), // to avoid data leakage
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Loading();
@@ -75,7 +79,8 @@ class SearchCustomer extends SearchDelegate {
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
-                value: CustomerService().makeStream(searchResult),
+                value: CustomerService(firestore: firestore)
+                    .makeStream(searchResult),
                 initialData: const [],
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 45.0),
@@ -91,8 +96,10 @@ class SearchCustomer extends SearchDelegate {
   //maybe naa moy maadd diri po?
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder<List<Customer>>(
-        stream: CustomerService().customers?.asBroadcastStream(
-            onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        stream: CustomerService(firestore: firestore)
+            .customers
+            ?.asBroadcastStream(
+                onCancel: (sub) => sub.cancel()), // to avoid data leakage
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Loading();
@@ -129,7 +136,8 @@ class SearchCustomer extends SearchDelegate {
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
-                value: CustomerService().makeStream(searchResult),
+                value: CustomerService(firestore: firestore)
+                    .makeStream(searchResult),
                 initialData: const [],
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 45.0),

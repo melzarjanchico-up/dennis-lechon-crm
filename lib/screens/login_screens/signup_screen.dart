@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _userNameTextController = TextEditingController();
+  late final FirebaseFirestore firestore;
   bool loading = false;
 
   @override
@@ -64,7 +66,8 @@ class _SignUpState extends State<SignUp> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Dashboard()));
+                            builder: (context) =>
+                                Dashboard(firestore: firestore)));
                   }).onError((error, stackTrace) {
                     debugPrint("Error ${error.toString()}");
                   });

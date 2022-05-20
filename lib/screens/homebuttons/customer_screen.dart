@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/addcustomer_popup.dart';
 import 'package:dennis_lechon_crm/widgets/loading.dart';
@@ -11,7 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/services.dart';
 
 class CustomerScreen extends StatelessWidget {
-  const CustomerScreen({Key? key}) : super(key: key);
+  const CustomerScreen({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class CustomerScreen extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: StreamBuilder<List<Customer>>(
           key: const Key("Stream Customer"),
-          stream: CustomerService().customers,
+          stream: CustomerService(firestore: firestore).customers,
           builder: (context, snapshot) {
             if (!snapshot.hasError) {
               switch (snapshot.connectionState) {
@@ -49,7 +51,7 @@ class CustomerScreen extends StatelessWidget {
                               onPressed: () {
                                 showSearch(
                                   context: context,
-                                  delegate: SearchCustomer(),
+                                  delegate: SearchCustomer(firestore),
                                 );
                               },
                               icon: const Icon(Icons.search),
@@ -71,7 +73,7 @@ class CustomerScreen extends StatelessWidget {
                         ),
                         body: StreamProvider<List<Customer>>.value(
                           key: const Key("StreamProvider Part"),
-                          value: CustomerService()
+                          value: CustomerService(firestore: firestore)
                               .customers, // as in wala koy mabuhat
                           initialData: const [],
                           child: Container(

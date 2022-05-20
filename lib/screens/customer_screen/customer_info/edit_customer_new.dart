@@ -1,4 +1,5 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
@@ -27,6 +28,7 @@ class _EditCustomerState extends State<EditCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+  late final FirebaseFirestore firestore;
 
   // Controllers.
   DateTime? _birthdateController;
@@ -467,7 +469,7 @@ class _EditCustomerState extends State<EditCustomer> {
                               : () async {
                                   if (_formKey.currentState!.validate()) {
                                     _isLoadingNotifier.value = true;
-                                    await CustomerService()
+                                    await CustomerService(firestore: firestore)
                                         .editCustomer(
                                             widget.customer.id,
                                             _firstNameController.text,

@@ -6,9 +6,12 @@ import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:flutter/material.dart';
 
 class CustomerService {
-  // collection reference
-  final CollectionReference customerCollection =
-      FirebaseFirestore.instance.collection('customers');
+  CustomerService({required this.firestore});
+
+  final FirebaseFirestore firestore;
+
+  CollectionReference get customerCollection =>
+      firestore.collection('customers');
 
   // Add Customer Data
   Future addCustomer(
