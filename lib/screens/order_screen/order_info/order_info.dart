@@ -4,6 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/edit_order.dart';
 
+String getDateFromDate(DateTime givenDate) {
+  var months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  String datePart =
+      '${months[(givenDate.month) - 1]} ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+  return datePart;
+}
+
 class OrderInfo extends StatefulWidget {
   const OrderInfo({Key? key, required this.order}) : super(key: key);
   final Order order;
@@ -17,19 +37,19 @@ class _OrderInfoState extends State<OrderInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final smallLechonPrice = 5000 * widget.order.smallLechon;
-    final mediumLechonPrice = 6000 * widget.order.mediumLechon;
-    final largeLechonPrice = 7000 * widget.order.largeLechon;
-    final extraLargeLechonPrice = 8000 * widget.order.extraLargeLechon;
+    final smallLechonPrice = 5000 * widget.order.smallLechonCount;
+    final mediumLechonPrice = 6000 * widget.order.mediumLechonCount;
+    final largeLechonPrice = 7000 * widget.order.largeLechonCount;
+    final extraLargeLechonPrice = 8000 * widget.order.extraLargeLechonCount;
 
     final subPrice = smallLechonPrice +
         mediumLechonPrice +
         largeLechonPrice +
         extraLargeLechonPrice;
-    final totalItem = widget.order.smallLechon +
-        widget.order.mediumLechon +
-        widget.order.largeLechon +
-        widget.order.extraLargeLechon as int;
+    final totalItem = widget.order.smallLechonCount +
+        widget.order.mediumLechonCount +
+        widget.order.largeLechonCount +
+        widget.order.extraLargeLechonCount;
 
     return AlertDialog(
       key: const Key("Order Info Card"),
@@ -98,7 +118,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                 borderRadius: BorderRadius.circular(12),
                                 color: const Color(0xFFF1A22C)),
                             child: Text(
-                              widget.order.deliveryDate,
+                              getDateFromDate(widget.order.dateDelivery),
                               style: const TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
@@ -110,7 +130,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       const SizedBox(height: 10),
                       RichText(
                         text: TextSpan(
-                          text: widget.order.deliveryType
+                          text: widget.order.isRush
                               ? "\u{26A1} RUSH  "
                               : "",
                           style: const TextStyle(
@@ -197,7 +217,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       fontWeight: FontWeight.w300),
                                 ),
                                 Text(
-                                  widget.order.celNum,
+                                  widget.order.contact,
                                   style: const TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 15.0,
@@ -226,7 +246,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
-                                '${widget.order.adrBarangay} ${widget.order.adrCity}',
+                                widget.order.address,
                                 style: const TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 15.0,
@@ -273,22 +293,22 @@ class _OrderInfoState extends State<OrderInfo> {
                                           orderWidget(
                                               "Whole Lechon",
                                               "(Small)",
-                                              "${widget.order.smallLechon}x",
+                                              "${widget.order.smallLechonCount}x",
                                               "$smallLechonPrice"),
                                           orderWidget(
                                               "Whole Lechon",
                                               "(Medium)",
-                                              "${widget.order.mediumLechon}x",
+                                              "${widget.order.mediumLechonCount}x",
                                               "$mediumLechonPrice"),
                                           orderWidget(
                                               "Whole Lechon",
                                               "(Large)",
-                                              "${widget.order.largeLechon}x",
+                                              "${widget.order.largeLechonCount}x",
                                               "$largeLechonPrice"),
                                           orderWidget(
                                               "Whole Lechon",
                                               "(Extra Large)",
-                                              "${widget.order.extraLargeLechon}x",
+                                              "${widget.order.extraLargeLechonCount}x",
                                               "$extraLargeLechonPrice"),
                                           const SizedBox(height: 3),
                                           Column(
@@ -524,7 +544,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                                     await OrderService()
                                                                         .deleteOrder(
                                                                             widget
-                                                                                .order.customerid,
+                                                                                .order.customerId,
                                                                             widget
                                                                                 .order.id)
                                                                         .then(

@@ -25,7 +25,7 @@ String getDateFromDate(DateTime givenDate) {
     'Dec'
   ];
   String datePart =
-      '${months[(givenDate.month) - 1]}. ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+      '${months[(givenDate.month) - 1]} ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
   return datePart;
 }
 

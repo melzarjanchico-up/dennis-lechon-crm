@@ -7,33 +7,37 @@ class OrderService {
   final CollectionReference customerCollection = FirebaseFirestore.instance.collection('customers');
   final Query<Map<String, dynamic>> orderCollection = FirebaseFirestore.instance.collectionGroup('orders');
 
-  // Add Order Data
-  // Future addOrder(
-  //     String deliveryDate,
-  //     double deliveryFee,
-  //     bool deliveryType,
-  //     bool ifPaid,
-  //     double subPrice,
-  //     double totalPrice,
-  //     double smallLechon,
-  //     double mediumLechon,
-  //     double largeLechon,
-  //     double extraLargeLechon) async {
-  //   return await orderCollection.doc().set({
-  //     'delivery_date': deliveryDate,
-  //     'delivery_type': deliveryType,
-  //     'delivery_fee': deliveryFee,
-  //     'ifPaid': ifPaid,
-  //     'sub_price': subPrice,
-  //     'total_price': totalPrice,
-  //     'items': {
-  //       'smallLechon': smallLechon,
-  //       'mediumLechon': mediumLechon,
-  //       'largeLechon': largeLechon,
-  //       'extrLargeLechon': extraLargeLechon
-  //     },
-  //   });
-  // }
+
+  Future addOrder(
+    String customerId, String customerFirstName, String customerLastName, 
+    String customerAddress, String customerContact,
+    DateTime deliveryDate, bool isRush, bool isDelivery,
+    String paymentStatus, String? paymentMethod, int deliveryFee,
+    int sCount, int mCount, int lCount, int xlCount
+  ) async {
+    return await customerCollection.doc(customerId).collection('orders').add({
+      'customer': {
+        'id': customerId,
+        'first_name': customerFirstName,
+        'last_name': customerLastName,
+        'address': customerAddress,
+        'contact': customerContact,
+      },
+      'added_date': Timestamp.now(),
+      'delivery_date': deliveryDate.toString(),
+      'is_rush': isRush,
+      'is_delivery': isDelivery,
+      'payment_status': paymentStatus,
+      'payment_method': paymentMethod ?? '',
+      'delivery_fee': deliveryFee,
+      'details': {
+        'small': sCount,
+        'medium': mCount,
+        'large': lCount,
+        'xlarge': xlCount
+      }
+    });
+  }
 
   Future deleteOrder(String customerId, String orderId) async {
     return await customerCollection.doc(customerId).collection('orders').doc(orderId).delete();
@@ -41,45 +45,45 @@ class OrderService {
 
   List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      var preId = doc.id;
-      var customerId = (doc.data() as Map)['customerID'] ?? '';
-      var preFirstName = (doc.data() as Map)['first_name'] ?? '';
-      var preLastName = (doc.data() as Map)['last_name'] ?? '';
-      var preCelNum = (doc.data() as Map)['cel_no'] ?? '';
-      var preAdrCity = (doc.data() as Map)['address']['city'] ?? '';
-      var preAdrBarangay = (doc.data() as Map)['address']['barangay'] ?? '';
-      var preAdrZipcode = (doc.data() as Map)['address']['zipcode'] ?? '';
-      var predeliveryDate = (doc.data() as Map)['delivery_date'] ?? '';
-      var predeliveryType = (doc.data() as Map)['delivery_type'] ?? '';
-      var predeliveryFee = (doc.data() as Map)['delivery_fee'] ?? '';
-      var preifPaid = (doc.data() as Map)['ifPaid'] ?? '';
-      var presubPrice = (doc.data() as Map)['sub_price'] ?? '';
-      var pretotalPrice = (doc.data() as Map)['total_price'] ?? '';
-      var presmallLechon = (doc.data() as Map)['items']['small_WL'] ?? '';
-      var premediumLechon = (doc.data() as Map)['items']['medium_WL'] ?? '';
-      var prelargeLechon = (doc.data() as Map)['items']['large_WL'] ?? '';
-      var preextraLargeLechon =
-          (doc.data() as Map)['items']['extra_large_WL'] ?? '';
+      String preId = doc.id;
 
+      String preCustomerId = (doc.data() as Map)['customer']['id'];
+      String preFirstName = (doc.data() as Map)['customer']['first_name'];
+      String preLastName = (doc.data() as Map)['customer']['last_name'];
+      String preAddress = (doc.data() as Map)['customer']['address'];
+      String preContact = (doc.data() as Map)['customer']['contact'];
+
+      Timestamp preDateAdded = (doc.data() as Map)['added_date'];
+      String preDateDelivery = (doc.data() as Map)['delivery_date'];
+      bool preIsRush = (doc.data() as Map)['is_rush'];
+      bool preIsDelivery = (doc.data() as Map)['is_delivery'];
+      String prePaymentStatus = (doc.data() as Map)['payment_status'];
+      String prePaymentMethod = (doc.data() as Map)['payment_method'];
+      int preDeliveryFee = (doc.data() as Map)['delivery_fee'];
+
+      int preSmallLechonCount = (doc.data() as Map)['details']['small'];
+      int preMediumLechonCount = (doc.data() as Map)['details']['medium'];
+      int preLargeLechonCount = (doc.data() as Map)['details']['large'];
+      int preXLargeLechonCount = (doc.data() as Map)['details']['xlarge'];
+    
       return Order(
         id: preId,
-        deliveryDate: predeliveryDate,
-        customerid: customerId,
+        customerId: preCustomerId,
         firstName: preFirstName,
         lastName: preLastName,
-        celNum: preCelNum,
-        adrCity: preAdrCity,
-        adrBarangay: preAdrBarangay,
-        adrZipcode: preAdrZipcode,
-        deliveryFee: predeliveryFee,
-        deliveryType: predeliveryType,
-        ifPaid: preifPaid,
-        subPrice: presubPrice,
-        totalPrice: pretotalPrice,
-        smallLechon: presmallLechon,
-        mediumLechon: premediumLechon,
-        largeLechon: prelargeLechon,
-        extraLargeLechon: preextraLargeLechon,
+        address: preAddress,
+        contact: preContact,
+        dateAdded: preDateAdded.toDate(),
+        dateDelivery: DateTime.parse(preDateDelivery),
+        isRush: preIsRush,
+        isDelivery: preIsDelivery,
+        orderPaymentStatus: prePaymentStatus,
+        orderPaymentMethod: (prePaymentMethod.isEmpty) ? null : prePaymentMethod,
+        deliveryFee: preDeliveryFee,
+        smallLechonCount: preSmallLechonCount,
+        mediumLechonCount: preMediumLechonCount,
+        largeLechonCount: preLargeLechonCount,
+        extraLargeLechonCount: preXLargeLechonCount,
       );
     }).toList();
   }
@@ -91,7 +95,6 @@ class OrderService {
 
   Stream<List<Order>>? customerOrders(String customerId) {
     return customerCollection.doc(customerId).collection('orders').snapshots().map(_orderListFromSnapshot);
-    //return orderCollection.snapshots().map(_orderListFromSnapshot);
   }
 
   Stream<List<Order>> makeStream(List<Order> list) async* {
