@@ -1,12 +1,17 @@
-// ignore_for_file: unused_import
-
-import 'package:dennis_lechon_crm/widgets/search.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
+//import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
+import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+//import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 // import 'package:dennis_lechon_crm/widgets/search.dart';
 
 class AddOrder extends StatefulWidget {
-  const AddOrder({Key? key}) : super(key: key);
+  const AddOrder({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   State<AddOrder> createState() => _AddOrderState();
@@ -30,17 +35,19 @@ class _AddOrderState extends State<AddOrder> {
   var subTotal = 0;
   var totalFee = 0;
 
-  bool _isChecked = true;
+  Customer? chosenCustomer;
+  DateTime? _deliveryDateController;
+  String? _orderStatusController;
+  String? _orderPaymentMethodController;
 
-  //final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _celNumController = TextEditingController();
+  bool _isRushOrder = false;
+  bool _isDeliveryOrder = false;
 
-  String dropdownvalue = 'ACTIVE';
-  var items = [
-    'ACTIVE',
-    'INACTIVE',
-  ];
+  final TextEditingController _searchCustomerController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _contactController = TextEditingController();
+  final TextEditingController _deliveryFee = TextEditingController(text: '');
+
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
   @override
@@ -67,62 +74,92 @@ class _AddOrderState extends State<AddOrder> {
                 Container(
                   color: Colors.white,
                   width: double.infinity,
-                  height: 160.0,
+                  height: 120.0,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
+
                     children: [
+                      /*
                       RichText(
                         text: const TextSpan(
                           text: "Order ",
                           style: TextStyle(
                             fontFamily: 'Montserrat',
-                            fontSize: 25,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF1F2426),
                           ),
                           children: [
                             TextSpan(
-                              text: "#12321",
+                              text: "# Order",
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 23,
+                                fontSize: 19,
                                 fontWeight: FontWeight.w600,
-                                fontStyle: FontStyle.italic,
+                                //fontStyle: FontStyle.italic,
                                 color: Color(0xFF1F2426),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
+                      ),*/
+
+                      //const SizedBox(height: 8),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: const Color(0xFF2A87BB)),
-                            child: const Text(
-                              "SET DATE",
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: Colors.white,
-                                  fontSize: 14),
+                          
+                          // delivery date setter
+                          TextButton.icon(
+                            onPressed: () async {
+                              await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime(2100),
+                                      initialEntryMode: DatePickerEntryMode.input)
+                                  .then((value) {
+                                setState(() {
+                                  _deliveryDateController = value;
+                                });
+                              }).onError((error, stackTrace) => null);
+                            },
+                            icon: const Icon(
+                              Icons.calendar_month_outlined,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
+                            label: Text(
+                              (_deliveryDateController != null)
+                                  ? '${_deliveryDateController!.month}/${_deliveryDateController!.day}/${_deliveryDateController!.year}'
+                                  : 'SET DATE',
+                              style: const TextStyle(
+                                //fontFamily: 'Montserrat',
+                                color: Colors.white,
+                                fontSize: 16.0),
+                            ),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 15.0),
+                              minimumSize: Size.zero,
+                              backgroundColor: const Color(0xFF2A87BB),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)
+                              )
                             ),
                           ),
+
                           const SizedBox(width: 10),
+
+                          // checkbox for rush order
                           Checkbox(
-                            value: _isChecked,
+                            value: _isRushOrder,
                             activeColor: const Color(0xFFF1A22C),
                             onChanged: (val) {
                               setState(() {
-                                _isChecked = val!;
-                                if (val == true) {
-                                  //
-                                }
+                                _isRushOrder = (val!);
                               });
                             },
                           ),
@@ -135,57 +172,100 @@ class _AddOrderState extends State<AddOrder> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
+
+                          const SizedBox(width: 10),
+
+                          // checkbox for delivery order
+                          Checkbox(
+                            value: _isDeliveryOrder,
+                            activeColor: const Color(0xFFF1A22C),
+                            onChanged: (value) {
+                              setState(() {
+                                _isDeliveryOrder = (value!);
+                              });
+                              if (_isDeliveryOrder == false) {
+                                totalFee = (totalFee - int.parse(_deliveryFee.text));
+                                _deliveryFee.text = '';
+                              }
+                            },
+                          ),
+                          const Text(
+                            "DELIVERY?",
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFF1F2426),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+
                         ],
                       ),
+
                       const SizedBox(height: 10),
-                      Flexible(
-                        child: Container(
-                            width: 110,
-                            height: 50,
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            color: const Color.fromARGB(255, 243, 243, 243),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                value: dropdownvalue,
-                                items: items.map((String items) {
-                                  return DropdownMenuItem(
-                                    value: items,
-                                    child: Text(items),
-                                  );
-                                }).toList(),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dropdownvalue = newValue!;
-                                  });
-                                },
-                                style: const TextStyle(
-                                    fontSize: 15, fontFamily: 'Montserrat'),
-                              ),
-                            )
-                            // child: const Text(
-                            //   "Set status       ",
-                            //   style: TextStyle(
-                            //       fontFamily: 'Montserrat',
-                            //       color: Color(0xFF1F2426),
-                            //       fontSize: 14),
-                            // ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          DropdownButton<String>(
+                            isDense: true,
+                            hint: _orderStatusController == null
+                              ? const Text('Set Status')
+                              : Text(
+                                  _orderStatusController!,
+                                  style: const TextStyle(color: Colors.blue),
                             ),
-                      ),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(
-                      //       vertical: 4, horizontal: 15),
-                      //   color: const Color.fromARGB(255, 243, 243, 243),
-                      //   child: const Text(
-                      //     "Set status       ",
-                      //     style: TextStyle(
-                      //         fontFamily: 'Montserrat',
-                      //         color: Color(0xFF1F2426),
-                      //         fontSize: 14),
-                      //   ),
-                      // ),
+                            items: <String>['Unpaid', 'Paid'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                _orderStatusController = val;
+                              });
+                              if (_orderStatusController == 'Paid') {
+                                _orderPaymentMethodController = null;
+                              }
+                            },
+                          ),
+                          const SizedBox(width: 10.0,),
+                          DropdownButton<String>(
+                            isDense: true,
+                            
+                            hint: (_orderPaymentMethodController == null) ? 
+                              (_orderStatusController != 'Paid') ? const Text('Payment Method') : 
+                                const Text(
+                                  'Already Paid', 
+                                  style: TextStyle(
+                                    color: Colors.red
+                                  ),
+                                )
+                              : Text(
+                                  _orderPaymentMethodController!,
+                                  style: const TextStyle(color: Colors.blue),
+                            ),
+
+                            items: <String>['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (_orderStatusController == 'Unpaid') ? (val) {
+                              setState(() {
+                                _orderPaymentMethodController = val;
+                              });
+                            } : null,
+                          ),
+                        ],
+                      )
+
                     ],
                   ),
                 ),
+
                 const SizedBox(width: 10),
 
                 Column(
@@ -199,28 +279,129 @@ class _AddOrderState extends State<AddOrder> {
                           fontSize: 12.0,
                           fontWeight: FontWeight.w300),
                     ),
-                    // SizedBox(
-                    //   width: 350,
-                    //   child: TextFormField(
-                    //     controller: _firstNameController,
-                    //     decoration: InputDecoration(
-                    //         //this is the search button in add order name textfield
-                    //         suffixIcon: IconButton(
-                    //           onPressed: () {
-                    //             showSearch(
-                    //               context: context,
-                    //               delegate: SearchCustomer(),
-                    //             );
-                    //           },
-                    //           icon: const Icon(Icons.search),
-                    //         ),
-                    //         border: const OutlineInputBorder(),
-                    //         // labelText: 'Name',
-                    //         contentPadding: const EdgeInsets.symmetric(
-                    //             vertical: 1.0, horizontal: 5)),
-                    //   ),
-                    // ),
+
+                    SizedBox(
+                      width: 350,
+                      child: TypeAheadFormField(
+                        hideOnLoading: true,
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: _searchCustomerController,
+                          decoration: const InputDecoration(
+                            suffixIcon: Icon(Icons.person_search_outlined),
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)
+                          ),
+                        ),
+
+                        suggestionsCallback: (pattern) async {
+                          return CustomerService(firestore: widget.firestore).getSuggestion(pattern);
+                        },
+
+                        // frontend edit inside here if u want to edit the box itself
+                        suggestionsBoxDecoration: const SuggestionsBoxDecoration(
+                          constraints: BoxConstraints(
+                            maxHeight: 200.0
+                          )
+                        ),
+                        
+                        itemBuilder: (context, Customer customer) {
+                          return ListTile(
+                            title: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(right: 2.5),
+                                      child: Icon(Icons.person_sharp, size: 14.0, color: customer.tagColor)
+                                    )
+                                  ),
+                                  TextSpan(
+                                    text: '${customer.firstName} ${customer.lastName}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      //color: Colors.grey,
+                                      //fontSize: 14.0,
+                                      fontWeight: FontWeight.w300
+                                    ),
+                                  )
+                                ]
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${customer.adrBarangay} ${customer.adrCity}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          );
+                        },
+
+                        transitionBuilder: (context, suggestionsBox, controller) {
+                          return suggestionsBox;
+                        },
+
+                        onSuggestionSelected: (Customer customer) {
+                          setState(() {
+                            chosenCustomer = customer;
+                          });
+                          _searchCustomerController.text = '${customer.firstName} ${customer.lastName}';
+                          _addressController.text = (customer.adrStreet.isNotEmpty ? '${customer.adrStreet} ' : '') + 
+                                (customer.adrBarangay.isNotEmpty ? '${customer.adrBarangay} ' : '') + 
+                                (customer.adrCity.isNotEmpty ? '${customer.adrCity} ' : '') + 
+                                (customer.adrProvince.isNotEmpty ? '${customer.adrProvince} ' : '') + 
+                                (customer.adrZipcode.isNotEmpty ? '${customer.adrZipcode} ' : '');
+                          _contactController.text = customer.celNum;
+                        },
+
+                        noItemsFoundBuilder: (context) {
+                          return ListTile(
+                            title: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(right: 2.5),
+                                      child: const Icon(Icons.person_add_alt, size: 14.0)
+                                    )
+                                  ),
+                                  const TextSpan(
+                                    text: 'This customer does not exist.',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      //color: Colors.grey,
+                                      fontWeight: FontWeight.w300
+                                    ),
+                                  )
+                                ]
+                              ),
+                            ),
+                            subtitle: const Text(
+                              'Add this customer into the database!',
+                            ),
+                            //onTap: (){
+                              //Navigator.push(
+                              //      context,
+                              //      MaterialPageRoute(
+                              //          builder: (context) =>
+                              //              const AddCustomer()));
+                              //},
+                          );
+                        },
+
+                        //validator: (value) {
+                        //  if (value!.isEmpty) {
+                        //    return 'Please select a customer';
+                        //  }
+                        //},
+
+                        //onSaved: (value) => _selectedCity = (value as String),
+
+                      )
+
+                    ),
+
                     const SizedBox(height: 20),
+
                     const Text(
                       'Address:',
                       style: TextStyle(
@@ -232,15 +413,15 @@ class _AddOrderState extends State<AddOrder> {
                     SizedBox(
                       width: 350,
                       child: TextFormField(
-                        controller: _cityController,
+                        controller: _addressController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             // labelText: 'Name',
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 5)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)),
                       ),
                     ),
                     const SizedBox(height: 20),
+
                     const Text(
                       'Contact Number:',
                       style: TextStyle(
@@ -252,14 +433,14 @@ class _AddOrderState extends State<AddOrder> {
                     SizedBox(
                       width: 350,
                       child: TextFormField(
-                        controller: _celNumController,
+                        controller: _contactController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             // labelText: 'Name',
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 5)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15)),
                       ),
                     ),
+
                   ],
                 ),
 
@@ -409,30 +590,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        smallLechonItemCount !=
-                                                                                0
-                                                                            ? smallLechonItemCount--
-                                                                            : 0;
-                                                                        smallLechonPrice !=
-                                                                                0
-                                                                            ? smallLechonPrice -=
-                                                                                5000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                5000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                5000
-                                                                            : 0;
+                                                                        if (smallLechonItemCount > 0) {
+                                                                          smallLechonItemCount--;
+                                                                          itemCount--;
+                                                                          smallLechonPrice-=5000;
+                                                                          subTotal-=5000;
+                                                                          totalFee-=5000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -638,30 +802,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        mediumLechonItemCount !=
-                                                                                0
-                                                                            ? mediumLechonItemCount--
-                                                                            : 0;
-                                                                        mediumLechonPrice !=
-                                                                                0
-                                                                            ? mediumLechonPrice -=
-                                                                                6000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                6000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                6000
-                                                                            : 0;
+                                                                        if (mediumLechonItemCount > 0) {
+                                                                          mediumLechonItemCount--;
+                                                                          itemCount--;
+                                                                          mediumLechonPrice-=6000;
+                                                                          subTotal-=6000;
+                                                                          totalFee-=6000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -867,30 +1014,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        largeLechonItemCount !=
-                                                                                0
-                                                                            ? largeLechonItemCount--
-                                                                            : 0;
-                                                                        largeLechonPrice !=
-                                                                                0
-                                                                            ? largeLechonPrice -=
-                                                                                7000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                7000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                7000
-                                                                            : 0;
+                                                                        if (largeLechonItemCount > 0) {
+                                                                          largeLechonItemCount--;
+                                                                          itemCount--;
+                                                                          largeLechonPrice-=7000;
+                                                                          subTotal-=7000;
+                                                                          totalFee-=7000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -1096,30 +1226,13 @@ class _AddOrderState extends State<AddOrder> {
                                                                         () {
                                                                       setState(
                                                                           () {
-                                                                        extraLargeLechonItemCount !=
-                                                                                0
-                                                                            ? extraLargeLechonItemCount--
-                                                                            : 0;
-                                                                        extraLargeLechonPrice !=
-                                                                                0
-                                                                            ? extraLargeLechonPrice -=
-                                                                                8000
-                                                                            : 0;
-                                                                        itemCount !=
-                                                                                0
-                                                                            ? itemCount -=
-                                                                                1
-                                                                            : 0;
-                                                                        subTotal !=
-                                                                                0
-                                                                            ? subTotal -=
-                                                                                8000
-                                                                            : 0;
-                                                                        totalFee !=
-                                                                                0
-                                                                            ? totalFee -=
-                                                                                8000
-                                                                            : 0;
+                                                                        if (extraLargeLechonItemCount > 0) {
+                                                                          extraLargeLechonItemCount--;
+                                                                          itemCount--;
+                                                                          extraLargeLechonPrice-=8000;
+                                                                          subTotal-=8000;
+                                                                          totalFee-=8000;
+                                                                        }
                                                                       });
                                                                     }),
                                                           ),
@@ -1222,8 +1335,8 @@ class _AddOrderState extends State<AddOrder> {
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 "Subtotal",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
@@ -1231,11 +1344,11 @@ class _AddOrderState extends State<AddOrder> {
                                                   color: Colors.grey,
                                                 ),
                                               ),
-                                              SizedBox(width: 25),
+                                              const SizedBox(width: 25),
                                               Text(
                                                 //without backend yet
-                                                "Php 10,000",
-                                                style: TextStyle(
+                                                "Php $subTotal",
+                                                style: const TextStyle(
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 14,
                                                   color: Colors.grey,
@@ -1245,13 +1358,14 @@ class _AddOrderState extends State<AddOrder> {
                                             ],
                                           ),
                                           const SizedBox(height: 10),
-                                          Row(
+
+                                          (_isDeliveryOrder) ? Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 "Delivery fee",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
@@ -1259,8 +1373,8 @@ class _AddOrderState extends State<AddOrder> {
                                                   color: Colors.grey,
                                                 ),
                                               ),
-                                              SizedBox(width: 15),
-                                              Text(
+                                              const SizedBox(width: 15),
+                                              const Text(
                                                 "Php",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
@@ -1269,17 +1383,34 @@ class _AddOrderState extends State<AddOrder> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(width: 5),
+                                              const SizedBox(width: 5),
                                               SizedBox(
                                                 width: 65,
                                                 height: 20,
                                                 child: TextField(
-                                                  style: TextStyle(
+                                                  enabled: _isDeliveryOrder,
+                                                  textAlign: TextAlign.end,
+                                                  controller: _deliveryFee,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      if (value != '') {
+                                                        totalFee = (subTotal + int.parse(value));
+                                                      } else {
+                                                        totalFee = 0;
+                                                      }
+                                                    });
+                                                  },
+                                                  keyboardType: TextInputType.number,
+                                                  inputFormatters: [
+                                                    //LengthLimitingTextInputFormatter(11),
+                                                    FilteringTextInputFormatter.digitsOnly,
+                                                  ],
+                                                  style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.grey,
                                                     fontWeight: FontWeight.bold,
                                                   ),
-                                                  decoration: InputDecoration(
+                                                  decoration: const InputDecoration(
                                                     contentPadding:
                                                         EdgeInsets.fromLTRB(
                                                             14, 0, 0, 0),
@@ -1288,19 +1419,12 @@ class _AddOrderState extends State<AddOrder> {
                                                   ),
                                                 ),
                                               ),
-                                              //SizedBox(width: 25),
-                                              // const Text(
-                                              //   //without backend yet
-                                              //   "Php 500",
-                                              //   style: TextStyle(
-                                              //     fontFamily: 'Montserrat',
-                                              //     fontSize: 14,
-                                              //     color: Colors.grey,
-                                              //   ),
-                                              // ),
+
                                             ],
-                                          ),
+                                          ): Container(),
+
                                           const SizedBox(height: 20),
+
                                           Row(
                                             children: [
                                               const SizedBox(width: 25),
@@ -1309,9 +1433,17 @@ class _AddOrderState extends State<AddOrder> {
                                                 height: 2,
                                                 decoration: BoxDecoration(
                                                   color: const Color.fromARGB(
-                                                      255, 243, 243, 243),
+                                                      255, 221, 220, 220),
                                                   borderRadius:
                                                       BorderRadius.circular(5),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      color: Color.fromARGB(
+                                                          255, 207, 206, 206),
+                                                      offset: Offset(0.0, 2.0),
+                                                      blurRadius: 2,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               const SizedBox(width: 5),

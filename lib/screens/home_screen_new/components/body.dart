@@ -172,7 +172,8 @@ class Body extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const OrderListScreen(
+                            builder: ((context) => OrderListScreen(
+                                firestore: firestore,
                                 // order: order,
                                 ))));
                   },
@@ -180,7 +181,7 @@ class Body extends StatelessWidget {
               ],
             ),
             //const SizedBox(height: 5),
-            const OrderDash(),
+            OrderDash(firestore: firestore,),
             Row(
               children: [
                 const Text("   Your Calendar",

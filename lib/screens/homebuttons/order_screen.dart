@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/add_order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
@@ -12,7 +13,8 @@ import '../order_screen/order_list/order_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderListScreen extends StatelessWidget {
-  const OrderListScreen({Key? key}) : super(key: key);
+  const OrderListScreen({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class OrderListScreen extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const AddOrder()));
+                                                    AddOrder(firestore: firestore,)));
                                       },
                                       child: const Text("Yes")),
                                   TextButton(
