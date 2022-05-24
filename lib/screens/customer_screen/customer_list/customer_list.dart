@@ -33,6 +33,8 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
         : Directionality(
             textDirection: TextDirection.ltr,
             child: ListView(
+              shrinkWrap: true,
+              key: const Key("bitch"),
               padding: const EdgeInsets.all(20),
               children: customers.map((customer) {
                 String lastName = customer.lastName;
@@ -65,6 +67,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                   firestore: widget.firestore)));
                     },
                     child: Container(
+                      key: const Key("Press here"),
                       padding: const EdgeInsets.all(10),
                       margin: const EdgeInsets.only(bottom: 15),
                       decoration: BoxDecoration(
@@ -133,7 +136,9 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
+                                  Expanded(
+                                      child: Container(
+                                    width: 10,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 4, horizontal: 15),
                                     decoration: BoxDecoration(
@@ -144,7 +149,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),
-                                  ),
+                                  )),
                                   Text(
                                     'Incoming Order',
                                     style: GoogleFonts.mulish(),

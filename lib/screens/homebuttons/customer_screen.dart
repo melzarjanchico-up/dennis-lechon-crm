@@ -34,9 +34,7 @@ class CustomerScreen extends StatelessWidget {
                   return Directionality(
                       textDirection: TextDirection.ltr,
                       child: Scaffold(
-                        key: const Key("StreamProvider Part"),
                         appBar: AppBar(
-                          key: const Key("App Bar from CustomerScreen"),
                           backgroundColor: const Color(0xFFF1A22C),
                           title: Text(
                             "Customer List",
@@ -51,7 +49,8 @@ class CustomerScreen extends StatelessWidget {
                               onPressed: () {
                                 showSearch(
                                   context: context,
-                                  delegate: SearchCustomer(firestore),
+                                  delegate:
+                                      SearchCustomer(firestore: firestore),
                                 );
                               },
                               icon: const Icon(Icons.search),

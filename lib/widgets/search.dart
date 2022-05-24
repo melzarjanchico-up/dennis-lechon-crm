@@ -9,7 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SearchCustomer extends SearchDelegate {
   final FirebaseFirestore firestore;
-  SearchCustomer(this.firestore);
+  Key key = const Key("Customer Search here");
+  SearchCustomer({required this.firestore, Key? key});
   @override
   List<Widget> buildActions(BuildContext context) {
     //para ra ni tig clear  sa search bar if pisliton ang 'x'
@@ -18,7 +19,6 @@ class SearchCustomer extends SearchDelegate {
         onPressed: () {
           query = '';
         },
-        //Somethings wrong if you click this.
         icon: const Icon(Icons.clear),
       ),
     ];
@@ -49,15 +49,8 @@ class SearchCustomer extends SearchDelegate {
           } else {
             if (snapshot.data!
                 .where((element) => '${element.firstName} ${element.lastName}'
-                        .toLowerCase()
-                        .contains(query.toLowerCase())
-                    //element.firstName
-                    //    .toLowerCase()
-                    //    .contains(query.toLowerCase()) ||
-                    //element.lastName
-                    //    .toLowerCase()
-                    //    .contains(query.toLowerCase())
-                    )
+                    .toLowerCase()
+                    .contains(query.toLowerCase()))
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -67,15 +60,8 @@ class SearchCustomer extends SearchDelegate {
             } else {
               var searchResult = snapshot.data!
                   .where((element) => '${element.firstName} ${element.lastName}'
-                          .toLowerCase()
-                          .contains(query.toLowerCase())
-                      //element.firstName
-                      //    .toLowerCase()
-                      //    .contains(query.toLowerCase()) ||
-                      //element.lastName
-                      //    .toLowerCase()
-                      //    .contains(query.toLowerCase())
-                      )
+                      .toLowerCase()
+                      .contains(query.toLowerCase()))
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(
@@ -106,15 +92,8 @@ class SearchCustomer extends SearchDelegate {
           } else {
             if (snapshot.data!
                 .where((element) => '${element.firstName} ${element.lastName}'
-                        .toLowerCase()
-                        .contains(query.toLowerCase())
-                    //element.firstName
-                    //    .toLowerCase()
-                    //    .contains(query.toLowerCase()) ||
-                    //element.lastName
-                    //    .toLowerCase()
-                    //    .contains(query.toLowerCase())
-                    )
+                    .toLowerCase()
+                    .contains(query.toLowerCase()))
                 .isEmpty) {
               return Center(
                 child: Text("I'm sorry. No customer exists.",
@@ -124,15 +103,8 @@ class SearchCustomer extends SearchDelegate {
             } else {
               var searchResult = snapshot.data!
                   .where((element) => '${element.firstName} ${element.lastName}'
-                          .toLowerCase()
-                          .contains(query.toLowerCase())
-                      //element.firstName
-                      //    .toLowerCase()
-                      //    .contains(query.toLowerCase()) ||
-                      //element.lastName
-                      //    .toLowerCase()
-                      //    .contains(query.toLowerCase())
-                      )
+                      .toLowerCase()
+                      .contains(query.toLowerCase()))
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Customer>>.value(

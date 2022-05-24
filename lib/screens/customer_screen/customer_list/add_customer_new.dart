@@ -94,6 +94,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                          key: const Key("First Name"),
                           controller: _firstNameController,
                           decoration: const InputDecoration(
                               labelText: 'First Name*',
@@ -112,6 +113,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("Middle Name"),
                         controller: _middleNameController,
                         decoration: const InputDecoration(
                             labelText: 'Middle Name',
@@ -123,6 +125,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                          key: const Key("Last Name"),
                           controller: _lastNameController,
                           decoration: const InputDecoration(
                               labelText: 'Last Name*',
@@ -156,6 +159,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     Expanded(
                       flex: 6,
                       child: TextFormField(
+                          key: const Key("Cellphone Number"),
                           controller: _celNumController,
                           decoration: const InputDecoration(
                               labelText: 'Cellphone Number*',
@@ -184,6 +188,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     Expanded(
                       flex: 4,
                       child: TextFormField(
+                          key: const Key("Telephone Number"),
                           controller: _telNumController,
                           decoration: const InputDecoration(
                               labelText: 'Telephone Number',
@@ -306,6 +311,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("Building/Street/Block No."),
                         controller: _streetController,
                         decoration: const InputDecoration(
                             labelText: 'Building/Street/Block No.',
@@ -317,6 +323,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("District/Barangay"),
                         controller: _barangayController,
                         decoration: const InputDecoration(
                             labelText: 'District/Barangay',
@@ -340,6 +347,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("Municipality/City"),
                         controller: _cityController,
                         decoration: const InputDecoration(
                             labelText: 'Municipality/City',
@@ -351,6 +359,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("Province"),
                         controller: _provinceController,
                         decoration: const InputDecoration(
                             labelText: 'Province',
@@ -362,6 +371,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("Zipcode"),
                         controller: _zipcodeController,
                         decoration: const InputDecoration(
                             labelText: 'Zipcode',
@@ -399,6 +409,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     const SizedBox(width: 5.0),
                     Expanded(
                       child: TextFormField(
+                        key: const Key("Notes"),
                         controller: _noteController,
                         decoration: const InputDecoration(
                             labelText: 'Notes',
@@ -521,6 +532,7 @@ class _AddCustomerState extends State<AddCustomer> {
         });
       },
       child: MouseRegion(
+        key: Key(tagName),
         cursor: SystemMouseCursors.click,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
