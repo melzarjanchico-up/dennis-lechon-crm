@@ -55,38 +55,12 @@ class OrderListScreen extends StatelessWidget {
                       // ],
                     ),
                     floatingActionButton: FloatingActionButton(
-                      onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("Add Order"),
-                                content: const Text(
-                                    "Does the customer already exist?"),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () async {
-                                        Navigator.of(context).pop();
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AddOrder(firestore: firestore,)));
-                                      },
-                                      child: const Text("Yes")),
-                                  TextButton(
-                                      onPressed: () {
-                                         Navigator.of(context).pop();
-                                         Navigator.push(
-                                             context,
-                                             MaterialPageRoute(
-                                                 builder: (context) =>
-                                                     AddCustomer(firestore: firestore,)));
-                                      },
-                                      child: const Text("No"))
-                                ],
-                              );
-                            });
+                      onPressed: () async {   
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AddOrder(firestore: firestore,)));
                       },
                       child: const Icon(
                         Icons.add,

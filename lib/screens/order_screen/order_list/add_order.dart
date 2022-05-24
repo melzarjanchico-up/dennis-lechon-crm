@@ -24,7 +24,7 @@ class AddOrder extends StatefulWidget {
 
 class _AddOrderState extends State<AddOrder> {
   final _formKey = GlobalKey<FormState>();
-  final format = DateFormat("EEE, dd-MMM-yyyy, HH:mm");
+  final format = DateFormat("EEE, dd-MMM-yyyy, h:mma");
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
   int smallLechonItemCount = 0;
@@ -46,13 +46,12 @@ class _AddOrderState extends State<AddOrder> {
   Customer? chosenCustomer;
   DateTime? _deliveryDateController;
   String? _orderStatusController;
-  String? _orderPaymentMethodController;
 
   bool _isRushOrder = false;
   bool _isDeliveryOrder = false;
 
   List<String> paymentStatus = ['Paid', 'Unpaid'];
-  List<String> paymentMethods = ['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'];
+  //List<String> paymentMethods = ['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'];
 
   final TextEditingController _searchCustomerController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -370,7 +369,6 @@ class _AddOrderState extends State<AddOrder> {
                                               _isRushOrder,
                                               _isDeliveryOrder,
                                               _orderStatusController!,
-                                              _orderPaymentMethodController,
                                               int.tryParse(_deliveryFee.text),
                                               smallLechonItemCount,
                                               mediumLechonItemCount,
@@ -1325,44 +1323,6 @@ class _AddOrderState extends State<AddOrder> {
             validator: (val) {
               if (val == null) {
                 return 'Please provide order status';
-              }
-              return null;
-            },
-          ),
-        ),
-
-        const SizedBox(height: 10),
-
-        const Text(
-          'Mode of Payment:',
-          style: TextStyle(
-              fontFamily: 'Montserrat',
-              color: Colors.grey,
-              fontSize: 12.0,
-              fontWeight: FontWeight.w300),
-        ),
-        SizedBox(
-          width: 350,
-          child: DropdownButtonFormField<String>(
-            decoration: const InputDecoration(
-              //isDense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 15),
-              border: OutlineInputBorder(),
-            ),
-            items: paymentMethods.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (val) {
-              setState(() {
-                _orderPaymentMethodController = val;
-              });
-            },
-            validator: (val) {
-              if (val == null) {
-                return 'Please provide mode of payment';
               }
               return null;
             },

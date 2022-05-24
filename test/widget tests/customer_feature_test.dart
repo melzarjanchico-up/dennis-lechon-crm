@@ -20,7 +20,7 @@ import 'customer_feature_test.mocks.dart';
 
 @GenerateMocks([Customer])
 void main() {
-  var customer = MockCustomer();
+  //var customer = MockCustomer();
   group("Customer Feature Tests includes: ", () {
     // Populate the fake database.
     final firestore = FakeFirebaseFirestore();

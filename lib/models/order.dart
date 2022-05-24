@@ -17,7 +17,6 @@ class Order {
   final bool isRush;
   final bool isDelivery;
   final String orderPaymentStatus;
-  final String? orderPaymentMethod;
 
   // number-related order info
   final int smallLechonCount;
@@ -38,7 +37,6 @@ class Order {
     required this.isRush,
     required this.isDelivery,
     required this.orderPaymentStatus,
-    required this.orderPaymentMethod,
     required this.smallLechonCount,
     required this.mediumLechonCount,
     required this.largeLechonCount,

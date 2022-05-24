@@ -12,7 +12,7 @@ class OrderService {
     String customerId, String customerFirstName, String customerLastName, 
     String customerAddress, String customerContact,
     DateTime deliveryDate, bool isRush, bool isDelivery,
-    String paymentStatus, String? paymentMethod, int? deliveryFee,
+    String paymentStatus, int? deliveryFee,
     int sCount, int mCount, int lCount, int xlCount
   ) async {
     return await customerCollection.doc(customerId).collection('orders').add({
@@ -28,7 +28,6 @@ class OrderService {
       'is_rush': isRush,
       'is_delivery': isDelivery,
       'payment_status': paymentStatus,
-      'payment_method': paymentMethod ?? '',
       'delivery_fee': deliveryFee ?? 0,
       'details': {
         'small': sCount,
@@ -58,7 +57,6 @@ class OrderService {
       bool preIsRush = (doc.data() as Map)['is_rush'];
       bool preIsDelivery = (doc.data() as Map)['is_delivery'];
       String prePaymentStatus = (doc.data() as Map)['payment_status'];
-      String prePaymentMethod = (doc.data() as Map)['payment_method'];
       int preDeliveryFee = (doc.data() as Map)['delivery_fee'];
 
       int preSmallLechonCount = (doc.data() as Map)['details']['small'];
@@ -78,7 +76,6 @@ class OrderService {
         isRush: preIsRush,
         isDelivery: preIsDelivery,
         orderPaymentStatus: prePaymentStatus,
-        orderPaymentMethod: (prePaymentMethod.isEmpty) ? null : prePaymentMethod,
         deliveryFee: preDeliveryFee,
         smallLechonCount: preSmallLechonCount,
         mediumLechonCount: preMediumLechonCount,
