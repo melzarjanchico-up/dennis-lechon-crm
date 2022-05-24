@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+import 'package:dennis_lechon_crm/services/order_database_services.dart';
 //import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 // import 'package:dennis_lechon_crm/widgets/search.dart';
+//import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class AddOrder extends StatefulWidget {
   const AddOrder({Key? key, required this.firestore}) : super(key: key);
@@ -20,6 +24,8 @@ class AddOrder extends StatefulWidget {
 
 class _AddOrderState extends State<AddOrder> {
   final _formKey = GlobalKey<FormState>();
+  final format = DateFormat("EEE, dd-MMM-yyyy, HH:mm");
+  final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
 
   int smallLechonItemCount = 0;
   int mediumLechonItemCount = 0;
@@ -79,313 +85,372 @@ class _AddOrderState extends State<AddOrder> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                const SizedBox(height: 30),
-                orderInfoDeets(),
-                const SizedBox(height: 20),
-                customerInfoDeets(),
-                const SizedBox(height: 30),
+                  const SizedBox(height: 30),
+                  customerOrderInfoDeets(),
+                  const SizedBox(height: 30),
 
-                //Order Details Part
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Flex(
-                      direction: Axis.horizontal, 
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'Order Details',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 21.0,
-                                  color: const Color(0xFF1F2426),
-                                  fontWeight: FontWeight.w500
+                  //Order Details Part
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Flex(
+                        direction: Axis.horizontal, 
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Order Details',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 21.0,
+                                    color: const Color(0xFF1F2426),
+                                    fontWeight: FontWeight.w500
+                                  ),
                                 ),
-                              ),
 
-                              Card(
-                                color: const Color.fromARGB(255, 243, 243, 243),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                elevation: 3,
-                                margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: FittedBox(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      //
-                                      // This is the start of the elements sa Card UI
-                                      //
-                                      children: <Widget>[
-                                        smallLechonWidget(
-                                          5000,
-                                          "Small"
-                                        ),
-                                        const SizedBox(height: 10),
-                                        mediumLechonWidget(
-                                          6000,
-                                          "Medium"
-                                        ),
-                                        const SizedBox(height: 10),
-                                        largeLechonWidget(
-                                          7000,
-                                          "Large"
-                                        ),
-                                        const SizedBox(height: 10),
-                                        xlargeLechonWidget(
-                                          8000,
-                                          "Extra Large"
-                                        ),
-                                        const SizedBox(height: 20),
-                                        
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                const Text(
-                                                  "Subtotal",
-                                                  style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 12,
-                                                    color: Colors.grey,
+                                Card(
+                                  color: const Color.fromARGB(255, 243, 243, 243),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  elevation: 3,
+                                  margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: FittedBox(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        //
+                                        // This is the start of the elements sa Card UI
+                                        //
+                                        children: <Widget>[
+                                          smallLechonWidget(
+                                            5000,
+                                            "Small"
+                                          ),
+                                          const SizedBox(height: 10),
+                                          mediumLechonWidget(
+                                            6000,
+                                            "Medium"
+                                          ),
+                                          const SizedBox(height: 10),
+                                          largeLechonWidget(
+                                            7000,
+                                            "Large"
+                                          ),
+                                          const SizedBox(height: 10),
+                                          xlargeLechonWidget(
+                                            8000,
+                                            "Extra Large"
+                                          ),
+                                          const SizedBox(height: 20),
+                                          
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  const Text(
+                                                    "Subtotal",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
-                                                ),
-                                                const SizedBox(width: 25),
-                                                Text(
-                                                  //without backend yet
-                                                  "Php $subTotal",
-                                                  style: const TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 14,
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-
-                                            (_isDeliveryOrder) ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Text(
-                                                  "Delivery fee",
-                                                  style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 12,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 15),
-                                                const Text(
-                                                  "Php",
-                                                  style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 14,
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 5),
-                                                SizedBox(
-                                                  width: 65,
-                                                  height: 20,
-                                                  child: TextField(
-                                                    enabled: _isDeliveryOrder,
-                                                    textAlign: TextAlign.end,
-                                                    controller: _deliveryFee,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        if (value != '') {
-                                                          totalFee = (subTotal + int.parse(value));
-                                                        } else {
-                                                          totalFee = subTotal;
-                                                        }
-                                                      });
-                                                    },
-                                                    keyboardType: TextInputType.number,
-                                                    inputFormatters: [
-                                                      //LengthLimitingTextInputFormatter(11),
-                                                      FilteringTextInputFormatter.digitsOnly,
-                                                    ],
+                                                  const SizedBox(width: 25),
+                                                  Text(
+                                                    //without backend yet
+                                                    "Php $subTotal",
                                                     style: const TextStyle(
+                                                      fontFamily: 'Montserrat',
                                                       fontSize: 14,
                                                       color: Colors.grey,
                                                       fontWeight: FontWeight.bold,
                                                     ),
-                                                    decoration: const InputDecoration(
-                                                      contentPadding:
-                                                          EdgeInsets.fromLTRB(
-                                                              14, 0, 0, 0),
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                    ),
-                                                  ),
-                                                ),
-
-                                              ],
-                                            ): Container(),
-
-                                            const SizedBox(height: 20),
-
-                                            Row(
-                                              children: [
-                                                const SizedBox(width: 25),
-                                                Container(
-                                                  width: 250,
-                                                  height: 2,
-                                                  decoration: BoxDecoration(
-                                                    color: const Color.fromARGB(
-                                                        255, 221, 220, 220),
-                                                    borderRadius:
-                                                        BorderRadius.circular(5),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 207, 206, 206),
-                                                        offset: Offset(0.0, 2.0),
-                                                        blurRadius: 2,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 5),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const SizedBox(width: 20),
-                                            Container(
-                                              width: 300,
-                                              height: 2,
-                                              decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    255, 221, 220, 220),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 207, 206, 206),
-                                                    offset: Offset(0.0, 2.0),
-                                                    blurRadius: 2,
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            const SizedBox(width: 3.5),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 22),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(width: 30),
-                                            Text(
-                                              'Total',
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: 18.0,
-                                                  color: const Color.fromARGB(
-                                                      255, 29, 29, 29),
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            const SizedBox(width: 3),
-                                            Text(
-                                              itemCount > 1
-                                                  ? '  ($itemCount items)  '
-                                                  : '  ($itemCount item)  ',
-                                              style: GoogleFonts.montserrat(
-                                                color: const Color.fromARGB(
-                                                    255, 80, 79, 79),
-                                                letterSpacing: 1.0,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700,
+                                              const SizedBox(height: 10),
+
+                                              (_isDeliveryOrder) ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Delivery fee",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 15),
+                                                  const Text(
+                                                    "Php",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 14,
+                                                      color: Colors.grey,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  SizedBox(
+                                                    width: 65,
+                                                    height: 20,
+                                                    child: TextField(
+                                                      enabled: _isDeliveryOrder,
+                                                      textAlign: TextAlign.end,
+                                                      controller: _deliveryFee,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          if (value != '') {
+                                                            totalFee = (subTotal + int.parse(value));
+                                                          } else {
+                                                            totalFee = subTotal;
+                                                          }
+                                                        });
+                                                      },
+                                                      keyboardType: TextInputType.number,
+                                                      inputFormatters: [
+                                                        //LengthLimitingTextInputFormatter(11),
+                                                        FilteringTextInputFormatter.digitsOnly,
+                                                      ],
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.grey,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                      decoration: const InputDecoration(
+                                                        contentPadding:
+                                                            EdgeInsets.fromLTRB(
+                                                                14, 0, 0, 0),
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ): Container(),
+
+                                              const SizedBox(height: 20),
+
+                                              Row(
+                                                children: [
+                                                  const SizedBox(width: 25),
+                                                  Container(
+                                                    width: 250,
+                                                    height: 2,
+                                                    decoration: BoxDecoration(
+                                                      color: const Color.fromARGB(
+                                                          255, 221, 220, 220),
+                                                      borderRadius:
+                                                          BorderRadius.circular(5),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: Color.fromARGB(
+                                                              255, 207, 206, 206),
+                                                          offset: Offset(0.0, 2.0),
+                                                          blurRadius: 2,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                ],
                                               ),
-                                            ),
-                                            const SizedBox(width: 25),
-                                            Text(
-                                              'Php',
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: 18.0,
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              const SizedBox(width: 20),
+                                              Container(
+                                                width: 300,
+                                                height: 2,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 221, 220, 220),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      color: Color.fromARGB(
+                                                          255, 207, 206, 206),
+                                                      offset: Offset(0.0, 2.0),
+                                                      blurRadius: 2,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(width: 3.5),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 22),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(width: 30),
+                                              Text(
+                                                'Total',
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 18.0,
+                                                    color: const Color.fromARGB(
+                                                        255, 29, 29, 29),
+                                                    fontWeight: FontWeight.w700),
+                                              ),
+                                              const SizedBox(width: 3),
+                                              Text(
+                                                itemCount > 1
+                                                    ? '  ($itemCount items)  '
+                                                    : '  ($itemCount item)  ',
+                                                style: GoogleFonts.montserrat(
                                                   color: const Color.fromARGB(
                                                       255, 80, 79, 79),
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            Text(
-                                              '  $totalFee',
-                                              style: GoogleFonts.montserrat(
-                                                color: const Color.fromARGB(
-                                                    255, 80, 79, 79),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w800,
+                                                  letterSpacing: 1.0,
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                              const SizedBox(width: 25),
+                                              Text(
+                                                'Php',
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 18.0,
+                                                    color: const Color.fromARGB(
+                                                        255, 80, 79, 79),
+                                                    fontWeight: FontWeight.w700),
+                                              ),
+                                              Text(
+                                                '  $totalFee',
+                                                style: GoogleFonts.montserrat(
+                                                  color: const Color.fromARGB(
+                                                      255, 80, 79, 79),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w800,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                              ElevatedButton(
-                                child: const Text(' Create Order ',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Colors.white,
-                                    )),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    debugPrint(
-                                      "CustomerID - ${chosenCustomer!.id}\n"
-                                      "CustomerName - ${chosenCustomer!.firstName} ${chosenCustomer!.lastName}\n"
-                                      "Address - ${_addressController.text}\n"
-                                      "Contact - ${_contactController.text}\n"
-                                      "DeliveryDate - ${_deliveryDateController.toString()}\n"
-                                      "Rushed? ${_isRushOrder ? 'Yes' : 'No'}\n"
-                                      "Delivery? ${_isDeliveryOrder ? 'Yes' : 'No'}\n"
-                                      "DeliveryFee - ${_deliveryFee.text}\n"
-                                      "Status - $_orderStatusController\n"
-                                      "Method - $_orderPaymentMethodController\n"
-                                      "Details - $smallLechonItemCount,$mediumLechonItemCount,$largeLechonItemCount,$extraLargeLechonItemCount\n"
+                                ValueListenableBuilder(
+                                  valueListenable: _isLoadingNotifier,
+                                  builder: (context, _isLoading, _) {
+                                    return ElevatedButton(
+                                      child: const Text(' Create Order ',
+                                          style: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            color: Colors.white,
+                                          )),
+                                      onPressed: (_isLoading == true) ? null : () {
+                                        if (_formKey.currentState!.validate()) {
+                                          if (itemCount > 0) {
+                                            _isLoadingNotifier.value = true;
+                                            OrderService().addOrder(
+                                              chosenCustomer!.id,
+                                              chosenCustomer!.firstName,
+                                              chosenCustomer!.lastName,
+                                              _addressController.text,
+                                              _contactController.text,
+                                              _deliveryDateController!,
+                                              _isRushOrder,
+                                              _isDeliveryOrder,
+                                              _orderStatusController!,
+                                              _orderPaymentMethodController,
+                                              int.tryParse(_deliveryFee.text),
+                                              smallLechonItemCount,
+                                              mediumLechonItemCount,
+                                              largeLechonItemCount,
+                                              extraLargeLechonItemCount
+                                            ).then((value) {
+                                              debugPrint("Order Added successfully!");
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    'Customer was added successfully!'
+                                                  )
+                                                )
+                                              );
+                                              _isLoadingNotifier.value = false;
+                                            }
+                                            ).onError((error, stackTrace) {
+                                              debugPrint("I did something bad... $error");
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    'Something went wrong. Order not added.'
+                                                  )
+                                                )
+                                              );
+                                              _isLoadingNotifier.value = false;
+                                            });
+
+                                            /*
+                                            debugPrint(
+                                              "CustomerID - ${chosenCustomer!.id}\n"
+                                              "CustomerName - ${chosenCustomer!.firstName} ${chosenCustomer!.lastName}\n"
+                                              "Address - ${_addressController.text}\n"
+                                              "Contact - ${_contactController.text}\n"
+                                              "DeliveryDate - ${_deliveryDateController.toString()}\n"
+                                              "Rushed? ${_isRushOrder ? 'Yes' : 'No'}\n"
+                                              "Delivery? ${_isDeliveryOrder ? 'Yes' : 'No'}\n"
+                                              "DeliveryFee - ${_deliveryFee.text}\n"
+                                              "Status - $_orderStatusController\n"
+                                              "Method - $_orderPaymentMethodController\n"
+                                              "Details - $smallLechonItemCount,$mediumLechonItemCount,$largeLechonItemCount,$extraLargeLechonItemCount\n"
+                                            );
+                                            */
+                                          } else {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                  'A Lechon Order is required!'
+                                                )
+                                              )
+                                            );
+
+                                          }
+                                          
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: const StadiumBorder(),
+                                        primary: const Color(0xFFF1A22C),
+                                        onPrimary: Colors.white,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 34, vertical: 20),
+                                      ),
                                     );
                                   }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: const StadiumBorder(),
-                                  primary: const Color(0xFFF1A22C),
-                                  onPrimary: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 34, vertical: 20),
                                 ),
-                              ),
 
-                              const SizedBox(height: 15),
 
-                            ],
+                                const SizedBox(height: 15),
+
+                              ],
+                            ),
                           ),
-                        ),
-                      ]
-                    ),
-                  ],
-                )
+                        ]
+                      ),
+                    ],
+                  )
 
-              ]),
+                ]
+              ),
             ),
           )
         )
@@ -978,185 +1043,71 @@ class _AddOrderState extends State<AddOrder> {
 
   // general order deets
   Widget orderInfoDeets() {
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-
+    return SizedBox(
+      width: 350,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // delivery date setter
-              TextButton.icon(
-                onPressed: () async {
-                  await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2100),
-                          initialEntryMode: DatePickerEntryMode.input)
-                      .then((value) {
-                    setState(() {
-                      _deliveryDateController = value;
-                    });
-                  }).onError((error, stackTrace) => null);
-                },
-                icon: const Icon(
-                  Icons.calendar_month_outlined,
-                  color: Colors.white,
-                  size: 16.0,
-                ),
-                label: Text(
-                  (_deliveryDateController != null)
-                      ? '${_deliveryDateController!.month}/${_deliveryDateController!.day}/${_deliveryDateController!.year}'
-                      : 'SET DATE',
-                  style: const TextStyle(
-                    //fontFamily: 'Montserrat',
-                    color: Colors.white,
-                    fontSize: 16.0),
-                ),
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 15.0),
-                  minimumSize: Size.zero,
-                  backgroundColor: const Color(0xFF2A87BB),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)
-                  )
-                ),
-              ),
-
-              const SizedBox(width: 10),
-
-              // checkbox for rush order
-              Checkbox(
-                value: _isRushOrder,
-                activeColor: const Color(0xFFF1A22C),
-                onChanged: (val) {
-                  setState(() {
-                    _isRushOrder = (val!);
-                  });
-                },
-              ),
-              const Text(
-                "RUSH?",
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  color: Color(0xFF1F2426),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-
-              const SizedBox(width: 10),
-
-              // checkbox for delivery order
-              Checkbox(
-                value: _isDeliveryOrder,
-                activeColor: const Color(0xFFF1A22C),
-                onChanged: (value) {
-                  setState(() {
-                    _isDeliveryOrder = (value!);
-                  });
-                  if (_isDeliveryOrder == false) {
-                    totalFee = (totalFee - (_deliveryFee.text.isNotEmpty ? double.parse(_deliveryFee.text) : 0));
-                    _deliveryFee.text = '';
-                  }
-                },
-              ),
-              const Text(
-                "DELIVERY?",
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  color: Color(0xFF1F2426),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-
-            ],
+          // checkbox for rush order
+          Checkbox(
+            value: _isRushOrder,
+            activeColor: const Color(0xFFF1A22C),
+            onChanged: (val) {
+              setState(() {
+                _isRushOrder = (val!);
+              });
+            },
+          ),
+          const Text(
+            "RUSH?",
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Color(0xFF1F2426),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
 
-          const SizedBox(height: 10),
+          const SizedBox(width: 10),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              Expanded(
-                flex: 4,
-                child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    label: Text("Status"),
-                    border: OutlineInputBorder(),
-                  ),
-                  items: paymentStatus.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      _orderStatusController = val;
-                    });
-                  },
-                  validator: (val) {
-                    if (val == null) {
-                      return 'Required';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-
-              const SizedBox(width: 10.0),
-
-              Expanded(
-                flex: 6,
-                child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    label: Text("Mode of Payment"),
-                    border: OutlineInputBorder(),
-                  ),
-                  items: paymentMethods.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      _orderPaymentMethodController = val;
-                    });
-                  },
-                  validator: (val) {
-                    if (val == null) {
-                      return 'Required';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ],
-          )
+          // checkbox for delivery order
+          Checkbox(
+            value: _isDeliveryOrder,
+            activeColor: const Color(0xFFF1A22C),
+            onChanged: (value) {
+              setState(() {
+                _isDeliveryOrder = (value!);
+              });
+              if (_isDeliveryOrder == false) {
+                totalFee = (totalFee - (_deliveryFee.text.isNotEmpty ? double.parse(_deliveryFee.text) : 0));
+                _deliveryFee.text = '';
+              }
+            },
+          ),
+          const Text(
+            "DELIVERY?",
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Color(0xFF1F2426),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
 
         ],
+
       ),
     );
   }
 
   // customer information widhet
-  Widget customerInfoDeets() {
+  Widget customerOrderInfoDeets() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
+
         const Text(
           'Name:',
           style: TextStyle(
@@ -1165,7 +1116,6 @@ class _AddOrderState extends State<AddOrder> {
               fontSize: 12.0,
               fontWeight: FontWeight.w300),
         ),
-
         SizedBox(
           width: 350,
           child: TypeAheadFormField(
@@ -1278,6 +1228,9 @@ class _AddOrderState extends State<AddOrder> {
               if (value!.isEmpty) {
                 return 'Please select a customer.';
               }
+              if (chosenCustomer == null) {
+                return 'This customer is not in the database. Try again.';
+              }
               return null;
             },
 
@@ -1285,7 +1238,7 @@ class _AddOrderState extends State<AddOrder> {
 
         ),
 
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
 
         const Text(
           'Address:',
@@ -1306,13 +1259,14 @@ class _AddOrderState extends State<AddOrder> {
                 contentPadding: EdgeInsets.symmetric(horizontal: 15)),
             validator: (value) {
               if (value == null || value.isEmpty || value.trim().isEmpty) {
-                return "Address required!";
+                return "Please input an address";
               }
               return null;
             },
           ),
         ),
-        const SizedBox(height: 20),
+        
+        const SizedBox(height: 10),
 
         const Text(
           'Contact Number:',
@@ -1332,12 +1286,143 @@ class _AddOrderState extends State<AddOrder> {
                 contentPadding: EdgeInsets.symmetric(horizontal: 15)),
             validator: (value) {
               if (value == null || value.isEmpty || value.trim().isEmpty) {
-                return "Contact required!";
+                return "Please input contact details";
               }
               return null;
             },
           ),
         ),
+
+        const SizedBox(height: 10,),
+
+        const Text(
+          'Status',
+          style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Colors.grey,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w300),
+        ),
+        SizedBox(
+          width: 350,
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              //isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+              border: OutlineInputBorder(),
+            ),
+            items: paymentStatus.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (val) {
+              setState(() {
+                _orderStatusController = val;
+              });
+            },
+            validator: (val) {
+              if (val == null) {
+                return 'Please provide order status';
+              }
+              return null;
+            },
+          ),
+        ),
+
+        const SizedBox(height: 10),
+
+        const Text(
+          'Mode of Payment:',
+          style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Colors.grey,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w300),
+        ),
+        SizedBox(
+          width: 350,
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              //isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+              border: OutlineInputBorder(),
+            ),
+            items: paymentMethods.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (val) {
+              setState(() {
+                _orderPaymentMethodController = val;
+              });
+            },
+            validator: (val) {
+              if (val == null) {
+                return 'Please provide mode of payment';
+              }
+              return null;
+            },
+          ),
+        ),
+
+        const SizedBox(height: 10),
+
+        const Text(
+          'Delivery Date & Time:',
+          style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Colors.grey,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w300),
+        ),
+        SizedBox(
+          width: 350,
+          child: DateTimeField(
+            format: format,
+            onChanged: (val) {
+              setState(() {
+                _deliveryDateController = val;
+              });
+            },
+            validator: (val) {
+              if (val == null) {
+                return 'Please provide deivery date/time';
+              }
+              return null;
+            },
+            decoration: const InputDecoration(
+              //isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+              border: OutlineInputBorder(),
+            ),
+            onShowPicker: (context, currentValue) async {
+              final date = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                  initialEntryMode: DatePickerEntryMode.input);
+              if (date != null) {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                );
+                return DateTimeField.combine(date, time);
+              } else {
+                return currentValue;
+              }
+            },
+
+          )
+        ),
+
+        const SizedBox(height: 10),
+
+        orderInfoDeets()
 
       ],
     );

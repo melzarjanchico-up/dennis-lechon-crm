@@ -12,7 +12,7 @@ class OrderService {
     String customerId, String customerFirstName, String customerLastName, 
     String customerAddress, String customerContact,
     DateTime deliveryDate, bool isRush, bool isDelivery,
-    String paymentStatus, String? paymentMethod, int deliveryFee,
+    String paymentStatus, String? paymentMethod, int? deliveryFee,
     int sCount, int mCount, int lCount, int xlCount
   ) async {
     return await customerCollection.doc(customerId).collection('orders').add({
@@ -29,7 +29,7 @@ class OrderService {
       'is_delivery': isDelivery,
       'payment_status': paymentStatus,
       'payment_method': paymentMethod ?? '',
-      'delivery_fee': deliveryFee,
+      'delivery_fee': deliveryFee ?? 0,
       'details': {
         'small': sCount,
         'medium': mCount,
