@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderDash extends StatelessWidget {
-  const OrderDash({Key? key}) : super(key: key);
+  const OrderDash({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class OrderDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const OrderListScreen()),
+                        builder: (context) => OrderListScreen(firestore: firestore,)),
                   );
                 }),
             CustomerCard(
@@ -36,7 +38,7 @@ class OrderDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const OrderListScreen()),
+                        builder: (context) => OrderListScreen(firestore: firestore)),
                   );
                 }),
             CustomerCard(
@@ -50,7 +52,7 @@ class OrderDash extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const OrderListScreen()),
+                        builder: (context) => OrderListScreen(firestore: firestore)),
                   );
                 }),
           ],

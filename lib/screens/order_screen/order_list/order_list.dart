@@ -6,6 +6,26 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+String getDateFromDate(DateTime givenDate) {
+  var months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  String datePart =
+      '${months[(givenDate.month) - 1]} ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
+  return datePart;
+}
+
 class OrderListWidget extends StatefulWidget {
   const OrderListWidget({Key? key}) : super(key: key);
 
@@ -34,9 +54,9 @@ class _OrderListWidgetState extends State<OrderListWidget> {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: orders.map((order) {
-                String deliveryDate = order.deliveryDate;
+                String deliveryDate = getDateFromDate(order.dateDelivery);
                 String orderHash = order.id.substring(0, 5);
-                bool deliveryType = order.deliveryType;
+                bool deliveryType = order.isRush;
                 String firstName = order.firstName;
                 String lastName = order.lastName;
                 return GestureDetector(
