@@ -4,7 +4,7 @@ import 'package:dennis_lechon_crm/screens/home_screen_new/components/customer_da
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/order_dashboard.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/calendar_dashboard.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/customer_screen.dart';
-import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
+// import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
 
 class Body extends StatelessWidget {
@@ -139,45 +139,45 @@ class Body extends StatelessWidget {
                 ),
             const SizedBox(height: 15),
             Row(
-              children: [
-                const Text("   Order List",
+              children: const [
+                Text("   Incoming Orders",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
-                const SizedBox(width: 40),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFFD3231E),
-                    onPrimary: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    padding: const EdgeInsets.all(15.0),
-                    minimumSize: const Size(4, 3),
-                  ),
-                  child: Row(
-                    children: const [
-                      Text(
-                        "",
-                        style: TextStyle(
-                          fontFamily: 'Oxygen',
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Icon(Icons.keyboard_double_arrow_right_rounded),
-                    ],
-                  ),
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => OrderListScreen(
-                                  firestore: firestore,
-                                  // order: order,
-                                ))));
-                  },
-                ),
+                SizedBox(width: 40),
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //     primary: const Color(0xFFD3231E),
+                //     onPrimary: Colors.white,
+                //     elevation: 5,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(50.0),
+                //     ),
+                //     padding: const EdgeInsets.all(15.0),
+                //     minimumSize: const Size(4, 3),
+                //   ),
+                //   child: Row(
+                //     children: const [
+                //       Text(
+                //         "",
+                //         style: TextStyle(
+                //           fontFamily: 'Oxygen',
+                //           fontSize: 15,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //       Icon(Icons.keyboard_double_arrow_right_rounded),
+                //     ],
+                //   ),
+                //   onPressed: () async {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: ((context) => OrderListScreen(
+                //                   firestore: firestore,
+                //                   // order: order,
+                //                 ))));
+                //   },
+                // ),
               ],
             ),
             //const SizedBox(height: 5),
