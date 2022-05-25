@@ -134,9 +134,9 @@ class Body extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            CustomerDash(
-              firestore: firestore,
-            ),
+            const CustomerDash(
+                // firestore: firestore,
+                ),
             //const SizedBox(height: 10),
             Row(
               children: [
@@ -173,15 +173,17 @@ class Body extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: ((context) => OrderListScreen(
-                                firestore: firestore,
-                                // order: order,
+                                  firestore: firestore,
+                                  // order: order,
                                 ))));
                   },
                 ),
               ],
             ),
             //const SizedBox(height: 5),
-            OrderDash(firestore: firestore,),
+            OrderDash(
+              firestore: firestore,
+            ),
             Row(
               children: [
                 const Text("   Your Calendar",
