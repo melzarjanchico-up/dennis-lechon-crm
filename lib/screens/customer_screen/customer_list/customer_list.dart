@@ -132,30 +132,33 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    // height: 30,
-                                    // width: 75,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 4, horizontal: 15),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: tagColor),
-                                    child: Text(
-                                      tagName,
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.mulish(
-                                          color: Colors.white),
+                            Flexible(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      // height: 30,
+                                      // width: 75,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 4, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: tagColor),
+                                      child: Text(
+                                        tagName,
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.mulish(
+                                            color: Colors.white),
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Incoming Order',
-                                    style: GoogleFonts.mulish(),
-                                  )
-                                ])
+                                    Text(
+                                      'Incoming Order',
+                                      style: GoogleFonts.mulish(),
+                                    )
+                                  ]),
+                            )
                           ],
                         ),
                       ),

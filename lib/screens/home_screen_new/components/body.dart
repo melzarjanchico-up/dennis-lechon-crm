@@ -112,7 +112,7 @@ class Body extends StatelessWidget {
                         "See list",
                         style: TextStyle(
                           fontFamily: 'Oxygen',
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

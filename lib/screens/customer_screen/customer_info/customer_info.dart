@@ -6,7 +6,7 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
-import 'package:random_avatar/random_avatar.dart';
+//import 'package:random_avatar/random_avatar.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_orderlist.dart';
 
 String getDateFromDate(DateTime givenDate) {
@@ -357,19 +357,19 @@ Widget buildInfo(Customer customer) {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: customer.tagColor),
-                    height: 180,
-                    width: 150,
-                    child: randomAvatar(
-                      customer.firstName,
-                      trBackground: true,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
+                  // Container(
+                  //   margin: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(50),
+                  //       color: customer.tagColor),
+                  //   height: 180,
+                  //   width: 150,
+                  //   child: randomAvatar(
+                  //     customer.firstName,
+                  //     trBackground: true,
+                  //     fit: BoxFit.fitWidth,
+                  //   ),
+                  // ),
                   // Expanded(
                   //   flex: 4,
                   //   // child: Avatar(
