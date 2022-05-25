@@ -134,9 +134,9 @@ class Body extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            const CustomerDash(
-                // firestore: firestore,
-                ),
+            CustomerDash(
+              firestore: firestore,
+            ),
             //const SizedBox(height: 10),
             Row(
               children: [

@@ -136,14 +136,13 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                      child: Container(
-                                    height: 30,
-                                    width: 40,
+                                  Container(
+                                    // height: 30,
+                                    // width: 75,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 4, horizontal: 15),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(30),
                                         color: tagColor),
                                     child: Text(
                                       tagName,
@@ -151,7 +150,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),
-                                  )),
+                                  ),
                                   Text(
                                     'Incoming Order',
                                     style: GoogleFonts.mulish(),
