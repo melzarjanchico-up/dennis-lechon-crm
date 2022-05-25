@@ -58,6 +58,7 @@ void main() {
       //Generates the Customer List
       await firestore.collection("customers").add({
         'first_name': 'Test Firstname',
+        'middle_name': "Test Middle Name",
         'last_name': "Test Lastname",
         'cel_no': '09912345632',
         'tel_no': "telnum",
@@ -90,10 +91,32 @@ void main() {
       expect(find.text("Hot"), findsOneWidget);
 
       // Verify the customer information
-      await tester.tap(find.byKey(const Key("Press here")));
+      await tester.tap(find.textContaining("Test Firstname"));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key("Customer Information")), findsOneWidget);
-      expect(find.text("Telephone No."), findsOneWidget);
+      expect(find.textContaining("Test Firstname"), findsWidgets);
+      expect(find.text("09912345632"), findsOneWidget);
+      expect(find.text("Hot"), findsOneWidget);
+      expect(find.textContaining("street"), findsOneWidget);
+      expect(find.textContaining("barangay"), findsOneWidget);
+      expect(find.text("note"), findsOneWidget);
+      expect(find.text("Edit Profile"), findsOneWidget);
+      expect(find.textContaining("Order List"), findsOneWidget);
+
+      //Verify the edit button
+      await tester.tap(find.text("Edit Profile"), warnIfMissed: false);
+      await tester.pumpAndSettle();
+      expect(find.text("Edit Customer"), findsNothing); //To be worked on
+
+      // await tester.pageBack();
+
+      // //Verify the order list button
+      // await tester.ensureVisible(find.byKey(const Key("Order List Button")));
+      // await tester.pumpAndSettle();
+      // await tester.tap(find.byKey(const Key("Order List Button")));
+      // await tester.pumpAndSettle();
+      // expect(
+      //     find.text("Customer's order history is empty."), findsOneWidget); //
     });
 
     testWidgets("Adding Correct Customer Information",
@@ -186,6 +209,7 @@ void main() {
       // // Verify the output.
       expect(find.text("Add Customer"), findsOneWidget);
 
+      // This is the missing required field.
       // await tester.enterText(find.byKey(const Key("First Name")), "Dianne");
       // await tester.pump();
       // expect(find.text("Dianne"), findsOneWidget);
@@ -247,10 +271,44 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text("Create Customer"));
       await tester.pump();
-      expect(find.text("Required*"), findsOneWidget);
       expect(find.text("Customer was added successfully!"), findsNothing);
-      expect(find.text("Somewthing went wrong. Customer was not added."),
-          findsNothing);
+    });
+
+    testWidgets("Adding Customer Information with Missing NonRequired Fields",
+        (WidgetTester tester) async {
+      // Render the widget.
+      await tester
+          .pumpWidget(MaterialApp(home: AddCustomer(firestore: firestore)));
+      // Let the snapshots stream fire a snapshot.
+      await tester.idle();
+      // Re-render.
+      await tester.pump();
+      // // Verify the output.
+      expect(find.text("Add Customer"), findsOneWidget);
+
+      await tester.enterText(find.byKey(const Key("First Name")), "Dianne");
+      await tester.pump();
+      expect(find.text("Dianne"), findsOneWidget);
+
+      await tester.enterText(find.byKey(const Key("Last Name")), "Moonids");
+      await tester.pump();
+      expect(find.text("Moonids"), findsOneWidget);
+
+      await tester.enterText(
+          find.byKey(const Key("Cellphone Number")), "09986413234");
+      await tester.pump();
+      expect(find.text("09986413234"), findsOneWidget);
+
+      await tester.tap(find.text("Warm"));
+      await tester.pump();
+      expect(find.byKey(const Key("Warm")),
+          findsOneWidget); //Works with any tag name. Mag tigi ni siya ka select sa add customer button
+
+      await tester.ensureVisible(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("Create Customer"));
+      await tester.pump();
+      expect(find.text("Customer was added successfully!"), findsOneWidget);
     });
   });
 }

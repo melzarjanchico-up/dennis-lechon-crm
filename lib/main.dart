@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // atleast edit para mapush
 
@@ -25,8 +26,16 @@ Future<void> main() async {
       projectId: "dennis-lechon-crm", // Your projectId
     ),
   );
-  final firestore = FirebaseFirestore.instanceFor(app: app);
-  runApp(MyApp(firestore: firestore));
+
+  if (kIsWeb) {
+    app;
+    final firestore = FirebaseFirestore.instanceFor(app: app);
+    runApp(MyApp(firestore: firestore));
+  } else {
+    final appTwo = await Firebase.initializeApp();
+    final firestore = FirebaseFirestore.instanceFor(app: appTwo);
+    runApp(MyApp(firestore: firestore));
+  }
 }
 
 class MyApp extends StatelessWidget {

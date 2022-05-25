@@ -138,7 +138,8 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 children: [
                                   Expanded(
                                       child: Container(
-                                    width: 10,
+                                    height: 30,
+                                    width: 40,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 4, horizontal: 15),
                                     decoration: BoxDecoration(
@@ -146,6 +147,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                         color: tagColor),
                                     child: Text(
                                       tagName,
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),

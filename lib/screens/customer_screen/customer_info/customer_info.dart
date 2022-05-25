@@ -399,6 +399,7 @@ Widget buildInfo(Customer customer) {
 
 Widget buildOrderListButton(BuildContext context, Customer customer) =>
     ElevatedButton(
+      key: const Key("Order List Button"),
       child: const Text(' Order List ',
           style: TextStyle(
             fontFamily: 'Montserrat',
