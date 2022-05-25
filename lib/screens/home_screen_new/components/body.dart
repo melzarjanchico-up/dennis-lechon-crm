@@ -51,7 +51,7 @@ class Body extends StatelessWidget {
                   right: 0,
                   child: Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 15),
                       padding: const EdgeInsets.fromLTRB(
                         20,
                         0,
@@ -91,10 +91,10 @@ class Body extends StatelessWidget {
             ),
             Row(
               children: [
-                const Text("   Customer List",
+                const Text("   Your Customers",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
-                const SizedBox(width: 20),
+                const SizedBox(width: 150),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xFFF1A22C),
@@ -109,10 +109,10 @@ class Body extends StatelessWidget {
                   child: Row(
                     children: const [
                       Text(
-                        "",
+                        "See list",
                         style: TextStyle(
                           fontFamily: 'Oxygen',
-                          fontSize: 15,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -134,16 +134,16 @@ class Body extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            CustomerDash(
-              firestore: firestore,
-            ),
-            //const SizedBox(height: 10),
+            const CustomerDash(
+                //firestore: firestore,
+                ),
+            const SizedBox(height: 15),
             Row(
               children: [
                 const Text("   Order List",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
-                const SizedBox(width: 20),
+                const SizedBox(width: 40),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xFFD3231E),
