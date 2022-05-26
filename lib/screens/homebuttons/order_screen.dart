@@ -74,7 +74,7 @@ class OrderListScreen extends StatelessWidget {
                       initialData: const [],
                       child: Container(
                           margin: const EdgeInsets.only(bottom: 45.0),
-                          child: const OrderListWidget()),
+                          child: OrderListWidget(firestore: firestore,)),
                     ),
                   );
               }

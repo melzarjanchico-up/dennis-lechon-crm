@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
 import 'package:dennis_lechon_crm/widgets/style.dart';
@@ -8,8 +9,9 @@ import 'package:dennis_lechon_crm/screens/order_screen/order_list/edit_order.dar
 import 'package:intl/intl.dart';
 
 class OrderInfo extends StatefulWidget {
-  const OrderInfo({Key? key, required this.order}) : super(key: key);
+  const OrderInfo({Key? key, required this.order, required this.firestore}) : super(key: key);
   final Order order;
+  final FirebaseFirestore firestore;
 
   @override
   State<OrderInfo> createState() => _OrderInfoState();
@@ -575,8 +577,8 @@ class _OrderInfoState extends State<OrderInfo> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => const EditOrder(
-                                            // order: order,
+                                        builder: ((context) => EditOrder(
+                                            firestore: widget.firestore,
                                             ))));
                               },
                             ),

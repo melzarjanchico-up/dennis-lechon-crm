@@ -18,6 +18,7 @@ class CustomerListWidget extends StatefulWidget {
 class _CustomerListWidgetState extends State<CustomerListWidget> {
   @override
   Widget build(BuildContext context) {
+    List<IconData> hello = [Icons.local_fire_department, Icons.air_outlined, Icons.ac_unit_outlined];
     final customers = Provider.of<List<Customer>>(context);
 
     return (customers.isEmpty)
@@ -89,7 +90,8 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  child: Row(children: [
+                                  child: Row
+                                  (children: [
                                     Flexible(
                                       child: Column(
                                           crossAxisAlignment:
@@ -117,10 +119,11 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                                     ),
                                                   )
                                                 : Text(
-                                                    "<< NOT AVAILABLE >>",
+                                                    "[Not Available]",
                                                     style: GoogleFonts.mulish(
+                                                      //fontStyle: FontStyle.,
                                                       fontSize: 15,
-                                                      color: Colors.black38,
+                                                      color: Colors.red.shade200,
                                                     ),
                                                   ),
                                           ]),
@@ -132,33 +135,44 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Flexible(
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      // height: 30,
-                                      // width: 75,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4, horizontal: 15),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          color: tagColor),
-                                      child: Text(
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 4, horizontal: 15),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(30),
+                                      color: tagColor),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 2.0),
+                                        child: Icon(
+                                          hello[customer.tagIndex-1],
+                                          color: Colors.white,
+                                          size: 15.0,
+                                        ),
+                                      ),
+                                      Text(
                                         tagName,
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.mulish(
-                                            color: Colors.white),
+                                          color: Colors.white,
+                                          fontSize: 15.0
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Incoming Order',
-                                      style: GoogleFonts.mulish(),
-                                    )
-                                  ]),
-                            )
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  'Incoming Order',
+                                  style: GoogleFonts.mulish(),
+                                )
+                              ]
+                            ),
                           ],
                         ),
                       ),

@@ -85,7 +85,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                           context, widget.customer, widget.firestore)),
                   const SizedBox(
                       height: 25, width: 15), // for Order List Button
-                  Center(child: buildOrderListButton(context, widget.customer)),
+                  Center(child: buildOrderListButton(context, widget.customer, widget.firestore)),
                 ]),
           )
         ],
@@ -397,7 +397,7 @@ Widget buildInfo(Customer customer) {
   );
 }
 
-Widget buildOrderListButton(BuildContext context, Customer customer) =>
+Widget buildOrderListButton(BuildContext context, Customer customer, FirebaseFirestore firestore) =>
     ElevatedButton(
       key: const Key("Order List Button"),
       child: const Text(' Order List ',
@@ -410,7 +410,7 @@ Widget buildOrderListButton(BuildContext context, Customer customer) =>
             context,
             MaterialPageRoute(
                 builder: ((context) => CustomerOrderList(
-                      customer: customer,
+                      customer: customer, firestore: firestore,
                     ))));
       },
       style: ElevatedButton.styleFrom(

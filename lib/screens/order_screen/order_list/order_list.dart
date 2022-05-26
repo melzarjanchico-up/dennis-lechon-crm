@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info_new.dart';
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
@@ -27,7 +28,8 @@ String getDateFromDate(DateTime givenDate) {
 }
 
 class OrderListWidget extends StatefulWidget {
-  const OrderListWidget({Key? key}) : super(key: key);
+  const OrderListWidget({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   State<OrderListWidget> createState() => _OrderListWidgetState();
@@ -64,7 +66,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return OrderInfo(order: order);
+                            return OrderInfo(order: order, firestore: widget.firestore,);
                           });
                     },
                     child: Container(
