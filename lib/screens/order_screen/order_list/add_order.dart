@@ -117,7 +117,7 @@ class _AddOrderState extends State<AddOrder> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                          CrossAxisAlignment.start,
                                       //
                                       // This is the start of the elements sa Card UI
                                       //
@@ -148,7 +148,6 @@ class _AddOrderState extends State<AddOrder> {
                                                 ),
                                                 const SizedBox(width: 25),
                                                 Text(
-                                                  //without backend yet
                                                   "Php $subTotal",
                                                   style: const TextStyle(
                                                     fontFamily: 'Montserrat',
@@ -160,6 +159,7 @@ class _AddOrderState extends State<AddOrder> {
                                               ],
                                             ),
                                             const SizedBox(height: 10),
+                                            const SizedBox(width: 40),
                                             (_isDeliveryOrder)
                                                 ? Row(
                                                     mainAxisAlignment:
@@ -177,7 +177,7 @@ class _AddOrderState extends State<AddOrder> {
                                                           color: Colors.grey,
                                                         ),
                                                       ),
-                                                      const SizedBox(width: 15),
+                                                      const SizedBox(width: 25),
                                                       const Text(
                                                         "Php",
                                                         style: TextStyle(
@@ -241,6 +241,7 @@ class _AddOrderState extends State<AddOrder> {
                                                           ),
                                                         ),
                                                       ),
+                                                      const SizedBox(width: 50),
                                                     ],
                                                   )
                                                 : Container(),
@@ -253,7 +254,7 @@ class _AddOrderState extends State<AddOrder> {
                                                   height: 2,
                                                   decoration: BoxDecoration(
                                                     color: const Color.fromARGB(
-                                                        255, 221, 220, 220),
+                                                        0, 221, 220, 220),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5),
@@ -342,6 +343,7 @@ class _AddOrderState extends State<AddOrder> {
                                                 fontWeight: FontWeight.w800,
                                               ),
                                             ),
+                                            const SizedBox(width: 40),
                                           ],
                                         ),
                                       ],
@@ -462,7 +464,7 @@ class _AddOrderState extends State<AddOrder> {
     return SizedBox(
       height: 50,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -471,6 +473,7 @@ class _AddOrderState extends State<AddOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -587,7 +590,10 @@ class _AddOrderState extends State<AddOrder> {
                 ),
               ),
             ],
-          )
+          ),
+          // const SizedBox(
+          //   width: 35,
+          // ),
         ],
       ),
     );
@@ -723,6 +729,9 @@ class _AddOrderState extends State<AddOrder> {
                   color: Colors.grey,
                 ),
               ),
+              const SizedBox(
+                width: 5,
+              ),
             ],
           )
         ],
@@ -744,6 +753,7 @@ class _AddOrderState extends State<AddOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -860,6 +870,9 @@ class _AddOrderState extends State<AddOrder> {
                   color: Colors.grey,
                 ),
               ),
+              const SizedBox(
+                width: 5,
+              ),
             ],
           )
         ],
@@ -881,6 +894,7 @@ class _AddOrderState extends State<AddOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 38),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -997,6 +1011,9 @@ class _AddOrderState extends State<AddOrder> {
                   fontSize: 15,
                   color: Colors.grey,
                 ),
+              ),
+              const SizedBox(
+                width: 5,
               ),
             ],
           )

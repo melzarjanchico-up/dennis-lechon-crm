@@ -185,10 +185,11 @@ class _OrderInfoState extends State<OrderInfo> {
                                 borderRadius: BorderRadius.circular(12),
                                 color: AppColors.yellowColor),
                             child: Row(children: [
-                              Icon(
-                                (widget.order.orderPaymentStatus == 'Paid')
-                                    ? Icons.check
-                                    : Icons.close,
+                              const Icon(
+                                Icons.account_balance_wallet_outlined,
+                                // (widget.order.orderPaymentStatus == 'Paid')
+                                //     ? Icons.check
+                                //     : Icons.account_balance_wallet_outlined,
                                 color: Colors.white,
                                 size: 16.0,
                               ),
@@ -231,6 +232,25 @@ class _OrderInfoState extends State<OrderInfo> {
               //     ),
               //   ),
               // ),
+              Positioned(
+                right: 10,
+                top: 10,
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Align(
+                        alignment: Alignment.topRight,
+                        child: CircleAvatar(
+                          radius: 17,
+                          backgroundColor: Color.fromARGB(255, 189, 25, 20),
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 17,
+                          ),
+                        ))),
+              ),
             ],
           ),
           Flexible(
@@ -359,7 +379,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "Small Lechon",
                                           "(Php 5000)",
-                                          "${widget.order.smallLechonCount} x",
+                                          "${widget.order.smallLechonCount}",
                                           "$smallLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
@@ -367,7 +387,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "Medium Lechon",
                                           "(Php 6000)",
-                                          "${widget.order.mediumLechonCount} x",
+                                          "${widget.order.mediumLechonCount}",
                                           "$mediumLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
@@ -375,7 +395,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "Large Lechon",
                                           "(Php 7000)",
-                                          "${widget.order.largeLechonCount} x",
+                                          "${widget.order.largeLechonCount}",
                                           "$largeLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
@@ -383,7 +403,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "XL Lechon",
                                           "(Php 8000)",
-                                          "${widget.order.extraLargeLechonCount} x",
+                                          "${widget.order.extraLargeLechonCount}",
                                           "$extraLargeLechonPrice"),
 
                                       const SizedBox(height: 20.0),
@@ -724,14 +744,25 @@ Widget orderWidget(String name, String size, String amt, String price) {
         Expanded(
           //diri emmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
           flex: 2,
-          child: Text(
-            amt,
+          child: RichText(
             textAlign: TextAlign.end,
-            style: const TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-                color: Color.fromARGB(255, 71, 71, 71)),
+            text: TextSpan(
+              style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 71, 71, 71)),
+              children: [
+                TextSpan(
+                  text: amt,
+                ),
+                const TextSpan(
+                    text: "x",
+                    style: TextStyle(
+                      fontSize: 11,
+                    ))
+              ],
+            ),
           ),
         ),
         Expanded(

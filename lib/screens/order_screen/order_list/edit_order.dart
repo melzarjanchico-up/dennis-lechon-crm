@@ -253,19 +253,19 @@ class _EditOrderState extends State<EditOrder> {
                                                   height: 2,
                                                   decoration: BoxDecoration(
                                                     color: const Color.fromARGB(
-                                                        255, 221, 220, 220),
+                                                        0, 221, 220, 220),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 207, 206, 206),
-                                                        offset:
-                                                            Offset(0.0, 2.0),
-                                                        blurRadius: 2,
-                                                      ),
-                                                    ],
+                                                    // boxShadow: const [
+                                                    //   BoxShadow(
+                                                    //     color: Color.fromARGB(
+                                                    //         255, 207, 206, 206),
+                                                    //     offset:
+                                                    //         Offset(0.0, 2.0),
+                                                    //     blurRadius: 2,
+                                                    //   ),
+                                                    // ],
                                                   ),
                                                 ),
                                                 const SizedBox(width: 5),
@@ -471,6 +471,7 @@ class _EditOrderState extends State<EditOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -744,6 +745,7 @@ class _EditOrderState extends State<EditOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -881,6 +883,7 @@ class _EditOrderState extends State<EditOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 38),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
