@@ -9,7 +9,8 @@ import 'package:dennis_lechon_crm/screens/order_screen/order_list/edit_order.dar
 import 'package:intl/intl.dart';
 
 class OrderInfo extends StatefulWidget {
-  const OrderInfo({Key? key, required this.order, required this.firestore}) : super(key: key);
+  const OrderInfo({Key? key, required this.order, required this.firestore})
+      : super(key: key);
   final Order order;
   final FirebaseFirestore firestore;
 
@@ -356,33 +357,33 @@ class _OrderInfoState extends State<OrderInfo> {
                                   child: Column(
                                     children: <Widget>[
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Small)",
-                                          "${widget.order.smallLechonCount}x",
+                                          "Small Lechon",
+                                          "(Php 5000)",
+                                          "${widget.order.smallLechonCount} x",
                                           "$smallLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
                                       ),
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Medium)",
-                                          "${widget.order.mediumLechonCount}x",
+                                          "Medium Lechon",
+                                          "(Php 6000)",
+                                          "${widget.order.mediumLechonCount} x",
                                           "$mediumLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
                                       ),
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Large)",
-                                          "${widget.order.largeLechonCount}x",
+                                          "Large Lechon",
+                                          "(Php 7000)",
+                                          "${widget.order.largeLechonCount} x",
                                           "$largeLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
                                       ),
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Extra Large)",
-                                          "${widget.order.extraLargeLechonCount}x",
+                                          "XL Lechon",
+                                          "(Php 8000)",
+                                          "${widget.order.extraLargeLechonCount} x",
                                           "$extraLargeLechonPrice"),
 
                                       const SizedBox(height: 20.0),
@@ -578,7 +579,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => EditOrder(
-                                            firestore: widget.firestore,
+                                              firestore: widget.firestore,
                                             ))));
                               },
                             ),
@@ -713,7 +714,7 @@ Widget orderWidget(String name, String size, String amt, String price) {
                 size,
                 style: const TextStyle(
                     fontFamily: 'Montserrat',
-                    fontSize: 16.0,
+                    fontSize: 12.0,
                     fontWeight: FontWeight.w400,
                     color: Colors.grey),
               ),
@@ -721,13 +722,14 @@ Widget orderWidget(String name, String size, String amt, String price) {
           ),
         ),
         Expanded(
+          //diri emmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
           flex: 2,
           child: Text(
             amt,
             textAlign: TextAlign.end,
             style: const TextStyle(
                 fontFamily: 'Montserrat',
-                fontSize: 16,
+                fontSize: 13,
                 fontWeight: FontWeight.w400,
                 color: Color.fromARGB(255, 71, 71, 71)),
           ),

@@ -18,11 +18,11 @@ class CustomerListWidget extends StatefulWidget {
 class _CustomerListWidgetState extends State<CustomerListWidget> {
   @override
   Widget build(BuildContext context) {
-    List<IconData> hello = [
-      Icons.local_fire_department,
-      Icons.air_outlined,
-      Icons.ac_unit_outlined
-    ];
+    // List<IconData> hello = [
+    //  Icons.local_fire_department,
+    //  Icons.air_outlined,
+    //  Icons.ac_unit_outlined
+    // ];
     final customers = Provider.of<List<Customer>>(context);
 
     return (customers.isEmpty)
