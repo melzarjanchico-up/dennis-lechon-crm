@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:dennis_lechon_crm/widgets/indicator.dart';
 
 class CustomerDash extends StatefulWidget {
   const CustomerDash({Key? key}) : super(key: key);
@@ -14,41 +15,102 @@ class CustomerDashState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         color: Colors.white,
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: PieChart(
-            PieChartData(
-                pieTouchData: PieTouchData(
-                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                  setState(() {
-                    if (!event.isInterestedForInteractions ||
-                        pieTouchResponse == null ||
-                        pieTouchResponse.touchedSection == null) {
-                      touchedIndex = -1;
-                      return;
-                    }
-                    touchedIndex =
-                        pieTouchResponse.touchedSection!.touchedSectionIndex;
-                  });
-                }),
-                borderData: FlBorderData(
-                  show: false,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(width: 35),
+            Column(
+              //mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                const SizedBox(height: 20),
+                Row(
+                  children: const [
+                    Text(
+                      "You have ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                    ),
+                    Text(
+                      "100",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                      ),
+                    ),
+                  ],
                 ),
-                sectionsSpace: 0,
-                centerSpaceRadius: 0,
-                sections: showingSections()),
-          ),
+                const Text(
+                  "customers!",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                ),
+                const SizedBox(height: 15),
+                const Indicator(
+                  color: Color(0xFFD3231E),
+                  text: "Hot",
+                  isSquare: false,
+                  total: 40,
+                ),
+                const SizedBox(height: 10),
+                const Indicator(
+                  color: Color(0xFFF1A22C),
+                  text: "Warm",
+                  isSquare: false,
+                  total: 40,
+                ),
+                const SizedBox(height: 10),
+                const Indicator(
+                  color: Color(0xFF2A87BB),
+                  text: "Cold",
+                  isSquare: false,
+                  total: 30,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 2,
+                child: PieChart(
+                  PieChartData(
+                      pieTouchData: PieTouchData(touchCallback:
+                          (FlTouchEvent event, pieTouchResponse) {
+                        setState(() {
+                          if (!event.isInterestedForInteractions ||
+                              pieTouchResponse == null ||
+                              pieTouchResponse.touchedSection == null) {
+                            touchedIndex = -1;
+                            return;
+                          }
+                          touchedIndex = pieTouchResponse
+                              .touchedSection!.touchedSectionIndex;
+                        });
+                      }),
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                      sectionsSpace: 5,
+                      centerSpaceRadius: 0,
+                      sections: showingSections()),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+          ],
         ),
       ),
     );
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+    return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 20.0 : 16.0;
       final radius = isTouched ? 110.0 : 100.0;
@@ -65,11 +127,10 @@ class CustomerDashState extends State {
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
-            badgeWidget: _Badge(
-              'https://www.svgrepo.com/svg/334718/hot',
-              size: widgetSize,
-              borderColor: const Color(0xFFD3231E),
-            ),
+            badgeWidget: _Badge('assets/svgs/hot.svg',
+                size: widgetSize,
+                borderColor: const Color(0xFFD3231E),
+                iconColor: const Color(0xFFD3231E)),
             badgePositionPercentageOffset: .98,
           );
         case 1:
@@ -83,31 +144,33 @@ class CustomerDashState extends State {
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
             badgeWidget: _Badge(
-              'https://www.svgrepo.com/svg/71601/wind',
+              'svgs/warm.svg',
               size: widgetSize,
               borderColor: const Color(0xfff8b250),
+              iconColor: const Color(0xfff8b250),
             ),
             badgePositionPercentageOffset: .98,
           );
         case 2:
           return PieChartSectionData(
             color: const Color(0xFF2A87BB),
-            value: 16,
-            title: '16%',
+            value: 30,
+            title: '30%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
             badgeWidget: _Badge(
-              'https://www.svgrepo.com/svg/153280/cold',
+              'svgs/cold.svg',
               size: widgetSize,
               borderColor: const Color(0xFF2A87BB),
+              iconColor: const Color(0xFF2A87BB),
             ),
             badgePositionPercentageOffset: .98,
           );
         default:
-          throw 'Oh no';
+          throw 'None.';
       }
     });
   }
@@ -117,12 +180,14 @@ class _Badge extends StatelessWidget {
   final String svgAsset;
   final double size;
   final Color borderColor;
+  final Color iconColor;
 
   const _Badge(
     this.svgAsset, {
     Key? key,
     required this.size,
     required this.borderColor,
+    required this.iconColor,
   }) : super(key: key);
 
   @override
@@ -150,12 +215,193 @@ class _Badge extends StatelessWidget {
       child: Center(
         child: SvgPicture.asset(
           svgAsset,
+          color: iconColor,
           fit: BoxFit.contain,
         ),
       ),
     );
   }
 }
+
+// =================== ANOTHA ONE ======================
+
+// import 'package:fl_chart/fl_chart.dart';
+// import 'package:flutter/material.dart';
+// import 'package:dennis_lechon_crm/widgets/indicator.dart';
+// import 'package:dennis_lechon_crm/widgets/color_extensions.dart';
+
+// class CustomerDash extends StatefulWidget {
+//   const CustomerDash({Key? key}) : super(key: key);
+
+//   @override
+//   State<StatefulWidget> createState() => CustomerDashState();
+// }
+
+// class CustomerDashState extends State {
+//   int touchedIndex = -1;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AspectRatio(
+//       aspectRatio: 1.3,
+//       child: Card(
+//         color: Colors.white,
+//         child: Column(
+//           children: <Widget>[
+//             const SizedBox(
+//               height: 28,
+//             ),
+//             Row(
+//               mainAxisSize: MainAxisSize.max,
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: <Widget>[
+//                 Indicator(
+//                   color: const Color(0xff0293ee),
+//                   text: 'One',
+//                   isSquare: false,
+//                   size: touchedIndex == 0 ? 18 : 16,
+//                   textColor: touchedIndex == 0 ? Colors.black : Colors.grey,
+//                 ),
+//                 Indicator(
+//                   color: const Color(0xfff8b250),
+//                   text: 'Two',
+//                   isSquare: false,
+//                   size: touchedIndex == 1 ? 18 : 16,
+//                   textColor: touchedIndex == 1 ? Colors.black : Colors.grey,
+//                 ),
+//                 Indicator(
+//                   color: const Color(0xff845bef),
+//                   text: 'Three',
+//                   isSquare: false,
+//                   size: touchedIndex == 2 ? 18 : 16,
+//                   textColor: touchedIndex == 2 ? Colors.black : Colors.grey,
+//                 ),
+//                 Indicator(
+//                   color: const Color(0xff13d38e),
+//                   text: 'Four',
+//                   isSquare: false,
+//                   size: touchedIndex == 3 ? 18 : 16,
+//                   textColor: touchedIndex == 3 ? Colors.black : Colors.grey,
+//                 ),
+//               ],
+//             ),
+//             const SizedBox(
+//               height: 18,
+//             ),
+//             Expanded(
+//               child: AspectRatio(
+//                 aspectRatio: 1,
+//                 child: PieChart(
+//                   PieChartData(
+//                       pieTouchData: PieTouchData(touchCallback:
+//                           (FlTouchEvent event, pieTouchResponse) {
+//                         setState(() {
+//                           if (!event.isInterestedForInteractions ||
+//                               pieTouchResponse == null ||
+//                               pieTouchResponse.touchedSection == null) {
+//                             touchedIndex = -1;
+//                             return;
+//                           }
+//                           touchedIndex = pieTouchResponse
+//                               .touchedSection!.touchedSectionIndex;
+//                         });
+//                       }),
+//                       startDegreeOffset: 180,
+//                       borderData: FlBorderData(
+//                         show: false,
+//                       ),
+//                       sectionsSpace: 1,
+//                       centerSpaceRadius: 0,
+//                       sections: showingSections()),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   List<PieChartSectionData> showingSections() {
+//     return List.generate(
+//       4,
+//       (i) {
+//         final isTouched = i == touchedIndex;
+//         final opacity = isTouched ? 1.0 : 0.6;
+
+//         const color0 = Color(0xff0293ee);
+//         const color1 = Color(0xfff8b250);
+//         const color2 = Color(0xff845bef);
+//         const color3 = Color(0xff13d38e);
+
+//         switch (i) {
+//           case 0:
+//             return PieChartSectionData(
+//               color: color0.withOpacity(opacity),
+//               value: 25,
+//               title: '',
+//               radius: 80,
+//               titleStyle: const TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   color: Color(0xff044d7c)),
+//               titlePositionPercentageOffset: 0.55,
+//               borderSide: isTouched
+//                   ? BorderSide(color: color0.darken(40), width: 6)
+//                   : BorderSide(color: color0.withOpacity(0)),
+//             );
+//           case 1:
+//             return PieChartSectionData(
+//               color: color1.withOpacity(opacity),
+//               value: 25,
+//               title: '',
+//               radius: 65,
+//               titleStyle: const TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   color: Color(0xff90672d)),
+//               titlePositionPercentageOffset: 0.55,
+//               borderSide: isTouched
+//                   ? BorderSide(color: color1.darken(40), width: 6)
+//                   : BorderSide(color: color2.withOpacity(0)),
+//             );
+//           case 2:
+//             return PieChartSectionData(
+//               color: color2.withOpacity(opacity),
+//               value: 25,
+//               title: '',
+//               radius: 60,
+//               titleStyle: const TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   color: Color(0xff4c3788)),
+//               titlePositionPercentageOffset: 0.6,
+//               borderSide: isTouched
+//                   ? BorderSide(color: color2.darken(40), width: 6)
+//                   : BorderSide(color: color2.withOpacity(0)),
+//             );
+//           case 3:
+//             return PieChartSectionData(
+//               color: color3.withOpacity(opacity),
+//               value: 25,
+//               title: '',
+//               radius: 70,
+//               titleStyle: const TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   color: Color(0xff0c7f55)),
+//               titlePositionPercentageOffset: 0.55,
+//               borderSide: isTouched
+//                   ? BorderSide(color: color3.darken(40), width: 6)
+//                   : BorderSide(color: color2.withOpacity(0)),
+//             );
+//           default:
+//             throw Error();
+//         }
+//       },
+//     );
+//   }
+// }
 
 // =================== OLD CUSTOMER DASHBOARD CODE ===================
 

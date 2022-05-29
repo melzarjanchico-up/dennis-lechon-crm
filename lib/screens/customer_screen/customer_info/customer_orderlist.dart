@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_list/order_list.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
@@ -11,8 +12,8 @@ import '../../../models/customer.dart';
 
 class CustomerOrderList extends StatefulWidget {
   final Customer customer;
-
-  const CustomerOrderList({ required this.customer, Key? key }) : super(key: key);
+  final FirebaseFirestore firestore;
+  const CustomerOrderList({ required this.customer, Key? key, required this.firestore }) : super(key: key);
 
   @override
   State<CustomerOrderList> createState() => _CustomerOrderListState();
@@ -53,7 +54,7 @@ class _CustomerOrderListState extends State<CustomerOrderList> {
                 body: (snapshot.data!.isNotEmpty) ? StreamProvider<List<Order>>.value(
                   value: OrderService().customerOrders(widget.customer.id), // as in wala koy mabuhat
                   initialData: const [],
-                  child: const OrderListWidget(),
+                  child: OrderListWidget(firestore: widget.firestore,),
                 ) : const Center(
                   child: Text("Customer's order history is empty."),
                 )

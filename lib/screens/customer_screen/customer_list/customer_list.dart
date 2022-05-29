@@ -18,6 +18,11 @@ class CustomerListWidget extends StatefulWidget {
 class _CustomerListWidgetState extends State<CustomerListWidget> {
   @override
   Widget build(BuildContext context) {
+    List<IconData> hello = [
+      Icons.local_fire_department,
+      Icons.air_outlined,
+      Icons.ac_unit_outlined
+    ];
     final customers = Provider.of<List<Customer>>(context);
 
     return (customers.isEmpty)
@@ -117,10 +122,12 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                                     ),
                                                   )
                                                 : Text(
-                                                    "<< NOT AVAILABLE >>",
+                                                    "[Not Available]",
                                                     style: GoogleFonts.mulish(
+                                                      //fontStyle: FontStyle.,
                                                       fontSize: 15,
-                                                      color: Colors.black38,
+                                                      color:
+                                                          Colors.red.shade200,
                                                     ),
                                                   ),
                                           ]),
