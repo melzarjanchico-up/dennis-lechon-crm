@@ -44,6 +44,8 @@ class _OrderInfoState extends State<OrderInfo> {
         borderRadius: BorderRadius.all(Radius.circular(30.0)),
       ),
       contentPadding: const EdgeInsets.only(top: 0.0),
+      insetPadding:
+          const EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
       content: Column(
         children: [
           Stack(
@@ -134,7 +136,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     const Icon(
                                       Icons.alarm,
                                       color: Colors.white,
-                                      size: 16.0,
+                                      size: 14.0,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -143,7 +145,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                           style: GoogleFonts.mulish(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 14.0)),
+                                              fontSize: 13.0)),
                                     )
                                   ]),
                                 )
@@ -173,7 +175,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     style: GoogleFonts.mulish(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 14.0)),
+                                        fontSize: 13.0)),
                               )
                             ]),
                           ),
@@ -202,7 +204,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     style: GoogleFonts.mulish(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 14.0)),
+                                        fontSize: 13.0)),
                               )
                             ]),
                           ),
@@ -281,7 +283,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                 '${widget.order.firstName} ${widget.order.lastName}',
                                 style: const TextStyle(
                                     fontFamily: 'Montserrat',
-                                    fontSize: 15.0,
+                                    fontSize: 14.0,
                                     color: Color(0xFF1F2426),
                                     fontWeight: FontWeight.w500),
                               ),
@@ -305,7 +307,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                 widget.order.contact,
                                 style: const TextStyle(
                                     fontFamily: 'Montserrat',
-                                    fontSize: 15.0,
+                                    fontSize: 14.0,
                                     color: Color(0xFF1F2426),
                                     fontWeight: FontWeight.w500),
                               ),
@@ -337,7 +339,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               widget.order.address,
                               style: const TextStyle(
                                   fontFamily: 'Montserrat',
-                                  fontSize: 15.0,
+                                  fontSize: 14.0,
                                   color: Color(0xFF1F2426),
                                   fontWeight: FontWeight.w500),
                             ),
@@ -352,7 +354,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       'Order Details',
                       style: TextStyle(
                           fontFamily: 'Montserrat',
-                          fontSize: 23.0,
+                          fontSize: 17.0,
                           color: Color(0xFF1F2426),
                           fontWeight: FontWeight.w500),
                     ),
@@ -369,8 +371,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 elevation: 3,
-                                margin:
-                                    const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                                margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 20.0, horizontal: 20.0),
@@ -423,7 +424,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     textAlign: TextAlign.end,
                                                     style: TextStyle(
                                                       fontFamily: 'Montserrat',
-                                                      fontSize: 12,
+                                                      fontSize: 13,
                                                       color: Colors.grey,
                                                     ),
                                                   ),
@@ -436,7 +437,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     textAlign: TextAlign.end,
                                                     style: const TextStyle(
                                                       fontFamily: 'Montserrat',
-                                                      fontSize: 14,
+                                                      fontSize: 13,
                                                       color: Colors.grey,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -455,7 +456,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     textAlign: TextAlign.end,
                                                     style: TextStyle(
                                                       fontFamily: 'Montserrat',
-                                                      fontSize: 12,
+                                                      fontSize: 13,
                                                       color: Colors.grey,
                                                     ),
                                                   ),
@@ -467,7 +468,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     textAlign: TextAlign.end,
                                                     style: const TextStyle(
                                                       fontFamily: 'Montserrat',
-                                                      fontSize: 14,
+                                                      fontSize: 13,
                                                       color: Colors.grey,
                                                     ),
                                                   ),
@@ -518,7 +519,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                       style: TextStyle(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          fontSize: 18.0,
+                                                          fontSize: 15.0,
                                                           color: Color.fromARGB(
                                                               255, 29, 29, 29),
                                                           fontWeight:
@@ -531,8 +532,8 @@ class _OrderInfoState extends State<OrderInfo> {
                                                             'Montserrat',
                                                         color: Color.fromARGB(
                                                             255, 80, 79, 79),
-                                                        letterSpacing: 1.0,
-                                                        fontSize: 13,
+                                                        letterSpacing: 0,
+                                                        fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.w700,
                                                       ),
@@ -548,7 +549,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                     fontFamily: 'Montserrat',
                                                     color: Color.fromARGB(
                                                         255, 80, 79, 79),
-                                                    fontSize: 18,
+                                                    fontSize: 14,
                                                     fontWeight: FontWeight.w800,
                                                   ),
                                                 ))
@@ -566,7 +567,7 @@ class _OrderInfoState extends State<OrderInfo> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 30.0),
+                      padding: const EdgeInsets.only(top: 0.0, bottom: 30.0),
                       child: Row(
                         children: [
                           const Expanded(
@@ -581,16 +582,16 @@ class _OrderInfoState extends State<OrderInfo> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
-                                padding: const EdgeInsets.all(15.0),
-                                minimumSize: const Size(15, 5),
+                                padding: const EdgeInsets.all(2),
+                                fixedSize: const Size(150, 5),
                               ),
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 20.0, vertical: 2.0),
+                                    horizontal: 10.0, vertical: 10.0),
                                 child: Text('Edit',
                                     style: TextStyle(
                                       fontFamily: 'Montserrat',
-                                      fontSize: 15.0,
+                                      fontSize: 12.0,
                                       color: Colors.white,
                                     )),
                               ),
@@ -614,8 +615,8 @@ class _OrderInfoState extends State<OrderInfo> {
                                   onPrimary: Colors.white,
                                   elevation: 5,
                                   shape: const CircleBorder(),
-                                  padding: const EdgeInsets.all(15.0),
-                                  minimumSize: const Size(15, 5),
+                                  padding: const EdgeInsets.all(8.0),
+                                  minimumSize: const Size(10, 2),
                                 ),
                                 child: const Icon(Icons.delete_forever_rounded),
                                 onPressed: () {
@@ -728,7 +729,7 @@ Widget orderWidget(String name, String size, String amt, String price) {
                 style: GoogleFonts.mulish(
                   color: const Color.fromARGB(255, 71, 71, 71),
                   fontWeight: FontWeight.w700,
-                  fontSize: 16.0,
+                  fontSize: 13.0,
                 ),
               ),
               Text(
@@ -750,7 +751,7 @@ Widget orderWidget(String name, String size, String amt, String price) {
             text: TextSpan(
               style: const TextStyle(
                   fontFamily: 'Montserrat',
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: Color.fromARGB(255, 71, 71, 71)),
               children: [
@@ -773,7 +774,7 @@ Widget orderWidget(String name, String size, String amt, String price) {
             textAlign: TextAlign.end,
             style: const TextStyle(
               fontFamily: 'Montserrat',
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.grey,
             ),
           ),

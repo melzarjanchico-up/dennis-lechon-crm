@@ -26,8 +26,8 @@ class CustomerDashState extends State {
             const SizedBox(width: 35),
             Column(
               //mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 20),
                 Row(
@@ -35,20 +35,20 @@ class CustomerDashState extends State {
                     Text(
                       "You have ",
                       style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                     ),
                     Text(
                       "100",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 28,
+                        fontSize: 19,
                       ),
                     ),
                   ],
                 ),
                 const Text(
                   "customers!",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 ),
                 const SizedBox(height: 15),
                 const Indicator(
@@ -113,8 +113,8 @@ class CustomerDashState extends State {
     return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 20.0 : 16.0;
-      final radius = isTouched ? 110.0 : 100.0;
-      final widgetSize = isTouched ? 55.0 : 40.0;
+      final radius = isTouched ? 80.0 : 75.0;
+      final widgetSize = isTouched ? 35.0 : 30.0;
 
       switch (i) {
         case 0:

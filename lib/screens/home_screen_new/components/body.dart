@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
                         bottomRight: Radius.circular(40)),
                   ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
                       //SizedBox(width: 10),
@@ -90,11 +90,11 @@ class Body extends StatelessWidget {
               ]),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Text("   Your Customers",
+                const Text("Your Customers",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
-                const SizedBox(width: 150),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xFFF1A22C),

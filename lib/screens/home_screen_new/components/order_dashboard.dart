@@ -42,9 +42,9 @@ class CustomerCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: const EdgeInsets.only(
-          left: 12,
+          left: 10,
           top: 10,
-          bottom: 30,
+          bottom: 15,
         ),
         width: size.width * 0.95,
         //height: 100,
@@ -52,6 +52,10 @@ class CustomerCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
+              margin: const EdgeInsets.only(
+                top: 10,
+                bottom: 10,
+              ),
               //color: Colors.red,
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
@@ -78,45 +82,42 @@ class CustomerCard extends StatelessWidget {
                     children: <Widget>[
                       const SizedBox(width: 15),
                       Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                    text: "$orderNo ",
-                                    style: GoogleFonts.baloo2(
-                                        //fontFamily: 'Baloo_2',
-                                        fontSize: 40,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                    text: "active orders coming",
-                                    style: GoogleFonts.baloo2(
-                                        //fontFamily: 'Baloo_2',
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white)),
-                                // TextSpan(
-                                //   text: "$address\n\n",
-                                //   style: const TextStyle(
-                                //     fontFamily: 'Montserrat',
-                                //     color: Colors.white,
-                                //   ),
-                                // ),
-                                // TextSpan(
-                                //   text: orders,
-                                //   style: const TextStyle(
-                                //     fontFamily: 'Montserrat',
-                                //     color: Colors.white,
-                                //   ),
-                                // ),
-                              ],
-                            ),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: "$orderNo ",
+                                  style: GoogleFonts.baloo2(
+                                      //fontFamily: 'Baloo_2',
+                                      fontSize: 40,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: "active orders",
+                                  style: GoogleFonts.baloo2(
+                                      //fontFamily: 'Baloo_2',
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              // TextSpan(
+                              //   text: "$address\n\n",
+                              //   style: const TextStyle(
+                              //     fontFamily: 'Montserrat',
+                              //     color: Colors.white,
+                              //   ),
+                              // ),
+                              // TextSpan(
+                              //   text: orders,
+                              //   style: const TextStyle(
+                              //     fontFamily: 'Montserrat',
+                              //     color: Colors.white,
+                              //   ),
+                              // ),
+                            ],
                           ),
                         ),
                       ),
-                      const SizedBox(width: 30),
+                      const SizedBox(width: 20),
                       //Icon(Icons.keyboard_double_arrow_right_rounded),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(

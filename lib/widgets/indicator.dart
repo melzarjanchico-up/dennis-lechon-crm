@@ -14,7 +14,7 @@ class Indicator extends StatelessWidget {
     required this.text,
     required this.isSquare,
     required this.total,
-    this.size = 16,
+    this.size = 13,
     this.textColor = const Color(0xff505050),
   }) : super(key: key);
 
@@ -24,29 +24,29 @@ class Indicator extends StatelessWidget {
       children: <Widget>[
         Row(
           children: [
+            Container(
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
+                color: color,
+              ),
+            ),
+            const SizedBox(
+              width: 4,
+            ),
             Text(
               text,
               style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                  fontSize: 13, fontWeight: FontWeight.bold, color: textColor),
             ),
             //const SizedBox(width: 10),
             Text(
               " ($total)",
               style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                  fontSize: 13, fontWeight: FontWeight.bold, color: textColor),
             ),
           ],
-        ),
-        const SizedBox(
-          width: 4,
-        ),
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
-            color: color,
-          ),
         ),
       ],
     );
