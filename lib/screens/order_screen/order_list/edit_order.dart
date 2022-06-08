@@ -1349,14 +1349,14 @@ class _EditOrderState extends State<EditOrder> {
                 final date = await showDatePicker(
                     context: context,
                     initialDate: currentValue ?? DateTime.now(),
-                    firstDate: DateTime.now(),
+                    firstDate: currentValue!.isBefore(DateTime.now()) ? currentValue : DateTime.now(),
                     lastDate: DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.input);
                 if (date != null) {
                   final time = await showTimePicker(
                     context: context,
                     initialTime:
-                        TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                        TimeOfDay.fromDateTime(currentValue),
                   );
                   return DateTimeField.combine(date, time);
                 } else {

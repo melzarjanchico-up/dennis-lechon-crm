@@ -21,15 +21,15 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 )..addAll(_kEventSource);
 
 final _kEventSource = {
-  for (var item in List.generate(50, (index) => index))
+  for (var item in List.generate(50, (index) => index)) 
     DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
         item % 4 + 1, (index) => Event('Order# $item | ${index + 1}'))
-}..addAll({
+};/*..addAll({
     kToday: [
       const Event('Order 1'),
       const Event('Order 2'),
     ],
-  });
+  });*/
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
@@ -45,5 +45,5 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
 }
 
 final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+final kFirstDay = DateTime(kToday.year, kToday.month - 6, kToday.day);
+final kLastDay = DateTime(kToday.year, kToday.month + 6, kToday.day);
