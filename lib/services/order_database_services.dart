@@ -38,12 +38,43 @@ class OrderService {
     });
   }
 
+  Future editOrder(
+    String docId,
+    String customerId, String customerFirstName, String customerLastName, 
+    String customerAddress, String customerContact,
+    DateTime deliveryDate, DateTime addedDate, bool isRush, bool isDelivery,
+    String paymentStatus, int? deliveryFee,
+    int sCount, int mCount, int lCount, int xlCount
+  ) async {
+    return await customerCollection.doc(customerId).collection('orders').doc(docId).set({
+      'customer': {
+        'id': customerId,
+        'first_name': customerFirstName,
+        'last_name': customerLastName,
+        'address': customerAddress,
+        'contact': customerContact,
+      },
+      'added_date': Timestamp.fromDate(addedDate), //change
+      'delivery_date': deliveryDate.toString(),
+      'is_rush': isRush,
+      'is_delivery': isDelivery,
+      'payment_status': paymentStatus,
+      'delivery_fee': deliveryFee ?? 0,
+      'details': {
+        'small': sCount,
+        'medium': mCount,
+        'large': lCount,
+        'xlarge': xlCount
+      }
+    });
+  }
+
   Future deleteOrder(String customerId, String orderId) async {
     return await customerCollection.doc(customerId).collection('orders').doc(orderId).delete();
   }
 
   List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
+    List<Order> test = snapshot.docs.map((doc) {
       String preId = doc.id;
 
       String preCustomerId = (doc.data() as Map)['customer']['id'];
@@ -83,6 +114,9 @@ class OrderService {
         extraLargeLechonCount: preXLargeLechonCount,
       );
     }).toList();
+
+    test.sort((a,b) => a.dateDelivery.compareTo(b.dateDelivery));
+    return test;
   }
 
   // Search snapshots to be converted to a list of customers

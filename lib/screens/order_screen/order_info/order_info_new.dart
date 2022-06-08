@@ -599,6 +599,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => EditOrder(
+                                              order: widget.order,
                                               firestore: widget.firestore,
                                             ))));
                               },
