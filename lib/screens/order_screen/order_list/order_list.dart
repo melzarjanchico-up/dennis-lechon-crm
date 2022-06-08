@@ -6,26 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-String getDateFromDate(DateTime givenDate) {
-  var months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
-  String datePart =
-      '${months[(givenDate.month) - 1]} ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
-  return datePart;
-}
+import 'package:intl/intl.dart' as intl;
 
 class OrderListWidget extends StatefulWidget {
   const OrderListWidget({Key? key, required this.firestore}) : super(key: key);
@@ -36,6 +17,8 @@ class OrderListWidget extends StatefulWidget {
 }
 
 class _OrderListWidgetState extends State<OrderListWidget> {
+  final format = intl.DateFormat("dd MMM yyyy, h:mm a");
+
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<Order>>(context);
@@ -56,11 +39,12 @@ class _OrderListWidgetState extends State<OrderListWidget> {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: orders.map((order) {
-                String deliveryDate = getDateFromDate(order.dateDelivery);
+
                 String orderHash = order.id.substring(0, 5);
                 bool deliveryType = order.isRush;
                 String firstName = order.firstName;
                 String lastName = order.lastName;
+
                 return GestureDetector(
                     onTap: () {
                       showDialog(
@@ -134,7 +118,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                         borderRadius: BorderRadius.circular(12),
                                         color: const Color(0xFFD3231E)),
                                     child: Text(
-                                      deliveryDate,
+                                      format.format(order.dateDelivery),
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),
