@@ -1,22 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:dennis_lechon_crm/models/customer.dart';
-import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
+//import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:dennis_lechon_crm/models/order.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
-import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+//import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
+//import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
 //import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+//import 'package:flutter_typeahead/flutter_typeahead.dart';
 // import 'package:dennis_lechon_crm/widgets/search.dart';
 //import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class EditOrder extends StatefulWidget {
-  const EditOrder({Key? key, required this.firestore}) : super(key: key);
+  const EditOrder({Key? key, required this.firestore, required this.order}) : super(key: key);
   final FirebaseFirestore firestore;
+  final Order order;
 
   @override
   State<EditOrder> createState() => _EditOrderState();
@@ -43,7 +45,7 @@ class _EditOrderState extends State<EditOrder> {
   double subTotal = 0;
   double totalFee = 0;
 
-  Customer? chosenCustomer;
+  //Customer? chosenCustomer;
   DateTime? _deliveryDateController;
   String? _orderStatusController;
 
@@ -53,11 +55,33 @@ class _EditOrderState extends State<EditOrder> {
   List<String> paymentStatus = ['Paid', 'Unpaid'];
   //List<String> paymentMethods = ['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'];
 
-  final TextEditingController _searchCustomerController =
-      TextEditingController();
+  //final TextEditingController _searchCustomerController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _deliveryFee = TextEditingController(text: '');
+
+  @override
+  void initState() {
+    super.initState();
+    _addressController.text = widget.order.address;
+    _contactController.text = widget.order.contact;
+    _orderStatusController = widget.order.orderPaymentStatus;
+    _deliveryDateController = widget.order.dateDelivery;
+    _isRushOrder = widget.order.isRush;
+    _isDeliveryOrder = widget.order.isDelivery;
+    _deliveryFee.text = widget.order.deliveryFee.toString();
+    smallLechonItemCount = widget.order.smallLechonCount;
+    mediumLechonItemCount = widget.order.mediumLechonCount;
+    largeLechonItemCount = widget.order.largeLechonCount;
+    extraLargeLechonItemCount = widget.order.extraLargeLechonCount;
+    itemCount = smallLechonItemCount+mediumLechonItemCount+largeLechonItemCount+extraLargeLechonItemCount;
+    smallLechonPrice = smallLechonItemCount * 5000;
+    mediumLechonPrice = mediumLechonItemCount * 6000;
+    largeLechonPrice = largeLechonItemCount * 7000;
+    extraLargeLechonPrice = extraLargeLechonItemCount * 8000;
+    subTotal = smallLechonPrice+mediumLechonPrice+largeLechonPrice+extraLargeLechonPrice;
+    totalFee = subTotal+widget.order.deliveryFee;
+  }
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
   @override
@@ -66,7 +90,7 @@ class _EditOrderState extends State<EditOrder> {
         backgroundColor: const Color.fromARGB(255, 236, 235, 235),
         //Kuwangan nig back button
         appBar: AppBar(
-          title: const Text("Order Fillout"),
+          title: const Text("Edit Order Fillout"),
           backgroundColor: const Color(0xFFD3231E),
           centerTitle: true,
         ),
@@ -353,7 +377,7 @@ class _EditOrderState extends State<EditOrder> {
                                   valueListenable: _isLoadingNotifier,
                                   builder: (context, _isLoading, _) {
                                     return ElevatedButton(
-                                      child: const Text(' Create Order ',
+                                      child: const Text(' Save Order ',
                                           style: TextStyle(
                                             fontFamily: 'Montserrat',
                                             color: Colors.white,
@@ -366,18 +390,17 @@ class _EditOrderState extends State<EditOrder> {
                                                 if (itemCount > 0) {
                                                   _isLoadingNotifier.value =
                                                       true;
+
                                                   OrderService()
-                                                      .addOrder(
-                                                          chosenCustomer!.id,
-                                                          chosenCustomer!
-                                                              .firstName,
-                                                          chosenCustomer!
-                                                              .lastName,
-                                                          _addressController
-                                                              .text,
-                                                          _contactController
-                                                              .text,
+                                                      .editOrder(
+                                                          widget.order.id,
+                                                          widget.order.customerId,
+                                                          widget.order.firstName,
+                                                          widget.order.lastName,
+                                                          _addressController.text,
+                                                          _contactController.text,
                                                           _deliveryDateController!,
+                                                          widget.order.dateAdded,
                                                           _isRushOrder,
                                                           _isDeliveryOrder,
                                                           _orderStatusController!,
@@ -388,15 +411,16 @@ class _EditOrderState extends State<EditOrder> {
                                                           mediumLechonItemCount,
                                                           largeLechonItemCount,
                                                           extraLargeLechonItemCount)
+
                                                       .then((value) {
                                                     debugPrint(
-                                                        "Order Added successfully!");
+                                                        "Order Edited successfully!");
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
                                                             const SnackBar(
                                                                 content: Text(
-                                                                    'Customer was added successfully!')));
+                                                                    'Order was edited successfully!')));
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   }).onError(
@@ -408,7 +432,7 @@ class _EditOrderState extends State<EditOrder> {
                                                         .showSnackBar(
                                                             const SnackBar(
                                                                 content: Text(
-                                                                    'Something went wrong. Order not added.')));
+                                                                    'Something went wrong. Order not edited.')));
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   });
@@ -1073,6 +1097,7 @@ class _EditOrderState extends State<EditOrder> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /*
         const Text(
           'Name:',
           style: TextStyle(
@@ -1201,6 +1226,7 @@ class _EditOrderState extends State<EditOrder> {
               },
             )),
         const SizedBox(height: 10),
+        */
         const Text(
           'Address:',
           style: TextStyle(
@@ -1264,6 +1290,7 @@ class _EditOrderState extends State<EditOrder> {
         SizedBox(
           width: 350,
           child: DropdownButtonFormField<String>(
+            value: widget.order.orderPaymentStatus,
             decoration: const InputDecoration(
               //isDense: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 15),
@@ -1301,6 +1328,7 @@ class _EditOrderState extends State<EditOrder> {
             width: 350,
             child: DateTimeField(
               format: format,
+              initialValue: widget.order.dateDelivery,
               onChanged: (val) {
                 setState(() {
                   _deliveryDateController = val;
@@ -1320,7 +1348,7 @@ class _EditOrderState extends State<EditOrder> {
               onShowPicker: (context, currentValue) async {
                 final date = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
+                    initialDate: currentValue ?? DateTime.now(),
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.input);
