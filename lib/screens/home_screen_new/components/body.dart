@@ -180,7 +180,7 @@ class Body extends StatelessWidget {
                 // ),
               ],
             ),
-            //const SizedBox(height: 5),
+            const SizedBox(height: 10),
             OrderDash(
               firestore: firestore,
             ),

@@ -9,7 +9,8 @@ import 'package:dennis_lechon_crm/screens/order_screen/order_list/edit_order.dar
 import 'package:intl/intl.dart';
 
 class OrderInfo extends StatefulWidget {
-  const OrderInfo({Key? key, required this.order, required this.firestore}) : super(key: key);
+  const OrderInfo({Key? key, required this.order, required this.firestore})
+      : super(key: key);
   final Order order;
   final FirebaseFirestore firestore;
 
@@ -184,10 +185,11 @@ class _OrderInfoState extends State<OrderInfo> {
                                 borderRadius: BorderRadius.circular(12),
                                 color: AppColors.yellowColor),
                             child: Row(children: [
-                              Icon(
-                                (widget.order.orderPaymentStatus == 'Paid')
-                                    ? Icons.check
-                                    : Icons.close,
+                              const Icon(
+                                Icons.account_balance_wallet_outlined,
+                                // (widget.order.orderPaymentStatus == 'Paid')
+                                //     ? Icons.check
+                                //     : Icons.account_balance_wallet_outlined,
                                 color: Colors.white,
                                 size: 16.0,
                               ),
@@ -230,6 +232,25 @@ class _OrderInfoState extends State<OrderInfo> {
               //     ),
               //   ),
               // ),
+              Positioned(
+                right: 10,
+                top: 10,
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Align(
+                        alignment: Alignment.topRight,
+                        child: CircleAvatar(
+                          radius: 17,
+                          backgroundColor: Color.fromARGB(255, 189, 25, 20),
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 17,
+                          ),
+                        ))),
+              ),
             ],
           ),
           Flexible(
@@ -356,33 +377,33 @@ class _OrderInfoState extends State<OrderInfo> {
                                   child: Column(
                                     children: <Widget>[
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Small)",
-                                          "${widget.order.smallLechonCount}x",
+                                          "Small Lechon",
+                                          "(Php 5000)",
+                                          "${widget.order.smallLechonCount}",
                                           "$smallLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
                                       ),
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Medium)",
-                                          "${widget.order.mediumLechonCount}x",
+                                          "Medium Lechon",
+                                          "(Php 6000)",
+                                          "${widget.order.mediumLechonCount}",
                                           "$mediumLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
                                       ),
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Large)",
-                                          "${widget.order.largeLechonCount}x",
+                                          "Large Lechon",
+                                          "(Php 7000)",
+                                          "${widget.order.largeLechonCount}",
                                           "$largeLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
                                       ),
                                       orderWidget(
-                                          "Whole Lechon",
-                                          "(Extra Large)",
-                                          "${widget.order.extraLargeLechonCount}x",
+                                          "XL Lechon",
+                                          "(Php 8000)",
+                                          "${widget.order.extraLargeLechonCount}",
                                           "$extraLargeLechonPrice"),
 
                                       const SizedBox(height: 20.0),
@@ -578,7 +599,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => EditOrder(
-                                            firestore: widget.firestore,
+                                              firestore: widget.firestore,
                                             ))));
                               },
                             ),
@@ -713,7 +734,7 @@ Widget orderWidget(String name, String size, String amt, String price) {
                 size,
                 style: const TextStyle(
                     fontFamily: 'Montserrat',
-                    fontSize: 16.0,
+                    fontSize: 12.0,
                     fontWeight: FontWeight.w400,
                     color: Colors.grey),
               ),
@@ -721,15 +742,27 @@ Widget orderWidget(String name, String size, String amt, String price) {
           ),
         ),
         Expanded(
+          //diri emmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
           flex: 2,
-          child: Text(
-            amt,
+          child: RichText(
             textAlign: TextAlign.end,
-            style: const TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Color.fromARGB(255, 71, 71, 71)),
+            text: TextSpan(
+              style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 71, 71, 71)),
+              children: [
+                TextSpan(
+                  text: amt,
+                ),
+                const TextSpan(
+                    text: "x",
+                    style: TextStyle(
+                      fontSize: 11,
+                    ))
+              ],
+            ),
           ),
         ),
         Expanded(

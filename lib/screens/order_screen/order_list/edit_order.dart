@@ -53,11 +53,11 @@ class _EditOrderState extends State<EditOrder> {
   List<String> paymentStatus = ['Paid', 'Unpaid'];
   //List<String> paymentMethods = ['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'];
 
-  final TextEditingController _searchCustomerController = TextEditingController();
+  final TextEditingController _searchCustomerController =
+      TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _deliveryFee = TextEditingController(text: '');
-
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
   @override
@@ -71,19 +71,18 @@ class _EditOrderState extends State<EditOrder> {
           centerTitle: true,
         ),
         body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            color: Colors.white,
-          ),
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          margin: const EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            margin: const EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(children: [
                   const SizedBox(height: 30),
                   customerOrderInfoDeets(),
                   const SizedBox(height: 30),
@@ -92,261 +91,265 @@ class _EditOrderState extends State<EditOrder> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Flex(
-                        direction: Axis.horizontal, 
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Order Details',
-                                  style: GoogleFonts.montserrat(
+                      Flex(direction: Axis.horizontal, children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Order Details',
+                                style: GoogleFonts.montserrat(
                                     fontSize: 21.0,
                                     color: const Color(0xFF1F2426),
-                                    fontWeight: FontWeight.w500
-                                  ),
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Card(
+                                color: const Color.fromARGB(255, 243, 243, 243),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
-
-                                Card(
-                                  color: const Color.fromARGB(255, 243, 243, 243),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  elevation: 3,
-                                  margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: FittedBox(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        //
-                                        // This is the start of the elements sa Card UI
-                                        //
-                                        children: <Widget>[
-                                          smallLechonWidget(
-                                            5000,
-                                            "Small"
-                                          ),
-                                          const SizedBox(height: 10),
-                                          mediumLechonWidget(
-                                            6000,
-                                            "Medium"
-                                          ),
-                                          const SizedBox(height: 10),
-                                          largeLechonWidget(
-                                            7000,
-                                            "Large"
-                                          ),
-                                          const SizedBox(height: 10),
-                                          xlargeLechonWidget(
-                                            8000,
-                                            "Extra Large"
-                                          ),
-                                          const SizedBox(height: 20),
-                                          
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  const Text(
-                                                    "Subtotal",
-                                                    style: TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 12,
-                                                      color: Colors.grey,
-                                                    ),
+                                elevation: 3,
+                                margin:
+                                    const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: FittedBox(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      //
+                                      // This is the start of the elements sa Card UI
+                                      //
+                                      children: <Widget>[
+                                        smallLechonWidget(5000, "5000"),
+                                        const SizedBox(height: 10),
+                                        mediumLechonWidget(6000, "6000"),
+                                        const SizedBox(height: 10),
+                                        largeLechonWidget(7000, "7000"),
+                                        const SizedBox(height: 10),
+                                        xlargeLechonWidget(8000, "8000"),
+                                        const SizedBox(height: 20),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                const Text(
+                                                  "Subtotal",
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    fontSize: 12,
+                                                    color: Colors.grey,
                                                   ),
-                                                  const SizedBox(width: 25),
-                                                  Text(
-                                                    //without backend yet
-                                                    "Php $subTotal",
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 14,
-                                                      color: Colors.grey,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
+                                                ),
+                                                const SizedBox(width: 25),
+                                                Text(
+                                                  //without backend yet
+                                                  "Php $subTotal",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    fontSize: 14,
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 10),
-
-                                              (_isDeliveryOrder) ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    "Delivery fee",
-                                                    style: TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 12,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 15),
-                                                  const Text(
-                                                    "Php",
-                                                    style: TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 14,
-                                                      color: Colors.grey,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  SizedBox(
-                                                    width: 65,
-                                                    height: 20,
-                                                    child: TextField(
-                                                      enabled: _isDeliveryOrder,
-                                                      textAlign: TextAlign.end,
-                                                      controller: _deliveryFee,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          if (value != '') {
-                                                            totalFee = (subTotal + int.parse(value));
-                                                          } else {
-                                                            totalFee = subTotal;
-                                                          }
-                                                        });
-                                                      },
-                                                      keyboardType: TextInputType.number,
-                                                      inputFormatters: [
-                                                        //LengthLimitingTextInputFormatter(11),
-                                                        FilteringTextInputFormatter.digitsOnly,
-                                                      ],
-                                                      style: const TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                      decoration: const InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.fromLTRB(
-                                                                14, 0, 0, 0),
-                                                        border:
-                                                            OutlineInputBorder(),
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                ],
-                                              ): Container(),
-
-                                              const SizedBox(height: 20),
-
-                                              Row(
-                                                children: [
-                                                  const SizedBox(width: 25),
-                                                  Container(
-                                                    width: 250,
-                                                    height: 2,
-                                                    decoration: BoxDecoration(
-                                                      color: const Color.fromARGB(
-                                                          255, 221, 220, 220),
-                                                      borderRadius:
-                                                          BorderRadius.circular(5),
-                                                      boxShadow: const [
-                                                        BoxShadow(
-                                                          color: Color.fromARGB(
-                                                              255, 207, 206, 206),
-                                                          offset: Offset(0.0, 2.0),
-                                                          blurRadius: 2,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            (_isDeliveryOrder)
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      const Text(
+                                                        "Delivery fee",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontSize: 12,
+                                                          color: Colors.grey,
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                      const SizedBox(width: 15),
+                                                      const Text(
+                                                        "Php",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontSize: 14,
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      SizedBox(
+                                                        width: 65,
+                                                        height: 20,
+                                                        child: TextField(
+                                                          enabled:
+                                                              _isDeliveryOrder,
+                                                          textAlign:
+                                                              TextAlign.end,
+                                                          controller:
+                                                              _deliveryFee,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              if (value != '') {
+                                                                totalFee = (subTotal +
+                                                                    int.parse(
+                                                                        value));
+                                                              } else {
+                                                                totalFee =
+                                                                    subTotal;
+                                                              }
+                                                            });
+                                                          },
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          inputFormatters: [
+                                                            //LengthLimitingTextInputFormatter(11),
+                                                            FilteringTextInputFormatter
+                                                                .digitsOnly,
+                                                          ],
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            contentPadding:
+                                                                EdgeInsets
+                                                                    .fromLTRB(
+                                                                        14,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            border:
+                                                                OutlineInputBorder(),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(),
+                                            const SizedBox(height: 20),
+                                            Row(
+                                              children: [
+                                                const SizedBox(width: 25),
+                                                Container(
+                                                  width: 250,
+                                                  height: 2,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        0, 221, 220, 220),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    // boxShadow: const [
+                                                    //   BoxShadow(
+                                                    //     color: Color.fromARGB(
+                                                    //         255, 207, 206, 206),
+                                                    //     offset:
+                                                    //         Offset(0.0, 2.0),
+                                                    //     blurRadius: 2,
+                                                    //   ),
+                                                    // ],
                                                   ),
-                                                  const SizedBox(width: 5),
+                                                ),
+                                                const SizedBox(width: 5),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const SizedBox(width: 20),
+                                            Container(
+                                              width: 300,
+                                              height: 2,
+                                              decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 221, 220, 220),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    color: Color.fromARGB(
+                                                        255, 207, 206, 206),
+                                                    offset: Offset(0.0, 2.0),
+                                                    blurRadius: 2,
+                                                  ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const SizedBox(width: 20),
-                                              Container(
-                                                width: 300,
-                                                height: 2,
-                                                decoration: BoxDecoration(
+                                            ),
+                                            const SizedBox(width: 3.5),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 22),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(width: 30),
+                                            Text(
+                                              'Total',
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 18.0,
                                                   color: const Color.fromARGB(
-                                                      255, 221, 220, 220),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 207, 206, 206),
-                                                      offset: Offset(0.0, 2.0),
-                                                      blurRadius: 2,
-                                                    ),
-                                                  ],
-                                                ),
+                                                      255, 29, 29, 29),
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            const SizedBox(width: 3),
+                                            Text(
+                                              itemCount > 1
+                                                  ? '  ($itemCount items)  '
+                                                  : '  ($itemCount item)  ',
+                                              style: GoogleFonts.montserrat(
+                                                color: const Color.fromARGB(
+                                                    255, 80, 79, 79),
+                                                letterSpacing: 1.0,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w700,
                                               ),
-                                              const SizedBox(width: 3.5),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 22),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              const SizedBox(width: 30),
-                                              Text(
-                                                'Total',
-                                                style: GoogleFonts.montserrat(
-                                                    fontSize: 18.0,
-                                                    color: const Color.fromARGB(
-                                                        255, 29, 29, 29),
-                                                    fontWeight: FontWeight.w700),
-                                              ),
-                                              const SizedBox(width: 3),
-                                              Text(
-                                                itemCount > 1
-                                                    ? '  ($itemCount items)  '
-                                                    : '  ($itemCount item)  ',
-                                                style: GoogleFonts.montserrat(
+                                            ),
+                                            const SizedBox(width: 25),
+                                            Text(
+                                              'Php',
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 18.0,
                                                   color: const Color.fromARGB(
                                                       255, 80, 79, 79),
-                                                  letterSpacing: 1.0,
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Text(
+                                              '  $totalFee',
+                                              style: GoogleFonts.montserrat(
+                                                color: const Color.fromARGB(
+                                                    255, 80, 79, 79),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w800,
                                               ),
-                                              const SizedBox(width: 25),
-                                              Text(
-                                                'Php',
-                                                style: GoogleFonts.montserrat(
-                                                    fontSize: 18.0,
-                                                    color: const Color.fromARGB(
-                                                        255, 80, 79, 79),
-                                                    fontWeight: FontWeight.w700),
-                                              ),
-                                              Text(
-                                                '  $totalFee',
-                                                style: GoogleFonts.montserrat(
-                                                  color: const Color.fromARGB(
-                                                      255, 80, 79, 79),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w800,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-
-                                ValueListenableBuilder(
+                              ),
+                              ValueListenableBuilder(
                                   valueListenable: _isLoadingNotifier,
                                   builder: (context, _isLoading, _) {
                                     return ElevatedButton(
@@ -355,49 +358,62 @@ class _EditOrderState extends State<EditOrder> {
                                             fontFamily: 'Montserrat',
                                             color: Colors.white,
                                           )),
-                                      onPressed: (_isLoading == true) ? null : () {
-                                        if (_formKey.currentState!.validate()) {
-                                          if (itemCount > 0) {
-                                            _isLoadingNotifier.value = true;
-                                            OrderService().addOrder(
-                                              chosenCustomer!.id,
-                                              chosenCustomer!.firstName,
-                                              chosenCustomer!.lastName,
-                                              _addressController.text,
-                                              _contactController.text,
-                                              _deliveryDateController!,
-                                              _isRushOrder,
-                                              _isDeliveryOrder,
-                                              _orderStatusController!,
-                                              int.tryParse(_deliveryFee.text),
-                                              smallLechonItemCount,
-                                              mediumLechonItemCount,
-                                              largeLechonItemCount,
-                                              extraLargeLechonItemCount
-                                            ).then((value) {
-                                              debugPrint("Order Added successfully!");
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                const SnackBar(
-                                                  content: Text(
-                                                    'Customer was added successfully!'
-                                                  )
-                                                )
-                                              );
-                                              _isLoadingNotifier.value = false;
-                                            }
-                                            ).onError((error, stackTrace) {
-                                              debugPrint("I did something bad... $error");
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                const SnackBar(
-                                                  content: Text(
-                                                    'Something went wrong. Order not added.'
-                                                  )
-                                                )
-                                              );
-                                              _isLoadingNotifier.value = false;
-                                            });
+                                      onPressed: (_isLoading == true)
+                                          ? null
+                                          : () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                if (itemCount > 0) {
+                                                  _isLoadingNotifier.value =
+                                                      true;
+                                                  OrderService()
+                                                      .addOrder(
+                                                          chosenCustomer!.id,
+                                                          chosenCustomer!
+                                                              .firstName,
+                                                          chosenCustomer!
+                                                              .lastName,
+                                                          _addressController
+                                                              .text,
+                                                          _contactController
+                                                              .text,
+                                                          _deliveryDateController!,
+                                                          _isRushOrder,
+                                                          _isDeliveryOrder,
+                                                          _orderStatusController!,
+                                                          int.tryParse(
+                                                              _deliveryFee
+                                                                  .text),
+                                                          smallLechonItemCount,
+                                                          mediumLechonItemCount,
+                                                          largeLechonItemCount,
+                                                          extraLargeLechonItemCount)
+                                                      .then((value) {
+                                                    debugPrint(
+                                                        "Order Added successfully!");
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                            const SnackBar(
+                                                                content: Text(
+                                                                    'Customer was added successfully!')));
+                                                    _isLoadingNotifier.value =
+                                                        false;
+                                                  }).onError(
+                                                          (error, stackTrace) {
+                                                    debugPrint(
+                                                        "I did something bad... $error");
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                            const SnackBar(
+                                                                content: Text(
+                                                                    'Something went wrong. Order not added.')));
+                                                    _isLoadingNotifier.value =
+                                                        false;
+                                                  });
 
-                                            /*
+                                                  /*
                                             debugPrint(
                                               "CustomerID - ${chosenCustomer!.id}\n"
                                               "CustomerName - ${chosenCustomer!.firstName} ${chosenCustomer!.lastName}\n"
@@ -412,19 +428,14 @@ class _EditOrderState extends State<EditOrder> {
                                               "Details - $smallLechonItemCount,$mediumLechonItemCount,$largeLechonItemCount,$extraLargeLechonItemCount\n"
                                             );
                                             */
-                                          } else {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  'A Lechon Order is required!'
-                                                )
-                                              )
-                                            );
-
-                                          }
-                                          
-                                        }
-                                      },
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                          content: Text(
+                                                              'A Lechon Order is required!')));
+                                                }
+                                              }
+                                            },
                                       style: ElevatedButton.styleFrom(
                                         shape: const StadiumBorder(),
                                         primary: const Color(0xFFF1A22C),
@@ -433,27 +444,18 @@ class _EditOrderState extends State<EditOrder> {
                                             horizontal: 34, vertical: 20),
                                       ),
                                     );
-                                  }
-                                ),
-
-
-                                const SizedBox(height: 15),
-
-                              ],
-                            ),
+                                  }),
+                              const SizedBox(height: 15),
+                            ],
                           ),
-                        ]
-                      ),
+                        ),
+                      ]),
                     ],
                   )
-
-                ]
+                ]),
               ),
-            ),
-          )
-        )
-      );
-    }
+            )));
+  }
 
   // small lechon
   Widget smallLechonWidget(int basePrice, String name) {
@@ -469,14 +471,15 @@ class _EditOrderState extends State<EditOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Whole Lechon",
+                        "Small Lechon",
                         style: GoogleFonts.mulish(
-                          color: const Color.fromARGB(255,71,71,71),
+                          color: const Color.fromARGB(255, 71, 71, 71),
                           fontWeight: FontWeight.w700,
                           fontSize: 16.0,
                         ),
@@ -485,62 +488,56 @@ class _EditOrderState extends State<EditOrder> {
                       Text(
                         "($name)",
                         style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey
-                        ),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey),
                       ),
                     ],
                   ),
                   const SizedBox(width: 15),
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD3231E),
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
+                        color: const Color(0xFFD3231E),
+                        borderRadius: BorderRadius.circular(5.0)),
                     child: Row(
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(40, 40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(40, 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                primary:
+                                    const Color.fromARGB(255, 243, 243, 243),
                               ),
-                              primary: const Color.fromARGB(255,243,243,243),
-                            ),
-                            child: const Text(
-                              "-",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFD3231E)
+                              child: const Text(
+                                "-",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFD3231E)),
                               ),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                if (smallLechonItemCount > 0) {
-                                  smallLechonItemCount--;
-                                  smallLechonPrice-=basePrice;
+                              onPressed: () {
+                                setState(() {
+                                  if (smallLechonItemCount > 0) {
+                                    smallLechonItemCount--;
+                                    smallLechonPrice -= basePrice;
 
-                                  itemCount--;
-                                  subTotal-=basePrice;
-                                  totalFee-=basePrice;
-                                }
-                              });
-                            }
-                          ),
+                                    itemCount--;
+                                    subTotal -= basePrice;
+                                    totalFee -= basePrice;
+                                  }
+                                });
+                              }),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           smallLechonItemCount.toString(),
                           style: const TextStyle(
-                            color:Colors.white,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -548,24 +545,20 @@ class _EditOrderState extends State<EditOrder> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(40, 40),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
-                              ),
-                              primary: const Color.fromARGB(255,243,243,243),
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              primary: const Color.fromARGB(255, 243, 243, 243),
                             ),
                             child: const Text(
                               "+",
                               style: TextStyle(
-                                color: Color(0xFFD3231E),
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Color(0xFFD3231E),
+                                  fontWeight: FontWeight.bold),
                             ),
                             onPressed: () {
                               setState(() {
@@ -620,9 +613,9 @@ class _EditOrderState extends State<EditOrder> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Whole Lechon",
+                        "Medium Lechon",
                         style: GoogleFonts.mulish(
-                          color: const Color.fromARGB(255,71,71,71),
+                          color: const Color.fromARGB(255, 71, 71, 71),
                           fontWeight: FontWeight.w700,
                           fontSize: 16.0,
                         ),
@@ -631,62 +624,57 @@ class _EditOrderState extends State<EditOrder> {
                       Text(
                         "($name)",
                         style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey
-                        ),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey),
                       ),
                     ],
                   ),
                   const SizedBox(width: 15),
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD3231E),
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
+                        color: const Color(0xFFD3231E),
+                        borderRadius: BorderRadius.circular(5.0)),
                     child: Row(
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(40, 40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(40, 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                primary:
+                                    const Color.fromARGB(255, 243, 243, 243),
                               ),
-                              primary: const Color.fromARGB(255,243,243,243),
-                            ),
-                            child: const Text(
-                              "-",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFD3231E)
+                              child: const Text(
+                                "-",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFD3231E)),
                               ),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                if (mediumLechonItemCount > 0) { // !here
-                                  mediumLechonItemCount--; // ! here
-                                  mediumLechonPrice-=basePrice; // ! here
+                              onPressed: () {
+                                setState(() {
+                                  if (mediumLechonItemCount > 0) {
+                                    // !here
+                                    mediumLechonItemCount--; // ! here
+                                    mediumLechonPrice -= basePrice; // ! here
 
-                                  itemCount--;
-                                  subTotal-=basePrice;
-                                  totalFee-=basePrice;
-                                }
-                              });
-                            }
-                          ),
+                                    itemCount--;
+                                    subTotal -= basePrice;
+                                    totalFee -= basePrice;
+                                  }
+                                });
+                              }),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           mediumLechonItemCount.toString(), // ! here
                           style: const TextStyle(
-                            color:Colors.white,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -694,24 +682,20 @@ class _EditOrderState extends State<EditOrder> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(40, 40),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
-                              ),
-                              primary: const Color.fromARGB(255,243,243,243),
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              primary: const Color.fromARGB(255, 243, 243, 243),
                             ),
                             child: const Text(
                               "+",
                               style: TextStyle(
-                                color: Color(0xFFD3231E),
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Color(0xFFD3231E),
+                                  fontWeight: FontWeight.bold),
                             ),
                             onPressed: () {
                               setState(() {
@@ -761,14 +745,15 @@ class _EditOrderState extends State<EditOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Whole Lechon",
+                        "Large Lechon",
                         style: GoogleFonts.mulish(
-                          color: const Color.fromARGB(255,71,71,71),
+                          color: const Color.fromARGB(255, 71, 71, 71),
                           fontWeight: FontWeight.w700,
                           fontSize: 16.0,
                         ),
@@ -777,62 +762,57 @@ class _EditOrderState extends State<EditOrder> {
                       Text(
                         "($name)",
                         style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey
-                        ),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey),
                       ),
                     ],
                   ),
                   const SizedBox(width: 15),
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD3231E),
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
+                        color: const Color(0xFFD3231E),
+                        borderRadius: BorderRadius.circular(5.0)),
                     child: Row(
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(40, 40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(40, 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                primary:
+                                    const Color.fromARGB(255, 243, 243, 243),
                               ),
-                              primary: const Color.fromARGB(255,243,243,243),
-                            ),
-                            child: const Text(
-                              "-",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFD3231E)
+                              child: const Text(
+                                "-",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFD3231E)),
                               ),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                if (largeLechonItemCount > 0) { // !here
-                                  largeLechonItemCount--; // ! here
-                                  largeLechonPrice-=basePrice; // ! here
+                              onPressed: () {
+                                setState(() {
+                                  if (largeLechonItemCount > 0) {
+                                    // !here
+                                    largeLechonItemCount--; // ! here
+                                    largeLechonPrice -= basePrice; // ! here
 
-                                  itemCount--;
-                                  subTotal-=basePrice;
-                                  totalFee-=basePrice;
-                                }
-                              });
-                            }
-                          ),
+                                    itemCount--;
+                                    subTotal -= basePrice;
+                                    totalFee -= basePrice;
+                                  }
+                                });
+                              }),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           largeLechonItemCount.toString(), // ! here
                           style: const TextStyle(
-                            color:Colors.white,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -840,24 +820,20 @@ class _EditOrderState extends State<EditOrder> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(40, 40),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
-                              ),
-                              primary: const Color.fromARGB(255,243,243,243),
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              primary: const Color.fromARGB(255, 243, 243, 243),
                             ),
                             child: const Text(
                               "+",
                               style: TextStyle(
-                                color: Color(0xFFD3231E),
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Color(0xFFD3231E),
+                                  fontWeight: FontWeight.bold),
                             ),
                             onPressed: () {
                               setState(() {
@@ -907,14 +883,15 @@ class _EditOrderState extends State<EditOrder> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 38),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Whole Lechon",
+                        "XL Lechon",
                         style: GoogleFonts.mulish(
-                          color: const Color.fromARGB(255,71,71,71),
+                          color: const Color.fromARGB(255, 71, 71, 71),
                           fontWeight: FontWeight.w700,
                           fontSize: 16.0,
                         ),
@@ -923,62 +900,58 @@ class _EditOrderState extends State<EditOrder> {
                       Text(
                         "($name)",
                         style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey
-                        ),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey),
                       ),
                     ],
                   ),
                   const SizedBox(width: 15),
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD3231E),
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
+                        color: const Color(0xFFD3231E),
+                        borderRadius: BorderRadius.circular(5.0)),
                     child: Row(
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(40, 40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(40, 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                primary:
+                                    const Color.fromARGB(255, 243, 243, 243),
                               ),
-                              primary: const Color.fromARGB(255,243,243,243),
-                            ),
-                            child: const Text(
-                              "-",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFD3231E)
+                              child: const Text(
+                                "-",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFD3231E)),
                               ),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                if (extraLargeLechonItemCount > 0) { // !here
-                                  extraLargeLechonItemCount--; // ! here
-                                  extraLargeLechonPrice-=basePrice; // ! here
+                              onPressed: () {
+                                setState(() {
+                                  if (extraLargeLechonItemCount > 0) {
+                                    // !here
+                                    extraLargeLechonItemCount--; // ! here
+                                    extraLargeLechonPrice -=
+                                        basePrice; // ! here
 
-                                  itemCount--;
-                                  subTotal-=basePrice;
-                                  totalFee-=basePrice;
-                                }
-                              });
-                            }
-                          ),
+                                    itemCount--;
+                                    subTotal -= basePrice;
+                                    totalFee -= basePrice;
+                                  }
+                                });
+                              }),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           extraLargeLechonItemCount.toString(), // ! here
                           style: const TextStyle(
-                            color:Colors.white,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -986,24 +959,20 @@ class _EditOrderState extends State<EditOrder> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: const Color(0xFFD3231E)
-                            ),
+                            border: Border.all(color: const Color(0xFFD3231E)),
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(40, 40),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
-                              ),
-                              primary: const Color.fromARGB(255,243,243,243),
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              primary: const Color.fromARGB(255, 243, 243, 243),
                             ),
                             child: const Text(
                               "+",
                               style: TextStyle(
-                                color: Color(0xFFD3231E),
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Color(0xFFD3231E),
+                                  fontWeight: FontWeight.bold),
                             ),
                             onPressed: () {
                               setState(() {
@@ -1046,7 +1015,6 @@ class _EditOrderState extends State<EditOrder> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-
           // checkbox for rush order
           Checkbox(
             value: _isRushOrder,
@@ -1078,7 +1046,10 @@ class _EditOrderState extends State<EditOrder> {
                 _isDeliveryOrder = (value!);
               });
               if (_isDeliveryOrder == false) {
-                totalFee = (totalFee - (_deliveryFee.text.isNotEmpty ? double.parse(_deliveryFee.text) : 0));
+                totalFee = (totalFee -
+                    (_deliveryFee.text.isNotEmpty
+                        ? double.parse(_deliveryFee.text)
+                        : 0));
                 _deliveryFee.text = '';
               }
             },
@@ -1092,9 +1063,7 @@ class _EditOrderState extends State<EditOrder> {
               fontWeight: FontWeight.w500,
             ),
           ),
-
         ],
-
       ),
     );
   }
@@ -1103,9 +1072,7 @@ class _EditOrderState extends State<EditOrder> {
   Widget customerOrderInfoDeets() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
-
         const Text(
           'Name:',
           style: TextStyle(
@@ -1115,137 +1082,132 @@ class _EditOrderState extends State<EditOrder> {
               fontWeight: FontWeight.w300),
         ),
         SizedBox(
-          width: 350,
-          child: TypeAheadFormField(
-            hideOnLoading: true,
-            textFieldConfiguration: TextFieldConfiguration(
-              controller: _searchCustomerController,
-              decoration: const InputDecoration(
-                suffixIcon: Icon(Icons.person_search_outlined),
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(horizontal: 15)
+            width: 350,
+            child: TypeAheadFormField(
+              hideOnLoading: true,
+              textFieldConfiguration: TextFieldConfiguration(
+                controller: _searchCustomerController,
+                decoration: const InputDecoration(
+                    suffixIcon: Icon(Icons.person_search_outlined),
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 15)),
               ),
-            ),
 
-            suggestionsCallback: (pattern) async {
-              return CustomerService(firestore: widget.firestore).getSuggestion(pattern);
-            },
+              suggestionsCallback: (pattern) async {
+                return CustomerService(firestore: widget.firestore)
+                    .getSuggestion(pattern);
+              },
 
-            // frontend edit inside here if u want to edit the box itself
-            suggestionsBoxDecoration: const SuggestionsBoxDecoration(
-              constraints: BoxConstraints(
-                maxHeight: 200.0
-              )
-            ),
-            
-            itemBuilder: (context, Customer customer) {
-              return ListTile(
-                title: RichText(
-                  overflow: TextOverflow.ellipsis,
-                  text: TextSpan(
-                    children: [
+              // frontend edit inside here if u want to edit the box itself
+              suggestionsBoxDecoration: const SuggestionsBoxDecoration(
+                  constraints: BoxConstraints(maxHeight: 200.0)),
+
+              itemBuilder: (context, Customer customer) {
+                return ListTile(
+                  title: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(children: [
                       WidgetSpan(
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 2.5),
-                          child: Icon(Icons.person_sharp, size: 14.0, color: customer.tagColor)
-                        )
-                      ),
+                          child: Container(
+                              padding: const EdgeInsets.only(right: 2.5),
+                              child: Icon(Icons.person_sharp,
+                                  size: 14.0, color: customer.tagColor))),
                       TextSpan(
                         text: '${customer.firstName} ${customer.lastName}',
                         style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          //color: Colors.grey,
-                          //fontSize: 14.0,
-                          fontWeight: FontWeight.w300
-                        ),
+                            fontFamily: 'Montserrat',
+                            //color: Colors.grey,
+                            //fontSize: 14.0,
+                            fontWeight: FontWeight.w300),
                       )
-                    ]
+                    ]),
                   ),
-                ),
-                subtitle: Text(
-                  '${customer.adrBarangay} ${customer.adrCity}',
-                  overflow: TextOverflow.ellipsis,
-                ),
-              );
-            },
+                  subtitle: Text(
+                    '${customer.adrBarangay} ${customer.adrCity}',
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                );
+              },
 
-            transitionBuilder: (context, suggestionsBox, controller) {
-              return suggestionsBox;
-            },
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
+              },
 
-            onSuggestionSelected: (Customer customer) {
-              setState(() {
-                chosenCustomer = customer;
-              });
-              _searchCustomerController.text = '${customer.firstName} ${customer.lastName}';
-              _addressController.text = (customer.adrStreet.isNotEmpty ? '${customer.adrStreet} ' : '') + 
-                    (customer.adrBarangay.isNotEmpty ? '${customer.adrBarangay} ' : '') + 
-                    (customer.adrCity.isNotEmpty ? '${customer.adrCity} ' : '') + 
-                    (customer.adrProvince.isNotEmpty ? '${customer.adrProvince} ' : '') + 
-                    (customer.adrZipcode.isNotEmpty ? '${customer.adrZipcode} ' : '');
-              _contactController.text = customer.celNum;
-            },
+              onSuggestionSelected: (Customer customer) {
+                setState(() {
+                  chosenCustomer = customer;
+                });
+                _searchCustomerController.text =
+                    '${customer.firstName} ${customer.lastName}';
+                _addressController.text = (customer.adrStreet.isNotEmpty
+                        ? '${customer.adrStreet} '
+                        : '') +
+                    (customer.adrBarangay.isNotEmpty
+                        ? '${customer.adrBarangay} '
+                        : '') +
+                    (customer.adrCity.isNotEmpty
+                        ? '${customer.adrCity} '
+                        : '') +
+                    (customer.adrProvince.isNotEmpty
+                        ? '${customer.adrProvince} '
+                        : '') +
+                    (customer.adrZipcode.isNotEmpty
+                        ? '${customer.adrZipcode} '
+                        : '');
+                _contactController.text = customer.celNum;
+              },
 
-            noItemsFoundBuilder: (context) {
-              return ListTile(
-                title: RichText(
-                  overflow: TextOverflow.ellipsis,
-                  text: TextSpan(
-                    children: [
+              noItemsFoundBuilder: (context) {
+                return ListTile(
+                  title: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(children: [
                       WidgetSpan(
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 2.5),
-                          child: const Icon(Icons.person_add_alt, size: 14.0)
-                        )
-                      ),
+                          child: Container(
+                              padding: const EdgeInsets.only(right: 2.5),
+                              child: const Icon(Icons.person_add_alt,
+                                  size: 14.0))),
                       const TextSpan(
                         text: 'This customer does not exist.',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          //color: Colors.grey,
-                          fontWeight: FontWeight.w300
-                        ),
+                            fontFamily: 'Montserrat',
+                            //color: Colors.grey,
+                            fontWeight: FontWeight.w300),
                       )
-                    ]
+                    ]),
                   ),
-                ),
-                subtitle: const Text(
-                  'Add this customer into the database!',
-                ),
-                onTap: (){
-                  Navigator.push(
+                  subtitle: const Text(
+                    'Add this customer into the database!',
+                  ),
+                  onTap: () {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                AddCustomer(firestore: widget.firestore,)));
+                            builder: (context) => AddCustomer(
+                                  firestore: widget.firestore,
+                                )));
                   },
-              );
-            },
+                );
+              },
 
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please select a customer.';
-              }
-              if (chosenCustomer == null) {
-                return 'This customer is not in the database. Try again.';
-              }
-              return null;
-            },
-
-          )
-
-        ),
-
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please select a customer.';
+                }
+                if (chosenCustomer == null) {
+                  return 'This customer is not in the database. Try again.';
+                }
+                return null;
+              },
+            )),
         const SizedBox(height: 10),
-
         const Text(
           'Address:',
           style: TextStyle(
-            fontFamily: 'Montserrat',
-            color: Colors.grey,
-            fontSize: 12.0,
-            fontWeight: FontWeight.w300
-          ),
+              fontFamily: 'Montserrat',
+              color: Colors.grey,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w300),
         ),
         SizedBox(
           width: 350,
@@ -1263,9 +1225,7 @@ class _EditOrderState extends State<EditOrder> {
             },
           ),
         ),
-        
         const SizedBox(height: 10),
-
         const Text(
           'Contact Number:',
           style: TextStyle(
@@ -1290,9 +1250,9 @@ class _EditOrderState extends State<EditOrder> {
             },
           ),
         ),
-
-        const SizedBox(height: 10,),
-
+        const SizedBox(
+          height: 10,
+        ),
         const Text(
           'Status',
           style: TextStyle(
@@ -1328,9 +1288,7 @@ class _EditOrderState extends State<EditOrder> {
             },
           ),
         ),
-
         const SizedBox(height: 10),
-
         const Text(
           'Delivery Date & Time:',
           style: TextStyle(
@@ -1340,52 +1298,47 @@ class _EditOrderState extends State<EditOrder> {
               fontWeight: FontWeight.w300),
         ),
         SizedBox(
-          width: 350,
-          child: DateTimeField(
-            format: format,
-            onChanged: (val) {
-              setState(() {
-                _deliveryDateController = val;
-              });
-            },
-            validator: (val) {
-              if (val == null) {
-                return 'Please provide deivery date/time';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              //isDense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 15),
-              border: OutlineInputBorder(),
-            ),
-            onShowPicker: (context, currentValue) async {
-              final date = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(2100),
-                  initialEntryMode: DatePickerEntryMode.input);
-              if (date != null) {
-                final time = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                );
-                return DateTimeField.combine(date, time);
-              } else {
-                return currentValue;
-              }
-            },
-
-          )
-        ),
-
+            width: 350,
+            child: DateTimeField(
+              format: format,
+              onChanged: (val) {
+                setState(() {
+                  _deliveryDateController = val;
+                });
+              },
+              validator: (val) {
+                if (val == null) {
+                  return 'Please provide deivery date/time';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                //isDense: true,
+                contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                border: OutlineInputBorder(),
+              ),
+              onShowPicker: (context, currentValue) async {
+                final date = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                    initialEntryMode: DatePickerEntryMode.input);
+                if (date != null) {
+                  final time = await showTimePicker(
+                    context: context,
+                    initialTime:
+                        TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                  );
+                  return DateTimeField.combine(date, time);
+                } else {
+                  return currentValue;
+                }
+              },
+            )),
         const SizedBox(height: 10),
-
         orderInfoDeets()
-
       ],
     );
   }
-
 }
