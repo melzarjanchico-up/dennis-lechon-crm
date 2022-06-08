@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
       ),
       debugShowCheckedModeBanner: false,
-      home: CustomerScreen(firestore: firestore),
+      home: Dashboard(firestore: firestore),
     );
   }
 }
