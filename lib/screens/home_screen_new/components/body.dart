@@ -21,10 +21,10 @@ class Body extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-              height: size.height * 0.20,
+              height: size.height * 0.15,
               child: Stack(children: <Widget>[
                 Container(
-                  height: 80,
+                  height: 40,
                   padding: const EdgeInsets.all(15),
                   decoration: const BoxDecoration(
                     color: Color(0xFFD3231E),
@@ -37,11 +37,11 @@ class Body extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
                       //SizedBox(width: 10),
-                      Text('Lech Go!',
-                          style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
+                      // Text('Lech Go!',
+                      //     style: TextStyle(
+                      //         fontSize: 22,
+                      //         color: Colors.white,
+                      //         fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -219,8 +219,8 @@ class Body extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: ((context) => CalendarScreen(
-                              firestore: firestore,
-                            ))));
+                                  firestore: firestore,
+                                ))));
                   },
                 ),
               ],

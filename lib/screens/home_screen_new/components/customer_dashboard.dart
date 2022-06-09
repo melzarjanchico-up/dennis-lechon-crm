@@ -211,16 +211,12 @@ class _Badge extends StatelessWidget {
         ],
       ),
       padding: EdgeInsets.all(size * .15),
-      child: Center(
+      child: FittedBox(
+        fit: BoxFit.fill,
         child: Icon(
           icons,
           color: iconColor,
         ),
-        // SvgPicture.asset(
-        //   ,
-        //   color: iconColor,
-        //   fit: BoxFit.contain,
-        // ),
       ),
     );
   }
