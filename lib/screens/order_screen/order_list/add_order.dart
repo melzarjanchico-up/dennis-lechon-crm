@@ -368,7 +368,9 @@ class _AddOrderState extends State<AddOrder> {
                                                 if (itemCount > 0) {
                                                   _isLoadingNotifier.value =
                                                       true;
-                                                  OrderService()
+                                                  OrderService(
+                                                          firestore:
+                                                              widget.firestore)
                                                       .addOrder(
                                                           chosenCustomer!.id,
                                                           chosenCustomer!
@@ -398,7 +400,7 @@ class _AddOrderState extends State<AddOrder> {
                                                         .showSnackBar(
                                                             const SnackBar(
                                                                 content: Text(
-                                                                    'Customer was added successfully!')));
+                                                                    'Order was added successfully!')));
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   }).onError(

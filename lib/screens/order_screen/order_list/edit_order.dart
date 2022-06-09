@@ -16,7 +16,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class EditOrder extends StatefulWidget {
-  const EditOrder({Key? key, required this.firestore, required this.order}) : super(key: key);
+  const EditOrder({Key? key, required this.firestore, required this.order})
+      : super(key: key);
   final FirebaseFirestore firestore;
   final Order order;
 
@@ -74,13 +75,19 @@ class _EditOrderState extends State<EditOrder> {
     mediumLechonItemCount = widget.order.mediumLechonCount;
     largeLechonItemCount = widget.order.largeLechonCount;
     extraLargeLechonItemCount = widget.order.extraLargeLechonCount;
-    itemCount = smallLechonItemCount+mediumLechonItemCount+largeLechonItemCount+extraLargeLechonItemCount;
+    itemCount = smallLechonItemCount +
+        mediumLechonItemCount +
+        largeLechonItemCount +
+        extraLargeLechonItemCount;
     smallLechonPrice = smallLechonItemCount * 5000;
     mediumLechonPrice = mediumLechonItemCount * 6000;
     largeLechonPrice = largeLechonItemCount * 7000;
     extraLargeLechonPrice = extraLargeLechonItemCount * 8000;
-    subTotal = smallLechonPrice+mediumLechonPrice+largeLechonPrice+extraLargeLechonPrice;
-    totalFee = subTotal+widget.order.deliveryFee;
+    subTotal = smallLechonPrice +
+        mediumLechonPrice +
+        largeLechonPrice +
+        extraLargeLechonPrice;
+    totalFee = subTotal + widget.order.deliveryFee;
   }
 
   //Mu error pa ni siya kay ni lapas daw ang Pixels po
@@ -391,16 +398,23 @@ class _EditOrderState extends State<EditOrder> {
                                                   _isLoadingNotifier.value =
                                                       true;
 
-                                                  OrderService()
+                                                  OrderService(
+                                                          firestore:
+                                                              widget.firestore)
                                                       .editOrder(
                                                           widget.order.id,
-                                                          widget.order.customerId,
-                                                          widget.order.firstName,
+                                                          widget
+                                                              .order.customerId,
+                                                          widget
+                                                              .order.firstName,
                                                           widget.order.lastName,
-                                                          _addressController.text,
-                                                          _contactController.text,
+                                                          _addressController
+                                                              .text,
+                                                          _contactController
+                                                              .text,
                                                           _deliveryDateController!,
-                                                          widget.order.dateAdded,
+                                                          widget
+                                                              .order.dateAdded,
                                                           _isRushOrder,
                                                           _isDeliveryOrder,
                                                           _orderStatusController!,
@@ -411,7 +425,6 @@ class _EditOrderState extends State<EditOrder> {
                                                           mediumLechonItemCount,
                                                           largeLechonItemCount,
                                                           extraLargeLechonItemCount)
-
                                                       .then((value) {
                                                     debugPrint(
                                                         "Order Edited successfully!");
@@ -1349,14 +1362,15 @@ class _EditOrderState extends State<EditOrder> {
                 final date = await showDatePicker(
                     context: context,
                     initialDate: currentValue ?? DateTime.now(),
-                    firstDate: currentValue!.isBefore(DateTime.now()) ? currentValue : DateTime.now(),
+                    firstDate: currentValue!.isBefore(DateTime.now())
+                        ? currentValue
+                        : DateTime.now(),
                     lastDate: DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.input);
                 if (date != null) {
                   final time = await showTimePicker(
                     context: context,
-                    initialTime:
-                        TimeOfDay.fromDateTime(currentValue),
+                    initialTime: TimeOfDay.fromDateTime(currentValue),
                   );
                   return DateTimeField.combine(date, time);
                 } else {

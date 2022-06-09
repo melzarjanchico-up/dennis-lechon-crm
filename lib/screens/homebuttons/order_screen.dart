@@ -22,7 +22,7 @@ class OrderListScreen extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: StreamBuilder<List<Order>>(
           key: const Key("Stream Order"),
-          stream: OrderService().orders,
+          stream: OrderService(firestore: firestore).orders,
           builder: (context, snapshot) {
             if (!snapshot.hasError) {
               switch (snapshot.connectionState) {
@@ -42,46 +42,51 @@ class OrderListScreen extends StatelessWidget {
                         ),
                       ),
                       centerTitle: true,
-                      // actions: [
-                      //   IconButton(
-                      //     onPressed: () {
-                      //       showSearch(
-                      //           context: context,
-                      //           delegate: null //SearchCustomer(),
-                      //           );
-                      //     },
-                      //     icon: const Icon(Icons.search),
-                      //   ),
-                      // ],
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            showSearch(
+                              context: context,
+                              delegate: SearchCustomer(firestore: firestore),
+                            );
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                      ],
                     ),
                     floatingActionButton: FloatingActionButton(
-                      onPressed: () async {   
+                      onPressed: () async {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    AddOrder(firestore: firestore,)));
+                                builder: (context) => AddOrder(
+                                      firestore: firestore,
+                                    )));
                       },
                       child: const Icon(
                         Icons.add,
                         size: 26.0,
                       ),
-                      backgroundColor: const Color(0xFFF1A22C),
+                      backgroundColor: const Color(0xFFD3231E),
                     ),
                     body: StreamProvider<List<Order>>.value(
                       key: const Key("OrderProvider Part"),
-                      value: OrderService().orders, // as in wala koy mabuhat
+                      value: OrderService(firestore: firestore)
+                          .orders, // as in wala koy mabuhat
                       initialData: const [],
                       child: Container(
                           margin: const EdgeInsets.only(bottom: 45.0),
-                          child: OrderListWidget(firestore: firestore,)),
+                          child: OrderListWidget(
+                            firestore: firestore,
+                          )),
                     ),
                   );
               }
             } else {
               (snapshot.error);
               return Center(
-                child: Text("Something went wrong. Please contact admin. ${snapshot.error}"),
+                child: Text(
+                    "Something went wrong. Please contact admin. ${snapshot.error}"),
               );
             }
           }),

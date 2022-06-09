@@ -635,55 +635,58 @@ class _OrderInfoState extends State<OrderInfo> {
                                                 builder:
                                                     (context, _isLoading, _) {
                                                   return TextButton(
-                                                      onPressed: (_isLoading ==
-                                                              true)
-                                                          ? null
-                                                          : () async {
-                                                              _isLoadingNotifier
-                                                                  .value = true;
-                                                              await OrderService()
-                                                                  .deleteOrder(
-                                                                      widget
-                                                                          .order
-                                                                          .customerId,
-                                                                      widget
-                                                                          .order
-                                                                          .id)
-                                                                  .then(
-                                                                      (value) {
-                                                                debugPrint(
-                                                                    "Order delete successful! (${widget.order.customerId})(${widget.order.id})");
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(const SnackBar(
-                                                                        content:
-                                                                            Text('Order was deleted successfully!')));
-                                                                _isLoadingNotifier
-                                                                        .value =
-                                                                    false;
-                                                              }).onError((error,
-                                                                      stackTrace) {
-                                                                debugPrint(
-                                                                    "Order delete failed");
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(const SnackBar(
-                                                                        content:
-                                                                            Text('Order deletion failed.')));
-                                                                _isLoadingNotifier
-                                                                        .value =
-                                                                    false;
-                                                              });
-                                                            },
+                                                      onPressed:
+                                                          (_isLoading == true)
+                                                              ? null
+                                                              : () async {
+                                                                  _isLoadingNotifier
+                                                                          .value =
+                                                                      true;
+                                                                  await OrderService(
+                                                                          firestore: widget
+                                                                              .firestore)
+                                                                      .deleteOrder(
+                                                                          widget
+                                                                              .order
+                                                                              .customerId,
+                                                                          widget
+                                                                              .order
+                                                                              .id)
+                                                                      .then(
+                                                                          (value) {
+                                                                    debugPrint(
+                                                                        "Order delete successful! (${widget.order.customerId})(${widget.order.id})");
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(const SnackBar(
+                                                                            content:
+                                                                                Text('Order was deleted successfully!')));
+                                                                    _isLoadingNotifier
+                                                                            .value =
+                                                                        false;
+                                                                  }).onError((error,
+                                                                          stackTrace) {
+                                                                    debugPrint(
+                                                                        "Order delete failed");
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(const SnackBar(
+                                                                            content:
+                                                                                Text('Order deletion failed.')));
+                                                                    _isLoadingNotifier
+                                                                            .value =
+                                                                        false;
+                                                                  });
+                                                                },
                                                       child: const Text(
                                                           "Confirm"));
                                                 }),

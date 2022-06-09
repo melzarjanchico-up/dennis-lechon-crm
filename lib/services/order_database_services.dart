@@ -4,17 +4,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 
 class OrderService {
-  final CollectionReference customerCollection = FirebaseFirestore.instance.collection('customers');
-  final Query<Map<String, dynamic>> orderCollection = FirebaseFirestore.instance.collectionGroup('orders');
-
+  OrderService({required this.firestore});
+  final FirebaseFirestore firestore;
+  CollectionReference get customerCollection =>
+      firestore.collection('customers');
+  Query<Map<String, dynamic>> get orderCollection =>
+      firestore.collectionGroup('orders');
 
   Future addOrder(
-    String customerId, String customerFirstName, String customerLastName, 
-    String customerAddress, String customerContact,
-    DateTime deliveryDate, bool isRush, bool isDelivery,
-    String paymentStatus, int? deliveryFee,
-    int sCount, int mCount, int lCount, int xlCount
-  ) async {
+      String customerId,
+      String customerFirstName,
+      String customerLastName,
+      String customerAddress,
+      String customerContact,
+      DateTime deliveryDate,
+      bool isRush,
+      bool isDelivery,
+      String paymentStatus,
+      int? deliveryFee,
+      int sCount,
+      int mCount,
+      int lCount,
+      int xlCount) async {
     return await customerCollection.doc(customerId).collection('orders').add({
       'customer': {
         'id': customerId,
@@ -39,14 +50,27 @@ class OrderService {
   }
 
   Future editOrder(
-    String docId,
-    String customerId, String customerFirstName, String customerLastName, 
-    String customerAddress, String customerContact,
-    DateTime deliveryDate, DateTime addedDate, bool isRush, bool isDelivery,
-    String paymentStatus, int? deliveryFee,
-    int sCount, int mCount, int lCount, int xlCount
-  ) async {
-    return await customerCollection.doc(customerId).collection('orders').doc(docId).set({
+      String docId,
+      String customerId,
+      String customerFirstName,
+      String customerLastName,
+      String customerAddress,
+      String customerContact,
+      DateTime deliveryDate,
+      DateTime addedDate,
+      bool isRush,
+      bool isDelivery,
+      String paymentStatus,
+      int? deliveryFee,
+      int sCount,
+      int mCount,
+      int lCount,
+      int xlCount) async {
+    return await customerCollection
+        .doc(customerId)
+        .collection('orders')
+        .doc(docId)
+        .set({
       'customer': {
         'id': customerId,
         'first_name': customerFirstName,
@@ -70,7 +94,11 @@ class OrderService {
   }
 
   Future deleteOrder(String customerId, String orderId) async {
-    return await customerCollection.doc(customerId).collection('orders').doc(orderId).delete();
+    return await customerCollection
+        .doc(customerId)
+        .collection('orders')
+        .doc(orderId)
+        .delete();
   }
 
   List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
@@ -94,7 +122,7 @@ class OrderService {
       int preMediumLechonCount = (doc.data() as Map)['details']['medium'];
       int preLargeLechonCount = (doc.data() as Map)['details']['large'];
       int preXLargeLechonCount = (doc.data() as Map)['details']['xlarge'];
-    
+
       return Order(
         id: preId,
         customerId: preCustomerId,
@@ -115,7 +143,7 @@ class OrderService {
       );
     }).toList();
 
-    test.sort((a,b) => a.dateDelivery.compareTo(b.dateDelivery));
+    test.sort((a, b) => a.dateDelivery.compareTo(b.dateDelivery));
     return test;
   }
 
@@ -125,11 +153,14 @@ class OrderService {
   }
 
   Stream<List<Order>>? customerOrders(String customerId) {
-    return customerCollection.doc(customerId).collection('orders').snapshots().map(_orderListFromSnapshot);
+    return customerCollection
+        .doc(customerId)
+        .collection('orders')
+        .snapshots()
+        .map(_orderListFromSnapshot);
   }
 
   Stream<List<Order>> makeStream(List<Order> list) async* {
     yield list;
   }
-
 }

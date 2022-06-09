@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class CustomerService {
   CustomerService({required this.firestore});
 
-  final FirebaseFirestore firestore; // commenting this sa kay way syay use + muerror ako code sa edit
+  final FirebaseFirestore firestore;
 
   CollectionReference get customerCollection =>
       firestore.collection('customers');
@@ -154,59 +154,56 @@ class CustomerService {
     List<Customer> test = [];
 
     await customerCollection
-    .orderBy('tag.index')
-    .orderBy('first_name')
-    .get()
-    .then(
-      (snap) {
-        test = snap.docs.map((doc) {
-          String preId = doc.id;
-          String? preFirstName = (doc.data() as Map)['first_name'];
-          String? preMiddleName = (doc.data() as Map)['middle_name'];
-          String? preLastName = (doc.data() as Map)['last_name'];
-          String? preDateBirth = (doc.data() as Map)['birth_date'];
-          Timestamp? preDateAdded = (doc.data() as Map)['added_date'];
-          String? preCelNum = (doc.data() as Map)['cel_no'];
-          String? preTelNum = (doc.data() as Map)['tel_no'];
-          String? preAdrStreet = (doc.data() as Map)['address']['street'];
-          String? preAdrBarangay = (doc.data() as Map)['address']['barangay'];
-          String? preAdrCity = (doc.data() as Map)['address']['city'];
-          String? preAdrZipcode = (doc.data() as Map)['address']['zipcode'];
-          String? preAdrProvince = (doc.data() as Map)['address']['province'];
-          String preTagName = (doc.data() as Map)['tag']['tagname'];
-          String preTagColor = (doc.data() as Map)['tag']['color'];
-          int preTagIndex = (doc.data() as Map)['tag']['index'];
-          String? preNote = (doc.data() as Map)['note'];
+        .orderBy('tag.index')
+        .orderBy('first_name')
+        .get()
+        .then((snap) {
+      test = snap.docs.map((doc) {
+        String preId = doc.id;
+        String? preFirstName = (doc.data() as Map)['first_name'];
+        String? preMiddleName = (doc.data() as Map)['middle_name'];
+        String? preLastName = (doc.data() as Map)['last_name'];
+        String? preDateBirth = (doc.data() as Map)['birth_date'];
+        Timestamp? preDateAdded = (doc.data() as Map)['added_date'];
+        String? preCelNum = (doc.data() as Map)['cel_no'];
+        String? preTelNum = (doc.data() as Map)['tel_no'];
+        String? preAdrStreet = (doc.data() as Map)['address']['street'];
+        String? preAdrBarangay = (doc.data() as Map)['address']['barangay'];
+        String? preAdrCity = (doc.data() as Map)['address']['city'];
+        String? preAdrZipcode = (doc.data() as Map)['address']['zipcode'];
+        String? preAdrProvince = (doc.data() as Map)['address']['province'];
+        String preTagName = (doc.data() as Map)['tag']['tagname'];
+        String preTagColor = (doc.data() as Map)['tag']['color'];
+        int preTagIndex = (doc.data() as Map)['tag']['index'];
+        String? preNote = (doc.data() as Map)['note'];
 
-          return Customer(
-            id: preId,
-            firstName: preFirstName ?? '',
-            middleName: preMiddleName ?? '',
-            lastName: preLastName ?? '',
-            dateBirth: (preDateBirth != null) ? DateTime.tryParse(preDateBirth) : null,
-            dateAdded: (preDateAdded != null) ? preDateAdded.toDate() : null,
-            celNum: preCelNum ?? '',
-            telNum: preTelNum ?? '',
-            adrStreet: preAdrStreet ?? '',
-            adrBarangay: preAdrBarangay ?? '',
-            adrCity: preAdrCity ?? '',
-            adrZipcode: preAdrZipcode ?? '',
-            adrProvince: preAdrProvince ?? '',
-            note: preNote ?? '',
-            tagName: preTagName,
-            tagIndex: preTagIndex,
-            tagColor: Color(int.parse((preTagColor).split('(0x')[1].split(')')[0], radix: 16)),
-          );
-        }).toList();
-      }
-    );
-    
-    test.retainWhere((element) =>
-      '${element.firstName} ${element.lastName}'
-      .toLowerCase()
-      .contains(suggestion.toLowerCase())
-    );
+        return Customer(
+          id: preId,
+          firstName: preFirstName ?? '',
+          middleName: preMiddleName ?? '',
+          lastName: preLastName ?? '',
+          dateBirth:
+              (preDateBirth != null) ? DateTime.tryParse(preDateBirth) : null,
+          dateAdded: (preDateAdded != null) ? preDateAdded.toDate() : null,
+          celNum: preCelNum ?? '',
+          telNum: preTelNum ?? '',
+          adrStreet: preAdrStreet ?? '',
+          adrBarangay: preAdrBarangay ?? '',
+          adrCity: preAdrCity ?? '',
+          adrZipcode: preAdrZipcode ?? '',
+          adrProvince: preAdrProvince ?? '',
+          note: preNote ?? '',
+          tagName: preTagName,
+          tagIndex: preTagIndex,
+          tagColor: Color(int.parse((preTagColor).split('(0x')[1].split(')')[0],
+              radix: 16)),
+        );
+      }).toList();
+    });
+
+    test.retainWhere((element) => '${element.firstName} ${element.lastName}'
+        .toLowerCase()
+        .contains(suggestion.toLowerCase()));
     return test;
   }
-
 }

@@ -101,22 +101,3 @@ class CustomerScreen extends StatelessWidget {
     );
   }
 }
-
-Widget imageProfile() {
-  return Center(
-    child: Stack(children: <Widget>[
-      const CircleAvatar(
-        radius: 40.0,
-        backgroundImage: AssetImage('assets/images/user.png'),
-      ),
-      Positioned(
-          bottom: 20.0,
-          right: 20.0,
-          child: Icon(
-            Icons.camera_alt,
-            color: Colors.white.withOpacity(0.5),
-            size: 33.0,
-          )),
-    ]),
-  );
-}
