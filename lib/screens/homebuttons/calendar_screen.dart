@@ -1,17 +1,27 @@
-import 'package:dennis_lechon_crm/screens/homebuttons/events.dart';
+import 'dart:collection';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dennis_lechon_crm/screens/homebuttons/events.dart';
+import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info_new.dart';
+import 'package:dennis_lechon_crm/services/calendar_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/loading.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+  final FirebaseFirestore firestore;
+  const CalendarScreen({Key? key, required this.firestore}) : super(key: key);
 
   @override
-  _CalendarScreenState createState() => _CalendarScreenState();
+  State<CalendarScreen> createState() => _CalendarScreenState();
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  final headFormat = DateFormat("EEE - MMMM dd, yyyy");
+  final format = DateFormat("dd MMM yyyy, h:mm a");
+  late ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
@@ -20,12 +30,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
 
+  //bool lifehax = true;
+  
+  var kEvents = {};
+  
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    //_selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
 
   @override
@@ -34,6 +47,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     super.dispose();
   }
 
+  
   List<Event> _getEventsForDay(DateTime day) {
     // Implementation example
     return kEvents[day] ?? [];
@@ -83,95 +97,165 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Your Calendar'),
-        centerTitle: true,
-        backgroundColor: const Color(0xFFD3231E),
-      ),
-      body: Card(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 3,
-        margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-          child: Column(
-            children: [
-              TableCalendar<Event>(
-                firstDay: kFirstDay,
-                lastDay: kLastDay,
-                focusedDay: _focusedDay,
-                selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                rangeStartDay: _rangeStart,
-                rangeEndDay: _rangeEnd,
-                calendarFormat: _calendarFormat,
-                rangeSelectionMode: _rangeSelectionMode,
-                eventLoader: _getEventsForDay,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                headerStyle: const HeaderStyle(
-                  titleTextStyle:
-                      TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  formatButtonDecoration: BoxDecoration(
-                      color: Color(0xFF2A87BB),
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  formatButtonTextStyle: TextStyle(color: Colors.white),
-                ),
-                calendarStyle: const CalendarStyle(
-                    outsideDaysVisible: false,
-                    todayDecoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFF2A87BB)),
-                    selectedDecoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFFF1A22C)),
-                    markerDecoration: BoxDecoration(
-                        color: Color.fromARGB(255, 116, 231, 71),
-                        shape: BoxShape.circle)),
-                onDaySelected: _onDaySelected,
-                onRangeSelected: _onRangeSelected,
-                onFormatChanged: (format) {
-                  if (_calendarFormat != format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  }
-                },
-                onPageChanged: (focusedDay) {
-                  _focusedDay = focusedDay;
-                },
-              ),
-              const SizedBox(height: 8.0),
-              Expanded(
-                child: ValueListenableBuilder<List<Event>>(
-                  valueListenable: _selectedEvents,
-                  builder: (context, value, _) {
-                    return ListView.builder(
-                      itemCount: value.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 4.0,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: ListTile(
-                            //onTap: () => print('${value[index]}'),
-                            title: Text('${value[index]}'),
-                          ),
+
+    return StreamBuilder<List<Event>>(
+      stream: CalendarService(firestore: widget.firestore).events,
+      builder: (context, snapshot) {
+
+        if (snapshot.hasData) {
+        final Map<DateTime, List<Event>> _kEventSource = {};
+
+        for (var event in (snapshot.data)!) { 
+          _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] = 
+          _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] != null 
+          ? [...?_kEventSource[DateTime(event.date.year, event.date.month, event.date.day)], event] : 
+          [event];
+        }
+        
+        kEvents = LinkedHashMap<DateTime, List<Event>>(
+          equals: isSameDay,
+          hashCode: getHashCode,
+        )..addAll(_kEventSource);
+
+        _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Your Calendar'),
+            centerTitle: true,
+            backgroundColor: const Color(0xFFD3231E),
+          ),
+          body: Card(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 3,
+            margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child: Column(
+                children: [
+    
+                  //!debug purposes (pls delete frontend peeps once mahuman nako omg)
+                  /*
+                  TextButton(
+                    onPressed: () async {
+                      await CalendarService().eventsMap().then(
+                        ((value) {
+                          for (var event in value) {
+                            debugPrint('${event.title} ${event.date}');
+                          }
+                        }
+                        )
+                      );
+                    }, 
+                    child: const Text("Hello!")
+                  ),
+                  */
+                  //!debug purposes
+    
+                  TableCalendar<Event>(
+                    firstDay: kFirstDay,
+                    lastDay: kLastDay,
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                    rangeStartDay: _rangeStart,
+                    rangeEndDay: _rangeEnd,
+                    calendarFormat: _calendarFormat,
+                    rangeSelectionMode: _rangeSelectionMode,
+                    eventLoader: _getEventsForDay,
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    headerStyle: const HeaderStyle(
+                      titleTextStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      formatButtonDecoration: BoxDecoration(
+                          color: Color(0xFF2A87BB),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      formatButtonTextStyle: TextStyle(color: Colors.white),
+                    ),
+                    calendarStyle: const CalendarStyle(
+                        outsideDaysVisible: false,
+                        todayDecoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xFF2A87BB)),
+                        selectedDecoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xFFF1A22C)),
+                        markerDecoration: BoxDecoration(
+                            color: Color.fromARGB(255, 116, 231, 71),
+                            shape: BoxShape.circle)),
+                    onDaySelected: _onDaySelected,
+                    onRangeSelected: _onRangeSelected,
+                    onFormatChanged: (format) {
+                      if (_calendarFormat != format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      }
+                    },
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
+                    },
+                  ),
+
+                  const SizedBox(height: 20.0),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4.0),
+                      child: Text(
+                        _selectedDay != null ? headFormat.format(_selectedDay!) : headFormat.format(DateTime.now()),
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                        textAlign: TextAlign.left
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ValueListenableBuilder<List<Event>>(
+                      valueListenable: _selectedEvents,
+                      builder: (context, value, _) {
+                        return ListView.builder(
+                          itemCount: value.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 4.0,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: ListTile(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return OrderInfo(order: value[index].order, firestore: widget.firestore);
+                                  });
+                                },
+                                title: Text('${value[index]}'),
+                                subtitle: Text(
+                                  format.format(value[index].date),  
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+
+        }
+
+        return const Loading();
+
+      }
     );
+
   }
 }

@@ -218,9 +218,9 @@ class Body extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const CalendarScreen(
-                                // order: order,
-                                ))));
+                            builder: ((context) => CalendarScreen(
+                              firestore: firestore,
+                            ))));
                   },
                 ),
               ],
