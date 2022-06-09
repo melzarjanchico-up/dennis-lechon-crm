@@ -68,7 +68,7 @@ class _AddCustomerState extends State<AddCustomer> {
           key: _formKey,
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 50.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               // ----------------------------------------------- //
@@ -81,7 +81,7 @@ class _AddCustomerState extends State<AddCustomer> {
               //),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 10.0,
+                  top: 0.0,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +208,8 @@ class _AddCustomerState extends State<AddCustomer> {
                             }
                             return null;
                           }),
-                    )
+                    ),
+                    const SizedBox(width: 5.0),
                   ],
                 ),
               ),
@@ -244,6 +245,7 @@ class _AddCustomerState extends State<AddCustomer> {
                       icon: const Icon(
                         Icons.calendar_month_outlined,
                         color: Colors.black87,
+                        size: 15,
                       ),
                       label: Text(
                         (_birthdateController != null)
@@ -251,7 +253,7 @@ class _AddCustomerState extends State<AddCustomer> {
                             : 'Select',
                         style: const TextStyle(
                           color: Colors.black87,
-                          fontSize: 16.0,
+                          fontSize: 13.0,
                         ),
                       ),
                       style: TextButton.styleFrom(
@@ -278,7 +280,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                   : 'N/A',
                               style: const TextStyle(
                                 color: Colors.black87,
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                               ),
                             ),
                           ],
