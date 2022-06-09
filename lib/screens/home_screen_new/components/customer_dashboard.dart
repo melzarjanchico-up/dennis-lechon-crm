@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dennis_lechon_crm/widgets/indicator.dart';
 
 class CustomerDash extends StatefulWidget {
@@ -127,7 +126,7 @@ class CustomerDashState extends State {
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
-            badgeWidget: _Badge('assets/svgs/hot.svg',
+            badgeWidget: _Badge(Icons.local_fire_department,
                 size: widgetSize,
                 borderColor: const Color(0xFFD3231E),
                 iconColor: const Color(0xFFD3231E)),
@@ -144,7 +143,7 @@ class CustomerDashState extends State {
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
             badgeWidget: _Badge(
-              'svgs/warm.svg',
+              Icons.air_outlined,
               size: widgetSize,
               borderColor: const Color(0xfff8b250),
               iconColor: const Color(0xfff8b250),
@@ -162,7 +161,7 @@ class CustomerDashState extends State {
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
             badgeWidget: _Badge(
-              'svgs/cold.svg',
+              Icons.ac_unit_outlined,
               size: widgetSize,
               borderColor: const Color(0xFF2A87BB),
               iconColor: const Color(0xFF2A87BB),
@@ -177,13 +176,13 @@ class CustomerDashState extends State {
 }
 
 class _Badge extends StatelessWidget {
-  final String svgAsset;
+  final IconData icons;
   final double size;
   final Color borderColor;
   final Color iconColor;
 
   const _Badge(
-    this.svgAsset, {
+    this.icons, {
     Key? key,
     required this.size,
     required this.borderColor,
@@ -213,11 +212,15 @@ class _Badge extends StatelessWidget {
       ),
       padding: EdgeInsets.all(size * .15),
       child: Center(
-        child: SvgPicture.asset(
-          svgAsset,
+        child: Icon(
+          icons,
           color: iconColor,
-          fit: BoxFit.contain,
         ),
+        // SvgPicture.asset(
+        //   ,
+        //   color: iconColor,
+        //   fit: BoxFit.contain,
+        // ),
       ),
     );
   }
