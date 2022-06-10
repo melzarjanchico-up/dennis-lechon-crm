@@ -444,7 +444,7 @@ class _AddOrderState extends State<AddOrder> {
                                         primary: const Color(0xFFF1A22C),
                                         onPrimary: Colors.white,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 34, vertical: 20),
+                                            horizontal: 20, vertical: 10),
                                       ),
                                     );
                                   }),

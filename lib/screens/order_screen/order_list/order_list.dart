@@ -117,26 +117,37 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                   Expanded(
                                       child: Container(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 4, horizontal: 15),
+                                        vertical: 4, horizontal: 10),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: (order.dateDelivery.isBefore(DateTime.now())) ? AppColors.redColor : 
-                                          (order.dateDelivery.isBefore(DateTime.now().add(const Duration(days:7)))) ? 
-                                          AppColors.yellowColor : AppColors.blueColor,
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: (order.dateDelivery
+                                              .isBefore(DateTime.now()))
+                                          ? AppColors.redColor
+                                          : (order.dateDelivery.isBefore(
+                                                  DateTime.now().add(
+                                                      const Duration(days: 7))))
+                                              ? AppColors.yellowColor
+                                              : AppColors.blueColor,
                                     ),
                                     child: Text(
                                       format.format(order.dateDelivery),
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),
                                   )),
                                   const SizedBox(
-                                    width: 50,
+                                    height: 20,
+                                    width: 70,
                                   ),
                                   deliveryType
-                                      ? Text("RUSH",
-                                          style: GoogleFonts.mulish())
-                                      : const Text("    "),
+                                      ? const Icon(
+                                          Icons.alarm,
+                                          color: Colors.black54,
+                                          size: 25.0,
+                                        )
+                                      //Text("RUSH",style: GoogleFonts.mulish())
+                                      : const Text("       "),
                                 ])
                           ],
                         ),
