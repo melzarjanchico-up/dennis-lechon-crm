@@ -109,7 +109,7 @@ class _EditOrderState extends State<EditOrder> {
               color: Colors.white,
             ),
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            margin: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(15),
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -139,8 +139,7 @@ class _EditOrderState extends State<EditOrder> {
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 elevation: 3,
-                                margin:
-                                    const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                                margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: FittedBox(
@@ -1250,6 +1249,7 @@ class _EditOrderState extends State<EditOrder> {
         ),
         SizedBox(
           width: 350,
+          //height: 35,
           child: TextFormField(
             controller: _addressController,
             decoration: const InputDecoration(
@@ -1275,6 +1275,7 @@ class _EditOrderState extends State<EditOrder> {
         ),
         SizedBox(
           width: 350,
+          //height: 35,
           child: TextFormField(
             controller: _contactController,
             decoration: const InputDecoration(
@@ -1302,6 +1303,7 @@ class _EditOrderState extends State<EditOrder> {
         ),
         SizedBox(
           width: 350,
+          //height: 35,
           child: DropdownButtonFormField<String>(
             value: widget.order.orderPaymentStatus,
             decoration: const InputDecoration(
@@ -1339,6 +1341,7 @@ class _EditOrderState extends State<EditOrder> {
         ),
         SizedBox(
             width: 350,
+            //height: 35,
             child: DateTimeField(
               format: format,
               initialValue: widget.order.dateDelivery,
