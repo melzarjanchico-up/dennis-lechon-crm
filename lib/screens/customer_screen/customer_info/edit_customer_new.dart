@@ -89,7 +89,7 @@ class _EditCustomerState extends State<EditCustomer> {
           key: _formKey,
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 50.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               // ----------------------------------------------- //
@@ -101,7 +101,7 @@ class _EditCustomerState extends State<EditCustomer> {
               // size: 50.0,
               //),
               Padding(
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 0.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -222,7 +222,7 @@ class _EditCustomerState extends State<EditCustomer> {
                             }
                             return null;
                           }),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -237,7 +237,7 @@ class _EditCustomerState extends State<EditCustomer> {
                           'Birthdate:',
                           style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               fontWeight: FontWeight.w500),
                         )),
                     TextButton.icon(
@@ -258,6 +258,7 @@ class _EditCustomerState extends State<EditCustomer> {
                       icon: const Icon(
                         Icons.calendar_month_outlined,
                         color: Colors.black87,
+                        size: 15,
                       ),
                       label: Text(
                         (_birthdateController != null)
@@ -265,7 +266,7 @@ class _EditCustomerState extends State<EditCustomer> {
                             : 'Select',
                         style: const TextStyle(
                           color: Colors.black87,
-                          fontSize: 16.0,
+                          fontSize: 13.0,
                         ),
                       ),
                       style: TextButton.styleFrom(
@@ -282,7 +283,7 @@ class _EditCustomerState extends State<EditCustomer> {
                               'Age:',
                               style: TextStyle(
                                   color: Colors.black54,
-                                  fontSize: 16.0,
+                                  fontSize: 14.0,
                                   fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(width: 5.0),
@@ -292,7 +293,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                   : 'N/A',
                               style: const TextStyle(
                                 color: Colors.black87,
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                               ),
                             ),
                           ],

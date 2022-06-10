@@ -1,12 +1,20 @@
-import 'dart:collection';
+//import 'dart:collection';
+//import 'package:dennis_lechon_crm/services/calendar_database_services.dart';
+//import 'package:table_calendar/table_calendar.dart';
 
-import 'package:table_calendar/table_calendar.dart';
+import 'package:dennis_lechon_crm/models/order.dart';
 
 /// Example event class.
 class Event {
   final String title;
+  final DateTime date;
+  final Order order;
 
-  const Event(this.title);
+  const Event({
+    required this.title, 
+    required this.date,
+    required this.order
+  });
 
   @override
   String toString() => title;
@@ -15,21 +23,26 @@ class Event {
 /// Example events.
 ///
 /// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
+
+/*
 final kEvents = LinkedHashMap<DateTime, List<Event>>(
   equals: isSameDay,
   hashCode: getHashCode,
 )..addAll(_kEventSource);
 
-final _kEventSource = {
+/*
+Map<DateTime, List<Event>> _kEventSource = {
   for (var item in List.generate(50, (index) => index)) 
     DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-        item % 4 + 1, (index) => Event('Order# $item | ${index + 1}'))
+        item % 4 + 1, (index) => Event(title: 'Order# $item | ${index + 1}'))
 };/*..addAll({
-    kToday: [
-      const Event('Order 1'),
-      const Event('Order 2'),
+    DateTime.utc(kToday.year, kToday.month, 11): [
+      const Event(title: 'Order 1'),
+      const Event(title: 'Order 2'),
     ],
   });*/
+*/
+*/
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
@@ -45,5 +58,5 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
 }
 
 final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 6, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 6, kToday.day);
+final kFirstDay = DateTime(kToday.year, kToday.month - 12, kToday.day);
+final kLastDay = DateTime(kToday.year, kToday.month + 12, kToday.day);

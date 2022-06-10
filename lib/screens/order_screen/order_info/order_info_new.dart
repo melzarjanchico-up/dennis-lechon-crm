@@ -406,13 +406,12 @@ class _OrderInfoState extends State<OrderInfo> {
                                           "(Php 8000)",
                                           "${widget.order.extraLargeLechonCount}",
                                           "$extraLargeLechonPrice"),
-
                                       const SizedBox(height: 20.0),
 
                                       // subtotal & delivery
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 10),
                                         child: Column(
                                           children: [
                                             Row(
