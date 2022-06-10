@@ -85,7 +85,9 @@ class _CustomerInfoState extends State<CustomerInfo> {
                           context, widget.customer, widget.firestore)),
                   const SizedBox(
                       height: 25, width: 15), // for Order List Button
-                  Center(child: buildOrderListButton(context, widget.customer, widget.firestore)),
+                  Center(
+                      child: buildOrderListButton(
+                          context, widget.customer, widget.firestore)),
                 ]),
           )
         ],
@@ -397,7 +399,8 @@ Widget buildInfo(Customer customer) {
   );
 }
 
-Widget buildOrderListButton(BuildContext context, Customer customer, FirebaseFirestore firestore) =>
+Widget buildOrderListButton(
+        BuildContext context, Customer customer, FirebaseFirestore firestore) =>
     ElevatedButton(
       key: const Key("Order List Button"),
       child: const Text(' Order List ',
@@ -410,7 +413,8 @@ Widget buildOrderListButton(BuildContext context, Customer customer, FirebaseFir
             context,
             MaterialPageRoute(
                 builder: ((context) => CustomerOrderList(
-                      customer: customer, firestore: firestore,
+                      customer: customer,
+                      firestore: firestore,
                     ))));
       },
       style: ElevatedButton.styleFrom(
@@ -423,9 +427,14 @@ Widget buildOrderListButton(BuildContext context, Customer customer, FirebaseFir
 
 Widget buildEditProfileButton(
         BuildContext context, Customer customer, FirebaseFirestore firestore) =>
-    ButtonWidget(
-      text: 'Edit Profile',
-      onClicked: () async {
+    ElevatedButton(
+      key: const Key("Edit Profile Button"),
+      child: const Text(' Edit Profile ',
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            color: Colors.white,
+          )),
+      onPressed: () async {
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -434,6 +443,12 @@ Widget buildEditProfileButton(
                       firestore: firestore,
                     ))));
       },
+      style: ElevatedButton.styleFrom(
+        shape: const StadiumBorder(),
+        primary: Colors.blue.withAlpha(30),
+        onPrimary: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 20),
+      ),
     );
 
 Widget buildNotes(Customer customer, BuildContext context) => Card(
