@@ -190,7 +190,6 @@ class Body extends StatelessWidget {
                 const Text("Your Calendar",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
-                const SizedBox(width: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xFF2A87BB),
@@ -205,10 +204,10 @@ class Body extends StatelessWidget {
                   child: Row(
                     children: const [
                       Text(
-                        "",
+                        "See events",
                         style: TextStyle(
                           fontFamily: 'Oxygen',
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
