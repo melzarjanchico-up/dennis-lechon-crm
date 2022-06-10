@@ -76,7 +76,7 @@ class NavBar extends StatelessWidget {
             title: const Text('Logout'),
             onTap: () async {
               Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => const SignIn())));
+                  MaterialPageRoute(builder: ((context) => SignIn(firestore: firestore,))));
             },
           ),
         ],

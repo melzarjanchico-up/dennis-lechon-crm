@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/resetpassword_screen.dart';
-import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart';
+//import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/signup_screen.dart';
 import 'mock.dart';
 
@@ -24,7 +24,7 @@ void main() {
   });
 
   testWidgets('Sign In smoke Test Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: SignIn()));
+    //await tester.pumpWidget(MaterialApp(home: SignIn(firestore: firestore)));
     expect(find.byKey(const Key("Sign In")), findsWidgets);
 
     //Tests the  email textfield
