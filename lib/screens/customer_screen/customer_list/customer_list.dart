@@ -175,7 +175,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                   // To avoid the hotdog
                                   const SizedBox(
                                     height: 20,
-                                    width: 52,
+                                    width: 90,
                                   ),
                                   Text(
                                     'Incoming Order',
