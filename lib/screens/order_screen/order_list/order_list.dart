@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info_new.dart';
+import 'package:dennis_lechon_crm/widgets/style.dart';
 //import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -116,7 +117,10 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                         vertical: 4, horizontal: 15),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
-                                        color: const Color(0xFFD3231E)),
+                                        color: (order.dateDelivery.isBefore(DateTime.now())) ? AppColors.redColor : 
+                                          (order.dateDelivery.isBefore(DateTime.now().add(const Duration(days:7)))) ? 
+                                          AppColors.yellowColor : AppColors.blueColor,
+                                    ),
                                     child: Text(
                                       format.format(order.dateDelivery),
                                       style: GoogleFonts.mulish(
