@@ -24,7 +24,8 @@ void main() {
   });
 
   testWidgets('Sign In smoke Test Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: SignIn()));
+    final firestore = FakeFirebaseFirestore();
+    //await tester.pumpWidget(const MaterialApp(home: SignIn(firestore: firestore)));
     expect(find.byKey(const Key("Sign In")), findsWidgets);
 
     //Tests the  email textfield

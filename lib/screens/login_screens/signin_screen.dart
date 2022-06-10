@@ -8,7 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -18,7 +19,6 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   bool loading = false;
-  late final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +84,8 @@ class _SignInState extends State<SignIn> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          Dashboard(firestore: firestore)));
+                                      builder: (context) => Dashboard(
+                                          firestore: widget.firestore)));
                             }).onError(
                                     (FirebaseAuthException error, stackTrace) {
                               var errorcode = error.code;

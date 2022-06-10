@@ -11,7 +11,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50.0),
+        preferredSize: const Size.fromHeight(30.0),
         child: AppBar(
           title: const Text('Lech Go!',
               style: TextStyle(
@@ -29,7 +29,7 @@ class Dashboard extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      drawer: NavBar(firestore: firestore),
+      drawer: const NavBar(),
       backgroundColor: const Color.fromARGB(255, 243, 243, 243),
       body: Body(firestore: firestore),
     );
