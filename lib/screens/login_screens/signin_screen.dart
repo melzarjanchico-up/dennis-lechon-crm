@@ -19,6 +19,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   bool loading = false;
+  //late final FirebaseFirestore firestore;
 
   @override
   Widget build(BuildContext context) {

@@ -56,7 +56,7 @@ class _NavBarState extends State<NavBar> {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            //accountName: const Text(" "),
+            accountName: const Text(" "),
             accountEmail: Text("${user?.email}"),
             currentAccountPicture: Row(
               children: [

@@ -47,7 +47,7 @@ class OrderListScreen extends StatelessWidget {
                           onPressed: () {
                             showSearch(
                               context: context,
-                              delegate: SearchCustomer(firestore: firestore),
+                              delegate: SearchOrder(firestore: firestore),
                             );
                           },
                           icon: const Icon(Icons.search),
