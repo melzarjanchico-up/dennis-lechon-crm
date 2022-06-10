@@ -85,8 +85,8 @@ class _SignInState extends State<SignIn> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          Dashboard(firestore: widget.firestore)));
+                                      builder: (context) => Dashboard(
+                                          firestore: widget.firestore)));
                             }).onError(
                                     (FirebaseAuthException error, stackTrace) {
                               var errorcode = error.code;

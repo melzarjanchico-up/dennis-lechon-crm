@@ -40,12 +40,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Project LechGo',
-      theme: ThemeData(
-        fontFamily: 'Montserrat',
-      ),
-      debugShowCheckedModeBanner: false,
-      home: SignIn(firestore: firestore),
-    );
+        title: 'Project LechGo',
+        theme: ThemeData(
+          fontFamily: 'Montserrat',
+        ),
+        debugShowCheckedModeBanner: false,
+        //home: Dashboard(firestore: firestore),
+        home: SignIn(firestore: firestore));
   }
 }

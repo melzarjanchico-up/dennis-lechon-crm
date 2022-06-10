@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
               height: size.height * 0.15,
               child: Stack(children: <Widget>[
                 Container(
-                  height: 40,
+                  height: 60,
                   padding: const EdgeInsets.all(15),
                   decoration: const BoxDecoration(
                     color: Color(0xFFD3231E),
