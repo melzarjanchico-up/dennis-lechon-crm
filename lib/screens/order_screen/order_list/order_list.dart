@@ -39,7 +39,6 @@ class _OrderListWidgetState extends State<OrderListWidget> {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: orders.map((order) {
-
                 String orderHash = order.id.substring(0, 5);
                 bool deliveryType = order.isRush;
                 String firstName = order.firstName;
@@ -50,7 +49,10 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return OrderInfo(order: order, firestore: widget.firestore,);
+                            return OrderInfo(
+                              order: order,
+                              firestore: widget.firestore,
+                            );
                           });
                     },
                     child: Container(
@@ -111,7 +113,8 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
+                                  Expanded(
+                                      child: Container(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 4, horizontal: 15),
                                     decoration: BoxDecoration(
@@ -122,6 +125,9 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),
+                                  )),
+                                  const SizedBox(
+                                    width: 50,
                                   ),
                                   deliveryType
                                       ? Text("RUSH",

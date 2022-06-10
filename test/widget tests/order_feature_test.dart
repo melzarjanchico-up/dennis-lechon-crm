@@ -61,7 +61,7 @@ void main() {
         'tag': {'tagname': "Hot", 'index': 1, 'color': "Color(0xFFD3231E)"}
       });
 
-      await firestore.doc(customer.id).collection("orders").add({
+      await customer.collection("orders").add({
         'customer': {
           'id': customer.id,
           'first_name': "Test FirstName",
@@ -70,7 +70,7 @@ void main() {
           'contact': "09943215642",
         },
         'added_date': Timestamp.now(),
-        'delivery_date': Timestamp.now(), // Know sample format
+        'delivery_date': "2022-09-16 19:11:00.000", // Know sample format
         'is_rush': true,
         'is_delivery': true,
         'payment_status': "Paid",
@@ -89,8 +89,9 @@ void main() {
       // Re-render.
       await tester.pump();
 
-      // expect(find.textContaining("Order #"), findsWidgets);
-      // expect(find.text("RUSH"), findsOneWidget);
+      expect(find.textContaining("Order #"), findsOneWidget);
+      expect(find.text("RUSH"), findsOneWidget);
+      expect(find.textContaining("2022"), findsOneWidget);
     });
   });
 }
