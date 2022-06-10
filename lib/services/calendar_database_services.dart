@@ -7,7 +7,6 @@ import 'package:dennis_lechon_crm/screens/homebuttons/events.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
 
 class CalendarService {
-  //final CollectionReference customerCollection = FirebaseFirestore.instance.collection('customers');
   CalendarService({required this.firestore});
   final FirebaseFirestore firestore;
   final Query<Map<String, dynamic>> orderCollection = FirebaseFirestore.instance.collectionGroup('orders');
@@ -41,7 +40,7 @@ class CalendarService {
       );
     }).toList();
 
-    //test.sort((a,b) => a.dateDelivery.compareTo(b.dateDelivery));
+    test.sort((a,b) => a.date.compareTo(b.date));
     return test;
   }
 

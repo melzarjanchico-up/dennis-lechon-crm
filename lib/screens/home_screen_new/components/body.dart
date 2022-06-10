@@ -185,8 +185,9 @@ class Body extends StatelessWidget {
               firestore: firestore,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Text("   Your Calendar",
+                const Text("Your Calendar",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
                 const SizedBox(width: 20),
@@ -225,11 +226,11 @@ class Body extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            const Text("     May 2022",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
-            const SizedBox(height: 20),
-            const CalendarDash(),
+            //const SizedBox(height: 10),
+            //const Text("     May 2022",
+            //    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+            //const SizedBox(height: 20),
+            CalendarDash(firestore: firestore,),
           ]),
     );
   }

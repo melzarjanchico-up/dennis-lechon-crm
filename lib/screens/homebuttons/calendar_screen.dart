@@ -188,11 +188,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                   ),
+
                   Expanded(
                     child: ValueListenableBuilder<List<Event>>(
                       valueListenable: _selectedEvents,
                       builder: (context, value, _) {
-                        return ListView.builder(
+                        return value.isEmpty ? 
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            child: Center(
+                              child: Text("No events for this day!")
+                            ),
+                          ) :
+                        ListView.builder(
                           itemCount: value.length,
                           itemBuilder: (context, index) {
                             return Container(
