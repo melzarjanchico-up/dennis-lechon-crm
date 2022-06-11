@@ -10,28 +10,60 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(30.0),
-        child: AppBar(
-          title: const Text('Lech Go!',
-              style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 22,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold)),
-          centerTitle: true,
-          backgroundColor: AppColors.redColor,
-          // shape: const RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.vertical(
-          //     bottom: Radius.circular(40),
-          //   ),
-          // ),
-          elevation: 0,
-        ),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            PreferredSize(
+              preferredSize: const Size.fromHeight(70.0),
+              child: SliverAppBar(
+                  expandedHeight: 50,
+                  centerTitle: true,
+                  backgroundColor: AppColors.redColor,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(40),
+                    ),
+                  ),
+                  title: const Text('Lech Go!',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 22,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
+                  pinned: false,
+                  floating: true,
+                  forceElevated: innerBoxIsScrolled),
+            ),
+          ];
+        },
+        body: Body(firestore: firestore),
       ),
+      // appBar: PreferredSize(
+      //   preferredSize: const Size.fromHeight(60.0),
+      //   child: AppBar(
+      //           automaticallyImplyLeading: false,
+      //     shape: const RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.only(
+      //             bottomLeft: Radius.circular(40),
+      //             bottomRight: Radius.circular(40))),
+      //     title: const Text('Lech Go!',
+      //         style: TextStyle(
+      //             fontFamily: 'Montserrat',
+      //             fontSize: 22,
+      //             color: Colors.white,
+      //             fontWeight: FontWeight.bold)),
+      //     centerTitle: true,
+      //     backgroundColor: AppColors.redColor,
+      //     // shape: const RoundedRectangleBorder(
+      //     //   borderRadius: BorderRadius.vertical(
+      //     //     bottom: Radius.circular(40),
+      //     //   ),
+      //     // ),
+      //     elevation: 0,
+      //   ),
+      // ),
       drawer: const NavBar(),
       backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-      body: Body(firestore: firestore),
     );
   }
 }

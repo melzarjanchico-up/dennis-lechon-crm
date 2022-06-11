@@ -12,11 +12,10 @@ class OrderDash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Row(
       children: <Widget>[
         CustomerCard(
-          firestore: firestore,
+            firestore: firestore,
             //orderNo: '20',
             press: () {
               Navigator.push(
@@ -33,12 +32,12 @@ class OrderDash extends StatelessWidget {
 }
 
 class CustomerCard extends StatelessWidget {
-  const CustomerCard({
-    Key? key,
-    //required this.orderNo,
-    required this.press,
-    required this.firestore
-  }) : super(key: key);
+  const CustomerCard(
+      {Key? key,
+      //required this.orderNo,
+      required this.press,
+      required this.firestore})
+      : super(key: key);
 
   //final String orderNo;
   final VoidCallback press;
@@ -49,14 +48,16 @@ class CustomerCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: const EdgeInsets.only(
-          left: 10,
-          top: 10,
+          left: 25,
+          right: 20,
+          top: 5,
           bottom: 15,
         ),
-        width: size.width * 0.95,
+        width: size.width * 0.90,
         //height: 100,
         //size.width * 0.4,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(
@@ -82,58 +83,65 @@ class CustomerCard extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       const SizedBox(width: 15),
+                      const CircleAvatar(
+                        backgroundColor: Color.fromARGB(148, 172, 21, 15),
+                        radius: 30,
+                        child: Icon(Icons.food_bank_rounded,
+                            size: 30, color: Colors.white),
+                      ),
+                      const SizedBox(width: 15),
                       Expanded(
                         child: StreamBuilder<List<Order>>(
-                          stream: OrderService(firestore: firestore).orders,
-                          builder: (context, snapshot) {
-                            // will add error here later
-                            if (snapshot.hasData) {
-                            debugPrint(snapshot.data!.length.toString());
-                            return RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: snapshot.data!.length.toString() + ' ',
-                                      style: GoogleFonts.baloo2(
-                                          //fontFamily: 'Baloo_2',
-                                          fontSize: 40,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                      text: "active orders",
-                                      style: GoogleFonts.baloo2(
-                                          //fontFamily: 'Baloo_2',
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white)),
-                                  // TextSpan(
-                                  //   text: "$address\n\n",
-                                  //   style: const TextStyle(
-                                  //     fontFamily: 'Montserrat',
-                                  //     color: Colors.white,
-                                  //   ),
-                                  // ),
-                                  // TextSpan(
-                                  //   text: orders,
-                                  //   style: const TextStyle(
-                                  //     fontFamily: 'Montserrat',
-                                  //     color: Colors.white,
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            );
-                            }
-                            return const ClearLoading();
-
-                          }
-                        ),
+                            stream: OrderService(firestore: firestore).orders,
+                            builder: (context, snapshot) {
+                              // will add error here later
+                              if (snapshot.hasData) {
+                                debugPrint(snapshot.data!.length.toString());
+                                return RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              snapshot.data!.length.toString() +
+                                                  ' ',
+                                          style: GoogleFonts.baloo2(
+                                              //fontFamily: 'Baloo_2',
+                                              fontSize: 40,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                      TextSpan(
+                                          text: "active orders",
+                                          style: GoogleFonts.baloo2(
+                                              //fontFamily: 'Baloo_2',
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white)),
+                                      // TextSpan(
+                                      //   text: "$address\n\n",
+                                      //   style: const TextStyle(
+                                      //     fontFamily: 'Montserrat',
+                                      //     color: Colors.white,
+                                      //   ),
+                                      // ),
+                                      // TextSpan(
+                                      //   text: orders,
+                                      //   style: const TextStyle(
+                                      //     fontFamily: 'Montserrat',
+                                      //     color: Colors.white,
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return const ClearLoading();
+                            }),
                       ),
                       const SizedBox(width: 20),
                       //Icon(Icons.keyboard_double_arrow_right_rounded),
@@ -165,7 +173,7 @@ class CustomerCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),

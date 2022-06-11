@@ -56,7 +56,7 @@ class _NavBarState extends State<NavBar> {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text(" "),
+            accountName: const Text(" ", style: TextStyle(fontSize: 0)),
             accountEmail: Text("${user?.email}"),
             currentAccountPicture: Row(
               children: [
@@ -71,7 +71,7 @@ class _NavBarState extends State<NavBar> {
               color: AppColors.redColor,
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage('assets/images/lechon_loginpage.png')),
+                  image: AssetImage('assets/images/lechon_loginpage.png')),
             ),
           ),
           ListTile(
