@@ -114,11 +114,11 @@ class _NavBarState extends State<NavBar> {
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
             onTap: () async {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) =>
-                          SignIn(firestore: widget.firestore))));
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => SignIn(
+                        firestore: widget.firestore,
+                      )));
             },
           ),
         ],

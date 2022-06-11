@@ -19,7 +19,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting();
   final app = await Firebase.initializeApp(
-    //name: 'dennis-lechon-crm',
+    name: 'dennis-lechon-crm',
     options: const FirebaseOptions(
       apiKey: "AIzaSyB9yv4QSumR3MiPX4xfk03GU04McRgdk2o", // Your apiKey
       appId: "1:482691784655:web:f48df984a82bddcc6ebcba", // Your appId
@@ -40,12 +40,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Project LechGo',
-      theme: ThemeData(
-        fontFamily: 'Montserrat',
-      ),
-      debugShowCheckedModeBanner: false,
-      //home: SignIn(firestore: firestore));
-      home: Dashboard(firestore: firestore));
+        title: 'Project LechGo',
+        theme: ThemeData(
+          fontFamily: 'Montserrat',
+        ),
+        debugShowCheckedModeBanner: false,
+        home: SignIn(firestore: firestore));
+    //home: Dashboard(firestore: firestore));
   }
 }
