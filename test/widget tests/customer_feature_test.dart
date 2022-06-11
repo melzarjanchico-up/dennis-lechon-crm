@@ -15,10 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'customer_feature_test.mocks.dart';
 
 void main() {
-  //var customer = MockCustomer();
   group("Customer Feature Tests includes: ", () {
     // Populate the fake database.
     final firestore = FakeFirebaseFirestore();

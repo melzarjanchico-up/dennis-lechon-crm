@@ -134,9 +134,9 @@ class Body extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            const CustomerDash(
-                //firestore: firestore,
-                ),
+            CustomerDash(
+              firestore: firestore,
+            ),
             const SizedBox(height: 15),
             Row(
               children: const [
@@ -230,7 +230,9 @@ class Body extends StatelessWidget {
             //const Text("     May 2022",
             //    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             //const SizedBox(height: 20),
-            CalendarDash(firestore: firestore,),
+            CalendarDash(
+              firestore: firestore,
+            ),
           ]),
     );
   }

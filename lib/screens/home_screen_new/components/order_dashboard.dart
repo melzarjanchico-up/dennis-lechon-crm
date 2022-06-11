@@ -12,12 +12,10 @@ class OrderDash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Row(
       children: <Widget>[
         CustomerCard(
-          firestore: firestore,
-            //orderNo: '20',
+            firestore: firestore,
             press: () {
               Navigator.push(
                 context,
@@ -33,12 +31,12 @@ class OrderDash extends StatelessWidget {
 }
 
 class CustomerCard extends StatelessWidget {
-  const CustomerCard({
-    Key? key,
-    //required this.orderNo,
-    required this.press,
-    required this.firestore
-  }) : super(key: key);
+  const CustomerCard(
+      {Key? key,
+      //required this.orderNo,
+      required this.press,
+      required this.firestore})
+      : super(key: key);
 
   //final String orderNo;
   final VoidCallback press;
@@ -90,50 +88,50 @@ class CustomerCard extends StatelessWidget {
                       const SizedBox(width: 15),
                       Expanded(
                         child: StreamBuilder<List<Order>>(
-                          stream: OrderService(firestore: firestore).orders,
-                          builder: (context, snapshot) {
-                            // will add error here later
-                            if (snapshot.hasData) {
-                            debugPrint(snapshot.data!.length.toString());
-                            return RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: snapshot.data!.length.toString() + ' ',
-                                      style: GoogleFonts.baloo2(
-                                          //fontFamily: 'Baloo_2',
-                                          fontSize: 40,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                      text: "active orders",
-                                      style: GoogleFonts.baloo2(
-                                          //fontFamily: 'Baloo_2',
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white)),
-                                  // TextSpan(
-                                  //   text: "$address\n\n",
-                                  //   style: const TextStyle(
-                                  //     fontFamily: 'Montserrat',
-                                  //     color: Colors.white,
-                                  //   ),
-                                  // ),
-                                  // TextSpan(
-                                  //   text: orders,
-                                  //   style: const TextStyle(
-                                  //     fontFamily: 'Montserrat',
-                                  //     color: Colors.white,
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            );
-                            }
-                            return const ClearLoading();
-
-                          }
-                        ),
+                            stream: OrderService(firestore: firestore).orders,
+                            builder: (context, snapshot) {
+                              // will add error here later
+                              if (snapshot.hasData) {
+                                debugPrint(snapshot.data!.length.toString());
+                                return RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              snapshot.data!.length.toString() +
+                                                  ' ',
+                                          style: GoogleFonts.baloo2(
+                                              //fontFamily: 'Baloo_2',
+                                              fontSize: 40,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                      TextSpan(
+                                          text: "active orders",
+                                          style: GoogleFonts.baloo2(
+                                              //fontFamily: 'Baloo_2',
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white)),
+                                      // TextSpan(
+                                      //   text: "$address\n\n",
+                                      //   style: const TextStyle(
+                                      //     fontFamily: 'Montserrat',
+                                      //     color: Colors.white,
+                                      //   ),
+                                      // ),
+                                      // TextSpan(
+                                      //   text: orders,
+                                      //   style: const TextStyle(
+                                      //     fontFamily: 'Montserrat',
+                                      //     color: Colors.white,
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return const ClearLoading();
+                            }),
                       ),
                       const SizedBox(width: 20),
                       //Icon(Icons.keyboard_double_arrow_right_rounded),

@@ -158,10 +158,8 @@ class SearchOrder extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder<List<Order>>(
-        stream: OrderService(firestore: firestore)
-            .orders
-            ?.asBroadcastStream(
-                onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        stream: OrderService(firestore: firestore).orders?.asBroadcastStream(
+            onCancel: (sub) => sub.cancel()), // to avoid data leakage
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Loading();
@@ -174,7 +172,8 @@ class SearchOrder extends SearchDelegate {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text("I'm sorry. This customer has no orders or does not exist.",
+                  child: Text(
+                      "I'm sorry. This customer has no orders or does not exist.",
                       style: GoogleFonts.poppins(
                           fontSize: 14, color: const Color(0xFF1F2426))),
                 ),
@@ -187,8 +186,8 @@ class SearchOrder extends SearchDelegate {
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Order>>.value(
-                value: OrderService(firestore: firestore)
-                    .makeStream(searchResult),
+                value:
+                    OrderService(firestore: firestore).makeStream(searchResult),
                 initialData: const [],
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 45.0),
@@ -204,10 +203,8 @@ class SearchOrder extends SearchDelegate {
   //maybe naa moy maadd diri po?
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder<List<Order>>(
-        stream: OrderService(firestore: firestore)
-            .orders
-            ?.asBroadcastStream(
-                onCancel: (sub) => sub.cancel()), // to avoid data leakage
+        stream: OrderService(firestore: firestore).orders?.asBroadcastStream(
+            onCancel: (sub) => sub.cancel()), // to avoid data leakage
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Loading();
@@ -220,7 +217,8 @@ class SearchOrder extends SearchDelegate {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text("I'm sorry. This customer has no orders or does not exist.",
+                  child: Text(
+                      "I'm sorry. This customer has no orders or does not exist.",
                       style: GoogleFonts.poppins(
                           fontSize: 14, color: const Color(0xFF1F2426))),
                 ),
@@ -233,8 +231,8 @@ class SearchOrder extends SearchDelegate {
                   .map((e) => e) //to map the Customer object
                   .toList();
               return StreamProvider<List<Order>>.value(
-                value: OrderService(firestore: firestore)
-                    .makeStream(searchResult),
+                value:
+                    OrderService(firestore: firestore).makeStream(searchResult),
                 initialData: const [],
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 45.0),
