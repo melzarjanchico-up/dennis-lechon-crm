@@ -5,6 +5,7 @@ import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_cust
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 //import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -397,9 +398,8 @@ class _AddOrderState extends State<AddOrder> {
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
-                                                            const SnackBar(
-                                                                content: Text(
-                                                                    'Order was added successfully!')));
+                                                          generalSnackbar('Order was added successfully!')
+                                                        );
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   }).onError(
@@ -409,9 +409,8 @@ class _AddOrderState extends State<AddOrder> {
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
-                                                            const SnackBar(
-                                                                content: Text(
-                                                                    'Something went wrong. Order not added.')));
+                                                          generalSnackbar('Something went wrong. Order was not added.')
+                                                        );
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   });
@@ -433,9 +432,9 @@ class _AddOrderState extends State<AddOrder> {
                                             */
                                                 } else {
                                                   ScaffoldMessenger.of(context)
-                                                      .showSnackBar(const SnackBar(
-                                                          content: Text(
-                                                              'A Lechon Order is required!')));
+                                                      .showSnackBar(
+                                                        generalSnackbar('A Lechon order is required.')
+                                                      );
                                                 }
                                               }
                                             },

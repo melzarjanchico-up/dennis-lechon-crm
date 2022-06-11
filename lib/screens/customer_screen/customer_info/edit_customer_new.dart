@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -494,17 +495,17 @@ class _EditCustomerState extends State<EditCustomer> {
                                       debugPrint(
                                           "Customer Edited successfully!");
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Customer was changed successfully!')));
+                                          .showSnackBar(
+                                            generalSnackbar('Customer was changed successfully!')
+                                          );
                                       _isLoadingNotifier.value = false;
                                     }).onError((error, stackTrace) {
                                       debugPrint(
                                           "I did something bad... $error");
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Somewthing went wrong. Customer was not changed.')));
+                                          .showSnackBar(
+                                            generalSnackbar('Somewthing went wrong. Customer was not changed.')
+                                          );
                                       _isLoadingNotifier.value = false;
                                     });
                                   }
