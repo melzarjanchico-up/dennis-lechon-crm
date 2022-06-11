@@ -29,22 +29,22 @@ class _CustomerDashState extends State<CustomerDash> {
                 .customers
                 ?.asBroadcastStream(onCancel: (sub) => sub.cancel()),
             builder: (context, snapshot) {
-              int hotCount = snapshot.data!
-                  .where((element) => element.tagName.contains("Hot"))
-                  .map((e) => e)
-                  .toList()
-                  .length;
-              int warmCount = snapshot.data!
-                  .where((element) => element.tagName.contains("Warm"))
-                  .map((e) => e)
-                  .toList()
-                  .length;
-              int coldCount = snapshot.data!
-                  .where((element) => element.tagName.contains("Cold"))
-                  .map((e) => e)
-                  .toList()
-                  .length;
-              if (!snapshot.hasError) {
+              if (snapshot.hasData) {
+                int hotCount = snapshot.data!
+                    .where((element) => element.tagName.contains("Hot"))
+                    .map((e) => e)
+                    .toList()
+                    .length;
+                int warmCount = snapshot.data!
+                    .where((element) => element.tagName.contains("Warm"))
+                    .map((e) => e)
+                    .toList()
+                    .length;
+                int coldCount = snapshot.data!
+                    .where((element) => element.tagName.contains("Cold"))
+                    .map((e) => e)
+                    .toList()
+                    .length;
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
                     return const Center(
@@ -57,7 +57,6 @@ class _CustomerDashState extends State<CustomerDash> {
                       children: [
                         const SizedBox(width: 35),
                         Column(
-                          //mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
