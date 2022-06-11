@@ -445,7 +445,7 @@ Widget buildEditProfileButton(
       },
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
-        primary: Colors.blue.withAlpha(30),
+        primary: Colors.blue,
         onPrimary: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 20),
       ),

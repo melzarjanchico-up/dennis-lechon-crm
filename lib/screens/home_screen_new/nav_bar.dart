@@ -9,15 +9,14 @@ import 'package:dennis_lechon_crm/screens/homebuttons/calendar_screen.dart';
 import 'package:dennis_lechon_crm/screens/login_screens/signin_screen.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+  const NavBar({Key? key, required this.firestore}) : super(key: key);
+  final FirebaseFirestore firestore;
 
   @override
   State<NavBar> createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
-  // const NavBar({Key? key, required this.firestore}) : super(key: key);
-  late FirebaseFirestore firestore;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late String eMail, password;
   late User? user;
@@ -82,7 +81,7 @@ class _NavBarState extends State<NavBar> {
                   context,
                   MaterialPageRoute(
                       builder: ((context) => CustomerScreen(
-                            firestore: firestore,
+                            firestore: widget.firestore,
                           ))));
             },
           ),
@@ -94,7 +93,7 @@ class _NavBarState extends State<NavBar> {
                   context,
                   MaterialPageRoute(
                       builder: ((context) => OrderListScreen(
-                            firestore: firestore,
+                            firestore: widget.firestore,
                           ))));
             },
           ),
@@ -106,7 +105,7 @@ class _NavBarState extends State<NavBar> {
                   context,
                   MaterialPageRoute(
                       builder: ((context) => CalendarScreen(
-                            firestore: firestore,
+                            firestore: widget.firestore,
                           ))));
             },
           ),
@@ -118,7 +117,7 @@ class _NavBarState extends State<NavBar> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => SignIn(firestore: firestore))));
+                      builder: ((context) => SignIn(firestore: widget.firestore))));
             },
           ),
         ],
