@@ -149,9 +149,9 @@ class Body extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: const [
-                Text("Incoming Orders",
+                Text("  Incoming Orders",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
                 SizedBox(width: 40),

@@ -52,17 +52,14 @@ class CustomerCard extends StatelessWidget {
           top: 5,
           bottom: 15,
         ),
-        width: size.width * 0.90,
+        width: size.width * 0.87,
         //height: 100,
         //size.width * 0.4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(
-                top: 10,
-                bottom: 10,
-              ),
+              margin: const EdgeInsets.only(top: 10, bottom: 10, left: 0),
               //color: Colors.red,
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
@@ -111,11 +108,11 @@ class CustomerCard extends StatelessWidget {
                                                   ' ',
                                           style: GoogleFonts.baloo2(
                                               //fontFamily: 'Baloo_2',
-                                              fontSize: 40,
+                                              fontSize: 30,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
-                                          text: "active orders",
+                                          text: " orders",
                                           style: GoogleFonts.baloo2(
                                               //fontFamily: 'Baloo_2',
                                               fontSize: 25,
