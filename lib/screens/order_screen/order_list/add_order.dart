@@ -78,7 +78,7 @@ class _AddOrderState extends State<AddOrder> {
               color: Colors.white,
             ),
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            margin: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(15),
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -108,8 +108,7 @@ class _AddOrderState extends State<AddOrder> {
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 elevation: 3,
-                                margin:
-                                    const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                                margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: FittedBox(
@@ -445,7 +444,7 @@ class _AddOrderState extends State<AddOrder> {
                                         primary: const Color(0xFFF1A22C),
                                         onPrimary: Colors.white,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 34, vertical: 20),
+                                            horizontal: 20, vertical: 10),
                                       ),
                                     );
                                   }),
@@ -1099,14 +1098,16 @@ class _AddOrderState extends State<AddOrder> {
         ),
         SizedBox(
             width: 350,
+            //height: 35,
             child: TypeAheadFormField(
               hideOnLoading: true,
               textFieldConfiguration: TextFieldConfiguration(
                 controller: _searchCustomerController,
                 decoration: const InputDecoration(
-                    suffixIcon: Icon(Icons.person_search_outlined),
-                    border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15)),
+                  suffixIcon: Icon(Icons.person_search_outlined),
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                ),
               ),
 
               suggestionsCallback: (pattern) async {
@@ -1132,7 +1133,7 @@ class _AddOrderState extends State<AddOrder> {
                         text: '${customer.firstName} ${customer.lastName}',
                         style: const TextStyle(
                             fontFamily: 'Montserrat',
-                            //color: Colors.grey,
+                            color: Colors.black87,
                             //fontSize: 14.0,
                             fontWeight: FontWeight.w300),
                       )
@@ -1187,7 +1188,7 @@ class _AddOrderState extends State<AddOrder> {
                         text: 'This customer does not exist.',
                         style: TextStyle(
                             fontFamily: 'Montserrat',
-                            //color: Colors.grey,
+                            color: Colors.black87,
                             fontWeight: FontWeight.w300),
                       )
                     ]),
@@ -1227,6 +1228,7 @@ class _AddOrderState extends State<AddOrder> {
         ),
         SizedBox(
           width: 350,
+          //height: 35,
           child: TextFormField(
             controller: _addressController,
             decoration: const InputDecoration(
@@ -1252,6 +1254,7 @@ class _AddOrderState extends State<AddOrder> {
         ),
         SizedBox(
           width: 350,
+          //height: 35,
           child: TextFormField(
             controller: _contactController,
             decoration: const InputDecoration(
@@ -1279,6 +1282,7 @@ class _AddOrderState extends State<AddOrder> {
         ),
         SizedBox(
           width: 350,
+          // height: 35,
           child: DropdownButtonFormField<String>(
             decoration: const InputDecoration(
               //isDense: true,
@@ -1315,6 +1319,7 @@ class _AddOrderState extends State<AddOrder> {
         ),
         SizedBox(
             width: 350,
+            //height: 35,
             child: DateTimeField(
               format: format,
               onChanged: (val) {

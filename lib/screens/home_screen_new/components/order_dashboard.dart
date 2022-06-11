@@ -47,14 +47,16 @@ class CustomerCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: const EdgeInsets.only(
-          left: 10,
-          top: 10,
+          left: 25,
+          right: 20,
+          top: 5,
           bottom: 15,
         ),
-        width: size.width * 0.95,
+        width: size.width * 0.90,
         //height: 100,
         //size.width * 0.4,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(
@@ -80,11 +82,18 @@ class CustomerCard extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      const SizedBox(width: 15),
+                      const CircleAvatar(
+                        backgroundColor: Color.fromARGB(148, 172, 21, 15),
+                        radius: 30,
+                        child: Icon(Icons.food_bank_rounded,
+                            size: 30, color: Colors.white),
+                      ),
                       const SizedBox(width: 15),
                       Expanded(
                         child: StreamBuilder<List<Order>>(
@@ -163,7 +172,7 @@ class CustomerCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
