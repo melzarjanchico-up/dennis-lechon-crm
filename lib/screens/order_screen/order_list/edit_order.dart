@@ -6,6 +6,7 @@ import 'package:dennis_lechon_crm/models/order.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_list/add_customer_new.dart';
 //import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 //import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -430,9 +431,8 @@ class _EditOrderState extends State<EditOrder> {
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
-                                                            const SnackBar(
-                                                                content: Text(
-                                                                    'Order was edited successfully!')));
+                                                          generalSnackbar('Order was edited successfully!')
+                                                        );
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   }).onError(
@@ -442,9 +442,8 @@ class _EditOrderState extends State<EditOrder> {
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
-                                                            const SnackBar(
-                                                                content: Text(
-                                                                    'Something went wrong. Order not edited.')));
+                                                          generalSnackbar('Something went wrong. Order was not edited.')
+                                                        );
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   });
@@ -466,9 +465,9 @@ class _EditOrderState extends State<EditOrder> {
                                             */
                                                 } else {
                                                   ScaffoldMessenger.of(context)
-                                                      .showSnackBar(const SnackBar(
-                                                          content: Text(
-                                                              'A Lechon Order is required!')));
+                                                    .showSnackBar(
+                                                      generalSnackbar('A Lechon order is required.')
+                                                    );
                                                 }
                                               }
                                             },

@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -481,21 +482,26 @@ class _AddCustomerState extends State<AddCustomer> {
                                             _noteController.text,
                                             _tagController)
                                         .then((value) {
+
                                       debugPrint(
                                           "Customer Added successfully!");
+                                      Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Customer was added successfully!')));
+                                          .showSnackBar(
+                                            generalSnackbar('Customer was added successfully!')
+                                          );
                                       _isLoadingNotifier.value = false;
+
                                     }).onError((error, stackTrace) {
+
                                       debugPrint(
                                           "I did something bad... $error");
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Somewthing went wrong. Customer was not added.')));
+                                          .showSnackBar(
+                                            generalSnackbar('Somewthing went wrong. Customer was not added.')
+                                          );
                                       _isLoadingNotifier.value = false;
+                                      
                                     });
                                   }
                                 },

@@ -26,6 +26,7 @@ class _SignInState extends State<SignIn> {
     return loading
         ? const Loading()
         : Scaffold(
+            resizeToAvoidBottomInset: false,
             key: const Key("Sign In"),
             backgroundColor: const Color.fromARGB(255, 185, 17, 5),
             body: Stack(children: <Widget>[

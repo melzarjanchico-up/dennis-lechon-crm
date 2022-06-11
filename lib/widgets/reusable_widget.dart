@@ -70,3 +70,14 @@ Container firebaseUIButton(
     ),
   );
 }
+
+SnackBar generalSnackbar(String text) {
+  return SnackBar(
+    content: Text(
+      text,
+      style: const TextStyle(fontSize: 15.0),
+    ),
+    padding: const EdgeInsets.all(20.0),
+    elevation: null,
+  );
+}
