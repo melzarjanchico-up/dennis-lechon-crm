@@ -13,27 +13,24 @@ class Dashboard extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            PreferredSize(
-              preferredSize: const Size.fromHeight(70.0),
-              child: SliverAppBar(
-                  expandedHeight: 50,
-                  centerTitle: true,
-                  backgroundColor: AppColors.redColor,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(40),
-                    ),
+            SliverAppBar(
+                expandedHeight: 65,
+                centerTitle: true,
+                backgroundColor: AppColors.redColor,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(40),
                   ),
-                  title: const Text('Lech Go!',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold)),
-                  pinned: false,
-                  floating: true,
-                  forceElevated: innerBoxIsScrolled),
-            ),
+                ),
+                title: const Text('Lech Go!',
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+                pinned: false,
+                floating: true,
+                forceElevated: innerBoxIsScrolled),
           ];
         },
         body: Body(firestore: firestore),
