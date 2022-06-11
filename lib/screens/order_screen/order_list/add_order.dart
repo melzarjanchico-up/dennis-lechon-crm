@@ -395,6 +395,7 @@ class _AddOrderState extends State<AddOrder> {
                                                       .then((value) {
                                                     debugPrint(
                                                         "Order Added successfully!");
+                                                    Navigator.of(context).pop();
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(

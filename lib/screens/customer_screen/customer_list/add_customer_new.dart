@@ -485,6 +485,7 @@ class _AddCustomerState extends State<AddCustomer> {
 
                                       debugPrint(
                                           "Customer Added successfully!");
+                                      Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                             generalSnackbar('Customer was added successfully!')
