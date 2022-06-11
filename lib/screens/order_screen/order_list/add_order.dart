@@ -1139,8 +1139,12 @@ class _AddOrderState extends State<AddOrder> {
                       )
                     ]),
                   ),
-                  subtitle: Text(
-                    '${customer.adrBarangay} ${customer.adrCity}',
+                  subtitle: '${customer.adrBarangay}${customer.adrCity}' != '' ? Text(
+                    '${customer.adrBarangay}${customer.adrBarangay == '' ? '' : ' '}${customer.adrCity}',
+                    overflow: TextOverflow.ellipsis,
+                  ) : Text(
+                    '[Not Available]',
+                    style: TextStyle(color: Colors.red.shade200),
                     overflow: TextOverflow.ellipsis,
                   ),
                 );
