@@ -114,20 +114,6 @@ class _CustomerDashState extends State<CustomerDash> {
                             aspectRatio: 2,
                             child: PieChart(
                               PieChartData(
-                                  pieTouchData: PieTouchData(touchCallback:
-                                      (FlTouchEvent event, pieTouchResponse) {
-                                    setState(() {
-                                      if (!event.isInterestedForInteractions ||
-                                          pieTouchResponse == null ||
-                                          pieTouchResponse.touchedSection ==
-                                              null) {
-                                        touchedIndex = -1;
-                                        return;
-                                      }
-                                      touchedIndex = pieTouchResponse
-                                          .touchedSection!.touchedSectionIndex;
-                                    });
-                                  }),
                                   borderData: FlBorderData(
                                     show: false,
                                   ),
@@ -157,13 +143,16 @@ class _CustomerDashState extends State<CustomerDash> {
       final radius = isTouched ? 80.0 : 75.0;
       final widgetSize = isTouched ? 35.0 : 30.0;
       var total = hotCount + warmCount + coldCount;
+      var hot = (hotCount / total) * 100;
+      var warm = (warmCount / total) * 100;
+      var cold = (coldCount / total) * 100;
 
       switch (i) {
         case 0:
           return PieChartSectionData(
             color: const Color(0xFFD3231E),
-            value: 40,
-            title: (((hotCount / total) as int) as String) + "%",
+            value: hot,
+            title: "${hot.toStringAsPrecision(2)}%",
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -178,8 +167,8 @@ class _CustomerDashState extends State<CustomerDash> {
         case 1:
           return PieChartSectionData(
             color: const Color(0xFFF1A22C),
-            value: 30,
-            title: (((warmCount / total) as int) as String) + "%",
+            value: warm,
+            title: "${warm.toStringAsPrecision(2)}%",
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -196,8 +185,8 @@ class _CustomerDashState extends State<CustomerDash> {
         case 2:
           return PieChartSectionData(
             color: const Color(0xFF2A87BB),
-            value: 30,
-            title: (((coldCount / total) as int) as String) + "%",
+            value: cold,
+            title: "${cold.toStringAsPrecision(2)} %",
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,

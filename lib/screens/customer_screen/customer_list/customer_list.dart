@@ -175,7 +175,8 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                   // To avoid the hotdog
                                   const SizedBox(
                                     height: 20,
-                                    width: 90,
+                                    width:
+                                        50, //90 ni siya before but muoverflow siya sa test.. but if mu push mo ibalik lng sa 50 aAHAHAHAH
                                   ),
                                   Text(
                                     'Incoming Order',

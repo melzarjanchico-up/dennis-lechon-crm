@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/customer_dashboard.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/order_dashboard.dart';
@@ -84,7 +85,16 @@ class Body extends StatelessWidget {
                             focusedBorder: InputBorder.none,
                           ),
                         )),
-                        const Icon(Icons.search, color: Color(0xFF1F2426)),
+                        IconButton(
+                          onPressed: () {
+                            showSearch(
+                              context: context,
+                              delegate: SearchCustomer(firestore: firestore),
+                            );
+                          },
+                          icon: const Icon(Icons.search,
+                              color: Color(0xFF1F2426)),
+                        ),
                       ])),
                 ),
               ]),
