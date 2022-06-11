@@ -59,7 +59,9 @@ class Dashboard extends StatelessWidget {
       //     elevation: 0,
       //   ),
       // ),
-      drawer: NavBar(firestore: firestore),
+      drawer: NavBar(
+        firestore: firestore,
+      ),
       backgroundColor: const Color.fromARGB(255, 243, 243, 243),
     );
   }
