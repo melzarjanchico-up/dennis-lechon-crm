@@ -23,6 +23,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
     return loading
         ? const Loading()
         : Scaffold(
@@ -83,6 +84,11 @@ class _SignInState extends State<SignIn> {
                                 .then((value) async {
                               setState(() => loading = true);
                               await Future.delayed(const Duration(seconds: 1));
+                              var user = auth.currentUser!;
+                              final emailID = user.email;
+                              debugPrint("Logged In Successfully!");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  generalSnackbar('Welcome back $emailID'));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -148,8 +154,10 @@ class _SignInState extends State<SignIn> {
         GestureDetector(
           key: const Key("Sign Up Clickable"),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SignUp()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SignUp(firestore: widget.firestore)));
           },
           child: const Text(
             " Sign Up",
@@ -171,8 +179,12 @@ class _SignInState extends State<SignIn> {
           style: TextStyle(color: Colors.white70),
           textAlign: TextAlign.right,
         ),
-        onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ResetPassword())),
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResetPassword(
+                      firestore: widget.firestore,
+                    ))),
       ),
     );
   }

@@ -53,7 +53,10 @@ void main() {
 
     testWidgets('Sign Up Test Widget', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(const MaterialApp(home: SignUp()));
+      await tester.pumpWidget(MaterialApp(
+          home: SignUp(
+        firestore: firestore,
+      )));
       expect(find.byKey(const Key("Sign Up")), findsOneWidget);
 
       //Tests the  username textfield
@@ -81,7 +84,10 @@ void main() {
 
     testWidgets('Reset Password Test Widgets', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(const MaterialApp(home: ResetPassword()));
+      await tester.pumpWidget(MaterialApp(
+          home: ResetPassword(
+        firestore: firestore,
+      )));
       expect(find.byKey(const Key("Password Key")), findsWidgets);
 
       //Tests the  email textfield

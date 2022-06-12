@@ -50,6 +50,10 @@ Container firebaseUIButton(
     child: ElevatedButton(
       onPressed: () {
         onTap();
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
       },
       child: Text(
         title,
