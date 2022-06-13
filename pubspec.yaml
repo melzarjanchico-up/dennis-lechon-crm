@@ -36,12 +36,12 @@ dependencies:
   google_fonts: ^2.3.2
   flutter_spinkit: ^5.1.0
   validators: ^3.0.0
-  random_avatar: ^0.0.6
   table_calendar: ^3.0.5
   mockito: ^5.2.0
   fake_cloud_firestore: ^1.2.2
   fl_chart: ^0.50.6
   flutter_svg: ^1.1.0
+  flutter_native_splash: ^2.2.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -66,6 +66,11 @@ flutter_icons:
   image_path: "assets/images/icon.png"
   adaptive_icon_foreground: "assets/images/icon_foreground.png"
   adaptive_icon_background: "#ffffff"
+
+flutter_native_splash:
+  image: assets/images/dennislogo.png
+  color: "ffffff"
+  fill: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -120,7 +120,7 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                                     ),
                                                   )
                                                 : Text(
-                                                    "[Not Available]",
+                                                    "[No Address]",
                                                     style: GoogleFonts.mulish(
                                                       //fontStyle: FontStyle.,
                                                       fontSize: 15,
@@ -175,13 +175,8 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                   // To avoid the hotdog
                                   const SizedBox(
                                     height: 20,
-                                    width:
-                                        50, //90 ni siya before but muoverflow siya sa test.. but if mu push mo ibalik lng sa 50 aAHAHAHAH
+                                    width: 150,
                                   ),
-                                  Text(
-                                    '                        ',
-                                    style: GoogleFonts.mulish(),
-                                  )
                                 ])
                           ],
                         ),
@@ -191,26 +186,3 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
             ));
   }
 }
-
-/*
-customers.map((customer) {
-                    String lastName = customer.lastName;
-                    String firstName = customer.firstName;
-                    String tagName = customer.tagName;
-                    String address = (customer.adrStreet.isNotEmpty
-                            ? '${customer.adrStreet} '
-                            : '') +
-                        (customer.adrBarangay.isNotEmpty
-                            ? '${customer.adrBarangay} '
-                            : '') +
-                        (customer.adrCity.isNotEmpty
-                            ? '${customer.adrCity} '
-                            : '') +
-                        (customer.adrProvince.isNotEmpty
-                            ? '${customer.adrProvince} '
-                            : '') +
-                        (customer.adrZipcode.isNotEmpty
-                            ? '${customer.adrZipcode} '
-                            : '');
-                    Color tagColor = customer.tagColor;
-                    */

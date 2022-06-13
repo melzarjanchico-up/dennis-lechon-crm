@@ -79,7 +79,6 @@ void main() {
       // Re-render.
       await tester.pump();
 
-      expect(find.text("Incoming Order"), findsWidgets);
       expect(find.text("Hot"), findsOneWidget);
       expect(find.byIcon(Icons.local_fire_department), findsOneWidget);
 
@@ -106,13 +105,13 @@ void main() {
       await tester.pageBack();
       expect(find.textContaining("Name 3"), findsWidgets);
 
-      // Edit button is shit
-      // //Verify the edit list button
+      //Edit button is shit
+      //Verify the edit list button
       // await tester.ensureVisible(find.byKey(const Key("Edit Profile Button")));
       // await tester.tap(find.textContaining("Edit Profile"),
       //     warnIfMissed: false);
       // await tester.pumpAndSettle();
-      // //expect(find.textContaining("Edit"), findsOneWidget);
+      //expect(find.textContaining("Edit"), findsOneWidget);
     });
 
     testWidgets("Adding Correct Customer Information",

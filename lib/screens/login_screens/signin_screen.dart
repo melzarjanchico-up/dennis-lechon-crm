@@ -170,6 +170,7 @@ class _SignInState extends State<SignIn> {
 
   Widget forgotPassword(BuildContext context) {
     return Container(
+      key: const Key("Forgot Password Key"),
       width: MediaQuery.of(context).size.width,
       height: 35,
       alignment: Alignment.bottomCenter,

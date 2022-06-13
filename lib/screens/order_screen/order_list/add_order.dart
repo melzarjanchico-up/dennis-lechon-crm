@@ -194,6 +194,8 @@ class _AddOrderState extends State<AddOrder> {
                                                         width: 65,
                                                         height: 20,
                                                         child: TextField(
+                                                          key: const Key(
+                                                              "Input Delivery Fee"),
                                                           enabled:
                                                               _isDeliveryOrder,
                                                           textAlign:
@@ -399,8 +401,8 @@ class _AddOrderState extends State<AddOrder> {
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
-                                                          generalSnackbar('Order was added successfully!')
-                                                        );
+                                                            generalSnackbar(
+                                                                'Order was added successfully!'));
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   }).onError(
@@ -410,8 +412,8 @@ class _AddOrderState extends State<AddOrder> {
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
-                                                          generalSnackbar('Something went wrong. Order was not added.')
-                                                        );
+                                                            generalSnackbar(
+                                                                'Something went wrong. Order was not added.'));
                                                     _isLoadingNotifier.value =
                                                         false;
                                                   });
@@ -433,9 +435,8 @@ class _AddOrderState extends State<AddOrder> {
                                             */
                                                 } else {
                                                   ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                        generalSnackbar('A Lechon order is required.')
-                                                      );
+                                                      .showSnackBar(generalSnackbar(
+                                                          'A Lechon order is required.'));
                                                 }
                                               }
                                             },
@@ -559,6 +560,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             child: const Text(
                               "+",
+                              key: Key("addSmallLechon"),
                               style: TextStyle(
                                   color: Color(0xFFD3231E),
                                   fontWeight: FontWeight.bold),
@@ -699,6 +701,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             child: const Text(
                               "+",
+                              key: Key("addMediumLechon"),
                               style: TextStyle(
                                   color: Color(0xFFD3231E),
                                   fontWeight: FontWeight.bold),
@@ -840,6 +843,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             child: const Text(
                               "+",
+                              key: Key("addLargeLechon"),
                               style: TextStyle(
                                   color: Color(0xFFD3231E),
                                   fontWeight: FontWeight.bold),
@@ -982,6 +986,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             child: const Text(
                               "+",
+                              key: Key("addXLLechon"),
                               style: TextStyle(
                                   color: Color(0xFFD3231E),
                                   fontWeight: FontWeight.bold),
@@ -1139,14 +1144,16 @@ class _AddOrderState extends State<AddOrder> {
                       )
                     ]),
                   ),
-                  subtitle: '${customer.adrBarangay}${customer.adrCity}' != '' ? Text(
-                    '${customer.adrBarangay}${customer.adrBarangay == '' ? '' : ' '}${customer.adrCity}',
-                    overflow: TextOverflow.ellipsis,
-                  ) : Text(
-                    '[Not Available]',
-                    style: TextStyle(color: Colors.red.shade200),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  subtitle: '${customer.adrBarangay}${customer.adrCity}' != ''
+                      ? Text(
+                          '${customer.adrBarangay}${customer.adrBarangay == '' ? '' : ' '}${customer.adrCity}',
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      : Text(
+                          '[Not Available]',
+                          style: TextStyle(color: Colors.red.shade200),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                 );
               },
 

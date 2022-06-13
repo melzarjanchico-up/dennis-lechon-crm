@@ -13,8 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/dashboard.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-// atleast edit para mapush
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting();
@@ -45,7 +43,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
       ),
       debugShowCheckedModeBanner: false,
-      //home: Dashboard(firestore: firestore),
       home: SignIn(firestore: firestore),
     );
   }

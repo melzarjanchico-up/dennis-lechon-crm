@@ -41,14 +41,9 @@ void main() {
       expect(find.text("test12345"), findsOneWidget);
 
       //Tests the Sign In button
-      await tester.tap(find.text("LOG IN"));
+      await tester.tap(find.text("LOG IN"), warnIfMissed: false);
       await tester.pump();
       expect(find.byKey(const Key("SignIn Key")), findsOneWidget);
-
-      //Tests the SignUp Text Button
-      await tester.tap(find.byKey(const Key("Sign Up Clickable")));
-      await tester.pump();
-      expect(find.byType(Scaffold), findsOneWidget); //Wrong way to do tests
     });
 
     testWidgets('Sign Up Test Widget', (WidgetTester tester) async {
@@ -58,11 +53,6 @@ void main() {
         firestore: firestore,
       )));
       expect(find.byKey(const Key("Sign Up")), findsOneWidget);
-
-      //Tests the  username textfield
-      await tester.enterText(find.byKey(const Key("Username Key")), 'test123');
-      await tester.pump();
-      expect(find.text("test123"), findsOneWidget);
 
       //Tests the  email textfield
       await tester.enterText(
@@ -79,7 +69,8 @@ void main() {
       //Tests the Sign Up button
       await tester.tap(find.text("Sign Up"));
       await tester.pump();
-      expect(find.byKey(const Key("SignUp Key")), findsOneWidget);
+      expect(find.byType(ScaffoldMessenger), findsOneWidget);
+      expect(find.textContaining("Error"), findsNothing);
     });
 
     testWidgets('Reset Password Test Widgets', (WidgetTester tester) async {
