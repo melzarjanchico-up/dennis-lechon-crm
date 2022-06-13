@@ -69,7 +69,7 @@ class OrderListScreen extends StatelessWidget {
                       ),
                       backgroundColor: const Color(0xFFD3231E),
                     ),
-                    body: StreamProvider<List<Order>>.value(
+                    body: (snapshot.data!.isNotEmpty) ? StreamProvider<List<Order>>.value(
                       key: const Key("OrderProvider Part"),
                       value: OrderService(firestore: firestore)
                           .orders, // as in wala koy mabuhat
@@ -79,6 +79,8 @@ class OrderListScreen extends StatelessWidget {
                           child: OrderListWidget(
                             firestore: firestore,
                           )),
+                    ) : const Center(
+                      child: Text("There are no customers in the orders."),
                     ),
                   );
               }

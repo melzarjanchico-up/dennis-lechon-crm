@@ -241,7 +241,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   }
                                 },
 
-                                //title: Text('${value[index]}'),
                                 title: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [

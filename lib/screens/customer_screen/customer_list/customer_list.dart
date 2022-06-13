@@ -61,14 +61,17 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                         : '');
                 Color tagColor = customer.tagColor;
                 return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CustomerInfo(
-                                  customer: customer,
-                                  firestore: widget.firestore)));
-                    },
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CustomerInfo(
+                          customer: customer,
+                          firestore: widget.firestore
+                        )
+                      )
+                    );
+                  },
                     child: Container(
                       key: const Key("Press here"),
                       padding: const EdgeInsets.all(10),

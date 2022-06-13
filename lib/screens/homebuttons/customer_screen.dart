@@ -72,7 +72,7 @@ class CustomerScreen extends StatelessWidget {
                           ),
                           backgroundColor: const Color(0xFFF1A22C),
                         ),
-                        body: StreamProvider<List<Customer>>.value(
+                        body: (snapshot.data!.isNotEmpty) ? StreamProvider<List<Customer>>.value(
                           key: const Key("StreamProvider Part"),
                           value: CustomerService(firestore: firestore)
                               .customers, // as in wala koy mabuhat
@@ -82,6 +82,8 @@ class CustomerScreen extends StatelessWidget {
                               child: CustomerListWidget(
                                 firestore: firestore,
                               )),
+                        ) : const Center(
+                          child: Text("There are no customers in the system."),
                         ),
                       ));
               }

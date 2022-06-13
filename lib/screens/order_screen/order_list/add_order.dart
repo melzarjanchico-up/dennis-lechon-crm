@@ -1200,7 +1200,7 @@ class _AddOrderState extends State<AddOrder> {
                     ]),
                   ),
                   subtitle: const Text(
-                    'Add this customer into the database!',
+                    'Add this customer into the system!',
                   ),
                   onTap: () {
                     Navigator.push(
