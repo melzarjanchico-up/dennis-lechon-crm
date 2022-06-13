@@ -11,32 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
 //import 'package:random_avatar/random_avatar.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_orderlist.dart';
-
-String getDateFromDate(DateTime givenDate) {
-  var months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
-  String datePart =
-      '${months[(givenDate.month) - 1]} ${givenDate.day.toString().padLeft(2, '0')}, ${givenDate.year}';
-  return datePart;
-}
-
-String getTimeFromDate(DateTime givenDate) {
-  String timePart =
-      '${givenDate.hour.toString().padLeft(2, '0')}:${givenDate.minute.toString().padLeft(2, '0')}';
-  return timePart;
-}
+import 'package:intl/intl.dart';
 
 int calculateAge(DateTime birthDate) {
   var from = birthDate;
@@ -153,6 +128,8 @@ Widget buildInfo(Customer customer) {
           (customer.adrCity.isNotEmpty ? '${customer.adrCity} ' : '') +
           (customer.adrProvince.isNotEmpty ? '${customer.adrProvince} ' : '') +
           (customer.adrZipcode.isNotEmpty ? '${customer.adrZipcode} ' : '');
+  final addedDateFormat = DateFormat("dd MMM yyyy, h:mm a");
+  final birthdayFormat = DateFormat("dd MMM yyyy");
 
   return Column(
     children: [
@@ -322,8 +299,7 @@ Widget buildInfo(Customer customer) {
                                       ),
                                       Text(
                                         (customer.dateBirth != null)
-                                            ? getDateFromDate(
-                                                customer.dateBirth!)
+                                            ? birthdayFormat.format(customer.dateBirth!)
                                             : "No Birth Date",
                                         style: const TextStyle(
                                           fontFamily: 'Montserrat',
@@ -355,7 +331,7 @@ Widget buildInfo(Customer customer) {
                                       ),
                                       Text(
                                         (customer.dateAdded != null)
-                                            ? '${getDateFromDate(customer.dateAdded!)}, ${getTimeFromDate(customer.dateAdded!)}'
+                                            ? addedDateFormat.format(customer.dateAdded!)
                                             : "No Added Date",
                                         style: const TextStyle(
                                           fontFamily: 'Montserrat',
