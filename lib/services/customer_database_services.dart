@@ -179,4 +179,25 @@ class CustomerService {
     return customerCollection.doc(doc).snapshots().map((event) => customerConverter(event));
   }
 
+  Future changeAllNames(String customerId, String firstname, String lastname) async {
+    CollectionReference testhello = customerCollection.doc(customerId).collection('orders');
+
+    return testhello.get().then((value) {
+      for (var element in value.docs) {
+
+        testhello.doc(element.id).set({
+          'customer': {
+            'id': customerId,
+            'first_name': firstname,
+            'last_name': lastname,
+            //'address': customerAddress,
+            //'contact': customerContact,
+          },
+        }, SetOptions(merge: true));
+
+      }
+    });
+
+  }
+
 }
