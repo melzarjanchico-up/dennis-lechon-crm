@@ -51,7 +51,7 @@ class _AddOrderState extends State<AddOrder> {
   bool _isRushOrder = false;
   bool _isDeliveryOrder = false;
 
-  List<String> paymentStatus = ['Paid', 'Unpaid'];
+  List<String> paymentStatus = ['Paid', 'Unpaid', 'Delivered'];
   //List<String> paymentMethods = ['Payment in Advance', 'Cash on Delivery', 'Online (e.g. GCash, etc.)', 'Others'];
 
   final TextEditingController _searchCustomerController =

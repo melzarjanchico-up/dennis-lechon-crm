@@ -12,13 +12,15 @@ class Event {
   final Order? order;
   final Customer? customer;
   final String type;
+  final String? orderStatus;
 
   const Event({
     required this.title, 
     required this.date,
     this.order,
     this.customer,
-    required this.type
+    required this.type,
+    this.orderStatus
   });
 
   @override

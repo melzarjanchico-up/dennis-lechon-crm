@@ -18,19 +18,24 @@ class CalendarService {
 
   List<Event> _orderListFromSnapshot(QuerySnapshot snapshot) {
     List<Event> test = snapshot.docs.map((doc) {
+
       String preFirstName = (doc.data() as Map)['customer']['first_name'];
       String preLastName = (doc.data() as Map)['customer']['last_name'];
       String preDateDelivery = (doc.data() as Map)['delivery_date'];
+      String prePaymentStatus = (doc.data() as Map)['payment_status'];
     
       return Event(
         title: '$preFirstName $preLastName',
         date: DateTime.parse(preDateDelivery),
         order: OrderService(firestore: firestore).orderConverter(doc),
-        type: 'order'
+        type: 'order',
+        orderStatus: prePaymentStatus
       );
+
     }).toList();
 
     test.sort((a,b) => a.date.compareTo(b.date));
+    test.retainWhere((element) => element.orderStatus != "Delivered");
     return test;
   }
 

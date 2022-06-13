@@ -80,7 +80,7 @@ class OrderListScreen extends StatelessWidget {
                             firestore: firestore,
                           )),
                     ) : const Center(
-                      child: Text("There are no customers in the orders."),
+                      child: Text("There are no orders in the orders."),
                     ),
                   );
               }

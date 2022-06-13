@@ -142,12 +142,19 @@ class OrderService {
     );
   }
 
-  List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
+  List<Order> _orderListFromUnfilteredSnapshot(QuerySnapshot snapshot) {
     List<Order> test = snapshot.docs.map((doc) {
       return orderConverter(doc);
     }).toList();
 
     test.sort((a, b) => a.dateDelivery.compareTo(b.dateDelivery));
+    return test;
+  }
+
+  List<Order> _orderListFromSnapshot(QuerySnapshot snapshot) {
+    List<Order> test = _orderListFromUnfilteredSnapshot(snapshot);
+
+    test.retainWhere((element) => element.orderPaymentStatus != "Delivered");
     return test;
   }
 
@@ -161,7 +168,7 @@ class OrderService {
         .doc(customerId)
         .collection('orders')
         .snapshots()
-        .map(_orderListFromSnapshot);
+        .map(_orderListFromUnfilteredSnapshot);
   }
 
   Stream<List<Order>> makeStream(List<Order> list) async* {
