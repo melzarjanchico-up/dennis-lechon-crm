@@ -491,14 +491,34 @@ class _EditCustomerState extends State<EditCustomer> {
                                                 DateTime.now(),
                                             _noteController.text,
                                             _tagController)
-                                        .then((value) {
-                                      debugPrint(
+                                        .then((value) async {
+                                      
+                                      await CustomerService(firestore: widget.firestore).changeAllNames(
+                                        widget.customer.id, 
+                                        _firstNameController.text, 
+                                        _lastNameController.text
+                                      ).then((value) {
+
+                                        debugPrint(
                                           "Customer Edited successfully!");
-                                      ScaffoldMessenger.of(context)
+                                        ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                             generalSnackbar('Customer was changed successfully!')
                                           );
-                                      _isLoadingNotifier.value = false;
+                                        _isLoadingNotifier.value = false;
+
+                                      }).onError((error, stackTrace) {
+
+                                        debugPrint(
+                                        "I did something bad... $error");
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                              generalSnackbar('Somewthing went wrong. Customer orders not reflected.')
+                                            );
+                                        _isLoadingNotifier.value = false;
+                                        
+                                      });
+                                      
                                     }).onError((error, stackTrace) {
                                       debugPrint(
                                           "I did something bad... $error");

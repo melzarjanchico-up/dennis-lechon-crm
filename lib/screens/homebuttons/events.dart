@@ -3,17 +3,22 @@
 //import 'package:table_calendar/table_calendar.dart';
 
 import 'package:dennis_lechon_crm/models/order.dart';
+import 'package:dennis_lechon_crm/models/customer.dart';
 
 /// Example event class.
 class Event {
   final String title;
   final DateTime date;
-  final Order order;
+  final Order? order;
+  final Customer? customer;
+  final String type;
 
   const Event({
     required this.title, 
     required this.date,
-    required this.order
+    this.order,
+    this.customer,
+    required this.type
   });
 
   @override

@@ -1130,10 +1130,12 @@ class _AddOrderState extends State<AddOrder> {
                     overflow: TextOverflow.ellipsis,
                     text: TextSpan(children: [
                       WidgetSpan(
-                          child: Container(
-                              padding: const EdgeInsets.only(right: 2.5),
-                              child: Icon(Icons.person_sharp,
-                                  size: 14.0, color: customer.tagColor))),
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 2.5),
+                          child: Icon(Icons.person_sharp,
+                              size: 14.0, color: customer.tagColor)
+                        )
+                      ),
                       TextSpan(
                         text: '${customer.firstName} ${customer.lastName}',
                         style: const TextStyle(
@@ -1205,7 +1207,7 @@ class _AddOrderState extends State<AddOrder> {
                     ]),
                   ),
                   subtitle: const Text(
-                    'Add this customer into the database!',
+                    'Add this customer into the system!',
                   ),
                   onTap: () {
                     Navigator.push(

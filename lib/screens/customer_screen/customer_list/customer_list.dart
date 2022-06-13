@@ -141,37 +141,34 @@ class _CustomerListWidgetState extends State<CustomerListWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                      child: Container(
-                                          width: 100,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5, horizontal: 15),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: tagColor),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 2.0),
-                                                  child: Icon(
-                                                    hello[
-                                                        customer.tagIndex - 1],
-                                                    color: Colors.white,
-                                                    size: 15.0,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  tagName,
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.mulish(
-                                                      color: Colors.white),
-                                                ),
-                                              ]))),
+                                  Container(
+                                      width: 100,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: tagColor),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 2.0),
+                                              child: Icon(
+                                                hello[customer.tagIndex - 1],
+                                                color: Colors.white,
+                                                size: 15.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              tagName,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.mulish(
+                                                  color: Colors.white),
+                                            ),
+                                          ])),
                                   // To avoid the hotdog
                                   const SizedBox(
                                     height: 20,
