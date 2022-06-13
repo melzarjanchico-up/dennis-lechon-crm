@@ -17,6 +17,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     return Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
+            resizeToAvoidBottomInset: false,
             extendBodyBehindAppBar: true,
             backgroundColor: const Color.fromARGB(255, 185, 17, 5),
             appBar: AppBar(
@@ -29,7 +30,16 @@ class _ResetPasswordState extends State<ResetPassword> {
               ),
             ),
             body: Stack(children: <Widget>[
-              logoWidget('assets/images/lechon_loginpage.png'),
+              //logoWidget('assets/images/lechon_loginpage.png'),
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    //Image needs to be changed to avoid stretching
+                    image: AssetImage("assets/images/lechon_loginpage.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
               SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,

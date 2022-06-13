@@ -114,8 +114,8 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                      child: Container(
+                                  Container(
+                                    width: 180,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 4, horizontal: 10),
                                     decoration: BoxDecoration(
@@ -135,7 +135,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                       style: GoogleFonts.mulish(
                                           color: Colors.white),
                                     ),
-                                  )),
+                                  ),
                                   const SizedBox(
                                     height: 20,
                                     width: 70,
@@ -147,7 +147,7 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                           size: 25.0,
                                         )
                                       //Text("RUSH",style: GoogleFonts.mulish())
-                                      : const Text("       "),
+                                      : const Text("         "),
                                 ])
                           ],
                         ),

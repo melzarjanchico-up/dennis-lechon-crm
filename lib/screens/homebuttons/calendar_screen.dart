@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-
 class CalendarScreen extends StatefulWidget {
   final FirebaseFirestore firestore;
   const CalendarScreen({Key? key, required this.firestore}) : super(key: key);
@@ -25,14 +24,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
   final birthdayFormat = DateFormat("dd MMM yyyy");
   late ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.disabled; // Can be toggled on/off by longpressing a date
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
+      .disabled; // Can be toggled on/off by longpressing a date
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
-  
+
   var kEvents = {};
-  
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +45,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _selectedEvents.dispose();
     super.dispose();
   }
-  
+
   List<Event> _getEventsForDay(DateTime day) {
     // Implementation example
     return kEvents[day] ?? [];
@@ -91,210 +91,226 @@ class _CalendarScreenState extends State<CalendarScreen> {
     } else if (end != null) {
       _selectedEvents.value = _getEventsForDay(end);
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<List<List<Event>>>(
-      stream: CalendarService(firestore: widget.firestore).events,
-      builder: (context, snapshot) {
+        stream: CalendarService(firestore: widget.firestore).events,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final Map<DateTime, List<Event>> _kEventSource = {};
 
-        if (snapshot.hasData) {
-        final Map<DateTime, List<Event>> _kEventSource = {};
+            for (var listStream in (snapshot.data)!) {
+              for (var event in listStream) {
+                _kEventSource[DateTime(event.date.year, event.date.month,
+                    event.date.day)] = _kEventSource[DateTime(event.date.year,
+                            event.date.month, event.date.day)] !=
+                        null
+                    ? [
+                        ...?_kEventSource[DateTime(
+                            event.date.year, event.date.month, event.date.day)],
+                        event
+                      ]
+                    : [event];
+              }
+            }
 
-        for (var listStream in (snapshot.data)!) { 
-          for (var event in listStream) {
-            _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] = 
-            _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] != null 
-            ? [...?_kEventSource[DateTime(event.date.year, event.date.month, event.date.day)], event] : 
-            [event];
-          }
-        }
-        
-        kEvents = LinkedHashMap<DateTime, List<Event>>(
-          equals: isSameDay,
-          hashCode: getHashCode,
-        )..addAll(_kEventSource);
+            kEvents = LinkedHashMap<DateTime, List<Event>>(
+              equals: isSameDay,
+              hashCode: getHashCode,
+            )..addAll(_kEventSource);
 
-        _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+            _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
 
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Your Calendar'),
-            centerTitle: true,
-            backgroundColor: const Color(0xFFD3231E),
-          ),
-          body: Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            elevation: 3,
-            margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: Column(
-                children: [
-    
-                  TableCalendar<Event>(
-                    firstDay: kFirstDay,
-                    lastDay: kLastDay,
-                    focusedDay: _focusedDay,
-                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                    rangeStartDay: _rangeStart,
-                    rangeEndDay: _rangeEnd,
-                    calendarFormat: _calendarFormat,
-                    rangeSelectionMode: _rangeSelectionMode,
-                    eventLoader: _getEventsForDay,
-                    startingDayOfWeek: StartingDayOfWeek.sunday,
-                    headerStyle: const HeaderStyle(
-                      titleTextStyle:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      formatButtonDecoration: BoxDecoration(
-                          color: Color(0xFF2A87BB),
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      formatButtonTextStyle: TextStyle(color: Colors.white),
-                    ),
-                    calendarStyle: const CalendarStyle(
-                        outsideDaysVisible: false,
-                        todayDecoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xFF2A87BB)),
-                        selectedDecoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xFFF1A22C)),
-                        markerDecoration: BoxDecoration(
-                            color: Color.fromARGB(255, 116, 231, 71),
-                            shape: BoxShape.circle)),
-                    onDaySelected: _onDaySelected,
-                    onRangeSelected: _onRangeSelected,
-                    onFormatChanged: (format) {
-                      if (_calendarFormat != format) {
-                        setState(() {
-                          _calendarFormat = format;
-                        });
-                      }
-                    },
-                    onPageChanged: (focusedDay) {
-                      _focusedDay = focusedDay;
-                    },
-                  ),
-
-                  const SizedBox(height: 20.0),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4.0),
-                      child: Text(
-                        _selectedDay != null ? headFormat.format(_selectedDay!) : headFormat.format(DateTime.now()),
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-                        textAlign: TextAlign.left
-                      ),
-                    ),
-                  ),
-
-                  Expanded(
-                    child: ValueListenableBuilder<List<Event>>(
-                      valueListenable: _selectedEvents,
-                      builder: (context, value, _) {
-                        return value.isEmpty ? 
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: Center(
-                              child: Text("No events for this day!")
-                            ),
-                          ) :
-                        ListView.builder(
-                          itemCount: value.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: ListTile(
-                                onTap: () {
-                                  switch(value[index].type) {
-
-                                    case "customer": {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return CustomerInfo(customer: value[index].customer!, firestore: widget.firestore);
-                                      });
-                                    }
-                                    break;
-
-                                    case "order": {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return OrderInfo(order: value[index].order!, firestore: widget.firestore);
-                                      });
-                                    }
-                                    break;
-
-                                  }
-                                },
-
-                                title: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      (value[index].type == 'order') ? 
-                                        Icons.shopping_cart_outlined :
-                                        Icons.celebration_outlined,
-                                      color: Colors.black87,
-                                      size: 16.0,
-                                    ),
-                                    const SizedBox(
-                                      width: 3.0,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2.5),
-                                      child: Text(
-                                        (value[index].type == 'order') ? 
-                                        '${value[index]}\'s Order' : '${value[index]}\'s Birthday',
-                                        style: const TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16.0
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                                subtitle: Text((value[index].type == 'order') ? 
-                                  orderFormat.format(value[index].date) :
-                                  birthdayFormat.format(value[index].date)
-                                ),
-                                
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  
-                ],
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Your Calendar'),
+                centerTitle: true,
+                backgroundColor: const Color(0xFFD3231E),
               ),
-            ),
-          ),
-        );
+              body: Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 3,
+                margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                  child: Column(
+                    children: [
+                      TableCalendar<Event>(
+                        firstDay: kFirstDay,
+                        lastDay: kLastDay,
+                        focusedDay: _focusedDay,
+                        selectedDayPredicate: (day) =>
+                            isSameDay(_selectedDay, day),
+                        rangeStartDay: _rangeStart,
+                        rangeEndDay: _rangeEnd,
+                        calendarFormat: _calendarFormat,
+                        rangeSelectionMode: _rangeSelectionMode,
+                        eventLoader: _getEventsForDay,
+                        startingDayOfWeek: StartingDayOfWeek.sunday,
+                        headerStyle: const HeaderStyle(
+                          titleTextStyle: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                          formatButtonDecoration: BoxDecoration(
+                              color: Color(0xFF2A87BB),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
+                          formatButtonTextStyle: TextStyle(color: Colors.white),
+                          leftChevronMargin: EdgeInsets.all(0),
+                          rightChevronMargin: EdgeInsets.all(0),
+                        ),
+                        calendarStyle: const CalendarStyle(
+                            outsideDaysVisible: false,
+                            todayDecoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xFF2A87BB)),
+                            selectedDecoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xFFF1A22C)),
+                            markerDecoration: BoxDecoration(
+                                color: Color.fromARGB(255, 116, 231, 71),
+                                shape: BoxShape.circle)),
+                        onDaySelected: _onDaySelected,
+                        onRangeSelected: _onRangeSelected,
+                        onFormatChanged: (format) {
+                          if (_calendarFormat != format) {
+                            setState(() {
+                              _calendarFormat = format;
+                            });
+                          }
+                        },
+                        onPageChanged: (focusedDay) {
+                          _focusedDay = focusedDay;
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 4.0),
+                          child: Text(
+                              _selectedDay != null
+                                  ? headFormat.format(_selectedDay!)
+                                  : headFormat.format(DateTime.now()),
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w900),
+                              textAlign: TextAlign.left),
+                        ),
+                      ),
+                      Expanded(
+                        child: ValueListenableBuilder<List<Event>>(
+                          valueListenable: _selectedEvents,
+                          builder: (context, value, _) {
+                            return value.isEmpty
+                                ? const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 10.0),
+                                    child: Center(
+                                        child: Text("No events for this day!")),
+                                  )
+                                : ListView.builder(
+                                    itemCount: value.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 12.0,
+                                          vertical: 4.0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: ListTile(
+                                          onTap: () {
+                                            switch (value[index].type) {
+                                              case "customer":
+                                                {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return CustomerInfo(
+                                                            customer:
+                                                                value[index]
+                                                                    .customer!,
+                                                            firestore: widget
+                                                                .firestore);
+                                                      });
+                                                }
+                                                break;
 
-        }
+                                              case "order":
+                                                {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return OrderInfo(
+                                                            order: value[index]
+                                                                .order!,
+                                                            firestore: widget
+                                                                .firestore);
+                                                      });
+                                                }
+                                                break;
+                                            }
+                                          },
+                                          title: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 2.5),
+                                            child: Text(
+                                              (value[index].type == 'order')
+                                                  ? '${value[index]}\'s Order'
+                                                  : '${value[index]}\'s Birthday',
+                                              style: const TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 16.0),
+                                              overflow: TextOverflow.clip,
+                                            ),
+                                          ),
+                                          subtitle: Row(
+                                            children: [
+                                              Icon(
+                                                (value[index].type == 'order')
+                                                    ? Icons
+                                                        .shopping_cart_outlined
+                                                    : Icons
+                                                        .celebration_outlined,
+                                                color: Colors.black87,
+                                                size: 16.0,
+                                              ),
+                                              const SizedBox(
+                                                width: 3.0,
+                                              ),
+                                              Text((value[index].type ==
+                                                      'order')
+                                                  ? orderFormat
+                                                      .format(value[index].date)
+                                                  : birthdayFormat.format(
+                                                      value[index].date)),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
 
-        return const Loading();
-
-      }
-    );
-
+          return const Loading();
+        });
   }
 }
