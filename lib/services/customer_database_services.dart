@@ -174,4 +174,9 @@ class CustomerService {
         .contains(suggestion.toLowerCase()));
     return test;
   }
+
+  Stream<Customer> testhello(String doc) {
+    return customerCollection.doc(doc).snapshots().map((event) => customerConverter(event));
+  }
+
 }

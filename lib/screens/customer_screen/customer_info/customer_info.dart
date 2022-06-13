@@ -1,8 +1,11 @@
 //import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/edit_customer_new.dart';
+import 'package:dennis_lechon_crm/services/customer_database_services.dart';
+//import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/models/customer.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/button_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_picture.dart';
@@ -54,44 +57,89 @@ class CustomerInfo extends StatefulWidget {
 
 class _CustomerInfoState extends State<CustomerInfo> {
   bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: const Key("Customer Information"),
-      appBar: AppBar(
-        backgroundColor: widget.customer.tagColor,
-        title: Text(
-          '${widget.customer.firstName}\'s Information',
-          style: GoogleFonts.oxygen(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.only(top: 10),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          buildInfo(widget.customer),
-          Center(child: buildNotes(widget.customer, context)),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                      child: buildEditProfileButton(
-                          context, widget.customer, widget.firestore)),
-                  const SizedBox(
-                      height: 25, width: 15), // for Order List Button
-                  Center(
-                      child: buildOrderListButton(
-                          context, widget.customer, widget.firestore)),
-                ]),
-          )
-        ],
-      ),
+    return StreamBuilder<Customer>(
+      stream: CustomerService(firestore: widget.firestore).testhello(widget.customer.id),
+      builder: (context, snapshot) {
+
+        if (!snapshot.hasError) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return const Center(
+                child: Text(
+                  "Offline. Try again later.",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              );
+            case ConnectionState.waiting:
+              return Container(
+                color: widget.customer.tagColor,
+                child: const Center(
+                  child: SpinKitFadingCircle(
+                    color: Colors.white,
+                    size: 65.0,
+                  ),
+                ),
+              );
+            default:
+              return Scaffold(
+                key: const Key("Customer Information"),
+                appBar: AppBar(
+                  backgroundColor: snapshot.data!.tagColor,
+                  title: Text(
+                    '${snapshot.data!.firstName}\'s Information',
+                    style: GoogleFonts.oxygen(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  centerTitle: true,
+                ),
+                body: ListView(
+                  padding: const EdgeInsets.only(top: 10),
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    buildInfo(snapshot.data!),
+                    Center(child: buildNotes(snapshot.data!, context)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Center(
+                                child: buildEditProfileButton(
+                                    context, snapshot.data!, widget.firestore)),
+                            const SizedBox(
+                                height: 25, width: 15), // for Order List Button
+                            Center(
+                                child: buildOrderListButton(
+                                    context, snapshot.data!, widget.firestore)),
+                          ]),
+                    )
+                  ],
+                ),
+              );
+          } 
+        } else {
+          return Center(
+            child: Text(
+              "Something went wrong. Please contact admin. ${snapshot.error}",
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          );
+        }
+
+      }
     );
   }
 }
