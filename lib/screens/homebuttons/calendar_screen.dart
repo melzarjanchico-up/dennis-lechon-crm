@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dennis_lechon_crm/screens/customer_screen/customer_info/customer_info.dart';
 import 'package:dennis_lechon_crm/screens/homebuttons/events.dart';
 import 'package:dennis_lechon_crm/screens/order_screen/order_info/order_info_new.dart';
 import 'package:dennis_lechon_crm/services/calendar_database_services.dart';
@@ -20,7 +21,8 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   final headFormat = DateFormat("EEE - MMMM dd, yyyy");
-  final format = DateFormat("dd MMM yyyy, h:mm a");
+  final orderFormat = DateFormat("dd MMM yyyy, h:mm a");
+  final birthdayFormat = DateFormat("dd MMM yyyy");
   late ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.disabled; // Can be toggled on/off by longpressing a date
@@ -95,18 +97,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return StreamBuilder<List<Event>>(
+    return StreamBuilder<List<List<Event>>>(
       stream: CalendarService(firestore: widget.firestore).events,
       builder: (context, snapshot) {
 
         if (snapshot.hasData) {
         final Map<DateTime, List<Event>> _kEventSource = {};
 
-        for (var event in (snapshot.data)!) { 
-          _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] = 
-          _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] != null 
-          ? [...?_kEventSource[DateTime(event.date.year, event.date.month, event.date.day)], event] : 
-          [event];
+        for (var listStream in (snapshot.data)!) { 
+          for (var event in listStream) {
+            _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] = 
+            _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] != null 
+            ? [...?_kEventSource[DateTime(event.date.year, event.date.month, event.date.day)], event] : 
+            [event];
+          }
         }
         
         kEvents = LinkedHashMap<DateTime, List<Event>>(
@@ -214,16 +218,64 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               ),
                               child: ListTile(
                                 onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return OrderInfo(order: value[index].order, firestore: widget.firestore);
-                                  });
+                                  switch(value[index].type) {
+
+                                    case "customer": {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return CustomerInfo(customer: value[index].customer!, firestore: widget.firestore);
+                                      });
+                                    }
+                                    break;
+
+                                    case "order": {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return OrderInfo(order: value[index].order!, firestore: widget.firestore);
+                                      });
+                                    }
+                                    break;
+
+                                  }
                                 },
-                                title: Text('${value[index]}'),
-                                subtitle: Text(
-                                  format.format(value[index].date),  
+
+                                //title: Text('${value[index]}'),
+                                title: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      (value[index].type == 'order') ? 
+                                        Icons.shopping_cart_outlined :
+                                        Icons.celebration_outlined,
+                                      color: Colors.black87,
+                                      size: 16.0,
+                                    ),
+                                    const SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 2.5),
+                                      child: Text(
+                                        (value[index].type == 'order') ? 
+                                        '${value[index]}\'s Order' : '${value[index]}\'s Birthday',
+                                        style: const TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16.0
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
                                 ),
+
+                                subtitle: Text((value[index].type == 'order') ? 
+                                  orderFormat.format(value[index].date) :
+                                  birthdayFormat.format(value[index].date)
+                                ),
+                                
                               ),
                             );
                           },
@@ -231,6 +283,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       },
                     ),
                   ),
+                  
                 ],
               ),
             ),
