@@ -27,6 +27,7 @@ class _AddCustomerState extends State<AddCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+  bool wasEdited = false;
 
   // Controllers.
   DateTime? _birthdateController;
@@ -45,6 +46,23 @@ class _AddCustomerState extends State<AddCustomer> {
   final TextEditingController _zipcodeController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
+  bool changeCheck() {
+    return _firstNameController.text == savedText &&
+            _middleNameController.text == savedText &&
+            _lastNameController.text == savedText &&
+            _celNumController.text == savedText &&
+            _telNumController.text == savedText &&
+            _streetController.text == savedText &&
+            _barangayController.text == savedText &&
+            _cityController.text == savedText &&
+            _provinceController.text == savedText &&
+            _zipcodeController.text == savedText &&
+            _noteController.text == savedText &&
+            _tagChoice == TagState.hot &&
+            _tagController ==
+              const Tag(name: "Hot", tagColor: Color(0xFFD3231E), index: 1);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,17 +75,7 @@ class _AddCustomerState extends State<AddCustomer> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_firstNameController.text == savedText &&
-            _middleNameController.text == savedText &&
-            _lastNameController.text == savedText &&
-            _celNumController.text == savedText &&
-            _telNumController.text == savedText &&
-            _streetController.text == savedText &&
-            _barangayController.text == savedText &&
-            _cityController.text == savedText &&
-            _provinceController.text == savedText &&
-            _zipcodeController.text == savedText &&
-            _noteController.text == savedText) {
+        if (wasEdited == false || changeCheck()) {
           return true;
         }
         final result = await showDialog(
@@ -163,7 +171,12 @@ class _AddCustomerState extends State<AddCustomer> {
                                     return "Required.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },),
                           ),
                           const SizedBox(width: 5.0),
                           Expanded(
@@ -175,6 +188,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -194,7 +212,12 @@ class _AddCustomerState extends State<AddCustomer> {
                                     return "Required.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },),
                           ),
                           const SizedBox(width: 5.0),
                         ],
@@ -237,7 +260,12 @@ class _AddCustomerState extends State<AddCustomer> {
                                     return "Invalid cellphone number.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },),
                           ),
                           const SizedBox(width: 5.0),
                           Expanded(
@@ -262,7 +290,12 @@ class _AddCustomerState extends State<AddCustomer> {
                                     return "Invalid input.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },),
                           ),
                           const SizedBox(width: 5.0),
                         ],
@@ -295,6 +328,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                 setState(() {
                                   _birthdateController = value;
                                   _ageController = calculateAge(value!);
+                                  wasEdited = true;
                                 });
                               }).onError((error, stackTrace) => null);
                             },
@@ -376,6 +410,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                setState(() {
+                                  wasEdited = true;
+                                });
+                              },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -388,6 +427,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                         ],
@@ -412,6 +456,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -424,6 +473,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -436,6 +490,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                         ],
@@ -475,6 +534,11 @@ class _AddCustomerState extends State<AddCustomer> {
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
                               maxLines: null,
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                         ],
@@ -545,6 +609,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                                 .showSnackBar(generalSnackbar(
                                                     'Customer was added successfully!'));
                                             _isLoadingNotifier.value = false;
+                                            wasEdited = false;
                                           }).onError((error, stackTrace) {
                                             debugPrint(
                                                 "I did something bad... $error");
@@ -587,6 +652,7 @@ class _AddCustomerState extends State<AddCustomer> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          wasEdited = true;
           _tagChoice = tagState;
           _tagController = Tag(
               index: (tagState.index) + 1, tagColor: tagColor, name: tagName);
