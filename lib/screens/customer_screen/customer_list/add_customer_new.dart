@@ -57,7 +57,17 @@ class _AddCustomerState extends State<AddCustomer> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_firstNameController.text == savedText) {
+        if (_firstNameController.text == savedText &&
+            _middleNameController.text == savedText &&
+            _lastNameController.text == savedText &&
+            _celNumController.text == savedText &&
+            _telNumController.text == savedText &&
+            _streetController.text == savedText &&
+            _barangayController.text == savedText &&
+            _cityController.text == savedText &&
+            _provinceController.text == savedText &&
+            _zipcodeController.text == savedText &&
+            _noteController.text == savedText) {
           return true;
         }
         final result = await showDialog(

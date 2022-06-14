@@ -37,7 +37,7 @@ class _EditCustomerState extends State<EditCustomer> {
   DateTime? _birthdateController;
   int? _ageController;
   Tag? _tagController;
-  String? savedText = '';
+  //String? savedText = '';
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _middleNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -79,7 +79,17 @@ class _EditCustomerState extends State<EditCustomer> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_firstNameController.text == savedText) {
+        if (_firstNameController.text == widget.customer.firstName &&
+            _middleNameController.text == widget.customer.middleName &&
+            _lastNameController.text == widget.customer.lastName &&
+            _celNumController.text == widget.customer.celNum &&
+            _telNumController.text == widget.customer.telNum &&
+            _streetController.text == widget.customer.adrStreet &&
+            _barangayController.text == widget.customer.adrBarangay &&
+            _cityController.text == widget.customer.adrCity &&
+            _provinceController.text == widget.customer.adrProvince &&
+            _zipcodeController.text == widget.customer.adrZipcode &&
+            _noteController.text == widget.customer.note) {
           return true;
         }
         final result = await showDialog(
