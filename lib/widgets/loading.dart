@@ -31,3 +31,17 @@ class ClearLoading extends StatelessWidget {
     );
   }
 }
+
+class DarkLoading extends StatelessWidget {
+  const DarkLoading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: SpinKitFadingCircle(
+        color: Colors.grey,
+        size: 65.0,
+      ),
+    );
+  }
+}

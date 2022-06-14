@@ -171,6 +171,12 @@ class OrderService {
         .map(_orderListFromUnfilteredSnapshot);
   }
 
+  Stream<Order> testhello(String customerDoc, String orderDoc) {
+    return customerCollection.doc(customerDoc).collection('orders').doc(orderDoc).snapshots().map(
+      (event) => orderConverter(event)
+    );
+  }
+
   Stream<List<Order>> makeStream(List<Order> list) async* {
     yield list;
   }

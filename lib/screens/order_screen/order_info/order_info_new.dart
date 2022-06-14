@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/loading.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:dennis_lechon_crm/widgets/style.dart';
 //import 'package:dennis_lechon_crm/widgets/style.dart';
@@ -25,29 +26,74 @@ class _OrderInfoState extends State<OrderInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final smallLechonPrice = 5000 * widget.order.smallLechonCount;
-    final mediumLechonPrice = 6000 * widget.order.mediumLechonCount;
-    final largeLechonPrice = 7000 * widget.order.largeLechonCount;
-    final extraLargeLechonPrice = 8000 * widget.order.extraLargeLechonCount;
+    //return fullDialogue();
+    return StreamBuilder<Order>(
+      stream: OrderService(firestore: widget.firestore).testhello(widget.order.customerId, widget.order.id),
+      builder: (context, snapshot) {
+
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0))
+          ),
+          contentPadding: const EdgeInsets.only(top: 0.0),
+          insetPadding: const EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
+          content: (!snapshot.hasError) ? 
+            hasDataCheck(snapshot) :
+            //fullDialogue() : 
+            Center(
+              child: Text(
+                "Something went wrong. Please contact admin. ${snapshot.error}",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+        );
+      }
+    );
+  }
+
+  Widget hasDataCheck(AsyncSnapshot<Order> snapshot) {
+    switch(snapshot.connectionState) {
+      case ConnectionState.none:
+        return const Center(
+          child: Text(
+            "Offline. Try again later.",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        );
+      case ConnectionState.waiting:
+        return const Center(
+          child: DarkLoading(),
+        );
+      default:
+        return fullDialogue(snapshot.data!);
+    }
+  }
+
+  Widget fullDialogue(Order order) {
+    final smallLechonPrice = 5000 * order.smallLechonCount;
+    final mediumLechonPrice = 6000 * order.mediumLechonCount;
+    final largeLechonPrice = 7000 * order.largeLechonCount;
+    final extraLargeLechonPrice = 8000 * order.extraLargeLechonCount;
 
     final subPrice = smallLechonPrice +
         mediumLechonPrice +
         largeLechonPrice +
         extraLargeLechonPrice;
-    final totalPrice = subPrice + widget.order.deliveryFee;
-    final totalItem = widget.order.smallLechonCount +
-        widget.order.mediumLechonCount +
-        widget.order.largeLechonCount +
-        widget.order.extraLargeLechonCount;
+    final totalPrice = subPrice + order.deliveryFee;
+    final totalItem = order.smallLechonCount +
+        order.mediumLechonCount +
+        order.largeLechonCount +
+        order.extraLargeLechonCount;
 
-    return AlertDialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(30.0)),
-      ),
-      contentPadding: const EdgeInsets.only(top: 0.0),
-      insetPadding:
-          const EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-      content: Column(
+    return Column(
         children: [
           Stack(
             children: <Widget>[
@@ -80,7 +126,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               text: "Order ",
                             ),
                             TextSpan(
-                              text: "#${widget.order.id.substring(0, 5)}",
+                              text: "#${order.id.substring(0, 5)}",
                             ),
                           ],
                         ),
@@ -109,7 +155,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 2.5),
                                   child: Text(
-                                    format.format(widget.order.dateDelivery),
+                                    format.format(order.dateDelivery),
                                     style: const TextStyle(
                                         fontFamily: 'Montserrat',
                                         color: Colors.white,
@@ -125,7 +171,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          (widget.order.isRush)
+                          (order.isRush)
                               ? Container(
                                   margin: const EdgeInsets.only(right: 3.0),
                                   padding: const EdgeInsets.symmetric(
@@ -160,7 +206,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                 color: AppColors.yellowColor),
                             child: Row(children: [
                               Icon(
-                                (widget.order.isDelivery)
+                                (order.isDelivery)
                                     ? Icons.delivery_dining_outlined
                                     : Icons.hail_outlined,
                                 color: Colors.white,
@@ -170,7 +216,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 2.5),
                                 child: Text(
-                                    (widget.order.isDelivery)
+                                    (order.isDelivery)
                                         ? "DELIVERY"
                                         : "PICK-UP",
                                     style: GoogleFonts.mulish(
@@ -190,7 +236,7 @@ class _OrderInfoState extends State<OrderInfo> {
                             child: Row(children: [
                               const Icon(
                                 Icons.account_balance_wallet_outlined,
-                                // (widget.order.orderPaymentStatus == 'Paid')
+                                // (order.orderPaymentStatus == 'Paid')
                                 //     ? Icons.check
                                 //     : Icons.account_balance_wallet_outlined,
                                 color: Colors.white,
@@ -200,7 +246,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 2.5),
                                 child: Text(
-                                    widget.order.orderPaymentStatus
+                                    order.orderPaymentStatus
                                         .toUpperCase(),
                                     style: GoogleFonts.mulish(
                                         color: Colors.white,
@@ -216,25 +262,6 @@ class _OrderInfoState extends State<OrderInfo> {
                 ),
               ),
 
-              // Positioned(
-              //   right: 3.0,
-              //   top: 5.0,
-              //   child: InkResponse(
-              //     radius: 17,
-              //     onTap: () {
-              //       Navigator.of(context).pop();
-              //     },
-              //     child: const CircleAvatar(
-              //       radius: 17,
-              //       backgroundColor: Color.fromARGB(255, 173, 23, 18),
-              //       child: Icon(
-              //         Icons.close,
-              //         color: Colors.white,
-              //         size: 23.0,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Positioned(
                 right: 10,
                 top: 10,
@@ -281,7 +308,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
-                                '${widget.order.firstName} ${widget.order.lastName}',
+                                '${order.firstName} ${order.lastName}',
                                 style: const TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 14.0,
@@ -305,7 +332,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text(
-                                widget.order.contact,
+                                order.contact,
                                 style: const TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 14.0,
@@ -337,7 +364,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                   fontWeight: FontWeight.w300),
                             ),
                             Text(
-                              widget.order.address,
+                              order.address,
                               style: const TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 14.0,
@@ -381,7 +408,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "Small Lechon",
                                           "(Php 5000)",
-                                          "${widget.order.smallLechonCount}",
+                                          "${order.smallLechonCount}",
                                           "$smallLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
@@ -389,7 +416,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "Medium Lechon",
                                           "(Php 6000)",
-                                          "${widget.order.mediumLechonCount}",
+                                          "${order.mediumLechonCount}",
                                           "$mediumLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
@@ -397,7 +424,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "Large Lechon",
                                           "(Php 7000)",
-                                          "${widget.order.largeLechonCount}",
+                                          "${order.largeLechonCount}",
                                           "$largeLechonPrice"),
                                       const SizedBox(
                                         height: 20.0,
@@ -405,7 +432,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                       orderWidget(
                                           "XL Lechon",
                                           "(Php 8000)",
-                                          "${widget.order.extraLargeLechonCount}",
+                                          "${order.extraLargeLechonCount}",
                                           "$extraLargeLechonPrice"),
                                       const SizedBox(height: 20.0),
 
@@ -464,7 +491,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                 Expanded(
                                                   flex: 6,
                                                   child: Text(
-                                                    "Php ${widget.order.deliveryFee}",
+                                                    "Php ${order.deliveryFee}",
                                                     textAlign: TextAlign.end,
                                                     style: const TextStyle(
                                                       fontFamily: 'Montserrat',
@@ -600,7 +627,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => EditOrder(
-                                              order: widget.order,
+                                              order: order,
                                               firestore: widget.firestore,
                                             ))));
                               },
@@ -611,7 +638,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               alignment: Alignment.centerRight,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: (widget.order.orderPaymentStatus != 'Paid') ? 
+                                  primary: (order.orderPaymentStatus != 'Paid') ? 
                                     const Color(0xFFD3231E) : Colors.grey,
                                   onPrimary: Colors.white,
                                   elevation: 5,
@@ -620,22 +647,22 @@ class _OrderInfoState extends State<OrderInfo> {
                                   minimumSize: const Size(10, 2),
                                 ),
                                 child: Icon(
-                                  (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                  (order.orderPaymentStatus == 'Delivered') ? 
                                     Icons.delete_forever_rounded : Icons.cancel_rounded,
                                 ),
                                 onPressed: () {
-                                  (widget.order.orderPaymentStatus != 'Paid') ?
+                                  (order.orderPaymentStatus != 'Paid') ?
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           title: Text(
-                                              (widget.order.orderPaymentStatus == 'Delivered') ? 
-                                              "Delete Order#${widget.order.id.substring(0, 5)}?" :
-                                              "Cancel Order#${widget.order.id.substring(0, 5)}?"
+                                              (order.orderPaymentStatus == 'Delivered') ? 
+                                              "Delete Order#${order.id.substring(0, 5)}?" :
+                                              "Cancel Order#${order.id.substring(0, 5)}?"
                                             ) ,
                                           content: Text(
-                                              (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                              (order.orderPaymentStatus == 'Delivered') ? 
                                               "Are you sure you want to delete this order? You cannot undo this action." :
                                               "Are you sure you want to cancel this order? You cannot undo this action."),
                                           actions: [
@@ -665,7 +692,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                                       .then(
                                                                           (value) {
                                                                     debugPrint(
-                                                                        "Order delete successful! (${widget.order.customerId})(${widget.order.id})");
+                                                                        "Order delete successful! (${order.customerId})(${order.id})");
                                                                     Navigator.of(
                                                                             context)
                                                                         .pop();
@@ -676,7 +703,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                                             context)
                                                                         .showSnackBar(
                                                                           generalSnackbar(
-                                                                            (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                                                            (order.orderPaymentStatus == 'Delivered') ? 
                                                                             "Order deletion successful!" :
                                                                             "Order cancellation sucessful!"
                                                                           )
@@ -695,7 +722,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                                                             context)
                                                                         .showSnackBar(
                                                                           generalSnackbar(
-                                                                            (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                                                            (order.orderPaymentStatus == 'Delivered') ? 
                                                                             "Order deletion failed. Try again." :
                                                                             "Order cancellation failed. Try again."
                                                                           )
@@ -730,9 +757,9 @@ class _OrderInfoState extends State<OrderInfo> {
             ),
           ),
         ],
-      ),
-    );
+      );
   }
+
 }
 
 Widget orderWidget(String name, String size, String amt, String price) {
