@@ -28,35 +28,35 @@ class _OrderInfoState extends State<OrderInfo> {
   Widget build(BuildContext context) {
     //return fullDialogue();
     return StreamBuilder<Order>(
-      stream: OrderService(firestore: widget.firestore).testhello(widget.order.customerId, widget.order.id),
-      builder: (context, snapshot) {
-
-        return AlertDialog(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
-          contentPadding: const EdgeInsets.only(top: 0.0),
-          insetPadding: const EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-          content: (!snapshot.hasError) ? 
-            hasDataCheck(snapshot) :
-            //fullDialogue() : 
-            Center(
-              child: Text(
-                "Something went wrong. Please contact admin. ${snapshot.error}",
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-        );
-      }
-    );
+        stream: OrderService(firestore: widget.firestore)
+            .testhello(widget.order.customerId, widget.order.id),
+        builder: (context, snapshot) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0))),
+            contentPadding: const EdgeInsets.only(top: 0.0),
+            insetPadding:
+                const EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
+            content: (!snapshot.hasError)
+                ? hasDataCheck(snapshot)
+                :
+                //fullDialogue() :
+                Center(
+                    child: Text(
+                      "Something went wrong. Please contact admin. ${snapshot.error}",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+          );
+        });
   }
 
   Widget hasDataCheck(AsyncSnapshot<Order> snapshot) {
-    switch(snapshot.connectionState) {
+    switch (snapshot.connectionState) {
       case ConnectionState.none:
         return const Center(
           child: Text(
@@ -94,269 +94,205 @@ class _OrderInfoState extends State<OrderInfo> {
         order.extraLargeLechonCount;
 
     return Column(
-        children: [
-          Stack(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFD3231E),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 245, 246, 247),
-                          ),
-                          children: [
-                            const TextSpan(
-                              text: "Order ",
-                            ),
-                            TextSpan(
-                              text: "#${order.id.substring(0, 5)}",
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 5.0),
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 2.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: AppColors.yellowColor),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today,
-                                  size: 16.0,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(
-                                  width: 5.0,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 2.5),
-                                  child: Text(
-                                    format.format(order.dateDelivery),
-                                    style: const TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Colors.white,
-                                        fontSize: 14.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5.0),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          (order.isRush)
-                              ? Container(
-                                  margin: const EdgeInsets.only(right: 3.0),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 2.0),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      color: AppColors.yellowColor),
-                                  child: Row(children: [
-                                    const Icon(
-                                      Icons.alarm,
-                                      color: Colors.white,
-                                      size: 14.0,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2.5),
-                                      child: Text("RUSH",
-                                          style: GoogleFonts.mulish(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13.0)),
-                                    )
-                                  ]),
-                                )
-                              : Container(),
-                          Container(
-                            margin: const EdgeInsets.only(right: 3.0),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 2.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: AppColors.yellowColor),
-                            child: Row(children: [
-                              Icon(
-                                (order.isDelivery)
-                                    ? Icons.delivery_dining_outlined
-                                    : Icons.hail_outlined,
-                                color: Colors.white,
-                                size: 16.0,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2.5),
-                                child: Text(
-                                    (order.isDelivery)
-                                        ? "DELIVERY"
-                                        : "PICK-UP",
-                                    style: GoogleFonts.mulish(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13.0)),
-                              )
-                            ]),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(right: 3.0),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 2.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: AppColors.yellowColor),
-                            child: Row(children: [
-                              const Icon(
-                                Icons.account_balance_wallet_outlined,
-                                // (order.orderPaymentStatus == 'Paid')
-                                //     ? Icons.check
-                                //     : Icons.account_balance_wallet_outlined,
-                                color: Colors.white,
-                                size: 16.0,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2.5),
-                                child: Text(
-                                    order.orderPaymentStatus
-                                        .toUpperCase(),
-                                    style: GoogleFonts.mulish(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13.0)),
-                              )
-                            ]),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+      children: [
+        Stack(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                color: Color(0xFFD3231E),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
                 ),
               ),
-
-              Positioned(
-                right: 10,
-                top: 10,
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Align(
-                        alignment: Alignment.topRight,
-                        child: CircleAvatar(
-                          radius: 17,
-                          backgroundColor: Color.fromARGB(255, 189, 25, 20),
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: 17,
-                          ),
-                        ))),
-              ),
-            ],
-          ),
-          Flexible(
-            child: SingleChildScrollView(
-              child: Container(
-                padding:
-                    const EdgeInsets.only(left: 25.0, right: 25.0, top: 10.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 25.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // name & contact
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Name:',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                              Text(
-                                '${order.firstName} ${order.lastName}',
-                                style: const TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 14.0,
-                                    color: Color(0xFF1F2426),
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromARGB(255, 245, 246, 247),
                         ),
-                        //SizedBox(width: 230, height: 0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TextSpan(
+                            text: "Order ",
+                          ),
+                          TextSpan(
+                            text: "#${order.id.substring(0, 5)}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 5.0),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 2.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.yellowColor),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Contact Number:',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    color: Colors.grey,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
+                              const Icon(
+                                Icons.calendar_today,
+                                size: 16.0,
+                                color: Colors.white,
                               ),
-                              Text(
-                                order.contact,
-                                style: const TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 14.0,
-                                    color: Color(0xFF1F2426),
-                                    fontWeight: FontWeight.w500),
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2.5),
+                                child: Text(
+                                  format.format(order.dateDelivery),
+                                  style: const TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14.0),
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 10.0),
-
-                    // address
-                    Flex(
-                      direction: Axis.horizontal,
+                    const SizedBox(height: 5.0),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Expanded(
-                            child: Column(
+                        (order.isRush)
+                            ? Container(
+                                margin: const EdgeInsets.only(right: 3.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 2.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: AppColors.yellowColor),
+                                child: Row(children: [
+                                  const Icon(
+                                    Icons.alarm,
+                                    color: Colors.white,
+                                    size: 14.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 2.5),
+                                    child: Text("RUSH",
+                                        style: GoogleFonts.mulish(
+                                            color: Colors.white,
+                                            fontSize: 12.0)),
+                                  )
+                                ]),
+                              )
+                            : Container(),
+                        Container(
+                          margin: const EdgeInsets.only(right: 3.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 2.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.yellowColor),
+                          child: Row(children: [
+                            Icon(
+                              (order.isDelivery)
+                                  ? Icons.delivery_dining_outlined
+                                  : Icons.hail_outlined,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.5),
+                              child: Text(
+                                  (order.isDelivery) ? "DELIVERY" : "PICK-UP",
+                                  style: GoogleFonts.mulish(
+                                      color: Colors.white, fontSize: 12.0)),
+                            )
+                          ]),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(right: 3.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 2.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.yellowColor),
+                          child: Row(children: [
+                            const Icon(
+                              Icons.account_balance_wallet_outlined,
+                              // (order.orderPaymentStatus == 'Paid')
+                              //     ? Icons.check
+                              //     : Icons.account_balance_wallet_outlined,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.5),
+                              child: Text(
+                                  order.orderPaymentStatus.toUpperCase(),
+                                  style: GoogleFonts.mulish(
+                                      color: Colors.white, fontSize: 12.0)),
+                            )
+                          ]),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              right: 10,
+              top: 10,
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Align(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        radius: 17,
+                        backgroundColor: Color.fromARGB(255, 189, 25, 20),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ))),
+            ),
+          ],
+        ),
+        Flexible(
+          child: SingleChildScrollView(
+            child: Container(
+              padding:
+                  const EdgeInsets.only(left: 25.0, right: 25.0, top: 10.0),
+              child: Column(
+                children: [
+                  // name & contact
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Address',
+                              'Name:',
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Colors.grey,
@@ -364,7 +300,7 @@ class _OrderInfoState extends State<OrderInfo> {
                                   fontWeight: FontWeight.w300),
                             ),
                             Text(
-                              order.address,
+                              '${order.firstName} ${order.lastName}',
                               style: const TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 14.0,
@@ -372,394 +308,438 @@ class _OrderInfoState extends State<OrderInfo> {
                                   fontWeight: FontWeight.w500),
                             ),
                           ],
-                        )),
-                      ],
-                    ),
+                        ),
+                      ),
+                      //SizedBox(width: 230, height: 0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Contact Number:',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.grey,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              order.contact,
+                              style: const TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 14.0,
+                                  color: Color(0xFF1F2426),
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
 
-                    const SizedBox(height: 25.0),
+                  const SizedBox(height: 10.0),
 
-                    const Text(
-                      'Order Details',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 17.0,
-                          color: Color(0xFF1F2426),
-                          fontWeight: FontWeight.w500),
-                    ),
-
-                    Flex(
-                      direction: Axis.horizontal,
-                      children: [
-                        Expanded(
+                  // address
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Expanded(
                           child: Column(
-                            children: [
-                              Card(
-                                color: const Color.fromARGB(255, 243, 243, 243),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                elevation: 3,
-                                margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 20.0, horizontal: 20.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      orderWidget(
-                                          "Small Lechon",
-                                          "(Php 5000)",
-                                          "${order.smallLechonCount}",
-                                          "$smallLechonPrice"),
-                                      const SizedBox(
-                                        height: 20.0,
-                                      ),
-                                      orderWidget(
-                                          "Medium Lechon",
-                                          "(Php 6000)",
-                                          "${order.mediumLechonCount}",
-                                          "$mediumLechonPrice"),
-                                      const SizedBox(
-                                        height: 20.0,
-                                      ),
-                                      orderWidget(
-                                          "Large Lechon",
-                                          "(Php 7000)",
-                                          "${order.largeLechonCount}",
-                                          "$largeLechonPrice"),
-                                      const SizedBox(
-                                        height: 20.0,
-                                      ),
-                                      orderWidget(
-                                          "XL Lechon",
-                                          "(Php 8000)",
-                                          "${order.extraLargeLechonCount}",
-                                          "$extraLargeLechonPrice"),
-                                      const SizedBox(height: 20.0),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Address',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                color: Colors.grey,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          Text(
+                            order.address,
+                            style: const TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 14.0,
+                                color: Color(0xFF1F2426),
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      )),
+                    ],
+                  ),
 
-                                      // subtotal & delivery
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 25, right: 10),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Expanded(
-                                                  flex: 4,
-                                                  child: Text(
-                                                    "Subtotal",
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 13,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 6,
-                                                  child: Text(
-                                                    //without backend yet
-                                                    "Php $subPrice",
-                                                    textAlign: TextAlign.end,
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 13,
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 5.0),
-                                            Row(
-                                              children: [
-                                                const Expanded(
-                                                  flex: 4,
-                                                  child: Text(
-                                                    "Delivery Fee",
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 13,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 6,
-                                                  child: Text(
-                                                    "Php ${order.deliveryFee}",
-                                                    textAlign: TextAlign.end,
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 13,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                  const SizedBox(height: 25.0),
 
-                                      const SizedBox(height: 20),
+                  const Text(
+                    'Order Details',
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 17.0,
+                        color: Color(0xFF1F2426),
+                        fontWeight: FontWeight.w500),
+                  ),
 
-                                      // the line
-                                      Container(
-                                        width: 250,
-                                        height: 2,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 221, 220, 220),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              color: Color.fromARGB(
-                                                  255, 207, 206, 206),
-                                              offset: Offset(0.0, 2.0),
-                                              blurRadius: 2,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Card(
+                              color: const Color.fromARGB(255, 243, 243, 243),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              elevation: 3,
+                              margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 20.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    orderWidget(
+                                        "Small Lechon",
+                                        "(Php 5000)",
+                                        "${order.smallLechonCount}",
+                                        "$smallLechonPrice"),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    orderWidget(
+                                        "Medium Lechon",
+                                        "(Php 6000)",
+                                        "${order.mediumLechonCount}",
+                                        "$mediumLechonPrice"),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    orderWidget(
+                                        "Large Lechon",
+                                        "(Php 7000)",
+                                        "${order.largeLechonCount}",
+                                        "$largeLechonPrice"),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    orderWidget(
+                                        "XL Lechon",
+                                        "(Php 8000)",
+                                        "${order.extraLargeLechonCount}",
+                                        "$extraLargeLechonPrice"),
+                                    const SizedBox(height: 20.0),
 
-                                      const SizedBox(height: 20),
-
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 5,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    const Text(
-                                                      "Total ",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          fontSize: 15.0,
-                                                          color: Color.fromARGB(
-                                                              255, 29, 29, 29),
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                    ),
-                                                    Text(
-                                                      '($totalItem items)',
-                                                      style: const TextStyle(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color: Color.fromARGB(
-                                                            255, 80, 79, 79),
-                                                        letterSpacing: 0,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )),
-                                            Expanded(
-                                                flex: 5,
+                                    // subtotal & delivery
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, right: 10),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Expanded(
+                                                flex: 4,
                                                 child: Text(
-                                                  'Php $totalPrice',
+                                                  "Subtotal",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    fontSize: 13,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 6,
+                                                child: Text(
+                                                  //without backend yet
+                                                  "Php $subPrice",
                                                   textAlign: TextAlign.end,
                                                   style: const TextStyle(
                                                     fontFamily: 'Montserrat',
-                                                    color: Color.fromARGB(
-                                                        255, 80, 79, 79),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w800,
+                                                    fontSize: 13,
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ))
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5.0),
+                                          Row(
+                                            children: [
+                                              const Expanded(
+                                                flex: 4,
+                                                child: Text(
+                                                  "Delivery Fee",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    fontSize: 13,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 6,
+                                                child: Text(
+                                                  "Php ${order.deliveryFee}",
+                                                  textAlign: TextAlign.end,
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    fontSize: 13,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 20),
+
+                                    // the line
+                                    Container(
+                                      width: 250,
+                                      height: 2,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 221, 220, 220),
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Color.fromARGB(
+                                                255, 207, 206, 206),
+                                            offset: Offset(0.0, 2.0),
+                                            blurRadius: 2,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 20),
+
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                              flex: 5,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Total ",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        fontSize: 15.0,
+                                                        color: Color.fromARGB(
+                                                            255, 29, 29, 29),
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  ),
+                                                  Text(
+                                                    '($totalItem items)',
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      color: Color.fromARGB(
+                                                          255, 80, 79, 79),
+                                                      letterSpacing: 0,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )),
+                                          Expanded(
+                                              flex: 5,
+                                              child: Text(
+                                                'Php $totalPrice',
+                                                textAlign: TextAlign.end,
+                                                style: const TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color.fromARGB(
+                                                      255, 80, 79, 79),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w800,
+                                                ),
+                                              ))
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 30.0),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                            child: SizedBox(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0.0, bottom: 30.0),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xFFD3231E),
+                              onPrimary: Colors.white,
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              padding: const EdgeInsets.all(2),
+                              fixedSize: const Size(150, 5),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 10.0),
+                              child: Text('Edit',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 12.0,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            onPressed: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => EditOrder(
+                                            order: order,
+                                            firestore: widget.firestore,
+                                          ))));
+                            },
                           ),
-                          Expanded(
+                        ),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.centerRight,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFFD3231E),
+                                primary:
+                                    (widget.order.orderPaymentStatus != 'Paid')
+                                        ? const Color(0xFFD3231E)
+                                        : Colors.grey,
                                 onPrimary: Colors.white,
                                 elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                padding: const EdgeInsets.all(2),
-                                fixedSize: const Size(150, 5),
+                                shape: const CircleBorder(),
+                                padding: const EdgeInsets.all(8.0),
+                                minimumSize: const Size(10, 2),
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 10.0),
-                                child: Text('Edit',
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 12.0,
-                                      color: Colors.white,
-                                    )),
+                              child: Icon(
+                                (widget.order.orderPaymentStatus == 'Delivered')
+                                    ? Icons.delete_forever_rounded
+                                    : Icons.cancel_rounded,
                               ),
-                              onPressed: () async {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) => EditOrder(
-                                              order: order,
-                                              firestore: widget.firestore,
-                                            ))));
+                              onPressed: () {
+                                (widget.order.orderPaymentStatus != 'Paid')
+                                    ? showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text((widget.order
+                                                        .orderPaymentStatus ==
+                                                    'Delivered')
+                                                ? "Delete Order#${widget.order.id.substring(0, 5)}?"
+                                                : "Cancel Order#${widget.order.id.substring(0, 5)}?"),
+                                            content: Text((widget.order
+                                                        .orderPaymentStatus ==
+                                                    'Delivered')
+                                                ? "Are you sure you want to delete this order? You cannot undo this action."
+                                                : "Are you sure you want to cancel this order? You cannot undo this action."),
+                                            actions: [
+                                              ValueListenableBuilder(
+                                                  valueListenable:
+                                                      _isLoadingNotifier,
+                                                  builder:
+                                                      (context, _isLoading, _) {
+                                                    return TextButton(
+                                                        onPressed:
+                                                            (_isLoading == true)
+                                                                ? null
+                                                                : () async {
+                                                                    _isLoadingNotifier
+                                                                            .value =
+                                                                        true;
+                                                                    await OrderService(
+                                                                            firestore: widget
+                                                                                .firestore)
+                                                                        .deleteOrder(
+                                                                            widget
+                                                                                .order.customerId,
+                                                                            widget
+                                                                                .order.id)
+                                                                        .then(
+                                                                            (value) {
+                                                                      debugPrint(
+                                                                          "Order delete successful! (${widget.order.customerId})(${widget.order.id})");
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      ScaffoldMessenger.of(context).showSnackBar(generalSnackbar((widget.order.orderPaymentStatus ==
+                                                                              'Delivered')
+                                                                          ? "Order deletion successful!"
+                                                                          : "Order cancellation sucessful!"));
+                                                                      _isLoadingNotifier
+                                                                              .value =
+                                                                          false;
+                                                                    }).onError((error,
+                                                                            stackTrace) {
+                                                                      debugPrint(
+                                                                          "Order delete failed");
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      ScaffoldMessenger.of(context).showSnackBar(generalSnackbar((widget.order.orderPaymentStatus ==
+                                                                              'Delivered')
+                                                                          ? "Order deletion failed. Try again."
+                                                                          : "Order cancellation failed. Try again."));
+                                                                      _isLoadingNotifier
+                                                                              .value =
+                                                                          false;
+                                                                    });
+                                                                  },
+                                                        child: const Text(
+                                                            "Confirm"));
+                                                  }),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text("Cancel"))
+                                            ],
+                                          );
+                                        })
+                                    : null;
                               },
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: (order.orderPaymentStatus != 'Paid') ? 
-                                    const Color(0xFFD3231E) : Colors.grey,
-                                  onPrimary: Colors.white,
-                                  elevation: 5,
-                                  shape: const CircleBorder(),
-                                  padding: const EdgeInsets.all(8.0),
-                                  minimumSize: const Size(10, 2),
-                                ),
-                                child: Icon(
-                                  (order.orderPaymentStatus == 'Delivered') ? 
-                                    Icons.delete_forever_rounded : Icons.cancel_rounded,
-                                ),
-                                onPressed: () {
-                                  (order.orderPaymentStatus != 'Paid') ?
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              (order.orderPaymentStatus == 'Delivered') ? 
-                                              "Delete Order#${order.id.substring(0, 5)}?" :
-                                              "Cancel Order#${order.id.substring(0, 5)}?"
-                                            ) ,
-                                          content: Text(
-                                              (order.orderPaymentStatus == 'Delivered') ? 
-                                              "Are you sure you want to delete this order? You cannot undo this action." :
-                                              "Are you sure you want to cancel this order? You cannot undo this action."),
-                                          actions: [
-                                            ValueListenableBuilder(
-                                                valueListenable:
-                                                    _isLoadingNotifier,
-                                                builder:
-                                                    (context, _isLoading, _) {
-                                                  return TextButton(
-                                                      onPressed:
-                                                          (_isLoading == true)
-                                                              ? null
-                                                              : () async {
-                                                                  _isLoadingNotifier
-                                                                          .value =
-                                                                      true;
-                                                                  await OrderService(
-                                                                          firestore: widget
-                                                                              .firestore)
-                                                                      .deleteOrder(
-                                                                          widget
-                                                                              .order
-                                                                              .customerId,
-                                                                          widget
-                                                                              .order
-                                                                              .id)
-                                                                      .then(
-                                                                          (value) {
-                                                                    debugPrint(
-                                                                        "Order delete successful! (${order.customerId})(${order.id})");
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                          generalSnackbar(
-                                                                            (order.orderPaymentStatus == 'Delivered') ? 
-                                                                            "Order deletion successful!" :
-                                                                            "Order cancellation sucessful!"
-                                                                          )
-                                                                        );
-                                                                    _isLoadingNotifier
-                                                                            .value =
-                                                                        false;
-                                                                  }).onError((error,
-                                                                          stackTrace) {
-                                                                    debugPrint(
-                                                                        "Order delete failed");
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                          generalSnackbar(
-                                                                            (order.orderPaymentStatus == 'Delivered') ? 
-                                                                            "Order deletion failed. Try again." :
-                                                                            "Order cancellation failed. Try again."
-                                                                          )
-                                                                      );
-                                                                    _isLoadingNotifier
-                                                                            .value =
-                                                                        false;
-                                                                  });
-                                                                },
-                                                      child: const Text(
-                                                          "Confirm"));
-                                                }),
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text("Cancel"))
-                                          ],
-                                        );
-                                      }
-                                  ) : null;
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
-
 }
 
 Widget orderWidget(String name, String size, String amt, String price) {

@@ -25,7 +25,7 @@ class _CalendarDashState extends State<CalendarDash> {
   late ValueNotifier<List<Event>> _selectedEvents;
 
   var kEvents = {};
-  
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +37,7 @@ class _CalendarDashState extends State<CalendarDash> {
     _selectedEvents.dispose();
     super.dispose();
   }
-  
+
   List<Event> _getEventsForDay(DateTime day) {
     // Implementation example
     return kEvents[day] ?? [];
@@ -45,161 +45,166 @@ class _CalendarDashState extends State<CalendarDash> {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<List<List<Event>>>(
-      stream: CalendarService(firestore: widget.firestore).events,
-      builder: (context, snapshot) {
+        stream: CalendarService(firestore: widget.firestore).events,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final Map<DateTime, List<Event>> _kEventSource = {};
 
-        if (snapshot.hasData) {
-        final Map<DateTime, List<Event>> _kEventSource = {};
+            for (var listStream in (snapshot.data)!) {
+              for (var event in listStream) {
+                //debugPrint('$event - ${event.type} - ${event.date}');
+                _kEventSource[DateTime(event.date.year, event.date.month,
+                    event.date.day)] = _kEventSource[DateTime(event.date.year,
+                            event.date.month, event.date.day)] !=
+                        null
+                    ? [
+                        ...?_kEventSource[DateTime(
+                            event.date.year, event.date.month, event.date.day)],
+                        event
+                      ]
+                    : [event];
+              }
+              //debugPrint('\n');
+            }
 
-        for (var listStream in (snapshot.data)!) { 
-          for (var event in listStream) {
-            //debugPrint('$event - ${event.type} - ${event.date}');
-            _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] = 
-            _kEventSource[DateTime(event.date.year, event.date.month, event.date.day)] != null 
-            ? [...?_kEventSource[DateTime(event.date.year, event.date.month, event.date.day)], event] : 
-            [event];
-          }
-          //debugPrint('\n');
-        }
-        
-        kEvents = LinkedHashMap<DateTime, List<Event>>(
-          equals: isSameDay,
-          hashCode: getHashCode,
-        )..addAll(_kEventSource);
+            kEvents = LinkedHashMap<DateTime, List<Event>>(
+              equals: isSameDay,
+              hashCode: getHashCode,
+            )..addAll(_kEventSource);
 
-        _selectedEvents = ValueNotifier(_getEventsForDay(DateTime.now()));
+            _selectedEvents = ValueNotifier(_getEventsForDay(DateTime.now()));
 
-        return Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          elevation: 3,
-          margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              children: [
-
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4.0),
-                    child: Text(
-                      'Today\'s Events (${headFormat.format(DateTime.now())})',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-                      textAlign: TextAlign.left
+            return Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 3,
+              margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  verticalDirection: VerticalDirection.down,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 4.0),
+                        child: Text(
+                            'Today\'s Events (${headFormat.format(DateTime.now())})',
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w900),
+                            textAlign: TextAlign.left),
+                      ),
                     ),
-                  ),
-                ),
-
-                Flexible(
-                  child: ValueListenableBuilder<List<Event>>(
-                    valueListenable: _selectedEvents,
-                    builder: (context, value, _) {
-                      return value.isEmpty ? 
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          child: Center(
-                            child: Text("No events for today!")
-                          ),
-                        ) :
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: value.length,
-                        itemBuilder: (context, index) {
-
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: ListTile(
-                                onTap: () {
-                                  switch(value[index].type) {
-
-                                    case "customer": {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return CustomerInfo(customer: value[index].customer!, firestore: widget.firestore);
-                                      });
-                                    }
-                                    break;
-
-                                    case "order": {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return OrderInfo(order: value[index].order!, firestore: widget.firestore);
-                                      });
-                                    }
-                                    break;
-
-                                  }
-                                },
-
-                                title: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      (value[index].type == 'order') ? 
-                                        Icons.shopping_cart_outlined :
-                                        Icons.celebration_outlined,
-                                      color: Colors.black87,
-                                      size: 16.0,
-                                    ),
-                                    const SizedBox(
-                                      width: 3.0,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2.5),
-                                      child: Text(
-                                        (value[index].type == 'order') ? 
-                                        '${value[index]}\'s Order' : '${value[index]}\'s Birthday',
-                                        style: const TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16.0
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
+                    Flexible(
+                      child: ValueListenableBuilder<List<Event>>(
+                        valueListenable: _selectedEvents,
+                        builder: (context, value, _) {
+                          return value.isEmpty
+                              ? const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  child: Center(
+                                      child: Text("No events for today!")),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: value.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 12.0,
+                                        vertical: 4.0,
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      child: ListTile(
+                                        onTap: () {
+                                          switch (value[index].type) {
+                                            case "customer":
+                                              {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return CustomerInfo(
+                                                          customer: value[index]
+                                                              .customer!,
+                                                          firestore:
+                                                              widget.firestore);
+                                                    });
+                                              }
+                                              break;
 
-                                subtitle: Text((value[index].type == 'order') ? 
-                                  orderFormat.format(value[index].date) :
-                                  birthdayFormat.format(value[index].date)
-                                ),
-                                
-                              ),
-                            );
+                                            case "order":
+                                              {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return OrderInfo(
+                                                          order: value[index]
+                                                              .order!,
+                                                          firestore:
+                                                              widget.firestore);
+                                                    });
+                                              }
+                                              break;
+                                          }
+                                        },
+                                        title: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 2.5),
+                                          child: Text(
+                                            (value[index].type == 'order')
+                                                ? '${value[index]}\'s Order'
+                                                : '${value[index]}\'s Birthday',
+                                            style: const TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontSize: 16.0),
+                                            overflow: TextOverflow.clip,
+                                          ),
+                                        ),
+                                        subtitle: Row(
+                                          children: [
+                                            Icon(
+                                              (value[index].type == 'order')
+                                                  ? Icons.shopping_cart_outlined
+                                                  : Icons.celebration_outlined,
+                                              color: Colors.black87,
+                                              size: 16.0,
+                                            ),
+                                            const SizedBox(
+                                              width: 3.0,
+                                            ),
+                                            Text((value[index].type == 'order')
+                                                ? orderFormat
+                                                    .format(value[index].date)
+                                                : birthdayFormat
+                                                    .format(value[index].date)),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        );
+              ),
+            );
+          }
 
-        }
-
-        return const ClearLoading();
-
-      }
-    );
-
+          return const ClearLoading();
+        });
   }
 }
 

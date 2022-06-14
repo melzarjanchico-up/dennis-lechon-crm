@@ -69,8 +69,8 @@ flutter_icons:
 
 flutter_native_splash:
   image: assets/images/dennislogo.png
-  color: "ffffff"
-  fill: true
+  color: "#d3231e"
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
