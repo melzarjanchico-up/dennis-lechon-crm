@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-              height: size.height * 0.15,
+              height: size.height * 0.10,
               child: Stack(children: <Widget>[
                 // Container(
                 //   height: 60,
@@ -52,7 +52,7 @@ class Body extends StatelessWidget {
                   right: 0,
                   child: Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 15),
+                      margin: const EdgeInsets.fromLTRB(30, 1, 30, 15),
                       padding: const EdgeInsets.fromLTRB(
                         20,
                         0,
