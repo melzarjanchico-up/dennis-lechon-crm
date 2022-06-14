@@ -32,6 +32,7 @@ class _EditCustomerState extends State<EditCustomer> {
   TagState? _tagChoice;
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+  bool wasEdited = false;
 
   // Controllers.
   DateTime? _birthdateController;
@@ -79,55 +80,48 @@ class _EditCustomerState extends State<EditCustomer> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_firstNameController.text == widget.customer.firstName &&
-            _middleNameController.text == widget.customer.middleName &&
-            _lastNameController.text == widget.customer.lastName &&
-            _celNumController.text == widget.customer.celNum &&
-            _telNumController.text == widget.customer.telNum &&
-            _streetController.text == widget.customer.adrStreet &&
-            _barangayController.text == widget.customer.adrBarangay &&
-            _cityController.text == widget.customer.adrCity &&
-            _provinceController.text == widget.customer.adrProvince &&
-            _zipcodeController.text == widget.customer.adrZipcode &&
-            _noteController.text == widget.customer.note) {
+        if (wasEdited == false) {
           return true;
+        } else {
+          final result = await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: const Text("Are you sure?"),
+                  content: const Text("All unsaved changes would be lost."),
+                  actions: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder(),
+                          primary: const Color.fromARGB(132, 211, 36, 30),
+                          onPrimary: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 15),
+                        ),
+                        child: const Text('No'),
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        }),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder(),
+                          primary: const Color(0xFFD3231E),
+                          onPrimary: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 15),
+                        ),
+                        child: const Text('Yes',
+                            style: TextStyle(color: Colors.white)),
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        }),
+                  ]);
+            },
+          );
+          return result;
+
+
         }
-        final result = await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-                title: const Text("Are you sure?"),
-                content: const Text("All unsaved changes would be lost."),
-                actions: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const StadiumBorder(),
-                        primary: const Color.fromARGB(132, 211, 36, 30),
-                        onPrimary: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 15),
-                      ),
-                      child: const Text('No'),
-                      onPressed: () {
-                        Navigator.pop(context, false);
-                      }),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const StadiumBorder(),
-                        primary: const Color(0xFFD3231E),
-                        onPrimary: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 15),
-                      ),
-                      child: const Text('Yes',
-                          style: TextStyle(color: Colors.white)),
-                      onPressed: () {
-                        Navigator.pop(context, true);
-                      }),
-                ]);
-          },
-        );
-        return result;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -182,7 +176,13 @@ class _EditCustomerState extends State<EditCustomer> {
                                     return "Required.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
+                            ),
                           ),
                           const SizedBox(width: 5.0),
                           Expanded(
@@ -193,7 +193,13 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
+                            
                           ),
                           const SizedBox(width: 5.0),
                           Expanded(
@@ -211,7 +217,13 @@ class _EditCustomerState extends State<EditCustomer> {
                                     return "Required.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
+                                ),
                           ),
                         ],
                       ),
@@ -252,7 +264,12 @@ class _EditCustomerState extends State<EditCustomer> {
                                     return "Invalid cellphone number.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },),
                           ),
                           const SizedBox(width: 5.0),
                           Expanded(
@@ -277,7 +294,12 @@ class _EditCustomerState extends State<EditCustomer> {
                                     return "Invalid input.";
                                   }
                                   return null;
-                                }),
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },),
                           ),
                         ],
                       ),
@@ -309,6 +331,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                 setState(() {
                                   _birthdateController = value;
                                   _ageController = calculateAge(value!);
+                                  wasEdited = true;
                                 });
                               }).onError((error, stackTrace) => null);
                             },
@@ -389,6 +412,11 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                            onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -400,6 +428,11 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                         ],
@@ -423,6 +456,11 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                setState(() {
+                                  wasEdited = true;
+                                });
+                              },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -434,6 +472,11 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                              onChanged: (value) {
+                                setState(() {
+                                  wasEdited = true;
+                                });
+                              },
                             ),
                           ),
                           const SizedBox(width: 5.0),
@@ -445,6 +488,11 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                                  onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                             ),
                           ),
                         ],
@@ -482,6 +530,11 @@ class _EditCustomerState extends State<EditCustomer> {
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10)),
+                                  onChanged: (value) {
+                                  setState(() {
+                                    wasEdited = true;
+                                  });
+                                },
                               maxLines: null,
                             ),
                           ),
@@ -562,6 +615,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                                   .showSnackBar(generalSnackbar(
                                                       'Customer was changed successfully!'));
                                               _isLoadingNotifier.value = false;
+                                              wasEdited = false;
                                             }).onError((error, stackTrace) {
                                               debugPrint(
                                                   "I did something bad... $error");
@@ -614,6 +668,7 @@ class _EditCustomerState extends State<EditCustomer> {
           _tagChoice = tagState;
           _tagController = Tag(
               index: (tagState.index) + 1, tagColor: tagColor, name: tagName);
+          wasEdited = true;
         });
       },
       child: MouseRegion(
