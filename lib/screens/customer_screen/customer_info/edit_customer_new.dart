@@ -4,7 +4,7 @@ import 'package:dennis_lechon_crm/models/customer.dart';
 import 'package:dennis_lechon_crm/models/tags.dart';
 import 'package:dennis_lechon_crm/services/customer_database_services.dart';
 import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
-import 'package:dennis_lechon_crm/widgets/style.dart';
+//import 'package:dennis_lechon_crm/widgets/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
