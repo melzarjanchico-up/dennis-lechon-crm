@@ -52,7 +52,7 @@ class Body extends StatelessWidget {
                   right: 0,
                   child: Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 15),
+                      margin: const EdgeInsets.fromLTRB(30, 1, 30, 15),
                       padding: const EdgeInsets.fromLTRB(
                         20,
                         0,

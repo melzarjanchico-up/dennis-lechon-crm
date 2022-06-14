@@ -47,12 +47,12 @@ class CustomerCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
         margin: const EdgeInsets.only(
-          left: 25,
-          right: 20,
+          left: 20,
+          right: 15,
           top: 5,
           bottom: 15,
         ),
-        width: size.width * 0.87,
+        width: size.width * 0.90,
         //height: 100,
         //size.width * 0.4,
         child: Column(

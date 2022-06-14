@@ -120,14 +120,13 @@ class _OrderListWidgetState extends State<OrderListWidget> {
                                         vertical: 4, horizontal: 10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12),
-                                      color: (order.dateDelivery
-                                              .isBefore(DateTime.now()))
-                                          ? AppColors.redColor
-                                          : (order.dateDelivery.isBefore(
-                                                  DateTime.now().add(
-                                                      const Duration(days: 7))))
+                                      color: 
+                                      (order.orderPaymentStatus != 'Delivered') ? 
+                                        (order.dateDelivery.isBefore(DateTime.now()))
+                                          ? AppColors.redColor : (order.dateDelivery.isBefore(
+                                              DateTime.now().add(const Duration(days: 7))))
                                               ? AppColors.yellowColor
-                                              : AppColors.blueColor,
+                                              : AppColors.blueColor : Colors.grey,
                                     ),
                                     child: Text(
                                       format.format(order.dateDelivery),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dennis_lechon_crm/models/order.dart';
 import 'package:dennis_lechon_crm/services/order_database_services.dart';
+import 'package:dennis_lechon_crm/widgets/reusable_widget.dart';
 import 'package:dennis_lechon_crm/widgets/style.dart';
 //import 'package:dennis_lechon_crm/widgets/style.dart';
 import 'package:flutter/material.dart';
@@ -610,23 +611,33 @@ class _OrderInfoState extends State<OrderInfo> {
                               alignment: Alignment.centerRight,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFFD3231E),
+                                  primary: (widget.order.orderPaymentStatus != 'Paid') ? 
+                                    const Color(0xFFD3231E) : Colors.grey,
                                   onPrimary: Colors.white,
                                   elevation: 5,
                                   shape: const CircleBorder(),
                                   padding: const EdgeInsets.all(8.0),
                                   minimumSize: const Size(10, 2),
                                 ),
-                                child: const Icon(Icons.delete_forever_rounded),
+                                child: Icon(
+                                  (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                    Icons.delete_forever_rounded : Icons.cancel_rounded,
+                                ),
                                 onPressed: () {
+                                  (widget.order.orderPaymentStatus != 'Paid') ?
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           title: Text(
-                                              "Delete Order#${widget.order.id.substring(0, 5)}?"),
-                                          content: const Text(
-                                              "Are you sure you want to delete this order? You cannot undo this action."),
+                                              (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                              "Delete Order#${widget.order.id.substring(0, 5)}?" :
+                                              "Cancel Order#${widget.order.id.substring(0, 5)}?"
+                                            ) ,
+                                          content: Text(
+                                              (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                              "Are you sure you want to delete this order? You cannot undo this action." :
+                                              "Are you sure you want to cancel this order? You cannot undo this action."),
                                           actions: [
                                             ValueListenableBuilder(
                                                 valueListenable:
@@ -663,9 +674,13 @@ class _OrderInfoState extends State<OrderInfo> {
                                                                         .pop();
                                                                     ScaffoldMessenger.of(
                                                                             context)
-                                                                        .showSnackBar(const SnackBar(
-                                                                            content:
-                                                                                Text('Order was deleted successfully!')));
+                                                                        .showSnackBar(
+                                                                          generalSnackbar(
+                                                                            (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                                                            "Order deletion successful!" :
+                                                                            "Order cancellation sucessful!"
+                                                                          )
+                                                                        );
                                                                     _isLoadingNotifier
                                                                             .value =
                                                                         false;
@@ -678,9 +693,13 @@ class _OrderInfoState extends State<OrderInfo> {
                                                                         .pop();
                                                                     ScaffoldMessenger.of(
                                                                             context)
-                                                                        .showSnackBar(const SnackBar(
-                                                                            content:
-                                                                                Text('Order deletion failed.')));
+                                                                        .showSnackBar(
+                                                                          generalSnackbar(
+                                                                            (widget.order.orderPaymentStatus == 'Delivered') ? 
+                                                                            "Order deletion failed. Try again." :
+                                                                            "Order cancellation failed. Try again."
+                                                                          )
+                                                                      );
                                                                     _isLoadingNotifier
                                                                             .value =
                                                                         false;
@@ -696,7 +715,8 @@ class _OrderInfoState extends State<OrderInfo> {
                                                 child: const Text("Cancel"))
                                           ],
                                         );
-                                      });
+                                      }
+                                  ) : null;
                                 },
                               ),
                             ),
