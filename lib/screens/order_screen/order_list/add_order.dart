@@ -27,6 +27,7 @@ class _AddOrderState extends State<AddOrder> {
   final _formKey = GlobalKey<FormState>();
   final format = DateFormat("EEE, dd-MMM-yyyy, h:mma");
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+  bool wasEdited = false;
 
   int smallLechonItemCount = 0;
   int mediumLechonItemCount = 0;
@@ -66,15 +67,18 @@ class _AddOrderState extends State<AddOrder> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_searchCustomerController.text == savedText &&
+        if (wasEdited == false || (_searchCustomerController.text == savedText &&
             _addressController.text == savedText &&
             _contactController.text == savedText &&
             _deliveryFee.text == savedText &&
+            _orderStatusController == savedText &&
+            _isRushOrder == false &&
+            _isDeliveryOrder == false &&
             smallLechonItemCount == 0 &&
             mediumLechonItemCount == 0 &&
             largeLechonItemCount == 0 &&
             extraLargeLechonItemCount == 0 &&
-            itemCount == 0) {
+            itemCount == 0)) {
           return true;
         }
         final result = await showDialog(
@@ -258,6 +262,7 @@ class _AddOrderState extends State<AddOrder> {
                                                                 _deliveryFee,
                                                             onChanged: (value) {
                                                               setState(() {
+                                                                wasEdited = true;
                                                                 if (value !=
                                                                     '') {
                                                                   totalFee = (subTotal +
@@ -471,6 +476,7 @@ class _AddOrderState extends State<AddOrder> {
                                                                   'Order was added successfully!'));
                                                       _isLoadingNotifier.value =
                                                           false;
+                                                      wasEdited = false;
                                                     }).onError((error,
                                                             stackTrace) {
                                                       debugPrint(
@@ -595,6 +601,7 @@ class _AddOrderState extends State<AddOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (smallLechonItemCount > 0) {
                                     smallLechonItemCount--;
                                     smallLechonPrice -= basePrice;
@@ -636,6 +643,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 smallLechonItemCount++;
                                 smallLechonPrice += basePrice;
 
@@ -735,6 +743,7 @@ class _AddOrderState extends State<AddOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (mediumLechonItemCount > 0) {
                                     // !here
                                     mediumLechonItemCount--; // ! here
@@ -777,6 +786,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 mediumLechonItemCount++;
                                 mediumLechonPrice += basePrice;
 
@@ -877,6 +887,7 @@ class _AddOrderState extends State<AddOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (largeLechonItemCount > 0) {
                                     // !here
                                     largeLechonItemCount--; // ! here
@@ -919,6 +930,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 largeLechonItemCount++;
                                 largeLechonPrice += basePrice;
 
@@ -1019,6 +1031,7 @@ class _AddOrderState extends State<AddOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (extraLargeLechonItemCount > 0) {
                                     // !here
                                     extraLargeLechonItemCount--; // ! here
@@ -1062,6 +1075,7 @@ class _AddOrderState extends State<AddOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 extraLargeLechonItemCount++; // !here
                                 extraLargeLechonPrice += basePrice; // !here
 
@@ -1111,6 +1125,7 @@ class _AddOrderState extends State<AddOrder> {
             onChanged: (val) {
               setState(() {
                 _isRushOrder = (val!);
+                wasEdited = true;
               });
             },
           ),
@@ -1133,6 +1148,7 @@ class _AddOrderState extends State<AddOrder> {
             onChanged: (value) {
               setState(() {
                 _isDeliveryOrder = (value!);
+                wasEdited = true;
               });
               if (_isDeliveryOrder == false) {
                 totalFee = (totalFee -
@@ -1233,6 +1249,7 @@ class _AddOrderState extends State<AddOrder> {
               onSuggestionSelected: (Customer customer) {
                 setState(() {
                   chosenCustomer = customer;
+                  wasEdited = true;
                 });
                 _searchCustomerController.text =
                     '${customer.firstName} ${customer.lastName}';
@@ -1321,6 +1338,11 @@ class _AddOrderState extends State<AddOrder> {
               }
               return null;
             },
+            onChanged: (value) {
+              setState(() {
+                wasEdited = true;
+              });
+            }
           ),
         ),
         const SizedBox(height: 10),
@@ -1347,6 +1369,11 @@ class _AddOrderState extends State<AddOrder> {
               }
               return null;
             },
+            onChanged: (value) {
+              setState(() {
+                wasEdited = true;
+              });
+            }
           ),
         ),
         const SizedBox(
@@ -1378,6 +1405,7 @@ class _AddOrderState extends State<AddOrder> {
             onChanged: (val) {
               setState(() {
                 _orderStatusController = val;
+                wasEdited = true;
               });
             },
             validator: (val) {
@@ -1405,6 +1433,7 @@ class _AddOrderState extends State<AddOrder> {
               onChanged: (val) {
                 setState(() {
                   _deliveryDateController = val;
+                  wasEdited = true;
                 });
               },
               validator: (val) {

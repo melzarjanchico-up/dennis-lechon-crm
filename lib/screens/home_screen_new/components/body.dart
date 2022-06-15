@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dennis_lechon_crm/screens/homebuttons/order_screen.dart';
 import 'package:dennis_lechon_crm/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:dennis_lechon_crm/screens/home_screen_new/components/customer_dashboard.dart';
@@ -15,6 +16,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    ValueNotifier<bool> _notifier = ValueNotifier(false);
+
     return SingleChildScrollView(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,28 +27,6 @@ class Body extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
               height: size.height * 0.12,
               child: Stack(children: <Widget>[
-                // Container(
-                //   height: 60,
-                //   padding: const EdgeInsets.all(15),
-                //   decoration: const BoxDecoration(
-                //     color: Color(0xFFD3231E),
-                //     borderRadius: BorderRadius.only(
-                //         bottomLeft: Radius.circular(40),
-                //         bottomRight: Radius.circular(40)),
-                //   ),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: const <Widget>[
-                //       //SizedBox(width: 10),
-                //       // Text('Lech Go!',
-                //       //     style: TextStyle(
-                //       //         fontSize: 22,
-                //       //         color: Colors.white,
-                //       //         fontWeight: FontWeight.bold)),
-                //     ],
-                //   ),
-                // ),
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -134,11 +115,11 @@ class Body extends StatelessWidget {
                   ),
                   onPressed: () async {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => CustomerScreen(
-                                  firestore: firestore,
-                                ))));
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => CustomerScreen(
+                                firestore: firestore,
+                    )))).then((value) => _notifier.value = !_notifier.value);
                   },
                 ),
               ],
@@ -158,8 +139,20 @@ class Body extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            OrderDash(
-              firestore: firestore,
+            Row(
+              children: <Widget>[
+                CustomerCard(
+                    firestore: firestore,
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => OrderListScreen(
+                              firestore: firestore,
+                            )),
+                      ).then((value) => _notifier.value = !_notifier.value);
+                    }),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -197,7 +190,7 @@ class Body extends StatelessWidget {
                         MaterialPageRoute(
                             builder: ((context) => CalendarScreen(
                                   firestore: firestore,
-                                ))));
+                    )))).then((value) => _notifier.value = !_notifier.value);
                   },
                 ),
               ],
@@ -206,8 +199,13 @@ class Body extends StatelessWidget {
             //const Text("     May 2022",
             //    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             //const SizedBox(height: 20),
-            CalendarDash(
-              firestore: firestore,
+            ValueListenableBuilder<bool>(
+              valueListenable: _notifier,
+              builder: (context, snapshot, _) {
+                return CalendarDash(
+                  firestore: firestore,
+                );
+              }
             ),
           ]),
     );

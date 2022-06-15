@@ -30,6 +30,7 @@ class _EditOrderState extends State<EditOrder> {
   final _formKey = GlobalKey<FormState>();
   final format = DateFormat("EEE, dd-MMM-yyyy, h:mma");
   final ValueNotifier _isLoadingNotifier = ValueNotifier(false);
+  bool wasEdited = false;
 
   int smallLechonItemCount = 0;
   int mediumLechonItemCount = 0;
@@ -97,7 +98,7 @@ class _EditOrderState extends State<EditOrder> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_addressController.text == widget.order.address &&
+        if (wasEdited == false || (_addressController.text == widget.order.address &&
             _contactController.text == widget.order.contact &&
             _deliveryFee.text == widget.order.deliveryFee.toString() &&
             _orderStatusController == widget.order.orderPaymentStatus &&
@@ -107,7 +108,7 @@ class _EditOrderState extends State<EditOrder> {
             smallLechonItemCount == widget.order.smallLechonCount &&
             mediumLechonItemCount == widget.order.mediumLechonCount &&
             largeLechonItemCount == widget.order.largeLechonCount &&
-            extraLargeLechonItemCount == widget.order.extraLargeLechonCount) {
+            extraLargeLechonItemCount == widget.order.extraLargeLechonCount)) {
           return true;
         }
         final result = await showDialog(
@@ -291,6 +292,7 @@ class _EditOrderState extends State<EditOrder> {
                                                                 _deliveryFee,
                                                             onChanged: (value) {
                                                               setState(() {
+                                                                wasEdited = true;
                                                                 if (value !=
                                                                     '') {
                                                                   totalFee = (subTotal +
@@ -500,6 +502,7 @@ class _EditOrderState extends State<EditOrder> {
                                                                   'Order was edited successfully!'));
                                                       _isLoadingNotifier.value =
                                                           false;
+                                                      wasEdited = false;
                                                     }).onError((error,
                                                             stackTrace) {
                                                       debugPrint(
@@ -624,6 +627,7 @@ class _EditOrderState extends State<EditOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (smallLechonItemCount > 0) {
                                     smallLechonItemCount--;
                                     smallLechonPrice -= basePrice;
@@ -664,6 +668,7 @@ class _EditOrderState extends State<EditOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 smallLechonItemCount++;
                                 smallLechonPrice += basePrice;
 
@@ -760,6 +765,7 @@ class _EditOrderState extends State<EditOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (mediumLechonItemCount > 0) {
                                     // !here
                                     mediumLechonItemCount--; // ! here
@@ -801,6 +807,7 @@ class _EditOrderState extends State<EditOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 mediumLechonItemCount++;
                                 mediumLechonPrice += basePrice;
 
@@ -898,6 +905,7 @@ class _EditOrderState extends State<EditOrder> {
                               ),
                               onPressed: () {
                                 setState(() {
+                                  wasEdited = true;
                                   if (largeLechonItemCount > 0) {
                                     // !here
                                     largeLechonItemCount--; // ! here
@@ -939,6 +947,7 @@ class _EditOrderState extends State<EditOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 largeLechonItemCount++;
                                 largeLechonPrice += basePrice;
 
@@ -1035,6 +1044,7 @@ class _EditOrderState extends State<EditOrder> {
                                     color: Color(0xFFD3231E)),
                               ),
                               onPressed: () {
+                                wasEdited = true;
                                 setState(() {
                                   if (extraLargeLechonItemCount > 0) {
                                     // !here
@@ -1078,6 +1088,7 @@ class _EditOrderState extends State<EditOrder> {
                             ),
                             onPressed: () {
                               setState(() {
+                                wasEdited = true;
                                 extraLargeLechonItemCount++; // !here
                                 extraLargeLechonPrice += basePrice; // !here
 
@@ -1123,6 +1134,7 @@ class _EditOrderState extends State<EditOrder> {
             activeColor: const Color(0xFFF1A22C),
             onChanged: (val) {
               setState(() {
+                wasEdited = true;
                 _isRushOrder = (val!);
               });
             },
@@ -1145,6 +1157,7 @@ class _EditOrderState extends State<EditOrder> {
             activeColor: const Color(0xFFF1A22C),
             onChanged: (value) {
               setState(() {
+                wasEdited = true;
                 _isDeliveryOrder = (value!);
               });
               if (_isDeliveryOrder == false) {
@@ -1328,6 +1341,11 @@ class _EditOrderState extends State<EditOrder> {
               }
               return null;
             },
+            onChanged: (value) {
+              setState(() {
+                wasEdited = true;
+              });
+            }
           ),
         ),
         const SizedBox(height: 10),
@@ -1354,6 +1372,11 @@ class _EditOrderState extends State<EditOrder> {
               }
               return null;
             },
+            onChanged: (value) {
+              setState(() {
+                wasEdited = true;
+              });
+            }
           ),
         ),
         const SizedBox(
@@ -1386,6 +1409,7 @@ class _EditOrderState extends State<EditOrder> {
             onChanged: (val) {
               setState(() {
                 _orderStatusController = val;
+                wasEdited = true;
               });
             },
             validator: (val) {
@@ -1414,6 +1438,7 @@ class _EditOrderState extends State<EditOrder> {
               onChanged: (val) {
                 setState(() {
                   _deliveryDateController = val;
+                  wasEdited = true;
                 });
               },
               validator: (val) {

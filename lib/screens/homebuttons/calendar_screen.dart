@@ -242,7 +242,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                                     .customer!,
                                                             firestore: widget
                                                                 .firestore);
-                                                      });
+                                                      }).then(
+                                                        (value) => _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!)));
                                                 }
                                                 break;
 
@@ -257,7 +258,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                                 .order!,
                                                             firestore: widget
                                                                 .firestore);
-                                                      });
+                                                      }).then((value) => _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!)));
                                                 }
                                                 break;
                                             }
