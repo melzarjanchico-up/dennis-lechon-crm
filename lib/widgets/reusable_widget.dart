@@ -10,8 +10,9 @@ Image logoWidget(String imageName) {
 }
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {
+    TextEditingController controller, Key widgetkey) {
   return TextField(
+    key: widgetkey,
     controller: controller,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
@@ -38,8 +39,10 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
   );
 }
 
-Container firebaseUIButton(BuildContext context, String title, Function onTap) {
+Container firebaseUIButton(
+    BuildContext context, String title, Function onTap, Key widgetKey) {
   return Container(
+    key: widgetKey,
     width: MediaQuery.of(context).size.width,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
@@ -47,6 +50,10 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
     child: ElevatedButton(
       onPressed: () {
         onTap();
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
       },
       child: Text(
         title,
@@ -65,5 +72,16 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
     ),
+  );
+}
+
+SnackBar generalSnackbar(String text) {
+  return SnackBar(
+    content: Text(
+      text,
+      style: const TextStyle(fontSize: 15.0),
+    ),
+    padding: const EdgeInsets.all(20.0),
+    elevation: null,
   );
 }

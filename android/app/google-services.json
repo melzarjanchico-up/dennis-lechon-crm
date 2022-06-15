@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "482691784655",
+    "project_id": "dennis-lechon-crm",
+    "storage_bucket": "dennis-lechon-crm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482691784655:android:33f08dfb4b3e4da96ebcba",
+        "android_client_info": {
+          "package_name": "com.example.dennis_lechon_crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482691784655-pjl2u4mekjb28r1g9bedvoatkf96gps0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9-83Ti4nkc40WNfyu1iftiQT_NHTDcwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482691784655-pjl2u4mekjb28r1g9bedvoatkf96gps0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

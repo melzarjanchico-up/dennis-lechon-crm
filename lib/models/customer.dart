@@ -38,8 +38,4 @@ class Customer {
     required this.tagIndex,
     required this.tagColor,
   });
-
-  Stream<Customer> makeStream(Customer customer) async* {
-    yield customer;
-  }
 }
