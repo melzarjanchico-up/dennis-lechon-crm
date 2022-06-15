@@ -128,7 +128,20 @@ class _CustomerDashState extends State<CustomerDash> {
                     );
                 }
               }
-              return const ClearLoading();
+              
+              return Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 3,
+                margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: DarkLoading(),
+                )
+              );
+              
             }),
       ),
     );

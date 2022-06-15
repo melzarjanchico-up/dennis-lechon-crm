@@ -53,7 +53,6 @@ class _CalendarDashState extends State<CalendarDash> {
 
             for (var listStream in (snapshot.data)!) {
               for (var event in listStream) {
-                //debugPrint('$event - ${event.type} - ${event.date}');
                 _kEventSource[DateTime(event.date.year, event.date.month,
                     event.date.day)] = _kEventSource[DateTime(event.date.year,
                             event.date.month, event.date.day)] !=
@@ -203,7 +202,18 @@ class _CalendarDashState extends State<CalendarDash> {
             );
           }
 
-          return const ClearLoading();
+          return Card(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 3,
+            margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              child: DarkLoading(),
+            )
+          );
         });
   }
 }
